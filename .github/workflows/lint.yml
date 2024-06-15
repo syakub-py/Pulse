@@ -24,8 +24,8 @@ jobs:
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
-      - name: Run ESLint with .eslintrc.json
-        run: npx eslint . --ext .js,.jsx,.ts,.tsx --config .eslintrc.json --fix
+      - name: Run ESLint with .eslintrc.js
+        run: npx eslint . --ext .js,.jsx,.ts,.tsx --config .eslintrc.js --fix
 
       - name: Commit and push if changes
         run: |
