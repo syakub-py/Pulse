@@ -1,10 +1,10 @@
-import { Context, createContext, useMemo, useContext } from "react";
-import { action, makeAutoObservable } from "mobx"
+import { createContext } from "react";
+import {  makeAutoObservable } from "mobx";
 
 export class AppContextClass {
 	constructor () {
-		makeAutoObservable(this)
+		makeAutoObservable(this);
 	}
 }
 
-export const AppContext = createContext(new AppContextClass())
+export const AppContext = createContext(new AppContextClass());

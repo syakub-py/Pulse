@@ -1,25 +1,25 @@
-import { Text, View, TextInput, Button } from "react-native";
+import { View, TextInput, Button } from "react-native";
 import { useContext } from "react";
 import { AuthContext } from "../Contexts/AuthContext";
 
 export default function Login () {
-	const authContext = useContext(AuthContext)
-  return (
-		<View style={styles.containar}>
+	const authContext = useContext(AuthContext);
+	return (
+		<View style={{flex: 1, justifyContent: "center",}}>
 			<TextInput
-				placeholder="Email"
-				onChangeText={(email) => { authContext.setUsername(email) }}
+				placeholder='Email'
+				onChangeText={(email) => { authContext.setUsername(email); }}
 				style={styles.input}
 			/>
 			<TextInput
-				placeholder="Password"
-				onChangeText={(password) => { authContext.setPassword(password) }}
+				placeholder='Password'
+				onChangeText={(password) => { authContext.setPassword(password); }}
 				style={styles.input}
 				secureTextEntry
 			/>
-			<Button title="Login" onPress={() => { authContext.login() }} />
+			<Button title='Login' onPress={() => { authContext.login(); }} />
 		</View>
-	)
+	);
 }
 
 const styles = {
@@ -27,9 +27,6 @@ const styles = {
 		height: 40,
 		margin: 12,
 		borderWidth: 1
-  },
-	containar: {
-		flex: 1,
-		justifyContent: "center",
-	}
-}
+	},
+};
+
