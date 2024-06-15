@@ -1,7 +1,7 @@
 import { createContext } from "react";
 import { action, makeAutoObservable } from "mobx"
 import { auth } from "../Utils/Firebase";
-
+import { useNavigation } from "@react-navigation/native";
 export class AuthContextClass {
     constructor() {
         makeAutoObservable(this)
@@ -35,9 +35,12 @@ export class AuthContextClass {
     }
 
     login() {
+        const navigate = useNavigation();
         console.log(`Username: ${this.username}, Password: ${this.password}`);
-        auth.signInWithEmailAndPassword(this.username, this.password)
-            .catch((error) => alert(error.message));
+        //     auth.signInWithEmailAndPassword(this.username, this.password)
+        //         .catch((error) => alert(error.message));
+        navigate("Home");
+
     }
 }
 

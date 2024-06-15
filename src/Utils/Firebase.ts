@@ -7,13 +7,13 @@ import 'firebase/compat/analytics';
 import 'firebase/compat/storage';
 
 const firebaseConfig = {
-    apiKey: 'YOUR_API_KEY',
-    authDomain: 'YOUR_AUTH_DOMAIN',
-    projectId: 'YOUR_PROJECT_ID',
-    storageBucket: 'YOUR_STORAGE_BUCKET',
-    messagingSenderId: 'YOUR_MESSAGING_SENDER_ID',
-    appId: 'YOUR_APP_ID',
-    measurementId: 'YOUR_MEASUREMENT_ID',
+    apiKey: 'AIzaSyAS0OLIeH01QAyHZQxILWWUu3I2PJm3xz4',
+    authDomain: 'nyle-bd594.firebaseapp.com',
+    projectId: 'nyle-bd594',
+    storageBucket: 'nyle-bd594.appspot.com',
+    messagingSenderId: '616674242131',
+    appId: '1:616674242131:web:7788508192e82a84b660a6',
+    measurementId: 'G-70E5N2DBMC',
 };
 
 // Initialize Firebase
