@@ -3,46 +3,45 @@ import { action, makeAutoObservable } from "mobx"
 import { auth } from "../Utils/Firebase";
 import { useNavigation } from "@react-navigation/native";
 export class AuthContextClass {
-    constructor() {
-        makeAutoObservable(this)
-    }
-    public username: string = '';
-    public password: string = '';
-    public profilePicture: string = '';
+	constructor () {
+		makeAutoObservable(this)
+	}
 
-    getUsername() {
-        return this.username;
-    }
+	public username: string = '';
+	public password: string = '';
+	public profilePicture: string = '';
 
-    getPassword() {
-        return this.password;
-    }
+	getUsername () {
+		return this.username
+  }
 
-    getProfilePicture() {
-        return this.profilePicture;
-    }
+	getPassword () {
+		return this.password
+  }
 
-    setUsername(username: string) {
-        this.username = username;
-    }
+	getProfilePicture () {
+		return this.profilePicture
+  }
 
-    setPassword(password: string) {
-        this.password = password;
-    }
+	setUsername (username: string) {
+		this.username = username
+  }
 
-    setProfilePicture(profilePicture: string) {
-        this.profilePicture = profilePicture;
-    }
+	setPassword (password: string) {
+		this.password = password
+  }
 
-    login() {
-        const navigate = useNavigation();
-        console.log(`Username: ${this.username}, Password: ${this.password}`);
-        //     auth.signInWithEmailAndPassword(this.username, this.password)
-        //         .catch((error) => alert(error.message));
-        navigate("Home");
+	setProfilePicture (profilePicture: string) {
+		this.profilePicture = profilePicture
+  }
 
-    }
+	login () {
+		const navigate = useNavigation()
+    console.log(`Username: ${this.username}, Password: ${this.password}`)
+    //     auth.signInWithEmailAndPassword(this.username, this.password)
+    //         .catch((error) => alert(error.message));
+    navigate("Home");
+  }
 }
 
-
-export const AuthContext = createContext(new AuthContextClass());
+export const AuthContext = createContext(new AuthContextClass())
