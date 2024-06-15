@@ -1,5 +1,3 @@
-// src/firebaseConfig.ts
-import { initializeApp } from "firebase/app";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
@@ -17,7 +15,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 
 // Initialize Firebase services
 const auth = firebase.auth();

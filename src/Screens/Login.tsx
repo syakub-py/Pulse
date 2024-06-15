@@ -1,11 +1,33 @@
 import { View, TextInput, Button } from "react-native";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../Contexts/AuthContext";
+import { useNavigation } from "@react-navigation/native";
+import { auth } from "../Utils/Firebase";
 
-export default function Login () {
+//add logic to check if email is valid before calling signInWithEmailAndPassword
+const login = (username: string, password: string) => {
+	auth.signInWithEmailAndPassword(username, password)
+		.catch((error) => alert(error.message));
+};
+
+
+export default function Login() {
 	const authContext = useContext(AuthContext);
+	const { username, password } = authContext;
+	const navigation = useNavigation();
+
+	useEffect(() => {
+		return auth.onAuthStateChanged(async (user) => {
+			if (user) {
+				authContext.setProfilePicture(user.photoURL || "");
+				navigation.navigate("Home");
+				console.log(authContext.profilePicture);
+			}
+		});
+	}, []);
+
 	return (
-		<View style={{flex: 1, justifyContent: "center",}}>
+		<View style={{ flex: 1, justifyContent: "center", }}>
 			<TextInput
 				placeholder='Email'
 				onChangeText={(email) => { authContext.setUsername(email); }}
@@ -17,7 +39,7 @@ export default function Login () {
 				style={styles.input}
 				secureTextEntry
 			/>
-			<Button title='Login' onPress={() => { authContext.login(); }} />
+			<Button title='Login' onPress={() => { login(username, password); }} />
 		</View>
 	);
 }

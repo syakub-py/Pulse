@@ -2,42 +2,35 @@ import { createContext } from "react";
 import { makeAutoObservable } from "mobx";
 
 export class AuthContextClass {
-	constructor () {
+	constructor() {
 		makeAutoObservable(this);
 	}
-
 	public username: string = "";
 	public password: string = "";
 	public profilePicture: string = "";
 
-	getUsername () {
+	getUsername() {
 		return this.username;
 	}
 
-	getPassword () {
+	getPassword() {
 		return this.password;
 	}
 
-	getProfilePicture () {
+	getProfilePicture() {
 		return this.profilePicture;
 	}
 
-	setUsername (username: string) {
+	setUsername(username: string) {
 		this.username = username;
 	}
 
-	setPassword (password: string) {
+	setPassword(password: string) {
 		this.password = password;
 	}
 
-	setProfilePicture (profilePicture: string) {
+	setProfilePicture(profilePicture: string) {
 		this.profilePicture = profilePicture;
-	}
-
-	login () {
-		console.log(`Username: ${this.username}, Password: ${this.password}`);
-		//     auth.signInWithEmailAndPassword(this.username, this.password)
-		//         .catch((error) => alert(error.message))
 	}
 }
 
