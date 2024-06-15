@@ -22,7 +22,7 @@ jobs:
           node-version: '18'
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install --legacy-peer-deps
 
       - name: Run ESLint with .eslintrc.json
         run: npx eslint . --ext .js,.jsx,.ts,.tsx --config .eslintrc.json --fix
