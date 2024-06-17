@@ -7,7 +7,7 @@ import { auth } from "../Utils/Firebase";
 //add logic to check if email is valid before calling signInWithEmailAndPassword
 const login = (username: string, password: string) => {
 	auth.signInWithEmailAndPassword(username, password)
-		.catch((error) => alert(error.message));
+		.catch((error) => console.log(error.message));
 };
 
 
@@ -21,7 +21,6 @@ export default function Login() {
 			if (user) {
 				authContext.setProfilePicture(user.photoURL || "");
 				navigation.navigate("Home");
-				console.log(authContext.profilePicture);
 			}
 		});
 	}, []);
