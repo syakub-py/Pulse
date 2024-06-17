@@ -8,12 +8,4 @@ const http = axios.create({
 	}
 });
 
-http.interceptors.request.use((config) => {
-	const accessToken = sessionStorage.getItem("accessToken");
-
-	if (accessToken) config.headers["authorization"] = accessToken;
-
-	return config;
-});
-
 export default http;

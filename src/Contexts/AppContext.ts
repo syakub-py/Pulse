@@ -1,6 +1,6 @@
-import { createContext } from "react";
-import { makeAutoObservable } from "mobx";
-import { firestore, storage } from "../Utils/Firebase";
+import {createContext} from "react";
+import {makeAutoObservable} from "mobx";
+import {firestore, storage} from "../Utils/Firebase";
 import _ from "lodash";
 
 export class AppContextClass {
@@ -14,24 +14,23 @@ export class AppContextClass {
 		return this.Homes;
 	}
 
-	public async upload(PhoneImagesArray: string[], Address: string) {
-		const UrlDownloads = [];
+	public upload = async (PhoneImagesArray:string[], Address:string) => {
 		try {
-			for (const element of PhoneImagesArray) {
+			const uploadPromises = PhoneImagesArray.map(async (element) => {
 				const filename = element.split("/").pop();
 				const response = await fetch(element);
 				const blob = await response.blob();
 				const storageRef = storage.ref().child(`images/${Address}/${filename}`);
 				await storageRef.put(blob);
-				const url = await storageRef.getDownloadURL();
-				UrlDownloads.push(url);
-			}
-			return UrlDownloads;
+				return storageRef.getDownloadURL();
+			});
+
+			return await Promise.all(uploadPromises);
 		} catch (error) {
-			alert("The following error occured when trying to upload images: " + error);
+			alert("The following error occurred when trying to upload images: " + error);
 			return [];
 		}
-	}
+	};
 
 	public async addHome(home: Home) {
 		this.Homes.push(home);

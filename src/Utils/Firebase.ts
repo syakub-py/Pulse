@@ -3,21 +3,20 @@ import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import "firebase/compat/analytics";
 import "firebase/compat/storage";
+import {envVariables} from "../../env";
 
 const firebaseConfig = {
-	apiKey: "AIzaSyAS0OLIeH01QAyHZQxILWWUu3I2PJm3xz4",
-	authDomain: "nyle-bd594.firebaseapp.com",
-	projectId: "nyle-bd594",
-	storageBucket: "nyle-bd594.appspot.com",
-	messagingSenderId: "616674242131",
-	appId: "1:616674242131:web:7788508192e82a84b660a6",
-	measurementId: "G-70E5N2DBMC",
+	apiKey: envVariables.API_KEY,
+	authDomain: envVariables.AUTH_DOMAIN,
+	projectId: envVariables.PROJECT_ID,
+	storageBucket: envVariables.STORAGE_BUCKET,
+	messagingSenderId: envVariables.MESSAGING_SENDER_ID,
+	appId: envVariables.APP_ID,
+	measurementId: envVariables.MEASUREMENT_ID,
 };
 
-// Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-// Initialize Firebase services
 const auth = firebase.auth();
 const firestore = firebase.firestore();
 const storage = firebase.storage();
