@@ -1,12 +1,10 @@
-import { Text, View } from "react-native";
-import { useContext } from "react";
-import { AuthContext } from "../Contexts/AuthContext";
+import Layout from "../Components/Layout";
+import {Text} from "react-native";
 
-export default function Home () {
-	const authContext = useContext(AuthContext);
+export default function Home() {
 	return (
-		<View >
-			<Text>Welcome {authContext.username}</Text>
-		</View>
+		<Layout>
+			<Text>test, bitch</Text>
+		</Layout>
 	);
 }
