@@ -23,7 +23,7 @@ export default function Login() {
 		return auth.onAuthStateChanged(async (user) => {
 			if (user) {
 				authContext.setProfilePicture(user.photoURL || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-				navigation.navigate("Home");
+				navigation.navigate("BottomNavBar");
 			}
 		});
 	}, []);

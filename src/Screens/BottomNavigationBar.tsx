@@ -1,0 +1,55 @@
+import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import Home from "./Home";
+import {StyleSheet} from "react-native";
+
+export default function BottomNavigationBar() {
+	const Tab = createBottomTabNavigator();
+	return (
+		<Tab.Navigator initialRouteName = {"Home"}
+			screenOptions = {({route}) => ({
+				tabBarHideOnKeyboard: true,
+				headerShown: false,
+				tabBarActiveTintColor: "black",
+				tabBarShowLabel: false,
+				tabBarStyle: styles.tabBarStyle,
+				tabBarIcon: ({focused, color}) => {
+					let iconName;
+					const rn = route.name;
+					if (rn === "Home") {
+						iconName = focused ? "home" : "home-outline";
+						return <Ionicons name = {iconName} size = {32} color = {color}/>;
+					} else if (rn === "Market") {
+						iconName = focused ? "analytics" : "analytics-outline";
+						return <Ionicons name = {iconName} size = {32} color = {color}/>;
+					}
+				},
+			})}>
+			<Tab.Screen name = {"Home"} component = {Home}/>
+			{/* <Tab.Screen name = {Profile} component = {profile}/> */}
+		</Tab.Navigator>
+	);
+}
+
+const styles = StyleSheet.create({
+	tabBarStyle:{
+		height: "7%",
+		borderRadius: 20,
+		display: "flex",
+		backgroundColor: "white",
+		position: "absolute",
+		alignItems: "center",
+		justifyContent: "center",
+		bottom: "3%",
+		left: "5%",
+		right: "5%",
+		shadowColor: "black",
+		shadowOffset: {
+			width: 0,
+			height: 4,
+		},
+		shadowOpacity: 0.2,
+		shadowRadius: 4,
+		elevation: 5,
+	}
+});
