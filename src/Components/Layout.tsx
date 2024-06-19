@@ -18,7 +18,7 @@ export default function Layout({children}: {children: React.ReactNode}) {
 				<Weather/>
 				{/* <Ionicons name = "log-out-outline" style = {{paddingLeft: 25}} size = {30} color = {"gray"}/> */}
 			</View>
-			<View >
+			<View>
 				{children}
 			</View>
 		</SafeAreaView>
@@ -33,6 +33,5 @@ const styles = StyleSheet.create({
 		justifyContent:"space-between",
 		height:70,
 	},
-
 });
 

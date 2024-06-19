@@ -18,15 +18,19 @@ export default function BottomNavigationBar() {
 					let iconName;
 					const rn = route.name;
 					if (rn === "Home") {
-						iconName = focused ? "home" : "home-outline";
+						iconName = focused ? "apps" : "apps-outline";
 						return <Ionicons name = {iconName} size = {32} color = {color}/>;
 					} else if (rn === "Settings") {
 						iconName = focused ? "settings" : "settings-outline";
+						return <Ionicons name = {iconName} size = {32} color = {color}/>;
+					} else if (rn === "Analytics") {
+						iconName = focused ? "stats-chart" : "stats-chart-outline";
 						return <Ionicons name = {iconName} size = {32} color = {color}/>;
 					}
 				},
 			})}>
 			<Tab.Screen name = {"Home"} component = {Home}/>
+			<Tab.Screen name = {"Analytics"} component = {Settings}/>
 			<Tab.Screen name = {"Settings"} component = {Settings}/>
 		</Tab.Navigator>
 	);

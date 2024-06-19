@@ -1,10 +1,7 @@
 import {View, StyleSheet, Text} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import Slider from "@react-native-community/slider";
-import {useState} from "react";
 
 export default function Thermostat() {
-
 	return (
 		<View style={styles.container}>
 			<Text style={styles.temperatureText}>72°F</Text>

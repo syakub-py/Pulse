@@ -4,25 +4,18 @@ import {useState} from "react";
 
 export default function Lock(){
 	const [isLocked, setIsLocked] = useState(false);
+
 	const toggleIsLocked = () => {
 		setIsLocked(!isLocked);
 	};
+
 	return(
 		<Pressable onPress={toggleIsLocked}>
-			<View style={styles.container} >
-				{
-					(isLocked)?(
-						<View>
-							<Ionicons name={"lock-closed-outline"} size={70} color={"white"}/>
-							<Text style={[styles.lockUnlockText, {color:isLocked?"white":"black"}]}>Locked</Text>
-						</View>
-					):(
-						<View>
-							<Ionicons name={"lock-open-outline"} size={70} color={"white"}/>
-							<Text style={[styles.lockUnlockText, {color:isLocked?"black":"white"}]}>Unlocked</Text>
-						</View>
-					)
-				}
+			<View style={[styles.container, {backgroundColor:isLocked?"black":"white"}]} >
+				<View>
+					<Ionicons name={isLocked?"lock-closed-outline":"lock-open-outline"} size={70} color={isLocked?"white":"black"}/>
+					{(isLocked)?(<Text style={[styles.lockUnlockText, {color:isLocked?"white":"black"}]}>Locked</Text>):<Text style={[styles.lockUnlockText, {color:isLocked?"white":"black"}]}>unlocked</Text>}
+				</View>
 			</View>
 		</Pressable>
 	);
@@ -39,5 +32,7 @@ const styles = StyleSheet.create({
 	},
 	lockUnlockText: {
 		fontSize: 20,
+		fontWeight: "bold",
+		marginTop:10
 	}
 });

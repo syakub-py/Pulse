@@ -2,10 +2,12 @@ import {createContext} from "react";
 import {makeAutoObservable} from "mobx";
 import {firestore, storage} from "../Utils/Firebase";
 import _ from "lodash";
+import Home from "../Screens/Home";
 
 export class AppContextClass {
 	public Homes: Home[] = [
 		{
+			Name: "Primary Home",
 			Address: "123 Main St, Anytown, USA",
 			Calendar: "Home Calendar 1",
 			Description: "A beautiful single-family home.",
@@ -15,28 +17,33 @@ export class AppContextClass {
 					Type: "Light",
 					ApiKey: "abc123",
 					Status: "On",
+					Location:"Living Room"
 				},
 				{
 					Name: "Smart Thermostat",
 					Type: "Thermostat",
 					ApiKey: "def456",
 					Status: "Off",
+					Location:"Master bedroom"
 				},
 				{
 					Name: "Smart Lock",
 					Type: "Lock",
 					ApiKey: "ghi789",
 					Status: "Locked",
+					Location:"Front door"
 				},
 				{
 					Name: "Smart Camera",
 					Type: "Camera",
 					ApiKey: "jkl012",
 					Status: "Online",
+					Location:"Porch Camera #1",
 				}
 			],
 		},
 		{
+			Name: "Vacation Home",
 			Address: "456 Oak St, Sometown, USA",
 			Calendar: "Home Calendar 2",
 			Description: "A charming two-bedroom apartment.",
@@ -46,24 +53,28 @@ export class AppContextClass {
 					Type: "Light",
 					ApiKey: "abc123",
 					Status: "On",
+					Location:"Living Room"
 				},
 				{
 					Name: "Smart Thermostat",
 					Type: "Thermostat",
 					ApiKey: "def456",
 					Status: "Off",
+					Location:"Master bedroom"
 				},
 				{
 					Name: "Smart Lock",
 					Type: "Lock",
 					ApiKey: "ghi789",
 					Status: "Locked",
+					Location:"Front door"
 				},
 				{
 					Name: "Smart Camera",
 					Type: "Camera",
 					ApiKey: "jkl012",
 					Status: "Online",
+					Location:"Porch Camera #1",
 				}
 			],
 		},

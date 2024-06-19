@@ -1,5 +1,6 @@
 declare global {
     interface Home {
+        Name:string,
         Address: string;
         Calendar: string;
         Description: string;
@@ -11,6 +12,7 @@ declare global {
         Name: string;
         Type: string;
         ApiKey: string;
+        Location:string;
         Status: string;
     }
 
