@@ -4,7 +4,82 @@ import {firestore, storage} from "../Utils/Firebase";
 import _ from "lodash";
 
 export class AppContextClass {
-	public Homes: Home[] = [];
+	public Homes: Home[] = [
+		{
+			Uid: "1",
+			Hid: "1001",
+			Address: "123 Main St, Anytown, USA",
+			Calendar: "Home Calendar 1",
+			Description: "A beautiful single-family home.",
+			ConnectedDevices: [
+				{
+					Name: "Smart Light Bulb",
+					Type: "Light",
+					ApiKey: "abc123",
+					Status: "On",
+					Hid: "001"
+				},
+				{
+					Name: "Smart Thermostat",
+					Type: "Thermostat",
+					ApiKey: "def456",
+					Status: "Off",
+					Hid: "002"
+				},
+				{
+					Name: "Smart Lock",
+					Type: "Lock",
+					ApiKey: "ghi789",
+					Status: "Locked",
+					Hid: "003"
+				},
+				{
+					Name: "Smart Camera",
+					Type: "Camera",
+					ApiKey: "jkl012",
+					Status: "Online",
+					Hid: "004"
+				}
+			],
+		},
+		{
+			Uid: "2",
+			Hid: "1002",
+			Address: "456 Oak St, Sometown, USA",
+			Calendar: "Home Calendar 2",
+			Description: "A charming two-bedroom apartment.",
+			ConnectedDevices: [
+				{
+					Name: "Smart Light Bulb",
+					Type: "Light",
+					ApiKey: "abc123",
+					Status: "On",
+					Hid: "001"
+				},
+				{
+					Name: "Smart Thermostat",
+					Type: "Thermostat",
+					ApiKey: "def456",
+					Status: "Off",
+					Hid: "002"
+				},
+				{
+					Name: "Smart Lock",
+					Type: "Lock",
+					ApiKey: "ghi789",
+					Status: "Locked",
+					Hid: "003"
+				},
+				{
+					Name: "Smart Camera",
+					Type: "Camera",
+					ApiKey: "jkl012",
+					Status: "Online",
+					Hid: "004"
+				}
+			],
+		},
+	];
 
 	constructor() {
 		makeAutoObservable(this);
