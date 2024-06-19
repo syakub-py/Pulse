@@ -1,7 +1,5 @@
 declare global {
     interface Home {
-        Uid: string;
-        Hid: string;
         Address: string;
         Calendar: string;
         Description: string;
@@ -14,7 +12,6 @@ declare global {
         Type: string;
         ApiKey: string;
         Status: string;
-        Hid: string;
     }
 
     interface WeatherResponse {

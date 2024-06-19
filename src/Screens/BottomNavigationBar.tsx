@@ -1,6 +1,7 @@
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Home from "./Home";
+import Settings from "./Settings";
 import {StyleSheet} from "react-native";
 
 export default function BottomNavigationBar() {
@@ -19,14 +20,14 @@ export default function BottomNavigationBar() {
 					if (rn === "Home") {
 						iconName = focused ? "home" : "home-outline";
 						return <Ionicons name = {iconName} size = {32} color = {color}/>;
-					} else if (rn === "Market") {
-						iconName = focused ? "analytics" : "analytics-outline";
+					} else if (rn === "Settings") {
+						iconName = focused ? "settings" : "settings-outline";
 						return <Ionicons name = {iconName} size = {32} color = {color}/>;
 					}
 				},
 			})}>
 			<Tab.Screen name = {"Home"} component = {Home}/>
-			{/* <Tab.Screen name = {Profile} component = {profile}/> */}
+			<Tab.Screen name = {"Settings"} component = {Settings}/>
 		</Tab.Navigator>
 	);
 }
