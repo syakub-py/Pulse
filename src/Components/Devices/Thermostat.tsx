@@ -1,9 +1,15 @@
 import {View, StyleSheet, Text} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-export default function Thermostat() {
+interface Props{
+	thermostat:Device
+}
+
+export default function Thermostat(props: Props) {
+	const {thermostat} = props;
 	return (
 		<View style={styles.container}>
+			<Text>{thermostat.Location}</Text>
 			<Text style={styles.temperatureText}>72°F</Text>
 			<View style={styles.buttonContainer}>
 				<View style={{height:30, width:30, alignItems:"center",justifyContent:"center", backgroundColor:"lightblue", borderRadius:20}}>

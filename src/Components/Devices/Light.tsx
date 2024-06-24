@@ -2,8 +2,13 @@ import {View, StyleSheet, Switch} from "react-native";
 import {useState} from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-export default function Light(){
+interface Props{
+	light:Device
+}
+
+export default function Light(props:Props){
 	const [isOn, setIsOn] = useState(false);
+	const {light} = props;
 	const toggleSwitch = () => {
 		setIsOn(previousState => !previousState);
 	};

@@ -2,7 +2,6 @@ import {createContext} from "react";
 import {makeAutoObservable} from "mobx";
 import {firestore, storage} from "../Utils/Firebase";
 import _ from "lodash";
-import Home from "../Screens/Home";
 
 export class AppContextClass {
 	public Homes: Home[] = [

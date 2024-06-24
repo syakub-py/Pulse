@@ -2,15 +2,20 @@ import {Pressable, StyleSheet, Text, View} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {useState} from "react";
 
-export default function Lock(){
-	const [isLocked, setIsLocked] = useState(false);
+interface Props{
+	lock:Device
+}
 
+export default function Lock(props:Props){
+	const [isLocked, setIsLocked] = useState(false);
+	const {lock} = props;
 	const toggleIsLocked = () => {
 		setIsLocked(!isLocked);
 	};
 
 	return(
 		<Pressable onPress={toggleIsLocked}>
+			<Text>{lock.Location}</Text>
 			<View style={[styles.container, {backgroundColor:isLocked?"black":"white"}]} >
 				<View>
 					<Ionicons name={isLocked?"lock-closed-outline":"lock-open-outline"} size={70} color={isLocked?"white":"black"}/>
