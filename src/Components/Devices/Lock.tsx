@@ -15,7 +15,7 @@ export default function Lock(props:Props){
 
 	return(
 		<Pressable onPress={toggleIsLocked}>
-			<Text>{lock.Location}</Text>
+			{/* <Text>{lock.Location}</Text> */}
 			<View style={[styles.container, {backgroundColor:isLocked?"black":"white"}]} >
 				<View>
 					<Ionicons name={isLocked?"lock-closed-outline":"lock-open-outline"} size={70} color={isLocked?"white":"black"}/>

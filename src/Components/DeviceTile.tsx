@@ -19,5 +19,3 @@ export default function DeviceTile(props:Props){
 		return <Camera camera={device}/>;
 	}
 }
-
-

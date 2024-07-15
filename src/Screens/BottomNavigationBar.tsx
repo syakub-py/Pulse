@@ -26,11 +26,15 @@ export default function BottomNavigationBar() {
 					} else if (rn === "Analytics") {
 						iconName = focused ? "stats-chart" : "stats-chart-outline";
 						return <Ionicons name = {iconName} size = {32} color = {color}/>;
+					}else if (rn === "AI") {
+						iconName = focused ? "sparkles" : "sparkles-outline";
+						return <Ionicons name = {iconName} size = {32} color = {color}/>;
 					}
 				},
 			})}>
 			<Tab.Screen name = {"Home"} component = {Home}/>
 			<Tab.Screen name = {"Analytics"} component = {Settings}/>
+			<Tab.Screen name = {"AI"} component = {Settings}/>
 			<Tab.Screen name = {"Settings"} component = {Settings}/>
 		</Tab.Navigator>
 	);
