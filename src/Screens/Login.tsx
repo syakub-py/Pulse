@@ -1,4 +1,4 @@
-import { View, TextInput, Button, Text, StyleSheet } from "react-native";
+import {View, TextInput, Button, Text, StyleSheet, Image, SafeAreaView} from "react-native";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext, AuthContextClass } from "../Contexts/AuthContext";
 import { useNavigation } from "@react-navigation/native";
@@ -29,22 +29,28 @@ export default function Login() {
 	}, []);
 
 	return (
-		<View style={styles.container}>
-			<Text style={styles.loginText}>Login</Text>
-			<TextInput
-				placeholder='Email'
-				onChangeText={(email) => { setUsername(email); }}
-				style={styles.input}
-			/>
-			<TextInput
-				placeholder='Password'
-				onChangeText={(password) => { setPassword(password); }}
-				style={styles.input}
-				secureTextEntry
-			/>
-			<Button title='Login' onPress={() => { login(username, password, authContext); }} />
-			<Text style={styles.registerText} onPress={()=>navigation.navigate("SignUp")}>Dont have an account? Register here</Text>
-		</View>
+		<SafeAreaView style={styles.container}>
+			<View style={styles.logoContainer}>
+				<Image style={styles.logo} source={require("../../assets/icon.png")} />
+			</View>
+			<View style={styles.inputContainer}>
+
+				<Text style={styles.loginText}>Login</Text>
+				<TextInput
+					placeholder='Email'
+					onChangeText={(email) => { setUsername(email); }}
+					style={styles.input}
+				/>
+				<TextInput
+					placeholder='Password'
+					onChangeText={(password) => { setPassword(password); }}
+					style={styles.input}
+					secureTextEntry
+				/>
+				<Button title='Login' onPress={() => { login(username, password, authContext); }} />
+				<Text style={styles.registerText} onPress={()=>navigation.navigate("SignUp")}>Dont have an account? Register here</Text>
+			</View>
+		</SafeAreaView>
 	);
 }
 
@@ -56,10 +62,12 @@ const styles = StyleSheet.create({
 		backgroundColor: "whitesmoke",
 		borderRadius: 15,
 	},
-	container: {
+	container:{
 		flex: 1,
+		backgroundColor: "white"
+	},
+	inputContainer: {
 		justifyContent: "center",
-		backgroundColor: "white",
 	},
 	loginText: {
 		fontSize: 20,
@@ -72,6 +80,16 @@ const styles = StyleSheet.create({
 		textAlign: "center",
 		marginTop: 10,
 		color: "lightgray",
+	},
+	logo:{
+		height:150,
+		width:150,
+		borderRadius:60,
+	},
+	logoContainer:{
+		justifyContent:"center",
+		alignItems:"center",
+		margin:20
 	}
 });
 

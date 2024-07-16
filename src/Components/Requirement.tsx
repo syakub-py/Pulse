@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Text, View} from "react-native";
+import {Text, View, StyleSheet} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 interface Props{
@@ -8,21 +8,35 @@ interface Props{
 
 export default function Requirement(props:Props) {
 	const [iconName, setIconName] = useState("checkmark-circle-outline");
-	const [color, setColor] = useState("black");
+	const [color, setColor] = useState("gray");
 	const {requirement} = props;
-	
+
 	useEffect(() => {
 		const newIconName = requirement.fulfilled ? "checkmark-circle" : "checkmark-circle-outline";
-		const newColor = requirement.fulfilled ? "green" : "black";
+		const newColor = requirement.fulfilled ? "green" : "gray";
 
 		setIconName(newIconName);
 		setColor(newColor);
 	}, [requirement.fulfilled]);
 
 	return (
-		<View style={{flexDirection: "row", alignItems: "center", marginLeft: 40, marginBottom: 4}}>
+		<View style={styles.requirementContainer}>
 			<Ionicons name={iconName} size={20} color={color} />
-			<Text style={{marginLeft: 8}}>{requirement.label}</Text>
+			<Text style={styles.requirementText}>{requirement.label}</Text>
 		</View>
 	);
 }
+
+const styles = StyleSheet.create({
+	requirementContainer: {
+		flexDirection: "row",
+		alignItems: "center",
+		marginLeft: 40,
+		marginBottom: 4
+	},
+	requirementText: {
+		marginLeft: 8,
+		color:"gray"
+	}
+});
+

@@ -11,7 +11,7 @@ export default function PasswordRequirementCheckBox(props: Props){
 	const {requirements} = props;
 	return (
 		<View>
-			<Text style={{marginLeft: 20, fontWeight: "bold", fontSize: 18}}>Password Requirements:</Text>
+			<Text style={{marginLeft: 20, fontWeight: "bold", fontSize: 18, color:"gray", marginBottom:10}}>Password Requirements:</Text>
 			{
 				requirements.map((requirement, index) => (
 					<Requirement key={index} requirement={requirement} />
