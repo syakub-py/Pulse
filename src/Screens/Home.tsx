@@ -18,12 +18,10 @@ export default function Home() {
 					<View style={styles.houseTileContainer}>
 						<Text style={styles.homeName}>{item.Name}</Text>
 						<Text style={styles.homeAddress}>{item.Address}</Text>
-
 						<View style={styles.addDeviceContainer}>
 							<Text style={styles.activeDeviceText}>Active Devices ({item.ConnectedDevices.length})</Text>
 							<AddDeviceButton/>
 						</View>
-
 						<FlatList
 							data={item.ConnectedDevices}
 							numColumns={2}

@@ -1,5 +1,5 @@
 import { NavigationContainer } from "@react-navigation/native";
-import Stack from "./src/Screens/Stack";
+import MainStack from "./src/Screens/MainStack";
 import { AuthContextClass, AuthContext } from "./src/Contexts/AuthContext";
 import { AppContextClass, AppContext } from "./src/Contexts/AppContext";
 import { useMemo } from "react";
@@ -12,7 +12,7 @@ export default function App() {
 		<AuthContext.Provider value={authContext}>
 			<AppContext.Provider value={appContext}>
 				<NavigationContainer>
-					<Stack />
+					<MainStack />
 				</NavigationContainer>
 			</AppContext.Provider>
 		</AuthContext.Provider>

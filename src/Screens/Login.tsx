@@ -43,7 +43,7 @@ export default function Login() {
 				secureTextEntry
 			/>
 			<Button title='Login' onPress={() => { login(username, password, authContext); }} />
-			<Text style={styles.registerText}>Dont have an account? Register here</Text>
+			<Text style={styles.registerText} onPress={()=>navigation.navigate("SignUp")}>Dont have an account? Register here</Text>
 		</View>
 	);
 }
