@@ -3,7 +3,7 @@ import DeviceTile from "../Components/DeviceTile";
 import {FlatList, StyleSheet, Text, View, Dimensions} from "react-native";
 import React, {useContext} from "react";
 import {AppContext} from "../Contexts/AppContext";
-import AddDeviceButton from "../Components/Buttons/AddDevice";
+import Button from "../Components/Buttons/Button";
 
 export default function Home() {
 	const appContext = useContext(AppContext);
@@ -20,7 +20,7 @@ export default function Home() {
 						<Text style={styles.homeAddress}>{item.Address}</Text>
 						<View style={styles.addDeviceContainer}>
 							<Text style={styles.activeDeviceText}>Active Devices ({item.ConnectedDevices.length})</Text>
-							<AddDeviceButton/>
+							<Button title={"Add"} containerStyle={styles.addDeviceButton} textStyle={styles.addDeviceButtonText} iconName={"add"}/>
 						</View>
 						<FlatList
 							data={item.ConnectedDevices}
@@ -64,5 +64,21 @@ const styles = StyleSheet.create({
 		fontSize:25,
 		fontWeight:"bold",
 		marginHorizontal:15
+	},
+	addDeviceButton:{
+		justifyContent:"center",
+		alignItems:"center",
+		backgroundColor:"black",
+		height:40,
+		width:70,
+		opacity:0.7,
+		marginHorizontal:20,
+		borderRadius:20,
+		flexDirection:"row",
+	},
+	addDeviceButtonText:{
+		fontSize:15,
+		fontWeight:"bold",
+		color:"white",
 	}
 });

@@ -8,6 +8,7 @@ export class AuthContextClass {
 	public username: string = "";
 	public profilePicture: string = "";
 
+
 	getUsername() {
 		return this.username;
 	}

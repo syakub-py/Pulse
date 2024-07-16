@@ -58,6 +58,11 @@ declare global {
         name: string;
         cod: number;
     }
+
+    interface PasswordRequirement{
+        label:string,
+        fulfilled:boolean
+    }
 }
 
 export { };
