@@ -2,7 +2,7 @@ declare global {
     interface Home {
         Name:string,
         Address: string;
-        Calendar: string;
+        Calendar?: string;
         Description: string;
         ImageUrls?: string[];
         ConnectedDevices: Device[];

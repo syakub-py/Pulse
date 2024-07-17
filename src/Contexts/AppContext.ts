@@ -87,7 +87,10 @@ export class AppContextClass {
 		return this.Homes;
 	}
 
-	public upload = async (PhoneImagesArray:string[], Address:string) => {
+	public async upload (PhoneImagesArray:string[], Address:string){
+		if (_.isEmpty(PhoneImagesArray)){
+			return [];
+		}
 		try {
 			const uploadPromises = PhoneImagesArray.map(async (element) => {
 				const filename = element.split("/").pop();
@@ -103,38 +106,14 @@ export class AppContextClass {
 			alert("The following error occurred when trying to upload images: " + error);
 			return [];
 		}
-	};
+	}
 
 	public async addHome(home: Home) {
 		this.Homes.push(home);
-		if (!_.isEmpty(home.ImageUrls) && !_.isUndefined(home.ImageUrls)) {
-			home.ImageUrls = await this.upload(home.ImageUrls, home.Address);
-		}
-		firestore.collection("homes").doc(home.Address).set(home).then(() => {
-			alert("Document written with ID: " + home.Address);
-		}).catch((error) => {
-			alert("Error adding document: " + error);
-		});
 	}
 
 	public deleteHome(home: Home) {
 		this.Homes = this.Homes.filter((h) => h.Address !== home.Address);
-		firestore.collection("homes").doc(home.Address).delete().then(() => {
-			if (!_.isEmpty(home.ImageUrls) && !_.isUndefined(home.ImageUrls)) {
-				home.ImageUrls!.forEach((picture) => {
-					const picRef = storage.refFromURL(picture);
-					picRef.getMetadata()
-						.then(() => {
-							picRef.delete().catch((error) => alert("Error deleting picture:" + error));
-						}).catch((error) => {
-							alert("Picture does not exist:" + error);
-						});
-				});
-			}
-			alert("Home deleted!");
-		}).catch((error) => {
-			alert("Error removing document: " + error);
-		});
 	}
 
 }

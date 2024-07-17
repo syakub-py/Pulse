@@ -17,6 +17,8 @@ export default function Layout({children}: {children: React.ReactNode}) {
 				/>
 				{/* <Weather/> */}
 				{/* <Ionicons name = "log-out-outline" style = {{paddingLeft: 25}} size = {30} color = {"gray"}/> */}
+				<Image source={require("../../assets/icon.png")} style={styles.Logo}/>
+
 			</View>
 			<View>
 				{children}
@@ -33,5 +35,12 @@ const styles = StyleSheet.create({
 		justifyContent:"space-between",
 		height:70,
 	},
+	Logo:{
+		height:50,
+		width:50,
+		borderRadius:30,
+		marginHorizontal:10,
+		elevation:5,
+	}
 });
 

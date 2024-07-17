@@ -2,6 +2,7 @@ import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Home from "./Home";
 import Settings from "./Settings";
+import PulseAI from "./PulseAI";
 import {StyleSheet} from "react-native";
 
 export default function BottomNavigationBar() {
@@ -33,8 +34,8 @@ export default function BottomNavigationBar() {
 				},
 			})}>
 			<Tab.Screen name = {"Home"} component = {Home}/>
+			<Tab.Screen name = {"AI"} component = {PulseAI}/>
 			<Tab.Screen name = {"Analytics"} component = {Settings}/>
-			<Tab.Screen name = {"AI"} component = {Settings}/>
 			<Tab.Screen name = {"Settings"} component = {Settings}/>
 		</Tab.Navigator>
 	);
