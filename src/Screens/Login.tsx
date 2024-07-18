@@ -1,15 +1,14 @@
 import {View, TextInput, Button, Text, StyleSheet, Image, SafeAreaView} from "react-native";
 import { useContext, useEffect, useState } from "react";
-import { AuthContext, AuthContextClass } from "../Contexts/AuthContext";
+import { AuthContext } from "../Contexts/AuthContext";
 import { useNavigation } from "@react-navigation/native";
 import { auth } from "../Utils/Firebase";
 
-const login = (username: string, password: string, authContext: AuthContextClass) => {
+const login = (username: string, password: string) => {
 	const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 	if (!re.test(String(username).toLowerCase())) {
 		alert("Invalid email address: " + username);
 	}
-	authContext.setUsername(username);
 	auth.signInWithEmailAndPassword(username, password).catch((error) => console.log(error.message));
 };
 
@@ -20,9 +19,11 @@ export default function Login() {
 	const navigation = useNavigation();
 
 	useEffect(() => {
-		return auth.onAuthStateChanged(async (user) => {
+		return auth.onAuthStateChanged((user) => {
 			if (user) {
 				authContext.setProfilePicture(user.photoURL || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
+				authContext.setUid(user.uid);
+				authContext.setUsername(username);
 				navigation.navigate("BottomNavBar");
 			}
 		});

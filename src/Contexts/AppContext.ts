@@ -1,6 +1,6 @@
 import {createContext} from "react";
 import {makeAutoObservable} from "mobx";
-import {firestore, storage} from "../Utils/Firebase";
+import {storage} from "../Utils/Firebase";
 import _ from "lodash";
 
 export class AppContextClass {

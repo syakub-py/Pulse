@@ -11,19 +11,38 @@ import {storage} from "../../Utils/Firebase";
 import SignUpLayout from "../../Components/SignUpLayout";
 
 const uploadProfilePicture = async (profilePicturePath:string, username:string) => {
-	if (!_.isEmpty(profilePicturePath)) {
-		try {
-			const filename = profilePicturePath.split("/").pop();
-			const response = await fetch(profilePicturePath);
-			const blob = await response.blob();
-			const storageRef = storage.ref().child(`ProfilePictures/${username}/${filename}`);
-			await storageRef.put(blob);
-			return await storageRef.getDownloadURL();
-		} catch (error) {
-			console.error(error);
-			return "";
-		}
-	} else return "";
+	if (_.isEmpty(profilePicturePath)) {
+		return "";
+	}
+	try {
+		const filename = profilePicturePath.split("/").pop();
+		const response = await fetch(profilePicturePath);
+		const blob = await response.blob();
+		const storageRef = storage.ref().child(`ProfilePictures/${username}/${filename}`);
+		await storageRef.put(blob);
+		return await storageRef.getDownloadURL();
+	} catch (error) {
+		console.error(error);
+		return "";
+	}
+};
+
+const validateForm = (username: string, password: string, requirements: PasswordRequirement[]): boolean => {
+	const emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+
+	if (!username || !password) {
+		alert("Please fill out all fields.");
+		return false;
+	}
+	if (!emailRegex.test(username)) {
+		alert("Please enter a valid email address.");
+		return false;
+	}
+	if (!requirements.every(requirement => requirement.fulfilled)) {
+		alert("Make sure the password meets all requirements.");
+		return false;
+	}
+	return true;
 };
 
 export default function CreateUsernameAndPassword() {
@@ -32,11 +51,10 @@ export default function CreateUsernameAndPassword() {
 	const [profilePicture, setProfilePicture] = useState("");
 	const navigation= useNavigation();
 	const authContext = useContext(AuthContext);
-
 	const requirements:PasswordRequirement[] = [
 		{
-			label: "At least 8 characters",
-			fulfilled: password.length >= 8,
+			label: "At least 8 characters and less than 50 characters",
+			fulfilled: password.length >= 8 && password.length <= 50,
 		},
 		{
 			label: "Contains at least one uppercase letter",
@@ -70,16 +88,19 @@ export default function CreateUsernameAndPassword() {
 	};
 
 	const continueToNextAddHomes = async () => {
-		if (_.isEmpty(password) || _.isEmpty(username) || !requirements.every((requirement) => requirement.fulfilled)) {
-			alert("Please fill out all fields and make sure the password meets requirements");
-			return;
-		}
-		try {
-			const profilePictureUrl = await uploadProfilePicture(profilePicture, username);
-			authContext.setProfilePicture(profilePictureUrl);
+		if (validateForm(username, password, requirements)) {
+			if (!_.isEmpty(profilePicture)) {
+				try {
+					const profilePictureUrl = await uploadProfilePicture(profilePicture, username);
+					authContext.setProfilePicture(profilePictureUrl);
+				} catch (error) {
+					authContext.setProfilePicture("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
+					alert("Error uploading profile picture:" + error);
+				}
+			}else{
+				authContext.setProfilePicture("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
+			}
 			navigation.navigate("AddHomes");
-		} catch (error) {
-			console.error("Error uploading profile picture:", error);
 		}
 	};
 
@@ -96,7 +117,7 @@ export default function CreateUsernameAndPassword() {
 					)
 				}
 			</View>
-			<TextInput onChangeText={(text) => setUsername(text)} placeholder={"Username"} style={styles.textInput}/>
+			<TextInput onChangeText={(text) => setUsername(text)} placeholder={"Email"} style={styles.textInput}/>
 			<TextInput onChangeText={(text) => setPassword(text)} placeholder={"Password"} style={styles.textInput} secureTextEntry/>
 			<PasswordRequirementCheckBox requirements={requirements}/>
 			<Button title={"Next"} containerStyle={styles.nextButton} textStyle={styles.nextButtonText} onPress={()=>continueToNextAddHomes()}/>

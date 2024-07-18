@@ -7,6 +7,7 @@ export class AuthContextClass {
 	}
 	public username: string = "";
 	public profilePicture: string = "";
+	public uid: string = "";
 
 
 	getUsername() {
@@ -17,6 +18,10 @@ export class AuthContextClass {
 		return this.profilePicture;
 	}
 
+	getuid(){
+		return this.uid;
+	}
+
 	setUsername(username: string) {
 		this.username = username;
 	}
@@ -24,6 +29,11 @@ export class AuthContextClass {
 	setProfilePicture(profilePicture: string) {
 		this.profilePicture = profilePicture;
 	}
+
+	setUid(uid: string) {
+		this.uid = uid;
+	}
+
 }
 
 export const AuthContext = createContext(new AuthContextClass());
