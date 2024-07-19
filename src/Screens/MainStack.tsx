@@ -3,6 +3,7 @@ import Home from "./Home";
 import Login from "./Login";
 import BottomNavigationBar from "./BottomNavigationBar";
 import SignUpStack from "./SignUpStack";
+import PulseAI from "./PulseAI";
 
 export default function MainStack() {
 	const Stack = createNativeStackNavigator();
@@ -12,6 +13,7 @@ export default function MainStack() {
 			<Stack.Screen name = "BottomNavBar" component = {BottomNavigationBar}/>
 			<Stack.Screen name="Home" component={Home} />
 			<Stack.Screen name="Login" component={Login} />
+			<Stack.Screen name="ChatBot" component={PulseAI}/>
 			<Stack.Screen name="SignUp" component={SignUpStack} />
 		</Stack.Navigator>
 	);
