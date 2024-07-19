@@ -1,11 +1,9 @@
 import Layout from "../Components/Layout";
-import {GiftedChat} from "react-native-gifted-chat";
-import {useState} from "react";
+import {GiftedChat, IMessage} from "react-native-gifted-chat";
 
 
-export default function PulseAI(){
-	const [messages, setMessages] = useState([]);
-
+export default function PulseAI() {
+	const messages: IMessage[] | undefined = [];
 	return (
 		<Layout>
 			<GiftedChat

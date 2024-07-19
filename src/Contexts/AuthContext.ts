@@ -8,6 +8,7 @@ export class AuthContextClass {
 	public username: string = "";
 	public profilePicture: string = "";
 	public uid: string = "";
+	public password: string = "";
 
 
 	getUsername() {

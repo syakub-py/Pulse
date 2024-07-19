@@ -21,6 +21,7 @@ export default function Lock(props:Props){
 					<Ionicons name={isLocked?"lock-closed-outline":"lock-open-outline"} size={70} color={isLocked?"white":"black"}/>
 					{(isLocked)?(<Text style={[styles.lockUnlockText, {color:isLocked?"white":"black"}]}>Locked</Text>):<Text style={[styles.lockUnlockText, {color:isLocked?"white":"black"}]}>unlocked</Text>}
 				</View>
+				<Text>{lock.Name}</Text>
 			</View>
 		</Pressable>
 	);

@@ -1,4 +1,4 @@
-import {View, StyleSheet, Switch} from "react-native";
+import {View, StyleSheet, Switch, Text} from "react-native";
 import {useState} from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
@@ -25,6 +25,7 @@ export default function Light(props:Props){
 					value={isOn}
 				/>
 			</View>
+			<Text>{light.Name}</Text>
 		</View>
 	);
 }

@@ -1,5 +1,6 @@
 declare global {
     interface Home {
+        HomeID: number,
         Name:string,
         Address: string;
         Calendar?: string;
@@ -9,6 +10,7 @@ declare global {
     }
 
     interface Device {
+        DeviceID: number;
         Name: string;
         Type: string;
         ApiKey: string;
@@ -63,6 +65,7 @@ declare global {
         label:string,
         fulfilled:boolean
     }
+
 }
 
 export { };

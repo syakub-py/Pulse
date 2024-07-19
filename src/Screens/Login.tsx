@@ -48,7 +48,7 @@ export default function Login() {
 					style={styles.input}
 					secureTextEntry
 				/>
-				<Button title='Login' onPress={() => { login(username, password, authContext); }} />
+				<Button title='Login' onPress={() => { login(username, password); }} />
 				<Text style={styles.registerText} onPress={()=>navigation.navigate("SignUp")}>Dont have an account? Register here</Text>
 			</View>
 		</SafeAreaView>
