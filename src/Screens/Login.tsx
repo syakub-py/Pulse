@@ -2,7 +2,7 @@ import {View, TextInput, Button, Text, StyleSheet, Image, SafeAreaView} from "re
 import {useCallback, useState} from "react";
 import { useNavigation } from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
-import useLogin from "../Hooks/Login";
+import useLogin from "../Hooks/useLogin";
 
 export default function Login() {
 	const [username, setUsername] = useState("");
