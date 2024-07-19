@@ -10,4 +10,8 @@ export default new class DataService {
 			console.log(`Error retrieving weather data: ${error}`);
 		}
 	}
+	async generateChatResponse(){
+		const response = await http.get("http://127.0.0.1:8000/generateResponse/who%20are%20you?");
+		console.log(response.data.response);
+	}
 }();

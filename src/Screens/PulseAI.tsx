@@ -1,18 +1,41 @@
-import Layout from "../Components/Layout";
-import {GiftedChat, IMessage} from "react-native-gifted-chat";
-
+import React, { useState, useEffect, useCallback } from "react";
+import { StyleSheet, View } from "react-native";
+import { GiftedChat } from "react-native-gifted-chat";
+import DataService from "../Utils/DataService";
 
 export default function PulseAI() {
-	const messages: IMessage[] | undefined = [];
+	const [messages, setMessages] = useState([]);
+
+	useEffect(() => {
+		DataService.generateChatResponse();
+		setMessages([]);
+	}, []);
+
+	const onSend = useCallback((messages = []) => {
+		setMessages(previousMessages =>
+			GiftedChat.append(previousMessages, messages),
+		);
+	}, []);
+
 	return (
-		<Layout>
+		<View style={styles.container}>
 			<GiftedChat
 				messages={messages}
-				messagesContainerStyle={{zIndex:1}}
+				// onSend={messages => onSend(messages)}
 				user={{
 					_id: 1,
 				}}
 			/>
-		</Layout>
+		</View>
 	);
 }
+
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		backgroundColor: "#fff",
+	},
+	chat: {
+		// Add custom styles for the GiftedChat component if needed
+	},
+});

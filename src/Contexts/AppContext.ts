@@ -10,7 +10,6 @@ export class AppContextClass {
 		makeAutoObservable(this);
 	}
 
-
 	public async upload (PhoneImagesArray:string[], Address:string){
 		if (_.isEmpty(PhoneImagesArray)){
 			return [];
