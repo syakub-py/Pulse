@@ -1,33 +1,17 @@
 import {View, TextInput, Button, Text, StyleSheet, Image, SafeAreaView} from "react-native";
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../Contexts/AuthContext";
+import {useCallback, useState} from "react";
 import { useNavigation } from "@react-navigation/native";
-import { auth } from "../Utils/Firebase";
-
-const login = (username: string, password: string) => {
-	const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-	if (!re.test(String(username).toLowerCase())) {
-		alert("Invalid email address: " + username);
-	}
-	auth.signInWithEmailAndPassword(username, password).catch((error) => console.log(error.message));
-};
+import {StackNavigationProp} from "@react-navigation/stack";
+import useLogin from "../Hooks/Login";
 
 export default function Login() {
-	const authContext = useContext(AuthContext);
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
-	const navigation = useNavigation();
-
-	useEffect(() => {
-		return auth.onAuthStateChanged((user) => {
-			if (user) {
-				authContext.setProfilePicture(user.photoURL || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-				authContext.setUid(user.uid);
-				authContext.setUsername(username);
-				navigation.navigate("BottomNavBar");
-			}
-		});
-	}, []);
+	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Login">>();
+	const login = useLogin();
+	const loginCallback = useCallback(async () => {
+		await login(username, password);
+	},[login]);
 
 	return (
 		<SafeAreaView style={styles.container}>
@@ -48,7 +32,7 @@ export default function Login() {
 					style={styles.input}
 					secureTextEntry
 				/>
-				<Button title='Login' onPress={() => { login(username, password); }} />
+				<Button title='Login' onPress={loginCallback} />
 				<Text style={styles.registerText} onPress={()=>navigation.navigate("SignUp")}>Dont have an account? Register here</Text>
 			</View>
 		</SafeAreaView>

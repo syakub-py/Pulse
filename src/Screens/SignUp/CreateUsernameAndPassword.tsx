@@ -9,6 +9,7 @@ import * as ImagePicker from "expo-image-picker";
 import _ from "lodash";
 import {storage} from "../../Utils/Firebase";
 import SignUpLayout from "../../Components/SignUpLayout";
+import {StackNavigationProp} from "@react-navigation/stack";
 
 const uploadProfilePicture = async (profilePicturePath:string, username:string) => {
 	if (_.isEmpty(profilePicturePath)) {
@@ -49,7 +50,7 @@ export default function CreateUsernameAndPassword() {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [profilePicture, setProfilePicture] = useState("");
-	const navigation= useNavigation();
+	const navigation = useNavigation<StackNavigationProp<SignUpStackParamList, "AddHomes">>();
 	const authContext = useContext(AuthContext);
 	const requirements:PasswordRequirement[] = [
 		{

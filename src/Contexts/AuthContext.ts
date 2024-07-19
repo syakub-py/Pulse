@@ -1,5 +1,7 @@
 import { createContext } from "react";
-import { makeAutoObservable } from "mobx";
+import {action, makeAutoObservable} from "mobx";
+import _ from "lodash";
+import AsyncStorageClass from "../Classes/AsyncStorage";
 
 export class AuthContextClass {
 	constructor() {
@@ -7,32 +9,28 @@ export class AuthContextClass {
 	}
 	public username: string = "";
 	public profilePicture: string = "";
-	public uid: string = "";
+	public accessToken: string = "";
 	public password: string = "";
 
-
-	getUsername() {
-		return this.username;
-	}
-
-	getProfilePicture() {
-		return this.profilePicture;
-	}
-
-	getuid(){
-		return this.uid;
-	}
-
-	setUsername(username: string) {
+	public setUsername(username: string) {
 		this.username = username;
 	}
 
-	setProfilePicture(profilePicture: string) {
+	public setProfilePicture(profilePicture: string) {
 		this.profilePicture = profilePicture;
 	}
 
-	setUid(uid: string) {
-		this.uid = uid;
+	public setAccessToken = action((accessToken: string) =>{
+		this.accessToken = accessToken;
+		void AsyncStorageClass.saveDataToStorage("accessToken", accessToken);
+	});
+
+	get isLoggedIn() {
+		return !_.isEmpty(this.accessToken);
+	}
+
+	public async getAuthDataFromStorage(): Promise<void> {
+		this.accessToken = await AsyncStorageClass.getDataFromStorage("accessToken");
 	}
 
 }
