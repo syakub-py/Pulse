@@ -66,6 +66,19 @@ declare global {
         fulfilled:boolean
     }
 
+    type RootStackParamList = {
+        "BottomNavBar": undefined
+        "Home": undefined
+        "SignUp": undefined
+        "Login": undefined
+        "ChatBot": undefined
+    }
+
+    type SignUpStackParamList = {
+        "CreateUsernameAndPassword": undefined
+        "AddHomes": undefined
+        "AddAndConfigureDevices": undefined
+    }
 }
 
 export { };
