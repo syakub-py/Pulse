@@ -1,5 +1,7 @@
 import http from "./HttpCommon";
 import {AxiosResponse} from "axios";
+import AsyncStorageClass from "../Classes/AsyncStorage";
+import {IMessage} from "react-native-gifted-chat";
 
 export default new class DataService {
 	async getWeather(city:string, apiKey:string):Promise<AxiosResponse<WeatherResponse> | undefined> {
@@ -10,8 +12,20 @@ export default new class DataService {
 			console.log(`Error retrieving weather data: ${error}`);
 		}
 	}
-	async generateChatResponse(){
-		const response = await http.get("http://127.0.0.1:8000/generateResponse/who%20are%20you?");
-		console.log(response.data.response);
+
+	async generateChatResponse(prompt:string):Promise<string>{
+		const response = await http.get("/generateResponse/2/" + prompt);
+		return response.data.text;
 	}
+
+	async getMessages(chatId:number):Promise<AxiosResponse<IMessage[]>> {
+		const response = await http.get<AxiosResponse<IMessage[]>>("/getMessages/" + chatId);
+		return response.data;
+	}
+
+	async createChat(userId:string):Promise<void> {
+		const response = await http.get("/createChat/" + userId);
+		void AsyncStorageClass.saveDataToStorage("chatId", response.data.chat_id);
+	}
+
 }();
