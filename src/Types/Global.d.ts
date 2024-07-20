@@ -66,6 +66,13 @@ declare global {
         fulfilled:boolean
     }
 
+    interface ChatMessage {
+        _id:number;
+        text: string;
+        createdat: string;
+        user:string;
+    }
+
     type RootStackParamList = {
         "BottomNavBar": undefined
         "Home": undefined

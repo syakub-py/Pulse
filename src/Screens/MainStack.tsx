@@ -12,15 +12,16 @@ function MainStack() {
 	const Stack = createNativeStackNavigator();
 	const authContext = useContext(AuthContext);
 	const initRouteName = useMemo(()=>{
-		if (authContext.isLoggedIn){
-			return <Stack.Screen name = "BottomNavBar" component = {BottomNavigationBar}/>;
-		}
+		// if (authContext.isLoggedIn){
+		// 	return <Stack.Screen name = "BottomNavBar" component = {BottomNavigationBar}/>;
+		// }
 		return <Stack.Screen name="Login" component={Login} />;
 	},[authContext.isLoggedIn]);
 
 	return (
 		<Stack.Navigator screenOptions={{ headerShown: false }}>
 			{initRouteName}
+			<Stack.Screen name = "BottomNavBar" component = {BottomNavigationBar}/>
 			<Stack.Screen name="Home" component={Home} />
 			<Stack.Screen name="ChatBot" component={PulseAI}/>
 			<Stack.Screen name="SignUp" component={SignUpStack} />

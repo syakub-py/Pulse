@@ -8,7 +8,7 @@ import {AuthContext} from "../Contexts/AuthContext";
 export default function Layout({children}: {children: React.ReactNode}) {
 	const authContext = useContext(AuthContext);
 	return (
-		<SafeAreaView>
+		<SafeAreaView style={styles.layoutContainer}>
 			<View style={styles.profileContainer}>
 				<Image
 					resizeMode="cover"
@@ -17,7 +17,7 @@ export default function Layout({children}: {children: React.ReactNode}) {
 				/>
 				{/* <Weather/> */}
 				{/* <Ionicons name = "log-out-outline" style = {{paddingLeft: 25}} size = {30} color = {"gray"}/> */}
-				<Image source={require("../../assets/icon.png")} style={styles.Logo}/>
+				<Image source={require("../../assets/icon.png")} style={styles.logo}/>
 
 			</View>
 			<View>
@@ -35,12 +35,15 @@ const styles = StyleSheet.create({
 		justifyContent:"space-between",
 		height:70,
 	},
-	Logo:{
+	logo:{
 		height:50,
 		width:50,
 		borderRadius:30,
 		marginHorizontal:10,
 		elevation:5,
+	},
+	layoutContainer:{
+		backgroundColor:"transparent",
 	}
 });
 
