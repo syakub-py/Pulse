@@ -18,9 +18,18 @@ export default new class DataService {
 		return response.data.text;
 	}
 
-	async getMessages(chatId:number):Promise<AxiosResponse<IMessage[]>> {
-		const response = await http.get<AxiosResponse<IMessage[]>>("/getMessages/" + chatId);
-		return response.data;
+	async getMessages(chatId:number):Promise<IMessage[]> {
+		const response: AxiosResponse<ChatMessage[]> = await http.get<ChatMessage[]>(`/getMessages/${chatId}`);
+		const data: ChatMessage[] = response.data;
+		return data.map(msg => ({
+			_id: msg._id,
+			text: msg.text,
+			createdAt: new Date(msg.createdat),
+			user: {
+				_id: msg.user === "user" ? 1 : 2,
+				name: msg.user,
+			}
+		}));
 	}
 
 	async createChat(userId:string):Promise<void> {

@@ -15,6 +15,7 @@ export default function PulseAI() {
 		};
 		fetchMessages().then((result)=>{
 			console.log(result);
+			setMessages(result);
 		});
 	}, []);
 
