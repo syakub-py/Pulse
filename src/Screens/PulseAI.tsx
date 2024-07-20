@@ -14,7 +14,6 @@ export default function PulseAI() {
 			return await DataService.getMessages(2);
 		};
 		fetchMessages().then((result)=>{
-			console.log(result);
 			setMessages(result);
 		});
 	}, []);
