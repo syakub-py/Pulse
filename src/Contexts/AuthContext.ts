@@ -12,9 +12,15 @@ export class AuthContextClass {
 	public accessToken: string = "";
 	public password: string = "";
 
-	public setUsername(username: string) {
+	public setUsername = action((username: string) =>{
 		this.username = username;
-	}
+		void AsyncStorageClass.saveDataToStorage("username", username);
+	});
+
+	public setPassword = action((password: string) =>{
+		this.password = password;
+		void AsyncStorageClass.saveDataToStorage("password", password);
+	});
 
 	public setProfilePicture(profilePicture: string) {
 		this.profilePicture = profilePicture;
@@ -26,11 +32,13 @@ export class AuthContextClass {
 	});
 
 	get isLoggedIn() {
-		return !_.isEmpty(this.accessToken);
+		return !_.isEmpty(this.accessToken) && !_.isEmpty(this.username) && !_.isEmpty(this.password);
 	}
 
 	public async getAuthDataFromStorage(): Promise<void> {
 		this.accessToken = await AsyncStorageClass.getDataFromStorage("accessToken");
+		this.username = await AsyncStorageClass.getDataFromStorage("username");
+		this.password = await AsyncStorageClass.getDataFromStorage("password");
 	}
 
 }

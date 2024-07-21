@@ -69,7 +69,7 @@ declare global {
     interface ChatMessage {
         _id:number;
         text: string;
-        createdat: string;
+        createdAt: string;
         user:string;
     }
 

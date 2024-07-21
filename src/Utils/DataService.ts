@@ -24,7 +24,7 @@ export default new class DataService {
 		return data.map(msg => ({
 			_id: msg._id,
 			text: msg.text,
-			createdAt: new Date(msg.createdat),
+			createdAt: new Date(msg.createdAt),
 			user: {
 				_id: msg.user === "user" ? 1 : 2,
 				name: msg.user,
