@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import {action, makeAutoObservable} from "mobx";
+import { action, makeAutoObservable, runInAction} from "mobx";
 import _ from "lodash";
 import AsyncStorageClass from "../Classes/AsyncStorage";
 
@@ -22,10 +22,10 @@ export class AuthContextClass {
 		void AsyncStorageClass.saveDataToStorage("password", password);
 	});
 
-	public setProfilePicture(profilePicture: string | null | undefined) {
-		if (_.isNil((profilePicture))) return
+	public setProfilePicture = action((profilePicture: string | null | undefined): void => {
+		if (_.isNil((profilePicture))) return;
 		this.profilePicture = profilePicture;
-	}
+	});
 
 	public setAccessToken = action((accessToken: string) =>{
 		this.accessToken = accessToken;
@@ -37,12 +37,15 @@ export class AuthContextClass {
 	}
 
 	public async getAuthDataFromStorage(): Promise<void> {
-		this.accessToken = await AsyncStorageClass.getDataFromStorage("accessToken");
-		this.username = await AsyncStorageClass.getDataFromStorage("username");
-		this.password = await AsyncStorageClass.getDataFromStorage("password");
-		// console.log(this.username, this.password, this.accessToken);
+		const retrievedAccessToken = await AsyncStorageClass.getDataFromStorage("accessToken");
+		const retrievedUsername = await AsyncStorageClass.getDataFromStorage("username");
+		const retrievedPassword = await AsyncStorageClass.getDataFromStorage("password");
+		runInAction(() => {
+			if (!_.isUndefined((retrievedAccessToken))) this.accessToken = retrievedAccessToken;
+			if (!_.isUndefined(retrievedUsername)) this.username = retrievedUsername;
+			if (!_.isUndefined(retrievedPassword)) this.password = retrievedPassword;
+		});
 	}
-
 }
 
 export const AuthContext = createContext(new AuthContextClass());

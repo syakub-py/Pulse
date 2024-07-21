@@ -16,10 +16,11 @@ export default function useFetchChat() {
 		};
 
 		const initializeChat = async () => {
-			const chatId = await fetchChatId();
-			if (_.isUndefined(chatId) && auth.currentUser?.uid) {
-				await DataService.createChat(auth.currentUser.uid);
-			}
+			await AsyncStorageClass.clearAllAsyncStorageData();
+			// const chatId = await fetchChatId();
+			// if (_.isUndefined(chatId) && auth.currentUser?.uid) {
+			// 	await DataService.createChat(auth.currentUser.uid);
+			// }
 		};
 
 		void initializeChat();

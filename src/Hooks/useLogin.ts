@@ -15,6 +15,7 @@ export default function useLogin():(username: string, password: string)=>Promise
 			alert("Invalid email address: " + username);
 		}
 
+
 		try{
 			const user = await auth.signInWithEmailAndPassword(username, password);
 			if (_.isNull(user.user)) return;
