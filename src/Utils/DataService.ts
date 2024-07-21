@@ -21,10 +21,11 @@ export default new class DataService {
 	async getMessages(chatId:number):Promise<IMessage[]> {
 		const response: AxiosResponse<ChatMessage[]> = await http.get<ChatMessage[]>(`/getMessages/${chatId}`);
 		const data: ChatMessage[] = response.data;
+		console.log(data);
 		return data.map(msg => ({
 			_id: msg._id,
 			text: msg.text,
-			createdAt: new Date(msg.createdat),
+			createdAt: new Date(msg.createdAt),
 			user: {
 				_id: msg.user === "user" ? 1 : 2,
 				name: msg.user,
