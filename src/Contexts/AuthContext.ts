@@ -8,7 +8,7 @@ export class AuthContextClass {
 		makeAutoObservable(this);
 	}
 	public username: string = "";
-	public profilePicture: string = "";
+	public profilePicture: string = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
 	public accessToken: string = "";
 	public password: string = "";
 
@@ -22,7 +22,8 @@ export class AuthContextClass {
 		void AsyncStorageClass.saveDataToStorage("password", password);
 	});
 
-	public setProfilePicture(profilePicture: string) {
+	public setProfilePicture(profilePicture: string | null | undefined) {
+		if (_.isNil((profilePicture))) return
 		this.profilePicture = profilePicture;
 	}
 
@@ -39,6 +40,7 @@ export class AuthContextClass {
 		this.accessToken = await AsyncStorageClass.getDataFromStorage("accessToken");
 		this.username = await AsyncStorageClass.getDataFromStorage("username");
 		this.password = await AsyncStorageClass.getDataFromStorage("password");
+		// console.log(this.username, this.password, this.accessToken);
 	}
 
 }

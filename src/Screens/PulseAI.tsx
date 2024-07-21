@@ -3,6 +3,7 @@ import {SafeAreaView, StyleSheet} from "react-native";
 import {GiftedChat, IMessage} from "react-native-gifted-chat";
 import DataService from "../Utils/DataService";
 import {AuthContext} from "../Contexts/AuthContext";
+import {auth} from "../Utils/Firebase";
 
 export default function PulseAI() {
 	const [messages, setMessages] = useState<IMessage[]>([]);
@@ -11,7 +12,11 @@ export default function PulseAI() {
 
 	useEffect(() => {
 		const fetchMessages = async ()=>{
-			return await DataService.getMessages(2);
+			if (auth.currentUser?.uid){
+				//retieve id from Async storage
+				return await DataService.getMessages(2);
+			}
+			return [];
 		};
 		fetchMessages().then((result)=>{
 			setMessages(result);
