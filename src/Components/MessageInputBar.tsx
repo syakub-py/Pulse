@@ -5,8 +5,6 @@ import MessageSendButton from "./Buttons/MessageSendButton";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
-
-
 export default function MessageInputBar(props: InputToolbarProps<IMessage>) {
 	return (
 		<InputToolbar
@@ -35,7 +33,7 @@ const styles = StyleSheet.create({
 	inputContainer: {
 		position: "absolute",
 		width: SCREEN_WIDTH * 0.89,
-		left: SCREEN_WIDTH * 0.05,
+		left: SCREEN_WIDTH * 0.06,
 		bottom: "8%",
 		paddingHorizontal: 5,
 		paddingTop: 5,

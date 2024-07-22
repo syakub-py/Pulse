@@ -12,19 +12,19 @@ import {auth} from "./Utils/Firebase";
 import _ from "lodash";
 
 
+
 export default function Routes() {
 	const authContext = useContext(AuthContext);
 	const { Screen } = createNativeStackNavigator<RootStackParamList>();
-
 	if (!authContext.isLoggedIn || _.isNull(auth.currentUser?.uid)) {
 		return [
 			<Screen key = "Login" name="Login" component={Login} />,
 			<Screen key = "CreateUsernameAndPassword" name = "CreateUsernameAndPassword" component = {CreateUsernameAndPassword}/>,
 			<Screen key = "AddHomes" name = "AddHomes" component={AddHomes} />,
-			<Screen key = "AddAndConfigureDevices" name = "AddAndConfigureDevices" component={AddAndConfigureDevices} />
+			<Screen key = "AddAndConfigureDevices" name = "AddAndConfigureDevices" component={AddAndConfigureDevices} />,
+			<Screen key = "BottomNavBar" name="BottomNavBar" component={BottomNavigationBar} />
 		];
 	}
-
 	return [
 		<Screen key = "BottomNavBar" name="BottomNavBar" component={BottomNavigationBar} />,
 		<Screen key = "Home" name="Home" component={Home} />,

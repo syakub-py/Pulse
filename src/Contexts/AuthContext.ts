@@ -2,6 +2,7 @@ import { createContext } from "react";
 import { action, makeAutoObservable, runInAction} from "mobx";
 import _ from "lodash";
 import AsyncStorageClass from "../Classes/AsyncStorage";
+import {auth} from "../Utils/Firebase";
 
 export class AuthContextClass {
 	constructor() {
@@ -45,6 +46,16 @@ export class AuthContextClass {
 			if (!_.isUndefined(retrievedUsername)) this.username = retrievedUsername;
 			if (!_.isUndefined(retrievedPassword)) this.password = retrievedPassword;
 		});
+	}
+
+	public async logout() {
+		runInAction(() => {
+			this.accessToken = "";
+			this.username = "";
+			this.password = "";
+		});
+		await auth.signOut();
+		await AsyncStorageClass.clearAllAsyncStorageData();
 	}
 }
 
