@@ -23,6 +23,7 @@ export default function useLogin():(username: string, password: string)=>Promise
 			authContext.setAccessToken(user.user.refreshToken);
 			authContext.setUsername(username);
 			authContext.setPassword(password);
+
 			navigation.navigate("BottomNavBar");
 		}catch(e){
 			console.log(e);
