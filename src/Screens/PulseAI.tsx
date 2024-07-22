@@ -48,13 +48,17 @@ export default function PulseAI() {
 		<SafeAreaView style={styles.container}>
 			<View style = {styles.headerContainer}>
 				<Image style = {styles.pulseImage} source = {require("../../assets/icon.png")}/>
-				<Text style = {styles.pulseText}>Pulse AI</Text>
+				<View style={styles.textContainer}>
+					<Text style = {styles.pulseText}>Pulse AI</Text>
+					<Text style={styles.llamaText}>Powered by Llama3</Text>
+				</View>
 			</View>
 			<GiftedChat
 				messages={messages}
 				onSend={messages => onSend(messages)}
 				alwaysShowSend
 				scrollToBottom
+				inverted={false}
 				user={{
 					_id: 1,
 					name: authContext.username,
@@ -89,10 +93,15 @@ const styles = StyleSheet.create({
 	},
 	pulseText:{
 		fontWeight: "bold",
-		margin: 10,
+		marginHorizontal: 10,
 		fontSize: 16
 	},
-	chat: {
-		// Add custom styles for the GiftedChat component if needed
+	llamaText:{
+		marginHorizontal: 10,
+		fontSize: 12,
+		color:"lightgray"
+	},
+	textContainer:{
+		flexDirection: "column",
 	},
 });
