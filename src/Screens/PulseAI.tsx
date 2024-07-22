@@ -3,6 +3,7 @@ import {SafeAreaView, StyleSheet} from "react-native";
 import {GiftedChat, IMessage} from "react-native-gifted-chat";
 import DataService from "../Utils/DataService";
 import {AuthContext} from "../Contexts/AuthContext";
+import AsyncStorageClass from "../Classes/AsyncStorage";
 
 export default function PulseAI() {
 	const [messages, setMessages] = useState<IMessage[]>([]);
@@ -11,7 +12,11 @@ export default function PulseAI() {
 
 	useEffect(() => {
 		const fetchMessages = async ()=>{
-			return await DataService.getMessages(2);
+			const chatId = await AsyncStorageClass.getDataFromStorage("chatId");
+			if (chatId){
+				return await DataService.getMessages(chatId);
+			}
+			return [];
 		};
 		fetchMessages().then((result)=>{
 			setMessages(result);

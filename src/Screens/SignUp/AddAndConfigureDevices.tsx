@@ -8,18 +8,18 @@ import {useContext} from "react";
 import {AuthContext} from "../../Contexts/AuthContext";
 
 export default function AddAndConfigureDevices() {
-	const navigation = useNavigation<StackNavigationProp<SignUpStackParamList, "AddAndConfigureDevices">>();
-	const authContext = useContext(AuthContext);
-	const handleSignUp = (username:string, password:string) => {
-		auth.createUserWithEmailAndPassword(username, password).then(() => {
-			navigation.navigate("AddHomes");
-		});
-	};
+	// const navigation = useNavigation<StackNavigationProp<"AddAndConfigureDevices">();
+	// const authContext = useContext(AuthContext);
+	// const handleSignUp = (username:string, password:string) => {
+	// 	auth.createUserWithEmailAndPassword(username, password).then(() => {
+	// 		navigation.navigate("AddHomes");
+	// 	});
+	// };
 
 	return (
 		<SignUpLayout>
 			<View>
-				<Button title={"Sign Up"} onPress={()=>handleSignUp(authContext.username, authContext.password)}/>
+				{/*<Button title={"Sign Up"} onPress={()=>handleSignUp(authContext.username, authContext.password)}/>*/}
 
 			</View>
 		</SignUpLayout>

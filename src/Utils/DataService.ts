@@ -14,7 +14,8 @@ export default new class DataService {
 	}
 
 	async generateChatResponse(prompt:string):Promise<string>{
-		const response = await http.get("/generateResponse/2/" + prompt);
+		const chatId = await AsyncStorageClass.getDataFromStorage("chatId");
+		const response = await http.get("/generateResponse/"+chatId.toString()+"/" + prompt);
 		return response.data.text;
 	}
 
@@ -34,7 +35,8 @@ export default new class DataService {
 
 	async createChat(userId:string):Promise<void> {
 		const response = await http.get("/createChat/" + userId);
-		void AsyncStorageClass.saveDataToStorage("chatId", response.data.chat_id);
+		await AsyncStorageClass.saveDataToStorage("chatId", response.data.chat_id);
+		console.log("Chat_id: " + response.data.chat_id);
 	}
 
 }();

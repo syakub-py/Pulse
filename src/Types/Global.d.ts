@@ -79,9 +79,6 @@ declare global {
         "SignUp": undefined
         "Login": undefined
         "ChatBot": undefined
-    }
-
-    type SignUpStackParamList = {
         "CreateUsernameAndPassword": undefined
         "AddHomes": undefined
         "AddAndConfigureDevices": undefined
