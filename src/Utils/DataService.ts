@@ -29,6 +29,7 @@ export default new class DataService {
 			user: {
 				_id: msg.user === "user" ? 1 : 2,
 				name: msg.user,
+				avatar:msg.user === "user" ? "" : require("../../assets/icon.png")
 			}
 		}));
 	}
@@ -36,7 +37,6 @@ export default new class DataService {
 	async createChat(userId:string):Promise<void> {
 		const response = await http.get("/createChat/" + userId);
 		await AsyncStorageClass.saveDataToStorage("chatId", response.data.chat_id);
-		console.log("Chat_id: " + response.data.chat_id);
 	}
 
 }();

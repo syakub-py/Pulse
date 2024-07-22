@@ -1,9 +1,10 @@
 import React, {useState, useCallback, useContext, useEffect} from "react";
-import {SafeAreaView, StyleSheet} from "react-native";
+import {SafeAreaView, StyleSheet, View, Image, Text} from "react-native";
 import {GiftedChat, IMessage} from "react-native-gifted-chat";
 import DataService from "../Utils/DataService";
 import {AuthContext} from "../Contexts/AuthContext";
 import AsyncStorageClass from "../Classes/AsyncStorage";
+import MessageInputBar from "../Components/MessageInputBar";
 
 export default function PulseAI() {
 	const [messages, setMessages] = useState<IMessage[]>([]);
@@ -45,12 +46,30 @@ export default function PulseAI() {
 
 	return (
 		<SafeAreaView style={styles.container}>
+			<View style = {styles.headerContainer}>
+				<Image style = {styles.pulseImage} source = {require("../../assets/icon.png")}/>
+				<View style={styles.textContainer}>
+					<Text style = {styles.pulseText}>Pulse AI</Text>
+					<Text style={styles.llamaText}>Powered by Llama3</Text>
+				</View>
+			</View>
 			<GiftedChat
 				messages={messages}
 				onSend={messages => onSend(messages)}
-				user={{_id: 1, name: authContext.username, avatar:authContext.profilePicture}}
+				alwaysShowSend
+				scrollToBottom
+				inverted={false}
+				user={{
+					_id: 1,
+					name: authContext.username,
+					avatar:authContext.profilePicture
+				}}
 				showUserAvatar={true}
 				isTyping={isTyping}
+				renderInputToolbar = {(props)=><MessageInputBar {...props} />}
+				listViewProps={{
+					style: { marginBottom: "16%"},
+				}}
 			/>
 		</SafeAreaView>
 	);
@@ -62,7 +81,27 @@ const styles = StyleSheet.create({
 		backgroundColor: "#fff",
 		height:500
 	},
-	chat: {
-		// Add custom styles for the GiftedChat component if needed
+	headerContainer: {
+		backgroundColor: "transparent",
+		flexDirection: "row",
+		alignItems: "center"
+	},
+	pulseImage:{
+		height: 45,
+		width: 45,
+		borderRadius: 15
+	},
+	pulseText:{
+		fontWeight: "bold",
+		marginHorizontal: 10,
+		fontSize: 16
+	},
+	llamaText:{
+		marginHorizontal: 10,
+		fontSize: 12,
+		color:"lightgray"
+	},
+	textContainer:{
+		flexDirection: "column",
 	},
 });
