@@ -1,4 +1,4 @@
-import {Text, View, StyleSheet} from "react-native";
+import {Text, StyleSheet, Pressable} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 interface Props{
@@ -7,12 +7,12 @@ interface Props{
 }
 
 export default function Setting(props: Props){
-	const {title} = props;
+	const {title, onClick} = props;
 	return(
-		<View style={styles.container}>
+		<Pressable style={styles.container} onPress={onClick}>
 			<Text style={styles.title}>{title}</Text>
 			<Ionicons name={"caret-forward-outline"} size={20}/>
-		</View>
+		</Pressable>
 	);
 }
 

@@ -1,28 +1,16 @@
-import React, {useState, useCallback, useContext, useEffect} from "react";
+import React, {useState, useCallback, useContext} from "react";
 import {SafeAreaView, StyleSheet, View, Image, Text} from "react-native";
 import {GiftedChat, IMessage} from "react-native-gifted-chat";
 import DataService from "../Utils/DataService";
 import {AuthContext} from "../Contexts/AuthContext";
-import AsyncStorageClass from "../Classes/AsyncStorage";
 import MessageInputBar from "../Components/MessageInputBar";
+import {AppContext} from "../Contexts/AppContext";
 
 export default function PulseAI() {
-	const [messages, setMessages] = useState<IMessage[]>([]);
-	const [isTyping, setIsTyping] = useState(false);
 	const authContext = useContext(AuthContext);
-
-	useEffect(() => {
-		const fetchMessages = async ()=>{
-			const chatId = await AsyncStorageClass.getDataFromStorage("chatId");
-			if (chatId){
-				return await DataService.getMessages(chatId);
-			}
-			return [];
-		};
-		fetchMessages().then((result)=>{
-			setMessages(result);
-		});
-	}, []);
+	const appContext = useContext(AppContext);
+	const [messages, setMessages] = useState<IMessage[]>(appContext.Messages);
+	const [isTyping, setIsTyping] = useState(false);
 
 	const onSend = useCallback(async (newMessages:IMessage[]) => {
 		setMessages(previousMessages =>
@@ -38,6 +26,7 @@ export default function PulseAI() {
 			user: {
 				_id: 2,
 				name: "Assistant",
+				avatar: require("../../assets/icon.png"),
 			},
 		};
 		setIsTyping(false);
@@ -58,7 +47,6 @@ export default function PulseAI() {
 				onSend={messages => onSend(messages)}
 				alwaysShowSend
 				scrollToBottom
-				inverted={false}
 				user={{
 					_id: 1,
 					name: authContext.username,

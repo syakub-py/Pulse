@@ -2,10 +2,12 @@ import {createContext} from "react";
 import {makeAutoObservable} from "mobx";
 import {storage} from "../Utils/Firebase";
 import _ from "lodash";
+import {IMessage} from "react-native-gifted-chat";
 
 export class AppContextClass {
 	public Homes: Home[] = [];
-
+	public Messages:IMessage[] = [];
+	
 	constructor() {
 		makeAutoObservable(this);
 	}

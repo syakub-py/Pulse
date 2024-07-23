@@ -8,11 +8,7 @@ export default function Login() {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Login">>();
-	const login = useLogin();
-	const loginCallback = useCallback(async () => {
-		await login(username, password);
-	},[login]);
-
+	const login = useLogin(username, password);
 	return (
 		<SafeAreaView style={styles.container}>
 			<View style={styles.logoContainer}>
@@ -32,8 +28,8 @@ export default function Login() {
 					style={styles.input}
 					secureTextEntry
 				/>
-				<Button title='Login' onPress={loginCallback} />
-				<Text style={styles.registerText} onPress={()=>navigation.navigate("SignUp")}>Dont have an account? Register here</Text>
+				<Button title='Login' onPress={login} />
+				<Text style={styles.registerText} onPress={()=>navigation.navigate("CreateUsernameAndPassword")}>Dont have an account? Register here</Text>
 			</View>
 		</SafeAreaView>
 	);
