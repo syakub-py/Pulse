@@ -7,9 +7,10 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import {AuthContext} from "../../Contexts/AuthContext";
 import * as ImagePicker from "expo-image-picker";
 import _ from "lodash";
-import {storage} from "../../Utils/Firebase";
+import {storage, auth} from "../../Utils/Firebase";
 import SignUpLayout from "../../Components/SignUpLayout";
 import {StackNavigationProp} from "@react-navigation/stack";
+import { updateProfile } from "firebase/auth";
 
 const uploadProfilePicture = async (profilePicturePath:string, username:string) => {
 	if (_.isEmpty(profilePicturePath)) {
@@ -88,20 +89,27 @@ export default function CreateUsernameAndPassword() {
 		}
 	};
 
-	const continueToNextAddHomes = async () => {
+	const handleSignUp = async () => {
 		if (validateForm(username, password, requirements)) {
-			if (!_.isEmpty(profilePicture)) {
-				try {
-					const profilePictureUrl = await uploadProfilePicture(profilePicture, username);
-					authContext.setProfilePicture(profilePictureUrl);
-				} catch (error) {
-					authContext.setProfilePicture("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-					alert("Error uploading profile picture:" + error);
+			authContext.setUsername(username);
+			authContext.setPassword(password);
+			try {
+				const user = await auth.createUserWithEmailAndPassword(username, password);
+				if (!_.isUndefined(user.user?.refreshToken)){
+					if (!_.isEmpty(profilePicture)) {
+						const profilePictureUrl = await uploadProfilePicture(profilePicture, username);
+						authContext.setProfilePicture(profilePictureUrl);
+						await updateProfile(user.user, {photoURL: profilePictureUrl});
+					}else{
+						authContext.setProfilePicture("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
+					}
+					authContext.setAccessToken(user.user?.refreshToken);
 				}
-			}else{
+			} catch (error) {
 				authContext.setProfilePicture("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
+				alert("Error uploading profile picture:" + error);
 			}
-			navigation.navigate("AddHomes");
+			navigation.navigate("BottomNavBar");
 		}
 	};
 
@@ -121,7 +129,7 @@ export default function CreateUsernameAndPassword() {
 			<TextInput onChangeText={(text) => setUsername(text)} placeholder={"Email"} style={styles.textInput}/>
 			<TextInput onChangeText={(text) => setPassword(text)} placeholder={"Password"} style={styles.textInput} secureTextEntry/>
 			<PasswordRequirementCheckBox requirements={requirements}/>
-			<Button title={"Next"} containerStyle={styles.nextButton} textStyle={styles.nextButtonText} onPress={()=>continueToNextAddHomes()}/>
+			<Button title={"Next"} containerStyle={styles.nextButton} textStyle={styles.nextButtonText} onPress={handleSignUp}/>
 		</SignUpLayout>
 
 	);
