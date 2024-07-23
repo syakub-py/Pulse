@@ -5,9 +5,10 @@ import {useContext} from "react";
 import {AuthContext} from "../Contexts/AuthContext";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
+import {observer} from "mobx-react-lite";
 
 
-export default function Settings(){
+function Settings(){
 	const authContext = useContext(AuthContext);
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Settings">>();
 	const logout = async () =>{
@@ -26,6 +27,8 @@ export default function Settings(){
 		</Layout>
 	);
 }
+
+export default observer(Settings);
 
 const styles = StyleSheet.create({
 	container:{

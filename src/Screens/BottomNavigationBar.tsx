@@ -4,8 +4,9 @@ import Home from "./Home";
 import Settings from "./Settings";
 import PulseAI from "./PulseAI";
 import {StyleSheet} from "react-native";
+import {observer} from "mobx-react-lite";
 
-export default function BottomNavigationBar() {
+function BottomNavigationBar() {
 	const Tab = createBottomTabNavigator();
 	return (
 		<Tab.Navigator initialRouteName = {"Home"}
@@ -40,6 +41,8 @@ export default function BottomNavigationBar() {
 		</Tab.Navigator>
 	);
 }
+
+export default observer(BottomNavigationBar);
 
 const styles = StyleSheet.create({
 	tabBarStyle:{

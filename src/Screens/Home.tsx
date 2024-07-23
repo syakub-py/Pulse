@@ -4,8 +4,9 @@ import {FlatList, StyleSheet, Text, View, Dimensions} from "react-native";
 import React, {useContext} from "react";
 import {AppContext} from "../Contexts/AppContext";
 import Button from "../Components/Buttons/Button";
+import {observer} from "mobx-react-lite";
 
-export default function Home() {
+function Home() {
 	const appContext = useContext(AppContext);
 	return (
 		<Layout>
@@ -36,6 +37,8 @@ export default function Home() {
 		</Layout>
 	);
 }
+
+export default observer(Home);
 
 const styles = StyleSheet.create({
 	deviceTileRow: {
