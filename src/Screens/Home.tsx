@@ -1,6 +1,6 @@
 import Layout from "../Components/Layout";
 import DeviceTile from "../Components/DeviceTile";
-import {FlatList, StyleSheet, Text, View, Dimensions} from "react-native";
+import {FlatList, StyleSheet, Text, View, Dimensions, ImageBackground} from "react-native";
 import React, {useContext} from "react";
 import {AppContext} from "../Contexts/AppContext";
 import Button from "../Components/Buttons/Button";
@@ -10,6 +10,7 @@ function Home() {
 	const appContext = useContext(AppContext);
 	return (
 		<Layout>
+
 			<FlatList
 				data={appContext.Homes}
 				horizontal={true}
@@ -45,10 +46,6 @@ const styles = StyleSheet.create({
 		justifyContent: "space-evenly",
 		paddingVertical:10,
 	},
-	houseTileContainer:{
-		justifyContent:"space-evenly",
-		height:"100%"
-	},
 	homeAddress:{
 		fontSize:15,
 		margin:15,
@@ -83,5 +80,9 @@ const styles = StyleSheet.create({
 		fontSize:15,
 		fontWeight:"bold",
 		color:"white",
-	}
+	},
+	houseTileContainer:{
+		justifyContent:"space-evenly",
+		height:"100%"
+	},
 });

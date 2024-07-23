@@ -80,7 +80,7 @@ declare global {
         "Settings":undefined
         "ChatBot": undefined
         "CreateUsernameAndPassword": undefined
-        "AddHomes": undefined
+        "AddProperties": undefined
         "AddAndConfigureDevices": undefined
     }
 }

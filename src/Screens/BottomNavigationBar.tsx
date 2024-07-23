@@ -13,7 +13,7 @@ function BottomNavigationBar() {
 			screenOptions = {({route}) => ({
 				tabBarHideOnKeyboard: true,
 				headerShown: false,
-				tabBarActiveTintColor: "black",
+				tabBarActiveTintColor: "white",
 				tabBarShowLabel: false,
 				tabBarStyle: styles.tabBarStyle,
 				tabBarIcon: ({focused, color}) => {
@@ -47,22 +47,22 @@ export default observer(BottomNavigationBar);
 const styles = StyleSheet.create({
 	tabBarStyle:{
 		height: "7%",
-		borderRadius: 20,
+		// borderRadius: 20,
 		display: "flex",
-		backgroundColor: "white",
+		backgroundColor: "transparent",
 		position: "absolute",
 		alignItems: "center",
 		justifyContent: "center",
 		bottom: "3%",
 		left: "5%",
 		right: "5%",
-		shadowColor: "black",
-		shadowOffset: {
-			width: 0,
-			height: 4,
-		},
-		shadowOpacity: 0.2,
-		shadowRadius: 4,
+		// shadowColor: "black",
+		// shadowOffset: {
+		// 	width: 0,
+		// 	height: 4,
+		// },
+		// shadowOpacity: 0.2,
+		// shadowRadius: 4,
 		elevation: 5,
 	}
 });
