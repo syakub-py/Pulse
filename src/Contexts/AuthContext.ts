@@ -4,6 +4,7 @@ import _ from "lodash";
 import AsyncStorageClass from "../Classes/AsyncStorage";
 import {auth} from "../Utils/Firebase";
 
+
 export class AuthContextClass {
 	constructor() {
 		makeAutoObservable(this);
@@ -12,7 +13,6 @@ export class AuthContextClass {
 	public profilePicture: string = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
 	public accessToken: string = "";
 	public password: string = "";
-
 	public setUsername = action((username: string) =>{
 		this.username = username;
 		void AsyncStorageClass.saveDataToStorage("username", username);

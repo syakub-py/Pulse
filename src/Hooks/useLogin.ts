@@ -16,6 +16,7 @@ export default function useLogin(username: string, password: string) {
 			return;
 		}
 
+
 		try {
 			const user = await auth.signInWithEmailAndPassword(username, password);
 			if (_.isNull(user.user)) return;

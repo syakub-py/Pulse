@@ -50,7 +50,7 @@ export default function CreateUsernameAndPassword() {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [profilePicture, setProfilePicture] = useState("");
-	const navigation = useNavigation<StackNavigationProp<SignUpStackParamList, "AddHomes">>();
+	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "AddHomes">>();
 	const authContext = useContext(AuthContext);
 	const requirements:PasswordRequirement[] = [
 		{

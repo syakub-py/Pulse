@@ -76,8 +76,8 @@ declare global {
     type RootStackParamList = {
         "BottomNavBar": undefined
         "Home": undefined
-        "SignUp": undefined
         "Login": undefined
+        "Settings":undefined
         "ChatBot": undefined
         "CreateUsernameAndPassword": undefined
         "AddHomes": undefined
