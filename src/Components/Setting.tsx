@@ -11,7 +11,7 @@ export default function Setting(props: Props){
 	return(
 		<Pressable style={styles.container} onPress={onClick}>
 			<Text style={styles.title}>{title}</Text>
-			<Ionicons name={"caret-forward-outline"} size={20}/>
+			<Ionicons name={"caret-forward-outline"} size={20} color="white"/>
 		</Pressable>
 	);
 }
@@ -19,7 +19,7 @@ export default function Setting(props: Props){
 const styles = StyleSheet.create({
 	title:{
 		fontSize:20,
-		color:"black",
+		color:"white",
 		fontWeight:"bold",
 	},
 	container:{

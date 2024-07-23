@@ -3,8 +3,6 @@ import React, { useContext } from "react";
 import { AuthContext } from "../Contexts/AuthContext";
 import { observer } from "mobx-react-lite";
 import { LinearGradient } from "expo-linear-gradient";
-// import Ionicons from "react-native-vector-icons/Ionicons";
-// import Weather from "./Weather";
 
 function Layout({ children }: { children: React.ReactNode }) {
 	const authContext = useContext(AuthContext);
@@ -19,23 +17,18 @@ function Layout({ children }: { children: React.ReactNode }) {
 				style={styles.gradient}
 			>
 				<SafeAreaView style={styles.container}>
-					<View style={styles.topHalf}>
-						<View style={styles.profileContainer}>
-							<View style={{flexDirection: "row", alignItems: "center"}}>
-								<Image
-									resizeMode="cover"
-									source={{ uri: authContext.profilePicture }}
-									style={styles.profilePicture}
-								/>
-								<Text style={{color:"white", fontWeight:"bold", fontSize:17, marginHorizontal:7}}>{authContext.username}</Text>
-							</View>
-
-							{/* <Weather/> */}
-							{/* <Ionicons name="log-out-outline" style={{ paddingLeft: 25 }} size={30} color={"gray"} /> */}
-							<Image source={require("../../assets/icon.png")} style={styles.logo} />
+					<View style={styles.profileContainer}>
+						<View style={styles.innerProfileContainer}>
+							<Image
+								resizeMode="cover"
+								source={{ uri: authContext.profilePicture }}
+								style={styles.profilePicture}
+							/>
+							<Text style={{color:"white", fontWeight:"bold", fontSize:17, marginHorizontal:7}}>{authContext.username}</Text>
 						</View>
+						<Image source={require("../../assets/icon.png")} style={styles.logo} />
 					</View>
-					<View style={styles.bottomHalf}>
+					<View >
 						{children}
 					</View>
 				</SafeAreaView>
@@ -58,15 +51,10 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 	},
-	topHalf: {
-		flex: 1,
-		zIndex:0,
-		justifyContent: "flex-start",
-	},
-	bottomHalf: {
-		flex: 1,
-		zIndex:0,
-		justifyContent: "flex-end",
+
+	innerProfileContainer:{
+		flexDirection: "row",
+		alignItems: "center"
 	},
 	profileContainer: {
 		flexDirection: "row",
