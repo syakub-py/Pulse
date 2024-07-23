@@ -10,7 +10,7 @@ import _ from "lodash";
 import {storage, auth} from "../../Utils/Firebase";
 import SignUpLayout from "../../Components/SignUpLayout";
 import {StackNavigationProp} from "@react-navigation/stack";
-import { updateProfile } from "firebase/auth";
+import { updateProfile, sendEmailVerification, deleteUser } from "firebase/auth";
 import {observer} from "mobx-react-lite";
 
 const uploadProfilePicture = async (profilePicturePath:string, username:string) => {
@@ -96,7 +96,7 @@ function CreateUsernameAndPassword() {
 			authContext.setPassword(password);
 			try {
 				const user = await auth.createUserWithEmailAndPassword(username, password);
-				if (!_.isUndefined(user.user?.refreshToken)){
+				if (!_.isEmpty(user.user) && !_.isNull(user.user)) {
 					if (!_.isEmpty(profilePicture)) {
 						const profilePictureUrl = await uploadProfilePicture(profilePicture, username);
 						authContext.setProfilePicture(profilePictureUrl);

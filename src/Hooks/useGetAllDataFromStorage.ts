@@ -15,10 +15,9 @@ export default function useGetAllDataFromStorage(): void {
 
 				await auth.signInWithEmailAndPassword(authContext.username, authContext.password);
 				authContext.setProfilePicture(auth.currentUser?.photoURL);
-			} catch (error) {
+			} catch (FirebaseError) {
 				await authContext.logout();
 				navigation.navigate("Login");
-				console.error("Error in determineInitialRoute:", error);
 			}
 		};
 		void determineInitialRoute();

@@ -14,7 +14,6 @@ export default function useLogin(username: string, password: string) {
 		if (!re.test(String(username).toLowerCase())) {
 			alert("Invalid email address: " + username);
 			return;
-
 		}
 		try {
 			const user = await auth.signInWithEmailAndPassword(username, password);
