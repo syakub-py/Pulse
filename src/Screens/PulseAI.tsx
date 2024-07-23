@@ -5,8 +5,9 @@ import DataService from "../Utils/DataService";
 import {AuthContext} from "../Contexts/AuthContext";
 import MessageInputBar from "../Components/MessageInputBar";
 import {AppContext} from "../Contexts/AppContext";
+import {observer} from "mobx-react-lite";
 
-export default function PulseAI() {
+function PulseAI() {
 	const authContext = useContext(AuthContext);
 	const appContext = useContext(AppContext);
 	const [messages, setMessages] = useState<IMessage[]>(appContext.Messages);
@@ -62,6 +63,9 @@ export default function PulseAI() {
 		</SafeAreaView>
 	);
 }
+
+
+export default observer(PulseAI);
 
 const styles = StyleSheet.create({
 	container: {

@@ -11,6 +11,7 @@ import {storage, auth} from "../../Utils/Firebase";
 import SignUpLayout from "../../Components/SignUpLayout";
 import {StackNavigationProp} from "@react-navigation/stack";
 import { updateProfile } from "firebase/auth";
+import {observer} from "mobx-react-lite";
 
 const uploadProfilePicture = async (profilePicturePath:string, username:string) => {
 	if (_.isEmpty(profilePicturePath)) {
@@ -47,7 +48,7 @@ const validateForm = (username: string, password: string, requirements: Password
 	return true;
 };
 
-export default function CreateUsernameAndPassword() {
+function CreateUsernameAndPassword() {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [profilePicture, setProfilePicture] = useState("");
@@ -134,6 +135,8 @@ export default function CreateUsernameAndPassword() {
 
 	);
 }
+
+export default observer(CreateUsernameAndPassword);
 
 const styles = StyleSheet.create({
 	nextButton: {

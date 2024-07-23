@@ -21,4 +21,3 @@ export default function useCreateChatIfDoesntExist() {
 		void initializeChat();
 	}, [authContext.isLoggedIn]);
 }
-

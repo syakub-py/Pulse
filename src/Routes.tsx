@@ -10,7 +10,6 @@ import {auth} from "./Utils/Firebase";
 import _ from "lodash";
 
 
-
 export default function Routes() {
 	const authContext = useContext(AuthContext);
 	const { Screen } = createNativeStackNavigator<RootStackParamList>();

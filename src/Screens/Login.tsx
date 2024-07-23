@@ -1,10 +1,11 @@
 import {View, TextInput, Button, Text, StyleSheet, Image, SafeAreaView} from "react-native";
-import {useCallback, useState} from "react";
+import {useState} from "react";
 import { useNavigation } from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import useLogin from "../Hooks/useLogin";
+import {observer} from "mobx-react-lite";
 
-export default function Login() {
+function Login() {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Login">>();
@@ -34,6 +35,8 @@ export default function Login() {
 		</SafeAreaView>
 	);
 }
+
+export default observer(Login);
 
 const styles = StyleSheet.create({
 	input: {

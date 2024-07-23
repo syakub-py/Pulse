@@ -1,11 +1,12 @@
 import {View, SafeAreaView, StyleSheet, Image} from "react-native";
 import React, {useContext} from "react";
 import {AuthContext} from "../Contexts/AuthContext";
+import {observer} from "mobx-react-lite";
 // import Ionicons from "react-native-vector-icons/Ionicons";
 // import Weather from "./Weather";
 
 
-export default function Layout({children}: {children: React.ReactNode}) {
+function Layout({children}: {children: React.ReactNode}) {
 	const authContext = useContext(AuthContext);
 	return (
 		<SafeAreaView style={styles.layoutContainer}>
@@ -26,6 +27,8 @@ export default function Layout({children}: {children: React.ReactNode}) {
 		</SafeAreaView>
 	);
 }
+
+export default observer(Layout);
 
 const styles = StyleSheet.create({
 	profileContainer:{
