@@ -1,4 +1,4 @@
-import Layout from "../Components/Layout";
+import HomeLayout from "../Components/Home/HomeLayout";
 import React, {useContext} from "react";
 import {AppContext} from "../Contexts/AppContext";
 import {observer} from "mobx-react-lite";
@@ -12,7 +12,7 @@ function Home() {
 	const appContext = useContext(AppContext);
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Home">>();
 	return (
-		<Layout>
+		<HomeLayout>
 			{
 				_.isEmpty(appContext.Homes) ? (
 					<NoProperties onClick={()=>navigation.navigate("AddProperties")}/>
@@ -20,7 +20,7 @@ function Home() {
 					<Properties />
 				)
 			}
-		</Layout>
+		</HomeLayout>
 	);
 }
 

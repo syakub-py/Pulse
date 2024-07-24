@@ -32,22 +32,14 @@ export default function MessageInputBar(props: InputToolbarProps<IMessage>) {
 const styles = StyleSheet.create({
 	inputContainer: {
 		position: "absolute",
-		width: SCREEN_WIDTH * 0.89,
-		left: SCREEN_WIDTH * 0.06,
-		bottom: "8%",
+		width: "89%",
+		left: "6%",
+		bottom: "10%",
 		paddingHorizontal: 5,
 		paddingTop: 5,
 		borderRadius: 10,
 		backgroundColor: "white",
-		shadowColor: "#000",
-		shadowOffset: {
-			width: 0,
-			height: 2,
-		},
-		shadowOpacity: 0.25,
-		shadowRadius: 3.84,
-		elevation: 5,
-	} as ViewStyle,
+	},
 	primaryStyle: {
 		alignItems: "center",
 	},
@@ -59,5 +51,6 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		lineHeight: 16,
 		maxHeight: 100,
+		color: "black",
 	},
 });

@@ -4,6 +4,7 @@ import {ScrollView, TextInput, StyleSheet} from "react-native";
 import {useContext, useState} from "react";
 import Button from "../Components/Buttons/Button";
 import {AppContext} from "../Contexts/AppContext";
+import Header from "../Components/Header";
 
 function AddProperties(){
 	const [property, setProperty] = useState<Property>({
@@ -25,6 +26,7 @@ function AddProperties(){
 
 	return (
 		<Layout>
+			<Header title={"Add Properties"}/>
 			<ScrollView style={styles.container}>
 				<TextInput
 					style={styles.input}
@@ -44,7 +46,7 @@ function AddProperties(){
 					value={property.PropertyType}
 					onChangeText={(value) => handleInputChange("PropertyType", value)}
 				/>
-				<Button title="Add Property" onPress={handleSubmit} />
+				<Button title="Add a Property" onPress={handleSubmit} />
 			</ScrollView>
 		</Layout>
 	);

@@ -1,83 +1,23 @@
-import {View, SafeAreaView, StyleSheet, Image, ImageBackground, Text} from "react-native";
-import React, { useContext } from "react";
-import { AuthContext } from "../Contexts/AuthContext";
+import {SafeAreaView, StyleSheet} from "react-native";
+import React from "react";
 import { observer } from "mobx-react-lite";
-import { LinearGradient } from "expo-linear-gradient";
+import {useNavigation} from "@react-navigation/native";
+import {StackNavigationProp} from "@react-navigation/stack";
 
 function Layout({ children }:{ children: React.ReactNode }) {
-	const authContext = useContext(AuthContext);
+	// const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 	return (
-		<ImageBackground
-			source={require("../../assets/houseWallpaper.jpg")}
-			style={styles.backgroundImage}>
-			<LinearGradient
-				colors={["rgba(0,0,0,0)", "rgba(0,0,0,0.5)", "rgba(0,0,0,1)"]}
-				locations={[0, 0.5, 0.6]}
-				style={styles.gradient}>
-				<SafeAreaView style={styles.container}>
-					<View style={styles.profileContainer}>
-						<View style={styles.innerProfileContainer}>
-							<Image
-								resizeMode="cover"
-								source={{ uri: authContext.profilePicture }}
-								style={styles.profilePicture}
-							/>
-							<Text style={styles.usernameText}>{authContext.username}</Text>
-						</View>
-						<Image source={require("../../assets/icon.png")} style={styles.logo} />
-					</View>
-					<View >
-						{children}
-					</View>
-				</SafeAreaView>
-			</LinearGradient>
-		</ImageBackground>
+		<SafeAreaView style={styles.container}>
+			{children}
+		</SafeAreaView>
 	);
 }
 
 export default observer(Layout);
 
 const styles = StyleSheet.create({
-	backgroundImage: {
-		flex: 1,
-		width: "100%",
-		height: "70%",
-	},
-	gradient: {
-		flex: 1,
-	},
 	container: {
 		flex: 1,
+		backgroundColor:"black"
 	},
-
-	innerProfileContainer:{
-		flexDirection: "row",
-		alignItems: "center"
-	},
-	profileContainer: {
-		flexDirection: "row",
-		alignItems: "center",
-		paddingHorizontal: 10,
-		justifyContent: "space-between",
-		height: 70,
-		backgroundColor: "transparent",
-	},
-	profilePicture: {
-		height: 50,
-		width: 50,
-		borderRadius: 25,
-	},
-	logo: {
-		height: 50,
-		width: 50,
-		borderRadius: 25,
-		marginHorizontal: 10,
-		elevation: 5,
-	},
-	usernameText:{
-		color:"white",
-		fontWeight:"bold",
-		fontSize:17,
-		marginHorizontal:7
-	}
 });

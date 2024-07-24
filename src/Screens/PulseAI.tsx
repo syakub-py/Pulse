@@ -37,7 +37,6 @@ function PulseAI() {
 	return (
 		<SafeAreaView style={styles.container}>
 			<View style = {styles.headerContainer}>
-				<Image style = {styles.pulseImage} source = {require("../../assets/icon.png")}/>
 				<View style={styles.textContainer}>
 					<Text style = {styles.pulseText}>Pulse AI</Text>
 					<Text style={styles.llamaText}>Powered by Llama3</Text>
@@ -57,7 +56,7 @@ function PulseAI() {
 				isTyping={isTyping}
 				renderInputToolbar = {(props)=><MessageInputBar {...props} />}
 				listViewProps={{
-					style: { marginBottom: "16%"},
+					style: { marginBottom: "19%"},
 				}}
 			/>
 		</SafeAreaView>
@@ -70,13 +69,14 @@ export default observer(PulseAI);
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: "#fff",
+		backgroundColor: "black",
 		height:500
 	},
 	headerContainer: {
 		backgroundColor: "transparent",
 		flexDirection: "row",
-		alignItems: "center"
+		alignItems: "center",
+		margin: 10,
 	},
 	pulseImage:{
 		height: 45,
@@ -86,7 +86,8 @@ const styles = StyleSheet.create({
 	pulseText:{
 		fontWeight: "bold",
 		marginHorizontal: 10,
-		fontSize: 16
+		fontSize: 30,
+		color: "white",
 	},
 	llamaText:{
 		marginHorizontal: 10,
