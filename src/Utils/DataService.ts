@@ -44,5 +44,9 @@ export default new class DataService {
 		const response = await http.post("/addProperty/" + userId, propertyDetails);
 		return response.data.property_id;
 	}
+	async getProperty(userId:string):Promise<Property[]> {
+		const response = await http.get("/getProperty/" + userId);
+		return response.data;
+	}
 
 }();
