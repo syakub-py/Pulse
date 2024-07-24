@@ -1,5 +1,5 @@
 import React from "react";
-import {View, Text} from "react-native";
+import {View, Text, StyleSheet} from "react-native";
 import Requirement from "./Requirement";
 
 
@@ -11,7 +11,7 @@ export default function PasswordRequirementCheckBox(props: Props){
 	const {requirements} = props;
 	return (
 		<View>
-			<Text style={{marginLeft: 20, fontWeight: "bold", fontSize: 18, color:"gray", marginBottom:10}}>Password Requirements:</Text>
+			<Text style={styles.titleText}>Password Requirements:</Text>
 			{
 				requirements.map((requirement, index) => (
 					<Requirement key={index} requirement={requirement} />
@@ -20,3 +20,14 @@ export default function PasswordRequirementCheckBox(props: Props){
 		</View>
 	);
 }
+
+const styles = StyleSheet.create({
+	titleText:{
+		marginLeft: 20,
+		fontWeight: "bold",
+		fontSize: 18,
+		color:"white",
+		marginBottom:10
+	}
+});
+

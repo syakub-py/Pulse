@@ -23,6 +23,5 @@ export const envVariables: EnvVariables = {
 
 	WEATHER_API_KEY: "a331f3264a14d446dd562a0a324038f6",
 	RESEND_API_KEY:"",
-
 	DEFAULT_HOUSE_PICTURE:"",
 };

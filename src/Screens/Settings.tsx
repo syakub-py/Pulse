@@ -1,6 +1,6 @@
 import Layout from "../Components/Layout";
 import {View, StyleSheet} from "react-native";
-import Setting from "../Components/Setting";
+import Setting from "../Components/Settings/Setting";
 import {useContext} from "react";
 import {AuthContext} from "../Contexts/AuthContext";
 import {useNavigation} from "@react-navigation/native";

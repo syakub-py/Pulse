@@ -4,18 +4,16 @@ import { AuthContext } from "../Contexts/AuthContext";
 import { observer } from "mobx-react-lite";
 import { LinearGradient } from "expo-linear-gradient";
 
-function Layout({ children }: { children: React.ReactNode }) {
+function Layout({ children }:{ children: React.ReactNode }) {
 	const authContext = useContext(AuthContext);
 	return (
 		<ImageBackground
-			source={{ uri: "https://wallpapercave.com/wp/wp7352290.jpg" }}
-			style={styles.backgroundImage}
-		>
+			source={require("../../assets/houseWallpaper.jpg")}
+			style={styles.backgroundImage}>
 			<LinearGradient
 				colors={["rgba(0,0,0,0)", "rgba(0,0,0,0.5)", "rgba(0,0,0,1)"]}
 				locations={[0, 0.5, 0.6]}
-				style={styles.gradient}
-			>
+				style={styles.gradient}>
 				<SafeAreaView style={styles.container}>
 					<View style={styles.profileContainer}>
 						<View style={styles.innerProfileContainer}>
@@ -24,7 +22,7 @@ function Layout({ children }: { children: React.ReactNode }) {
 								source={{ uri: authContext.profilePicture }}
 								style={styles.profilePicture}
 							/>
-							<Text style={{color:"white", fontWeight:"bold", fontSize:17, marginHorizontal:7}}>{authContext.username}</Text>
+							<Text style={styles.usernameText}>{authContext.username}</Text>
 						</View>
 						<Image source={require("../../assets/icon.png")} style={styles.logo} />
 					</View>
@@ -76,4 +74,10 @@ const styles = StyleSheet.create({
 		marginHorizontal: 10,
 		elevation: 5,
 	},
+	usernameText:{
+		color:"white",
+		fontWeight:"bold",
+		fontSize:17,
+		marginHorizontal:7
+	}
 });

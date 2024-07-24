@@ -13,7 +13,7 @@ export default function Requirement(props:Props) {
 
 	useEffect(() => {
 		const newIconName = requirement.fulfilled ? "checkmark-circle" : "checkmark-circle-outline";
-		const newColor = requirement.fulfilled ? "green" : "gray";
+		const newColor = requirement.fulfilled ? "green" : "white";
 
 		setIconName(newIconName);
 		setColor(newColor);
@@ -32,11 +32,11 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		alignItems: "center",
 		marginLeft: 40,
-		marginBottom: 4
+		marginBottom: 4,
 	},
 	requirementText: {
 		marginLeft: 8,
-		color:"gray"
+		color:"white"
 	}
 });
 

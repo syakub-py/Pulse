@@ -1,16 +1,16 @@
-import {Image, Pressable, StyleSheet, TextInput, View} from "react-native";
+import {Image, Pressable, StyleSheet, TextInput, View, ActivityIndicator} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import {useContext, useState} from "react";
-import PasswordRequirementCheckBox from "../../Components/PasswordRequirementCheckBox";
+import PasswordRequirementCheckBox from "../../Components/SignUp/PasswordRequirementCheckBox";
 import Button from "../../Components/Buttons/Button";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {AuthContext} from "../../Contexts/AuthContext";
 import * as ImagePicker from "expo-image-picker";
 import _ from "lodash";
 import {storage, auth} from "../../Utils/Firebase";
-import SignUpLayout from "../../Components/SignUpLayout";
+import SignUpLayout from "../../Components/SignUp/SignUpLayout";
 import {StackNavigationProp} from "@react-navigation/stack";
-import { updateProfile, sendEmailVerification, deleteUser } from "firebase/auth";
+import { updateProfile } from "firebase/auth";
 import {observer} from "mobx-react-lite";
 
 const uploadProfilePicture = async (profilePicturePath:string, username:string) => {
@@ -52,7 +52,8 @@ function CreateUsernameAndPassword() {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [profilePicture, setProfilePicture] = useState("");
-	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "AddHomes">>();
+	const [isLoading, setIsLoading] = useState(false);
+	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "CreateUsernameAndPassword">>();
 	const authContext = useContext(AuthContext);
 	const requirements:PasswordRequirement[] = [
 		{
@@ -95,6 +96,7 @@ function CreateUsernameAndPassword() {
 			authContext.setUsername(username);
 			authContext.setPassword(password);
 			try {
+				setIsLoading(true);
 				const user = await auth.createUserWithEmailAndPassword(username, password);
 				if (!_.isEmpty(user.user) && !_.isNull(user.user)) {
 					if (!_.isEmpty(profilePicture)) {
@@ -106,6 +108,7 @@ function CreateUsernameAndPassword() {
 					}
 					authContext.setAccessToken(user.user?.refreshToken);
 				}
+				setIsLoading(false);
 			} catch (error) {
 				authContext.setProfilePicture("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
 				alert("Error uploading profile picture:" + error);
@@ -130,7 +133,13 @@ function CreateUsernameAndPassword() {
 			<TextInput onChangeText={(text) => setUsername(text)} placeholder={"Email"} style={styles.textInput}/>
 			<TextInput onChangeText={(text) => setPassword(text)} placeholder={"Password"} style={styles.textInput} secureTextEntry/>
 			<PasswordRequirementCheckBox requirements={requirements}/>
-			<Button title={"Next"} containerStyle={styles.nextButton} textStyle={styles.nextButtonText} onPress={handleSignUp}/>
+			{
+				(isLoading)?(
+					<ActivityIndicator size="small" color="white"/>
+				):(
+					<Button title={"Next"} containerStyle={styles.nextButton} textStyle={styles.nextButtonText} onPress={handleSignUp}/>
+				)
+			}
 		</SignUpLayout>
 
 	);
@@ -140,7 +149,7 @@ export default observer(CreateUsernameAndPassword);
 
 const styles = StyleSheet.create({
 	nextButton: {
-		backgroundColor:"lightblue",
+		backgroundColor:"transparent",
 		width:"90%",
 		margin:10,
 		alignItems:"center",
@@ -150,6 +159,7 @@ const styles = StyleSheet.create({
 	nextButtonText: {
 		color: "white",
 		fontSize:20,
+		fontWeight:"bold"
 	},
 	profilePicture: {
 		backgroundColor:"black",
@@ -158,7 +168,7 @@ const styles = StyleSheet.create({
 		borderRadius:50,
 		alignItems:"center",
 		justifyContent:"center",
-		opacity:0.8,
+		opacity:0.8
 	},
 	profilePictureContainer: {
 		alignItems:"center",

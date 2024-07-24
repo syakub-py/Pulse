@@ -2,6 +2,7 @@ import http from "./HttpCommon";
 import {AxiosResponse} from "axios";
 import AsyncStorageClass from "../Classes/AsyncStorage";
 import {IMessage} from "react-native-gifted-chat";
+import {auth} from "./Firebase";
 
 export default new class DataService {
 	async getWeather(city:string, apiKey:string):Promise<AxiosResponse<WeatherResponse> | undefined> {
@@ -29,7 +30,7 @@ export default new class DataService {
 			user: {
 				_id: msg.user === "user" ? 1 : 2,
 				name: msg.user,
-				avatar:msg.user === "user" ? "" : require("../../assets/icon.png")
+				avatar:msg.user === "user" ? auth.currentUser?.photoURL : require("../../assets/icon.png")
 			}
 		}));
 	}
@@ -37,6 +38,11 @@ export default new class DataService {
 	async createChat(userId:string):Promise<void> {
 		const response = await http.get("/createChat/" + userId);
 		await AsyncStorageClass.saveDataToStorage("chatId", response.data.chat_id);
+	}
+
+	async addProperty(userId:string, propertyDetails:Property):Promise<string> {
+		const response = await http.get("/addProperty/" + userId + "/" + propertyDetails);
+		return response.data.property_id;
 	}
 
 }();

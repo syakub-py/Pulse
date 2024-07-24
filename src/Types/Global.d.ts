@@ -1,12 +1,12 @@
 declare global {
-    interface Home {
-        HomeID: number,
+    interface Property {
+        PropertyId: number,
         Name:string,
         Address: string;
+        PropertyType: string;
         Calendar?: string;
-        Description: string;
         ImageUrls?: string[];
-        ConnectedDevices: Device[];
+        ConnectedDevices?: Device[];
     }
 
     interface Device {
