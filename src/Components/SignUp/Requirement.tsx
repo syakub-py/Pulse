@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from "react";
 import {Text, View, StyleSheet} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import {observer} from "mobx-react-lite";
 
 interface Props{
 	requirement:PasswordRequirement
 }
 
-export default function Requirement(props:Props) {
+function Requirement(props:Props) {
 	const [iconName, setIconName] = useState("checkmark-circle-outline");
 	const [color, setColor] = useState("gray");
 	const {requirement} = props;
@@ -26,7 +27,7 @@ export default function Requirement(props:Props) {
 		</View>
 	);
 }
-
+export default observer(Requirement);
 const styles = StyleSheet.create({
 	requirementContainer: {
 		flexDirection: "row",

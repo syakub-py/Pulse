@@ -1,10 +1,10 @@
 import {observer} from "mobx-react-lite";
 import Layout from "../Components/Layout";
-import {ScrollView, TextInput, StyleSheet} from "react-native";
+import {ScrollView, TextInput, StyleSheet, Button} from "react-native";
 import {useContext, useState} from "react";
-import Button from "../Components/Buttons/Button";
 import {AppContext} from "../Contexts/AppContext";
 import Header from "../Components/Header";
+
 
 function AddProperties(){
 	const [property, setProperty] = useState<Property>({
@@ -15,13 +15,13 @@ function AddProperties(){
 	});
 	const appContext = useContext(AppContext);
 
-	const handleInputChange = (field: keyof Property, value: string) => {
+
+	const handleInputChange = (field: keyof Property, value: string | string[]) => {
 		setProperty(prev => ({ ...prev, [field]: value }));
 	};
 
 	const handleSubmit = async (): Promise<void> => {
-		const homeId = await appContext.addHome(property);
-		handleInputChange("PropertyId", homeId);
+		await appContext.addProperty(property);
 	};
 
 	return (
@@ -41,12 +41,12 @@ function AddProperties(){
 					onChangeText={(value) => handleInputChange("Address", value)}
 				/>
 				<TextInput
-					style={[styles.input, styles.multilineInput]}
-					placeholder="Description"
+					style={styles.input}
+					placeholder="Property Type"
 					value={property.PropertyType}
 					onChangeText={(value) => handleInputChange("PropertyType", value)}
 				/>
-				<Button title="Add a Property" onPress={handleSubmit} />
+				<Button title='Add This Property' onPress={handleSubmit} />
 			</ScrollView>
 		</Layout>
 	);

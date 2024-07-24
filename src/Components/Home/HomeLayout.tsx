@@ -22,7 +22,10 @@ function HomeLayout({ children }:{ children: React.ReactNode }) {
 								source={{ uri: authContext.profilePicture }}
 								style={styles.profilePicture}
 							/>
-							<Text style={styles.usernameText}>{authContext.username}</Text>
+							<View style={styles.welcomeBackContainer}>
+								<Text style={styles.usernameText}>Welcome Back,</Text>
+								<Text style={styles.usernameText}>{authContext.username}</Text>
+							</View>
 						</View>
 						<Image source={require("../../../assets/icon.png")} style={styles.logo} />
 					</View>
@@ -79,5 +82,8 @@ const styles = StyleSheet.create({
 		fontWeight:"bold",
 		fontSize:17,
 		marginHorizontal:7
+	},
+	welcomeBackContainer:{
+		flexDirection: "column"
 	}
 });

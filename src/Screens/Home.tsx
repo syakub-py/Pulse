@@ -14,7 +14,7 @@ function Home() {
 	return (
 		<HomeLayout>
 			{
-				_.isEmpty(appContext.Homes) ? (
+				_.isEmpty(appContext.Properties) ? (
 					<NoProperties onClick={()=>navigation.navigate("AddProperties")}/>
 				) : (
 					<Properties />

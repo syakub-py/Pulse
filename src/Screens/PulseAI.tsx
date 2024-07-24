@@ -56,7 +56,7 @@ function PulseAI() {
 				isTyping={isTyping}
 				renderInputToolbar = {(props)=><MessageInputBar {...props} />}
 				listViewProps={{
-					style: { marginBottom: "19%"},
+					style: { marginBottom: "7%"},
 				}}
 			/>
 		</SafeAreaView>

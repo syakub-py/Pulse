@@ -5,6 +5,7 @@ import Settings from "./Settings";
 import PulseAI from "./PulseAI";
 import { StyleSheet } from "react-native";
 import { observer } from "mobx-react-lite";
+import Analytics from "./Analytics";
 
 function BottomNavigationBar() {
 	const Tab = createBottomTabNavigator();
@@ -30,14 +31,14 @@ function BottomNavigationBar() {
 						iconName = focused ? "sparkles" : "sparkles-outline";
 					}
 					if (iconName){
-						return <Ionicons name={iconName} size={32} color={color} />;
+						return <Ionicons name={iconName} size={32} color={color}/>;
 					}
 				},
 			})}
 		>
 			<Tab.Screen name={"Home"} component={Home} />
 			<Tab.Screen name={"AI"} component={PulseAI} />
-			<Tab.Screen name={"Analytics"} component={Settings} />
+			<Tab.Screen name={"Analytics"} component={Analytics} />
 			<Tab.Screen name={"Settings"} component={Settings} />
 		</Tab.Navigator>
 	);
@@ -48,21 +49,11 @@ export default observer(BottomNavigationBar);
 const styles = StyleSheet.create({
 	tabBarStyle: {
 		height: "7%",
-		display: "flex",
-		backgroundColor: "transparent",
-		position: "absolute",
+		width: "100%",
+		backgroundColor: "black",
 		alignItems: "center",
 		justifyContent: "center",
-		bottom: "3%",
-		left: "5%",
-		right: "5%",
 		elevation: 0,
 		borderTopWidth: 0,
-		shadowOpacity: 0,
-		shadowOffset: {
-			height: 0,
-			width: 0
-		},
-		shadowRadius: 0,
 	}
 });

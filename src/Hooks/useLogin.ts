@@ -19,6 +19,7 @@ export default function useLogin(username: string, password: string) {
 			const user = await auth.signInWithEmailAndPassword(username, password);
 			if (_.isNull(user.user)) return;
 			authContext.setProfilePicture(user.user.photoURL || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
+
 			authContext.setAccessToken(user.user.refreshToken);
 			authContext.setUsername(username);
 			authContext.setPassword(password);

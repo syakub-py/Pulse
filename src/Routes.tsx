@@ -9,6 +9,7 @@ import BottomNavigationBar from "./Screens/BottomNavigationBar";
 import AddProperties from "./Screens/AddProperties";
 import {auth} from "./Utils/Firebase";
 import _ from "lodash";
+import Analytics from "./Screens/Analytics";
 
 
 export default function Routes() {
@@ -26,5 +27,7 @@ export default function Routes() {
 		<Screen key = "AddProperties" name="AddProperties" component={AddProperties} />,
 		<Screen key = "Home" name="Home" component={Home} />,
 		<Screen key = "ChatBot" name="ChatBot" component={PulseAI} />,
+		<Screen key = "Analytics" name="Analytics" component={Analytics} />,
+
 	];
 }

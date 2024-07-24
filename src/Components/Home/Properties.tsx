@@ -11,7 +11,7 @@ function Properties(){
 
 	return (
 		<FlatList
-			data={appContext.Homes}
+			data={appContext.Properties}
 			horizontal={true}
 			showsHorizontalScrollIndicator={false}
 			pagingEnabled={true}
@@ -20,7 +20,7 @@ function Properties(){
 					<Text style={styles.homeName}>{item.Name}</Text>
 					<Text style={styles.homeAddress}>{item.Address}</Text>
 					<View style={styles.addDeviceContainer}>
-						<Text style={styles.activeDeviceText}>Active Devices ({item.ConnectedDevices.length})</Text>
+						{/*<Text style={styles.activeDeviceText}>Active Devices ({item.ConnectedDevices.length})</Text>*/}
 						<Button title={"Add"} containerStyle={styles.addDeviceButton} textStyle={styles.addDeviceButtonText} iconName={"add"}/>
 					</View>
 					<FlatList

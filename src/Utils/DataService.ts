@@ -40,8 +40,8 @@ export default new class DataService {
 		await AsyncStorageClass.saveDataToStorage("chatId", response.data.chat_id);
 	}
 
-	async addProperty(userId:string, propertyDetails:Property):Promise<string> {
-		const response = await http.get("/addProperty/" + userId + "/" + propertyDetails);
+	async addProperty(userId:string, propertyDetails:Property):Promise<number> {
+		const response = await http.post("/addProperty/" + userId, propertyDetails);
 		return response.data.property_id;
 	}
 

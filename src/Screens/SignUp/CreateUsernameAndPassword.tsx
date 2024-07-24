@@ -1,17 +1,17 @@
-import {Image, Pressable, StyleSheet, TextInput, View, ActivityIndicator} from "react-native";
+import {Image, StyleSheet, TextInput, View, ActivityIndicator, Button} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import {useContext, useState} from "react";
 import PasswordRequirementCheckBox from "../../Components/SignUp/PasswordRequirementCheckBox";
-import Button from "../../Components/Buttons/Button";
-import Ionicons from "react-native-vector-icons/Ionicons";
 import {AuthContext} from "../../Contexts/AuthContext";
 import * as ImagePicker from "expo-image-picker";
 import _ from "lodash";
 import {storage, auth} from "../../Utils/Firebase";
-import SignUpLayout from "../../Components/SignUp/SignUpLayout";
 import {StackNavigationProp} from "@react-navigation/stack";
 import { updateProfile } from "firebase/auth";
 import {observer} from "mobx-react-lite";
+import UploadPictures from "../../Components/UploadPictures";
+import Layout from "../../Components/Layout";
+import Header from "../../Components/Header";
 
 const uploadProfilePicture = async (profilePicturePath:string, username:string) => {
 	if (_.isEmpty(profilePicturePath)) {
@@ -78,17 +78,17 @@ function CreateUsernameAndPassword() {
 		},
 	];
 
-	const selectProfilePicture = async () => {
+	const selectPicture = async () => {
 		const result = await ImagePicker.launchImageLibraryAsync({
 			mediaTypes: ImagePicker.MediaTypeOptions.Images,
 			aspect: [4, 3],
 			quality: 1,
-			allowsMultipleSelection:false
+			allowsMultipleSelection: false,
 		});
-		if (!result.canceled) {
-			const fileJson = result.assets;
-			setProfilePicture(fileJson[0].uri);
+		if (result.canceled) {
+			return "";
 		}
+		setProfilePicture(result.assets[0].uri);
 	};
 
 	const handleSignUp = async () => {
@@ -118,15 +118,14 @@ function CreateUsernameAndPassword() {
 	};
 
 	return (
-		<SignUpLayout>
+		<Layout>
+			<Header title={"Sign Up"}/>
 			<View style={styles.profilePictureContainer}>
 				{
 					(profilePicture)?(
 						<Image src={profilePicture} style={styles.profilePicture}/>
 					):(
-						<Pressable style={styles.profilePicture} onPress={()=>selectProfilePicture()}>
-							<Ionicons name={"cloud-upload-outline"} color={"white"} size={30}/>
-						</Pressable>
+						<UploadPictures onclick={selectPicture}/>
 					)
 				}
 			</View>
@@ -137,10 +136,10 @@ function CreateUsernameAndPassword() {
 				(isLoading)?(
 					<ActivityIndicator size="small" color="white"/>
 				):(
-					<Button title={"Next"} containerStyle={styles.nextButton} textStyle={styles.nextButtonText} onPress={handleSignUp}/>
+					<Button title={"Next"} onPress={handleSignUp}/>
 				)
 			}
-		</SignUpLayout>
+		</Layout>
 
 	);
 }

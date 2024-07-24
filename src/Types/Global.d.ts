@@ -5,7 +5,6 @@ declare global {
         Address: string;
         PropertyType: string;
         Calendar?: string;
-        ImageUrls?: string[];
         ConnectedDevices?: Device[];
     }
 
@@ -81,7 +80,8 @@ declare global {
         "ChatBot": undefined
         "CreateUsernameAndPassword": undefined
         "AddProperties": undefined
-        "AddAndConfigureDevices": undefined
+        "AddAndConfigureDevices": undefined,
+        "Analytics": undefined,
     }
 }
 

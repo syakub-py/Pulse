@@ -1,14 +1,15 @@
-import {SafeAreaView, StyleSheet} from "react-native";
+import {SafeAreaView, ScrollView, StyleSheet} from "react-native";
 import React from "react";
 import { observer } from "mobx-react-lite";
-import {useNavigation} from "@react-navigation/native";
-import {StackNavigationProp} from "@react-navigation/stack";
+
 
 function Layout({ children }:{ children: React.ReactNode }) {
-	// const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+
 	return (
 		<SafeAreaView style={styles.container}>
-			{children}
+			<ScrollView>
+				{children}
+			</ScrollView>
 		</SafeAreaView>
 	);
 }
