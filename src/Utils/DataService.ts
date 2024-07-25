@@ -46,6 +46,6 @@ export default new class DataService {
 	}
 	async getProperty(userId:string):Promise<Property[]> {
 		const response = await http.get("/getProperty/" + userId);
-		return response.data;
+		return JSON.parse(response.data) as Property[];
 	}
 }();

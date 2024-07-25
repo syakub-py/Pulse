@@ -1,5 +1,4 @@
 import {useCallback, useContext, useEffect} from "react";
-import {auth} from "../Utils/Firebase";
 import DataService from "../Utils/DataService";
 import {AppContext} from "../Contexts/AppContext";
 import _ from "lodash";

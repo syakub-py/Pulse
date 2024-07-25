@@ -11,7 +11,6 @@ export class AuthContextClass {
 	}
 	public username: string = "";
 	public profilePicture: string = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
-	public accessToken: string = "";
 	public password: string = "";
 	public uid:string = "";
 	public setUsername = action((username: string) =>{
@@ -29,21 +28,21 @@ export class AuthContextClass {
 		this.profilePicture = profilePicture;
 	});
 
-	public setAccessToken = action((accessToken: string) =>{
-		this.accessToken = accessToken;
-		void AsyncStorageClass.saveDataToStorage("accessToken", accessToken);
-	});
+	public setUid = action((uid: string) =>{
+		this.uid = uid;
+		void AsyncStorageClass.saveDataToStorage("uid", uid);
+	})
 
 	get isLoggedIn() {
-		return !_.isEmpty(this.accessToken) && !_.isEmpty(this.username) && !_.isEmpty(this.password);
+		return !_.isEmpty(this.uid) && !_.isEmpty(this.username) && !_.isEmpty(this.password);
 	}
 
 	public async getAuthDataFromStorage(): Promise<void> {
-		const retrievedAccessToken = await AsyncStorageClass.getDataFromStorage("accessToken");
+		const retrievedUid = await AsyncStorageClass.getDataFromStorage("accessToken");
 		const retrievedUsername = await AsyncStorageClass.getDataFromStorage("username");
 		const retrievedPassword = await AsyncStorageClass.getDataFromStorage("password");
 		runInAction(() => {
-			if (!_.isUndefined((retrievedAccessToken))) this.accessToken = retrievedAccessToken;
+			if (!_.isUndefined((retrievedUid))) this.uid = retrievedUid;
 			if (!_.isUndefined(retrievedUsername)) this.username = retrievedUsername;
 			if (!_.isUndefined(retrievedPassword)) this.password = retrievedPassword;
 		});
@@ -51,7 +50,7 @@ export class AuthContextClass {
 
 	public async logout() {
 		runInAction(() => {
-			this.accessToken = "";
+			this.uid = "";
 			this.username = "";
 			this.password = "";
 		});

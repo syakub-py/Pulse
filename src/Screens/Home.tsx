@@ -11,6 +11,7 @@ import NoProperties from "../Components/Home/NoProperties";
 function Home() {
 	const appContext = useContext(AppContext);
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Home">>();
+
 	return (
 		<HomeLayout>
 			{
