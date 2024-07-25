@@ -3,11 +3,9 @@ import React, { useContext } from "react";
 import { AuthContext } from "../../Contexts/AuthContext";
 import { observer } from "mobx-react-lite";
 import { LinearGradient } from "expo-linear-gradient";
-import {AppContext} from "../../Contexts/AppContext";
 
 function HomeLayout({ children }:{ children: React.ReactNode }) {
 	const authContext = useContext(AuthContext);
-	// const appContext = useContext(AppContext);
 	return (
 		<ImageBackground
 			source={require("../../../assets/houseWallpaper.jpg")}

@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 5,
 		paddingTop: 5,
 		borderRadius: 10,
-		backgroundColor: "white",
+		backgroundColor: "#333",
 	},
 	primaryStyle: {
 		alignItems: "center",
@@ -52,6 +52,6 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		lineHeight: 16,
 		maxHeight: 100,
-		color: "black",
+		color: "white",
 	},
 });

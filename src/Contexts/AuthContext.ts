@@ -4,7 +4,6 @@ import _ from "lodash";
 import AsyncStorageClass from "../Classes/AsyncStorage";
 import {auth} from "../Utils/Firebase";
 
-
 export class AuthContextClass {
 	constructor() {
 		makeAutoObservable(this);
@@ -30,19 +29,16 @@ export class AuthContextClass {
 
 	public setUid = action((uid: string) =>{
 		this.uid = uid;
-		void AsyncStorageClass.saveDataToStorage("uid", uid);
-	})
+	});
 
 	get isLoggedIn() {
-		return !_.isEmpty(this.uid) && !_.isEmpty(this.username) && !_.isEmpty(this.password);
+		return !_.isEmpty(this.username) && !_.isEmpty(this.password);
 	}
 
 	public async getAuthDataFromStorage(): Promise<void> {
-		const retrievedUid = await AsyncStorageClass.getDataFromStorage("accessToken");
 		const retrievedUsername = await AsyncStorageClass.getDataFromStorage("username");
 		const retrievedPassword = await AsyncStorageClass.getDataFromStorage("password");
 		runInAction(() => {
-			if (!_.isUndefined((retrievedUid))) this.uid = retrievedUid;
 			if (!_.isUndefined(retrievedUsername)) this.username = retrievedUsername;
 			if (!_.isUndefined(retrievedPassword)) this.password = retrievedPassword;
 		});
