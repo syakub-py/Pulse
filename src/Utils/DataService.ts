@@ -48,5 +48,4 @@ export default new class DataService {
 		const response = await http.get("/getProperty/" + userId);
 		return response.data;
 	}
-
 }();

@@ -6,6 +6,7 @@ declare global {
         PropertyType: string;
         Calendar?: string;
         ConnectedDevices?: Device[];
+        isRental:boolean;
     }
 
     interface Device {

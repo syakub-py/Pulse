@@ -5,7 +5,7 @@ import useFetchChatMessages from "./Hooks/useFetchChatMessages";
 import {observer} from "mobx-react-lite";
 import useFetchProperties from "./Hooks/useFetchProperties";
 
- function Setup() {
+function Setup() {
 	useGetAllDataFromStorage();
 	useCreateChatIfDoesntExist();
 	useFetchChatMessages();
@@ -14,4 +14,3 @@ import useFetchProperties from "./Hooks/useFetchProperties";
 }
 
 export default observer(Setup);
-

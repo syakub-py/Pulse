@@ -1,22 +1,24 @@
-import {useContext, useEffect} from "react";
+import {useCallback, useContext, useEffect} from "react";
 import {auth} from "../Utils/Firebase";
 import DataService from "../Utils/DataService";
 import {AppContext} from "../Contexts/AppContext";
 import _ from "lodash";
+import {AuthContext} from "../Contexts/AuthContext";
 
-export default function useFetchProperties(){
+
+export default function useFetchProperties() {
 	const appContext = useContext(AppContext);
+	const authContext = useContext(AuthContext);
+
+	const fetchProperties = useCallback(async () => {
+		if (_.isEmpty(authContext.uid)) return;
+		const properties = await DataService.getProperty(authContext.uid);
+		if (!_.isUndefined(properties)) {
+			appContext.Properties = properties;
+		}
+	}, [authContext.uid]);
+
 	useEffect(() => {
-		const fetchProperties = async ()=>{
-			if (auth.currentUser?.uid) {
-				return await DataService.getProperty(auth.currentUser.uid);
-			}
-		};
-		fetchProperties().then((result)=>{
-			if (!_.isUndefined(result)){
-				appContext.Properties = result;
-				console.log(result);
-			}
-		});
-	}, [appContext.Properties]);
+		void fetchProperties();
+	}, [fetchProperties]);
 }

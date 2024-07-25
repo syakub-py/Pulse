@@ -1,6 +1,6 @@
 import {observer} from "mobx-react-lite";
 import Layout from "../Components/Layout";
-import {ScrollView, TextInput, StyleSheet, Button} from "react-native";
+import {ScrollView, TextInput, StyleSheet, Button, Text} from "react-native";
 import {useContext, useState} from "react";
 import {AppContext} from "../Contexts/AppContext";
 import Header from "../Components/Header";
@@ -12,11 +12,12 @@ function AddProperties(){
 		Name: "",
 		Address: "",
 		PropertyType: "",
+		isRental:false,
 	});
 	const appContext = useContext(AppContext);
 
 
-	const handleInputChange = (field: keyof Property, value: string | string[]) => {
+	const handleInputChange = (field: keyof Property, value: string | string[] | boolean) => {
 		setProperty(prev => ({ ...prev, [field]: value }));
 	};
 
@@ -46,6 +47,7 @@ function AddProperties(){
 					value={property.PropertyType}
 					onChangeText={(value) => handleInputChange("PropertyType", value)}
 				/>
+				<Button title={"Is Rental?"} onPress={()=>handleInputChange("isRental", !property.isRental)}/>
 				<Button title='Add This Property' onPress={handleSubmit} />
 			</ScrollView>
 		</Layout>
