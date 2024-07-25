@@ -1,20 +1,70 @@
-import {View, SafeAreaView, StyleSheet, Image, ImageBackground, Text} from "react-native";
-import React, { useContext } from "react";
+import { View, SafeAreaView, StyleSheet, Animated, Text, Image} from "react-native";
+import React, { useContext, useState, useCallback, useEffect } from "react";
 import { AuthContext } from "../../Contexts/AuthContext";
 import { observer } from "mobx-react-lite";
 import { LinearGradient } from "expo-linear-gradient";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import FloatingActionButton from "../FloatingActionButton";
+import { AppContext } from "../../Contexts/AppContext";
+import _ from "lodash";
 
-function HomeLayout({ children }:{ children: React.ReactNode }) {
+function HomeLayout({ children }: { children: React.ReactNode }) {
 	const authContext = useContext(AuthContext);
+	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Home">>();
+	const appContext = useContext(AppContext);
+	const [imageSource, setImageSource] = useState(undefined);
+	const opacity = new Animated.Value(0);
+
+	const handlePressActionButton = () => {
+		navigation.navigate("AddProperties");
+	};
+
+	const propertyTypeImages: { [key: string]: any } = {
+		Home: require("../../../assets/houseWallpaper.jpg"),
+		Condo: require("../../../assets/condoWallpaper.jpg"),
+		"Vacation Home": require("../../../assets/vacationHomeWallpaper.jpg"),
+	};
+
+	const updateImageSource = useCallback(() => {
+		if (!_.isNil(appContext.SelectedProperty) && !_.isEmpty(appContext.Properties)) {
+			setImageSource(propertyTypeImages[appContext.SelectedProperty.PropertyType]);
+		}else{
+			setImageSource(propertyTypeImages["Home"]);
+		}
+	}, [appContext.SelectedProperty, propertyTypeImages]);
+
+	useEffect(() => {
+		updateImageSource();
+	}, [updateImageSource]);
+
+
+	useEffect(() => {
+		Animated.timing(opacity, {
+			toValue: 1,
+			duration: 500,
+			useNativeDriver: true,
+		}).start();
+	}, [imageSource]);
+
 	return (
-		<ImageBackground
-			source={require("../../../assets/houseWallpaper.jpg")}
-			style={styles.backgroundImage}>
+		<View style={styles.backgroundImage}>
+			<Animated.Image
+				source={imageSource}
+				style={[
+					styles.backgroundImage,
+					{
+						opacity: opacity,
+					},
+				]}
+				resizeMode="cover"
+			/>
 			<LinearGradient
 				colors={["rgba(0,0,0,0)", "rgba(0,0,0,0.5)", "rgba(0,0,0,1)"]}
 				locations={[0, 0.5, 0.6]}
-				style={styles.gradient}>
-				<SafeAreaView style={styles.container}>
+				style={styles.container}
+			>
+				<SafeAreaView style={styles.container} >
 					<View style={styles.profileContainer}>
 						<View style={styles.innerProfileContainer}>
 							<Image
@@ -29,12 +79,17 @@ function HomeLayout({ children }:{ children: React.ReactNode }) {
 						</View>
 						<Image source={require("../../../assets/icon.png")} style={styles.logo} />
 					</View>
-					<View >
+					<View>
 						{children}
 					</View>
+					<FloatingActionButton
+						icon={"add"}
+						styles={styles.fab}
+						onPress={() => handlePressActionButton()}
+					/>
 				</SafeAreaView>
 			</LinearGradient>
-		</ImageBackground>
+		</View>
 	);
 }
 
@@ -44,16 +99,15 @@ const styles = StyleSheet.create({
 	backgroundImage: {
 		flex: 1,
 		width: "100%",
-		height: "70%",
-	},
-	gradient: {
-		flex: 1,
+		height: "100%",
+		position: "absolute",
+		top: 0,
+		left: 0,
 	},
 	container: {
 		flex: 1,
 	},
-
-	innerProfileContainer:{
+	innerProfileContainer: {
 		flexDirection: "row",
 		alignItems: "center"
 	},
@@ -77,13 +131,22 @@ const styles = StyleSheet.create({
 		marginHorizontal: 10,
 		elevation: 5,
 	},
-	usernameText:{
-		color:"white",
-		fontWeight:"bold",
-		fontSize:17,
-		marginHorizontal:7
+	usernameText: {
+		color: "white",
+		fontWeight: "bold",
+		fontSize: 17,
+		marginHorizontal: 7
 	},
-	welcomeBackContainer:{
+	welcomeBackContainer: {
 		flexDirection: "column"
-	}
+	},
+	fab: {
+		position: "absolute",
+		bottom: 20,
+		right: 20,
+		backgroundColor: "transparent",
+		padding: 10,
+		borderRadius: 30,
+		elevation: 5,
+	},
 });

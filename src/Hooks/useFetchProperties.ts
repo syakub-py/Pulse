@@ -14,6 +14,7 @@ export default function useFetchProperties() {
 		const properties = await DataService.getProperty(authContext.uid);
 		if (!_.isUndefined(properties)) {
 			appContext.Properties = properties;
+			appContext.setSelectedProperty(properties[0]);
 		}
 	}, [authContext.uid]);
 

@@ -15,11 +15,11 @@ function AddProperties() {
 		PropertyType: "",
 		isRental: false,
 	});
+
 	const propertyTypes: ItemType<string>[] = [
 		{ label: "Single Family Home", value: "Home" },
 		{ label: "Vacation Home", value: "Vacation Home" },
 		{ label: "Condominium", value: "Condo" },
-		{ label: "Apartment", value: "Apartment" },
 	];
 
 	const [open, setOpen] = useState(false);
@@ -38,7 +38,6 @@ function AddProperties() {
 	};
 
 	return (
-
 		<SafeAreaView style={styles.container}>
 			<Header title={"Add Properties"} />
 			<TextInput
@@ -65,7 +64,7 @@ function AddProperties() {
 				{...styles}
 			/>
 			<Button
-				title={property.isRental ? "Not a Rental" : "Is a Rental"}
+				title={!property.isRental ? "Not a Rental" : "Is a Rental"}
 				onPress={() => handleInputChange("isRental", !property.isRental)}
 			/>
 			<Button title="Add This Property" onPress={handleSubmit} />
