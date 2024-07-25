@@ -1,6 +1,7 @@
 import {Pressable, StyleProp, Text, TextStyle, View, ViewStyle} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import React from "react";
+import {observer} from "mobx-react-lite";
 
 interface Props {
 	onPress?: () => void;
@@ -10,7 +11,7 @@ interface Props {
 	iconName?:string,
 }
 
-export default function Button(props:Props){
+function Button(props:Props){
 	const {onPress, title, containerStyle, textStyle, iconName} = props;
 	return (
 		<Pressable onPress={onPress}>
@@ -25,3 +26,4 @@ export default function Button(props:Props){
 		</Pressable>
 	);
 }
+export default observer(Button);

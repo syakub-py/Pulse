@@ -1,25 +1,25 @@
-import {useContext, useEffect} from "react";
+import {useContext, useEffect, useCallback} from "react";
 import AsyncStorageClass from "../Classes/AsyncStorage";
 import DataService from "../Utils/DataService";
 import {AppContext} from "../Contexts/AppContext";
 import _ from "lodash";
 
 
-export default function useFetchChatMessages(){
+export default function useFetchChatMessages() {
 	const appContext = useContext(AppContext);
-	useEffect(() => {
-		const fetchMessages = async ()=>{
-			const chatId = await AsyncStorageClass.getDataFromStorage("chatId");
-			if (chatId){
-				return await DataService.getMessages(chatId);
+
+	const fetchMessages = useCallback(async () => {
+		const chatId = await AsyncStorageClass.getDataFromStorage("chatId");
+		if (chatId) {
+			const messages = await DataService.getMessages(chatId);
+			if (!_.isUndefined(messages)) {
+				appContext.Messages = messages;
 			}
-			return [];
-		};
-		if (_.isEmpty(appContext.Messages)){
-			fetchMessages().then((result)=>{
-				appContext.Messages = result;
-			});
 		}
 	}, []);
+
+	useEffect(() => {
+		void fetchMessages();
+	}, [fetchMessages]);
 }
 

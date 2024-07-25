@@ -1,11 +1,10 @@
 import React from "react";
-import { StyleSheet, ViewStyle, Dimensions } from "react-native";
+import { StyleSheet } from "react-native";
 import {InputToolbar, InputToolbarProps, IMessage, Composer, SendProps} from "react-native-gifted-chat";
 import MessageSendButton from "./Buttons/MessageSendButton";
+import {observer} from "mobx-react-lite";
 
-const { width: SCREEN_WIDTH } = Dimensions.get("window");
-
-export default function MessageInputBar(props: InputToolbarProps<IMessage>) {
+function MessageInputBar(props: InputToolbarProps<IMessage>) {
 	return (
 		<InputToolbar
 			{...props}
@@ -29,25 +28,19 @@ export default function MessageInputBar(props: InputToolbarProps<IMessage>) {
 	);
 }
 
+export default observer(MessageInputBar);
+
 const styles = StyleSheet.create({
 	inputContainer: {
 		position: "absolute",
-		width: SCREEN_WIDTH * 0.89,
-		left: SCREEN_WIDTH * 0.06,
-		bottom: "8%",
+		width: "89%",
+		left: "6%",
+		bottom: "3%",
 		paddingHorizontal: 5,
 		paddingTop: 5,
 		borderRadius: 10,
-		backgroundColor: "white",
-		shadowColor: "#000",
-		shadowOffset: {
-			width: 0,
-			height: 2,
-		},
-		shadowOpacity: 0.25,
-		shadowRadius: 3.84,
-		elevation: 5,
-	} as ViewStyle,
+		backgroundColor: "#333",
+	},
 	primaryStyle: {
 		alignItems: "center",
 	},
@@ -59,5 +52,6 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		lineHeight: 16,
 		maxHeight: 100,
+		color: "white",
 	},
 });
