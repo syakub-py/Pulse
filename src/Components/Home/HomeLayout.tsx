@@ -17,7 +17,7 @@ function HomeLayout({ children }: { children: React.ReactNode }) {
 	const opacity = new Animated.Value(0);
 
 	const handlePressActionButton = () => {
-		navigation.navigate("AddProperties");
+		navigation.navigate("AddAProperty");
 	};
 
 	const propertyTypeImages: { [key: string]: any } = {

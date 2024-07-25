@@ -2,7 +2,7 @@ import {observer} from "mobx-react-lite";
 import Layout from "../Components/Layout";
 import Header from "../Components/Header";
 import {LineChart, PieChart} from "react-native-chart-kit";
-import {Dimensions} from "react-native";
+import {Dimensions, ScrollView} from "react-native";
 import SubHeader from "../Components/Analytics/SubHeader";
 
 const chartConfig = {
@@ -72,25 +72,27 @@ function Analytics(){
 	return (
 		<Layout>
 			<Header title={"Your Analytics"}/>
-			<SubHeader title={"Projected Income"}/>
-			<LineChart
-				data={lineGraphData}
-				width={Dimensions.get("window").width}
-				height={200}
-				chartConfig={chartConfig}
-				bezier
-			/>
-			<SubHeader title={"Broken Down Expenses"}/>
-			<PieChart
-				data={PieChartData}
-				width={Dimensions.get("window").width}
-				height={200}
-				chartConfig={chartConfig}
-				accessor="population"
-				backgroundColor="transparent"
-				paddingLeft="15"
-				absolute
-			/>
+			<ScrollView>
+				<SubHeader title={"Projected Income"}/>
+				<LineChart
+					data={lineGraphData}
+					width={Dimensions.get("window").width}
+					height={200}
+					chartConfig={chartConfig}
+					bezier
+				/>
+				<SubHeader title={"Broken Down Expenses"}/>
+				<PieChart
+					data={PieChartData}
+					width={Dimensions.get("window").width}
+					height={200}
+					chartConfig={chartConfig}
+					accessor="population"
+					backgroundColor="transparent"
+					paddingLeft="15"
+					absolute
+				/>
+			</ScrollView>
 		</Layout>
 	);
 }

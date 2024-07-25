@@ -1,5 +1,5 @@
 import Layout from "../Components/Layout";
-import {View, StyleSheet} from "react-native";
+import {View, StyleSheet, ScrollView} from "react-native";
 import Setting from "../Components/Settings/Setting";
 import {useContext} from "react";
 import {AuthContext} from "../Contexts/AuthContext";
@@ -20,12 +20,12 @@ function Settings(){
 	return (
 		<Layout>
 			<Header title={"Settings"}/>
-			<View style={styles.container}>
+			<ScrollView style={styles.container}>
 				<Setting title={"Your Account"}/>
 				<Setting title={"Connected Accounts"}/>
-				<Setting title={"Your home(s)"}/>
+				<Setting title={"Your home(s)"} onClick={()=>navigation.navigate("AllProperties")} />
 				<Setting title={"Logout"} onClick={()=> logout()}/>
-			</View>
+			</ScrollView>
 		</Layout>
 	);
 }

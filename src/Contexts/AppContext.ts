@@ -3,6 +3,7 @@ import {action, makeAutoObservable} from "mobx";
 import {auth} from "../Utils/Firebase";
 import {IMessage} from "react-native-gifted-chat";
 import DataService from "../Utils/DataService";
+import {toNumber} from "lodash";
 
 export class AppContextClass {
 	public Properties:Property[] = [];
@@ -29,8 +30,9 @@ export class AppContextClass {
 		}
 	});
 
-	public deleteHome = action(async (home: Property)=> {
-		this.Properties = this.Properties.filter((h) => h.Address !== home.Address);
+	public deleteHome = action(async (propertyId: number)=> {
+		await DataService.deleteProperty(propertyId);
+		this.Properties = this.Properties.filter((h) => toNumber(h.PropertyId) !== propertyId);
 	});
 }
 

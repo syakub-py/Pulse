@@ -7,7 +7,7 @@ import DropdownPicker, { ItemType } from "react-native-dropdown-picker";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 
-function AddProperties() {
+function AddAProperty() {
 	const [property, setProperty] = useState<Property>({
 		PropertyId: 0,
 		Name: "",
@@ -25,7 +25,7 @@ function AddProperties() {
 	const [open, setOpen] = useState(false);
 	const [selectedPropertyType, setSelectedPropertyType] = useState(propertyTypes[0].value as string);
 	const appContext = useContext(AppContext);
-	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "AddProperties">>();
+	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "AddAProperty">>();
 
 	const handleInputChange = (field: keyof Property, value: string | string[] | boolean) => {
 		setProperty((prev) => ({ ...prev, [field]: value }));
@@ -129,4 +129,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default observer(AddProperties);
+export default observer(AddAProperty);

@@ -7,9 +7,7 @@ function Layout({ children }:{ children: React.ReactNode }) {
 
 	return (
 		<SafeAreaView style={styles.container}>
-			<ScrollView>
-				{children}
-			</ScrollView>
+			{children}
 		</SafeAreaView>
 	);
 }
