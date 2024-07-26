@@ -1,11 +1,13 @@
 import React, {useState, useCallback, useContext} from "react";
-import {SafeAreaView, StyleSheet, View, Image, Text} from "react-native";
+import {SafeAreaView, StyleSheet, View, Text,  LogBox} from "react-native";
 import {GiftedChat, IMessage} from "react-native-gifted-chat";
 import DataService from "../Utils/DataService";
 import {AuthContext} from "../Contexts/AuthContext";
-import MessageInputBar from "../Components/MessageInputBar";
+import MessageInputBar from "../Components/PulseAI/MessageInputBar";
 import {AppContext} from "../Contexts/AppContext";
 import {observer} from "mobx-react-lite";
+//temp solution
+LogBox.ignoreLogs(["Warning: Avatar: Support for defaultProps"]);
 
 function PulseAI() {
 	const authContext = useContext(AuthContext);
@@ -27,7 +29,6 @@ function PulseAI() {
 			user: {
 				_id: 2,
 				name: "Assistant",
-				avatar: require("../../assets/icon.png"),
 			},
 		};
 		setIsTyping(false);
@@ -50,14 +51,15 @@ function PulseAI() {
 				user={{
 					_id: 1,
 					name: authContext.username,
-					avatar:authContext.profilePicture
 				}}
-				showUserAvatar={true}
+				showUserAvatar={false}
 				isTyping={isTyping}
-				renderInputToolbar = {(props)=><MessageInputBar {...props} />}
+				renderInputToolbar={(props) => <MessageInputBar {...props} />}
 				listViewProps={{
-					style: { marginBottom: "7%"},
+					style: { marginBottom: "7%" },
 				}}
+				renderAvatar={() => null}
+				renderAvatarOnTop={false}
 			/>
 		</SafeAreaView>
 	);

@@ -12,7 +12,7 @@ export default function useFetchChatMessages() {
 		if (chatId) {
 			const messages = await DataService.getMessages(chatId);
 			if (!_.isUndefined(messages)) {
-				appContext.Messages = messages;
+				appContext.Messages = messages.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 			}
 		}
 	}, []);
