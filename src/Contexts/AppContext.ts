@@ -1,5 +1,5 @@
 import {createContext} from "react";
-import {action, makeAutoObservable} from "mobx";
+import {action, makeAutoObservable, runInAction} from "mobx";
 import {auth} from "../Utils/Firebase";
 import {IMessage} from "react-native-gifted-chat";
 import DataService from "../Utils/DataService";
@@ -22,7 +22,9 @@ export class AppContextClass {
 		try {
 			if (auth.currentUser?.uid){
 				property.PropertyId = await DataService.addProperty(auth.currentUser?.uid, property);
-				this.Properties.push(property);
+				runInAction(() => {
+					this.Properties.push(property);
+				});
 			}
 		} catch (error) {
 			console.error("Error adding property:", error);
@@ -32,7 +34,9 @@ export class AppContextClass {
 
 	public deleteHome = action(async (propertyId: number)=> {
 		await DataService.deleteProperty(propertyId);
-		this.Properties = this.Properties.filter((h) => toNumber(h.PropertyId) !== propertyId);
+		runInAction(() => {
+			this.Properties = this.Properties.filter((h) => toNumber(h.PropertyId) !== propertyId);
+		});
 	});
 }
 

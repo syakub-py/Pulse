@@ -30,6 +30,7 @@ export default function useLogin() {
 				navigation.navigate("BottomNavBar");
 				authContext.isLoading = false;
 			} catch (e) {
+				alert("Account doesnt exist");
 				console.log(e);
 			}
 		},

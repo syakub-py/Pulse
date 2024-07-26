@@ -20,36 +20,36 @@ const chartConfig = {
 
 const PieChartData = [
 	{
-		name: "Seoul",
-		population: 21500000,
+		name: "Mortgage",
+		population: 40000,
 		color: "rgba(131, 167, 234, 1)",
 		legendFontColor: "#7F7F7F",
 		legendFontSize: 15,
 	},
 	{
-		name: "Toronto",
-		population: 2800000,
+		name: "Property Taxes",
+		population: 20000,
 		color: "rgba(29, 137, 193, 1)",
 		legendFontColor: "#7F7F7F",
 		legendFontSize: 15,
 	},
 	{
-		name: "Beijing",
-		population: 527612,
+		name: "Insurance",
+		population: 15000,
 		color: "rgba(97, 179, 131, 1)",
 		legendFontColor: "#7F7F7F",
 		legendFontSize: 15,
 	},
 	{
-		name: "New York",
-		population: 8537673,
+		name: "Maintenance",
+		population: 10000,
 		color: "rgba(204, 142, 53, 1)",
 		legendFontColor: "#7F7F7F",
 		legendFontSize: 15,
 	},
 	{
-		name: "Moscow",
-		population: 11920000,
+		name: "HOA Fees",
+		population: 5000,
 		color: "rgba(179, 55, 113, 1)",
 		legendFontColor: "#7F7F7F",
 		legendFontSize: 15,
@@ -60,7 +60,7 @@ const lineGraphData = {
 	labels: ["January", "February", "March", "April", "May", "June"],
 	datasets: [
 		{
-			data: [20, 45, 28, 80, 99, 43],
+			data: [10000, 12000, 15000, 18000, 20000, 22000],
 			color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
 			strokeWidth: 4,
 		},

@@ -14,7 +14,7 @@ function Login() {
 
 	return (
 		<ImageBackground
-			source={require("../../assets/houseWallpaper.jpg")}
+			source={require("../../assets/DefaultPictures/houseWallpaper.jpg")}
 			style={styles.backgroundImage}>
 			<LinearGradient
 				colors={["rgba(0,0,0,0)", "rgba(0,0,0,0.5)", "rgba(0,0,0,1)"]}

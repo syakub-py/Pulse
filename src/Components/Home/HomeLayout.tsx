@@ -21,9 +21,11 @@ function HomeLayout({ children }: { children: React.ReactNode }) {
 	};
 
 	const propertyTypeImages: { [key: string]: any } = {
-		Home: require("../../../assets/houseWallpaper.jpg"),
-		Condo: require("../../../assets/condoWallpaper.jpg"),
-		"Vacation Home": require("../../../assets/vacationHomeWallpaper.jpg"),
+		Home: require("../../../assets/DefaultPictures/houseWallpaper.jpg"),
+		Condo: require("../../../assets/DefaultPictures/condoWallpaper.jpg"),
+		"Vacation Home": require("../../../assets/DefaultPictures/vacationHomeWallpaper.jpg"),
+		"Multi-Family":require("../../../assets/DefaultPictures/multiFamilyWallpaper.jpg"),
+		"Commercial Building": require("../../../assets/DefaultPictures/commercialBuildingWallpaper.jpg"),
 	};
 
 	const updateImageSource = useCallback(() => {
@@ -82,11 +84,16 @@ function HomeLayout({ children }: { children: React.ReactNode }) {
 					<View>
 						{children}
 					</View>
-					<FloatingActionButton
-						icon={"add"}
-						styles={styles.fab}
-						onPress={() => handlePressActionButton()}
-					/>
+					{
+						!_.isEmpty(appContext.Properties)?(
+							<FloatingActionButton
+								icon={"add"}
+								styles={styles.fab}
+								onPress={() => handlePressActionButton()}
+							/>
+						):null
+					}
+
 				</SafeAreaView>
 			</LinearGradient>
 		</View>

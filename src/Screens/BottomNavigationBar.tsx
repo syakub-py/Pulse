@@ -29,6 +29,8 @@ function BottomNavigationBar() {
 						iconName = focused ? "stats-chart" : "stats-chart-outline";
 					} else if (rn === "AI") {
 						iconName = focused ? "sparkles" : "sparkles-outline";
+					}else if (rn === "Lease") {
+						iconName = focused ? "albums" : "albums-outline";
 					}
 					if (iconName){
 						return <Ionicons name={iconName} size={32} color={color}/>;
@@ -37,6 +39,7 @@ function BottomNavigationBar() {
 			})}
 		>
 			<Tab.Screen name={"Home"} component={Home} />
+			<Tab.Screen name={"Lease"} component={PulseAI} />
 			<Tab.Screen name={"AI"} component={PulseAI} />
 			<Tab.Screen name={"Analytics"} component={Analytics} />
 			<Tab.Screen name={"Settings"} component={Settings} />

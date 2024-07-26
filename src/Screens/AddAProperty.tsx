@@ -7,7 +7,7 @@ import DropdownPicker, { ItemType } from "react-native-dropdown-picker";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import BackButton from "../Components/BackButton";
-
+import IsRental from "../Components/AddAProperty/IsRental";
 function AddAProperty() {
 	const [property, setProperty] = useState<Property>({
 		PropertyId: 0,
@@ -21,6 +21,8 @@ function AddAProperty() {
 		{ label: "Single Family Home", value: "Home" },
 		{ label: "Vacation Home", value: "Vacation Home" },
 		{ label: "Condominium", value: "Condo" },
+		{ label: "Multi-Family", value: "Multi-Family" },
+		{ label: "Commercial Building", value: "Commercial Building" },
 	];
 
 	const [open, setOpen] = useState(false);
@@ -28,7 +30,7 @@ function AddAProperty() {
 	const appContext = useContext(AppContext);
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "AddAProperty">>();
 
-	const handleInputChange = (field: keyof Property, value: string | string[] | boolean) => {
+	const handleInputChange = (field: keyof Property, value: string | string[] | boolean | number) => {
 		setProperty((prev) => ({ ...prev, [field]: value }));
 	};
 
@@ -71,6 +73,11 @@ function AddAProperty() {
 				title={!property.isRental ? "Not a Rental" : "Is a Rental"}
 				onPress={() => handleInputChange("isRental", !property.isRental)}
 			/>
+			{
+				property.isRental?(
+					<IsRental property={property} handleInputChange={handleInputChange} />
+				):null
+			}
 			<Button title="Add This Property" onPress={handleSubmit} />
 		</SafeAreaView>
 	);

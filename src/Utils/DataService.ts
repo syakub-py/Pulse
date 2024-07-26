@@ -5,15 +5,6 @@ import {IMessage} from "react-native-gifted-chat";
 import {auth} from "./Firebase";
 
 export default new class DataService {
-	async getWeather(city:string, apiKey:string):Promise<AxiosResponse<WeatherResponse> | undefined> {
-		const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-		try {
-			return await http.get<WeatherResponse>(url);
-		} catch (error) {
-			console.log(`Error retrieving weather data: ${error}`);
-		}
-	}
-
 	async generateChatResponse(prompt:string):Promise<string>{
 		const chatId = await AsyncStorageClass.getDataFromStorage("chatId");
 		const response = await http.get("/generateResponse/"+chatId.toString()+"/" + prompt);
