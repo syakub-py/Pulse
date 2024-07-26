@@ -12,6 +12,7 @@ import {observer} from "mobx-react-lite";
 import UploadPictures from "../../Components/UploadPictures";
 import Layout from "../../Components/Layout";
 import Header from "../../Components/Header";
+import BackButton from "../../Components/BackButton";
 
 const uploadProfilePicture = async (profilePicturePath:string, username:string) => {
 	if (_.isEmpty(profilePicturePath)) {
@@ -119,7 +120,10 @@ function CreateUsernameAndPassword() {
 
 	return (
 		<Layout>
-			<Header title={"Sign Up"}/>
+			<View style={styles.header}>
+				<BackButton/>
+				<Header title={"Sign Up"}/>
+			</View>
 			<View style={styles.profilePictureContainer}>
 				{
 					(profilePicture)?(
@@ -180,5 +184,9 @@ const styles = StyleSheet.create({
 		backgroundColor: "whitesmoke",
 		borderRadius: 15,
 	},
+	header:{
+		flexDirection: "row",
+		alignItems: "center",
+	}
 });
 

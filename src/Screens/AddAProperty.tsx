@@ -1,11 +1,12 @@
 import { observer } from "mobx-react-lite";
-import {TextInput, StyleSheet, Button, SafeAreaView} from "react-native";
+import {TextInput, StyleSheet, Button, SafeAreaView, View} from "react-native";
 import { useContext, useState } from "react";
 import { AppContext } from "../Contexts/AppContext";
 import Header from "../Components/Header";
 import DropdownPicker, { ItemType } from "react-native-dropdown-picker";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
+import BackButton from "../Components/BackButton";
 
 function AddAProperty() {
 	const [property, setProperty] = useState<Property>({
@@ -39,7 +40,10 @@ function AddAProperty() {
 
 	return (
 		<SafeAreaView style={styles.container}>
-			<Header title={"Add Properties"} />
+			<View style={styles.header}>
+				<BackButton/>
+				<Header title={"Add A Property"}/>
+			</View>
 			<TextInput
 				style={styles.input}
 				placeholder="Give the property a nick name"
@@ -127,6 +131,10 @@ const styles = StyleSheet.create({
 		color: "#fff",
 		fontSize: 16,
 	},
+	header:{
+		flexDirection: "row",
+		alignItems: "center",
+	}
 });
 
 export default observer(AddAProperty);
