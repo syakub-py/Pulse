@@ -23,6 +23,7 @@ export default function useLogin(username: string, password: string) {
 			authContext.setPassword(password);
 			authContext.setUid(user.user.uid);
 			navigation.navigate("BottomNavBar");
+			authContext.isLoading = false;
 		} catch (e) {
 			console.log(e);
 		}
@@ -30,4 +31,3 @@ export default function useLogin(username: string, password: string) {
 	[authContext, navigation]
 	);
 }
-

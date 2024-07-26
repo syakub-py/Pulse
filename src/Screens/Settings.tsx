@@ -1,5 +1,5 @@
 import Layout from "../Components/Layout";
-import {View, StyleSheet, ScrollView} from "react-native";
+import {StyleSheet, ScrollView} from "react-native";
 import Setting from "../Components/Settings/Setting";
 import {useContext} from "react";
 import {AuthContext} from "../Contexts/AuthContext";
@@ -12,6 +12,7 @@ import Header from "../Components/Header";
 function Settings(){
 	const authContext = useContext(AuthContext);
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Settings">>();
+
 	const logout = async () =>{
 		await authContext.logout();
 		navigation.navigate("Login");

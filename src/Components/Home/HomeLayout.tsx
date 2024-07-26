@@ -1,4 +1,4 @@
-import { View, SafeAreaView, StyleSheet, Animated, Text, Image} from "react-native";
+import {View, SafeAreaView, StyleSheet, Animated, Text, Image} from "react-native";
 import React, { useContext, useState, useCallback, useEffect } from "react";
 import { AuthContext } from "../../Contexts/AuthContext";
 import { observer } from "mobx-react-lite";

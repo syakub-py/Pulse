@@ -84,6 +84,7 @@ declare global {
         "AddAndConfigureDevices": undefined,
         "Analytics": undefined,
         "AllProperties": undefined,
+        "Loading": undefined,
     }
 }
 

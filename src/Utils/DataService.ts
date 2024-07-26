@@ -51,5 +51,4 @@ export default new class DataService {
 	async deleteProperty(propertyId: number):Promise<void> {
 		await http.delete("/deleteProperty/" + propertyId);
 	}
-
 }();

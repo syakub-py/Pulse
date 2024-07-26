@@ -11,11 +11,19 @@ import {auth} from "./Utils/Firebase";
 import _ from "lodash";
 import Analytics from "./Screens/Analytics";
 import AllProperties from "./Screens/AllProperties";
+import Loading from "./Screens/Loading";
 
 
 export default function Routes() {
 	const authContext = useContext(AuthContext);
 	const { Screen } = createNativeStackNavigator<RootStackParamList>();
+
+	if (authContext.isLoading) {
+		return [
+			<Screen key="Loading" name="Loading" component={Loading}/>
+		];
+	}
+
 	if (!authContext.isLoggedIn || _.isNull(auth.currentUser?.uid)) {
 		return [
 			<Screen key = "Login" name="Login" component={Login} />,
