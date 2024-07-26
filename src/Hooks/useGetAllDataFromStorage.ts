@@ -12,9 +12,11 @@ export default function useGetAllDataFromStorage(): void {
 		const determineInitialRoute = async () => {
 			try {
 				await authContext.getAuthDataFromStorage();
-				if (!authContext.isLoggedIn) return;
-
-				const user =await auth.signInWithEmailAndPassword(authContext.username, authContext.password);
+				if (!authContext.isLoggedIn) {
+					authContext.isLoading = false;
+					return;
+				};
+				const user = await auth.signInWithEmailAndPassword(authContext.username, authContext.password);
 				if (_.isNull(user.user)) return;
 				authContext.setUid(user.user?.uid);
 				authContext.setProfilePicture(auth.currentUser?.photoURL);

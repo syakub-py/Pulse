@@ -7,13 +7,12 @@ import _ from "lodash";
 
 export default function useFetchChatMessages() {
 	const appContext = useContext(AppContext);
-
 	const fetchMessages = useCallback(async () => {
 		const chatId = await AsyncStorageClass.getDataFromStorage("chatId");
 		if (chatId) {
 			const messages = await DataService.getMessages(chatId);
 			if (!_.isUndefined(messages)) {
-				appContext.Messages = messages;
+				appContext.Messages = messages.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 			}
 		}
 	}, []);

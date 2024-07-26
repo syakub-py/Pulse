@@ -1,13 +1,14 @@
 import { observer } from "mobx-react-lite";
-import {TextInput, StyleSheet, Button, SafeAreaView} from "react-native";
+import {TextInput, StyleSheet, Button, SafeAreaView, View} from "react-native";
 import { useContext, useState } from "react";
 import { AppContext } from "../Contexts/AppContext";
 import Header from "../Components/Header";
 import DropdownPicker, { ItemType } from "react-native-dropdown-picker";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
-
-function AddProperties() {
+import BackButton from "../Components/BackButton";
+import IsRental from "../Components/AddAProperty/IsRental";
+function AddAProperty() {
 	const [property, setProperty] = useState<Property>({
 		PropertyId: 0,
 		Name: "",
@@ -15,19 +16,21 @@ function AddProperties() {
 		PropertyType: "",
 		isRental: false,
 	});
+
 	const propertyTypes: ItemType<string>[] = [
 		{ label: "Single Family Home", value: "Home" },
 		{ label: "Vacation Home", value: "Vacation Home" },
 		{ label: "Condominium", value: "Condo" },
-		{ label: "Apartment", value: "Apartment" },
+		{ label: "Multi-Family", value: "Multi-Family" },
+		{ label: "Commercial Building", value: "Commercial Building" },
 	];
 
 	const [open, setOpen] = useState(false);
 	const [selectedPropertyType, setSelectedPropertyType] = useState(propertyTypes[0].value as string);
 	const appContext = useContext(AppContext);
-	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "AddProperties">>();
+	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "AddAProperty">>();
 
-	const handleInputChange = (field: keyof Property, value: string | string[] | boolean) => {
+	const handleInputChange = (field: keyof Property, value: string | string[] | boolean | number) => {
 		setProperty((prev) => ({ ...prev, [field]: value }));
 	};
 
@@ -38,9 +41,11 @@ function AddProperties() {
 	};
 
 	return (
-
 		<SafeAreaView style={styles.container}>
-			<Header title={"Add Properties"} />
+			<View style={styles.header}>
+				<BackButton/>
+				<Header title={"Add A Property"}/>
+			</View>
 			<TextInput
 				style={styles.input}
 				placeholder="Give the property a nick name"
@@ -65,9 +70,14 @@ function AddProperties() {
 				{...styles}
 			/>
 			<Button
-				title={property.isRental ? "Not a Rental" : "Is a Rental"}
+				title={!property.isRental ? "Not a Rental" : "Is a Rental"}
 				onPress={() => handleInputChange("isRental", !property.isRental)}
 			/>
+			{
+				property.isRental?(
+					<IsRental property={property} handleInputChange={handleInputChange} />
+				):null
+			}
 			<Button title="Add This Property" onPress={handleSubmit} />
 		</SafeAreaView>
 	);
@@ -128,6 +138,10 @@ const styles = StyleSheet.create({
 		color: "#fff",
 		fontSize: 16,
 	},
+	header:{
+		flexDirection: "row",
+		alignItems: "center",
+	}
 });
 
-export default observer(AddProperties);
+export default observer(AddAProperty);

@@ -10,10 +10,11 @@ function Login() {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Login">>();
-	const login = useLogin(username, password);
+	const login = useLogin();
+
 	return (
 		<ImageBackground
-			source={require("../../assets/houseWallpaper.jpg")}
+			source={require("../../assets/DefaultPictures/houseWallpaper.jpg")}
 			style={styles.backgroundImage}>
 			<LinearGradient
 				colors={["rgba(0,0,0,0)", "rgba(0,0,0,0.5)", "rgba(0,0,0,1)"]}
@@ -36,7 +37,7 @@ function Login() {
 							style={styles.input}
 							secureTextEntry
 						/>
-						<Button title='Login' onPress={login} />
+						<Button title='Login' onPress={() => login(username, password)} />
 						<Text style={styles.registerText} onPress={()=>navigation.navigate("CreateUsernameAndPassword")}>Dont have an account? Register here</Text>
 					</View>
 				</SafeAreaView>

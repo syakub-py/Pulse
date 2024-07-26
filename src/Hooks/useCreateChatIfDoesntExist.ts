@@ -14,6 +14,9 @@ export default function useCreateChatIfDoesntExist() {
 				if (_.isUndefined(chatId) && auth.currentUser?.uid) {
 					await DataService.createChat(auth.currentUser.uid);
 				}
+				if (!_.isUndefined(chatId)) {
+					await DataService.getMessages(chatId);
+				}
 			}catch(e){
 				console.error(e);
 			}

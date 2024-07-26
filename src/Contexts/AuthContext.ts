@@ -12,6 +12,8 @@ export class AuthContextClass {
 	public profilePicture: string = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
 	public password: string = "";
 	public uid:string = "";
+	private isLoadingAuth: boolean = true;
+
 	public setUsername = action((username: string) =>{
 		this.username = username;
 		void AsyncStorageClass.saveDataToStorage("username", username);
@@ -35,6 +37,14 @@ export class AuthContextClass {
 		return !_.isEmpty(this.username) && !_.isEmpty(this.password);
 	}
 
+	get isLoading() {
+		return this.isLoadingAuth;
+	}
+
+	set isLoading(isLoadingAuth: boolean) {
+		this.isLoadingAuth = isLoadingAuth;
+	}
+
 	public async getAuthDataFromStorage(): Promise<void> {
 		const retrievedUsername = await AsyncStorageClass.getDataFromStorage("username");
 		const retrievedPassword = await AsyncStorageClass.getDataFromStorage("password");
@@ -52,6 +62,7 @@ export class AuthContextClass {
 		});
 		await auth.signOut();
 		await AsyncStorageClass.clearAllAsyncStorageData();
+		this.isLoading = false;
 	}
 }
 
