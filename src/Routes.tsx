@@ -12,6 +12,7 @@ import _ from "lodash";
 import Analytics from "./Screens/Analytics";
 import AllProperties from "./Screens/AllProperties";
 import Loading from "./Screens/Loading";
+import Leases from "./Screens/Leases";
 
 
 export default function Routes() {
@@ -38,5 +39,6 @@ export default function Routes() {
 		<Screen key = "ChatBot" name="ChatBot" component={PulseAI} />,
 		<Screen key = "Analytics" name="Analytics" component={Analytics} />,
 		<Screen key = "AllProperties" name="AllProperties" component={AllProperties} />,
+		<Screen key = "Leases" name="Leases" component={Leases} />,
 	];
 }

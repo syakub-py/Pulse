@@ -33,7 +33,7 @@ function Settings(){
 				</View>
 				<Setting title={"Your Account"}/>
 				<Setting title={"Connected Accounts"}/>
-				<Setting title={"Your home(s)"} onClick={()=>navigation.navigate("AllProperties")} />
+				<Setting title={"Your Properties"} onClick={()=>navigation.navigate("AllProperties")} />
 				<Setting title={"Logout"} onClick={()=> logout()}/>
 			</ScrollView>
 		</Layout>

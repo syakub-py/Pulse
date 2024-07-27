@@ -9,6 +9,50 @@ export class AppContextClass {
 	public Properties:Property[] = [];
 	public Messages:IMessage[] = [];
 	public SelectedProperty:Property | null = null;
+	public Leases: Lease[] = [
+		{
+			LeaseId: "lease1",
+			StartDate: new Date("2023-01-01"),
+			EndDate: new Date("2024-01-01"),
+			MonthlyRent: 1200,
+			Tenants: [
+				{ TenantId: "t1", Name: "John Doe" },
+				{ TenantId: "t2", Name: "Jane Smith" }
+			],
+			IsActive: function (): boolean {
+				const today = new Date();
+				return today >= this.StartDate && today <= this.EndDate;
+			}
+		},
+		{
+			LeaseId: "lease2",
+			StartDate: new Date("2023-06-01"),
+			EndDate: new Date("2024-06-01"),
+			MonthlyRent: 1500,
+			Tenants: [
+				{ TenantId: "t3", Name: "Alice Johnson" },
+				{ TenantId: "t4", Name: "Bob Brown" }
+			],
+			IsActive: function (): boolean {
+				const today = new Date();
+				return today >= this.StartDate && today <= this.EndDate;
+			}
+		},
+		{
+			LeaseId: "lease3",
+			StartDate: new Date("2023-03-01"),
+			EndDate: new Date("2024-03-01"),
+			MonthlyRent: 1300,
+			Tenants: [
+				{ TenantId: "t5", Name: "Charlie Davis" },
+				{ TenantId: "t6", Name: "Diana Evans" }
+			],
+			IsActive: function (): boolean {
+				const today = new Date();
+				return today >= this.StartDate && today <= this.EndDate;
+			}
+		}
+	];
 
 	constructor() {
 		makeAutoObservable(this);
