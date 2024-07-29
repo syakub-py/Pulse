@@ -31,8 +31,8 @@ function Settings(){
 						<Text style={styles.propertiesText}>Properties: {appContext.Properties.length}</Text>
 					</View>
 				</View>
-				<Setting title={"Your Account"}/>
-				<Setting title={"Connected Accounts"}/>
+				<Setting title={"Finished Todos"}/>
+				<Setting title={"Your Tenants"}/>
 				<Setting title={"Your Properties"} onClick={()=>navigation.navigate("AllProperties")} />
 				<Setting title={"Logout"} onClick={()=> logout()}/>
 			</ScrollView>

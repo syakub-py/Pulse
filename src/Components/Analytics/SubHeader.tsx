@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
 	},
 	container:{
 		marginVertical:10,
-		marginHorizontal:30
 	},
 });
 

@@ -8,6 +8,8 @@ import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import BackButton from "../Components/BackButton";
 import IsRental from "../Components/AddAProperty/IsRental";
+import _ from "lodash";
+import SubHeader from "../Components/Analytics/SubHeader";
 function AddAProperty() {
 	const [property, setProperty] = useState<Property>({
 		PropertyId: 0,
@@ -15,6 +17,7 @@ function AddAProperty() {
 		Address: "",
 		PropertyType: "",
 		isRental: false,
+		Leases: []
 	});
 
 	const propertyTypes: ItemType<string>[] = [
@@ -74,8 +77,11 @@ function AddAProperty() {
 				onPress={() => handleInputChange("isRental", !property.isRental)}
 			/>
 			{
-				property.isRental?(
-					<IsRental property={property} handleInputChange={handleInputChange} />
+				(property.isRental)?(
+					<View>
+						<SubHeader title={"Leases"}/>
+						<IsRental leases={property.Leases}/>
+					</View>
 				):null
 			}
 			<Button title="Add This Property" onPress={handleSubmit} />
