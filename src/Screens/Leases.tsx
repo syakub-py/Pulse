@@ -8,9 +8,12 @@ import FloatingActionButton from "../Components/FloatingActionButton";
 import AreLeases from "../Components/Leases/AreLeases";
 import _ from "lodash";
 import NoLeases from "../Components/Leases/NoLeases";
+import {useNavigation} from "@react-navigation/native";
+import {StackNavigationProp} from "@react-navigation/stack";
 
 function Leases(){
 	const appContext = useContext(AppContext);
+	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Leases">>();
 	return (
 		<Layout>
 			<View style={styles.headerContainer}>
@@ -18,7 +21,7 @@ function Leases(){
 				<FloatingActionButton
 					icon={"add"}
 					styles={styles.fab}
-					onPress={() => console.log("pressed")}
+					onPress={() => navigation.navigate("AddALease")}
 				/>
 			</View>
 			{

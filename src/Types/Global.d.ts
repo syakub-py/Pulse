@@ -5,7 +5,7 @@ declare global {
         Address: string;
         PropertyType: string;
         isRental:boolean;
-        Leases?:Lease[]
+        Leases:Lease[]
     }
 
     interface Tenant {
@@ -14,12 +14,11 @@ declare global {
     }
 
     interface Lease {
-        LeaseId: string;
-        Tenants: Tenant[];
-        StartDate: Date;
-        EndDate: Date;
-        MonthlyRent: number;
-        IsActive: () => boolean;
+        LeaseId?: number;
+        StartDate: string;
+        EndDate: string;
+        MonthlyRent: number | null;
+        PropertyId?: number;
     }
 
     interface PasswordRequirement{
@@ -47,6 +46,7 @@ declare global {
         "AllProperties": undefined,
         "Loading": undefined,
         "Leases": undefined,
+        "AddALease":undefined
     }
 }
 
