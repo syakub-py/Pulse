@@ -17,7 +17,7 @@ function Leases(){
 	return (
 		<Layout>
 			<View style={styles.headerContainer}>
-				<Header title={"Your Leases"}/>
+				<Header title={`Your Leases for ${appContext.SelectedProperty?.Name}`}/>
 				<FloatingActionButton
 					icon={"add"}
 					styles={styles.fab}

@@ -52,4 +52,8 @@ export default new class DataService {
 		return JSON.parse(response.data) as Lease[];
 	}
 
+	async deleteLease(leaseId:number):Promise<void> {
+		await http.delete("/deleteLease/" + leaseId);
+
+	}
 }();

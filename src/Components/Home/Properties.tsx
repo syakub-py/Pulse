@@ -28,7 +28,7 @@ function Properties() {
 					<Text style={styles.homeName}>{item.Name}</Text>
 					<Text style={styles.homeAddress}>{item.Address}</Text>
 					<View style={styles.addTodoContainer}>
-						<Text style={styles.todoText}>Your Todos</Text>
+						<Text style={styles.todoText}>Property todos</Text>
 						<Button title={"Add"} containerStyle={styles.addTodoButton} textStyle={styles.addTodoButtonText} iconName={"add"}/>
 					</View>
 					{/*<FlatList*/}

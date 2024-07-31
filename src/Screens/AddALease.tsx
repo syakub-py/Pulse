@@ -30,6 +30,7 @@ function AddALease() {
 			const LeaseId = await appContext.addLease(leaseDetails);
 			if (!_.isUndefined(LeaseId)){
 				handleInputChange("LeaseId", LeaseId);
+				appContext.SelectedPropertyLeases?.push(leaseDetails);
 			}
 		} catch (error) {
 			console.error(error);

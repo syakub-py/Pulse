@@ -5,6 +5,7 @@ import TrashButton from "../TrashButton";
 import {SwipeListView} from "react-native-swipe-list-view";
 import React, {useContext} from "react";
 import {AppContext} from "../../Contexts/AppContext";
+import _ from "lodash";
 
 function AreLeases(){
 	const appContext = useContext(AppContext);
@@ -14,7 +15,11 @@ function AreLeases(){
 				renderItem={({item, index})=>(<LeaseCard lease={item}/>)}
 				rightOpenValue={-50}
 				renderHiddenItem={({ item }) => (
-					<TrashButton/>
+					<TrashButton onPress={()=> {
+						if (!_.isUndefined(item.LeaseId)){
+							appContext.deleteLease(item.LeaseId);
+						}
+					}}/>
 				)}
 			/>
 		</View>

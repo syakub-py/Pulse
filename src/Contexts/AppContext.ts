@@ -16,7 +16,15 @@ export class AppContextClass {
 	}
 
 	public setSelectedProperty = action((SelectedProperty: Property) =>{
-		this.SelectedProperty = SelectedProperty;
+		runInAction(()=>{
+			this.SelectedProperty = SelectedProperty;
+		});
+	});
+
+	public setProperties = action((Properties: Property[]) =>{
+		runInAction(()=>{
+			this.Properties = Properties;
+		});
 	});
 
 	public addProperty = action(async (property: Property) => {
@@ -33,9 +41,10 @@ export class AppContextClass {
 		}
 	});
 
-	public deleteHome = action(async (propertyId: number)=> {
+	public deleteProperty = action(async (propertyId: number)=> {
 		await DataService.deleteProperty(propertyId);
 		runInAction(() => {
+			this.SelectedPropertyLeases = null;
 			this.Properties = this.Properties.filter((h) => toNumber(h.PropertyId) !== propertyId);
 		});
 	});
@@ -50,6 +59,15 @@ export class AppContextClass {
 			return 0;
 		}
 	});
+
+	public deleteLease = action(async (leaseId:number) => {
+		await DataService.deleteLease(leaseId);
+		runInAction(() => {
+			this.SelectedPropertyLeases = null;
+		});
+	});
+
+
 }
 
 export const AppContext = createContext(new AppContextClass());

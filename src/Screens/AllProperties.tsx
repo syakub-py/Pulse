@@ -13,7 +13,7 @@ function AllProperties() {
 	const appContext = useContext(AppContext);
 
 	const handleDeleteProperty = (propertyId:number) => {
-		appContext.deleteHome(propertyId);
+		appContext.deleteProperty(propertyId);
 	};
 
 	return(
