@@ -5,7 +5,6 @@ declare global {
         Address: string;
         PropertyType: string;
         isRental:boolean;
-        Leases:Lease[]
     }
 
     interface Tenant {

@@ -3,12 +3,13 @@ import {action, makeAutoObservable, runInAction} from "mobx";
 import {auth} from "../Utils/Firebase";
 import {IMessage} from "react-native-gifted-chat";
 import DataService from "../Utils/DataService";
-import {toNumber} from "lodash";
+import _, {toNumber} from "lodash";
 
 export class AppContextClass {
 	public Properties:Property[] = [];
 	public Messages:IMessage[] = [];
 	public SelectedProperty:Property | null = null;
+	public SelectedPropertyLeases: Lease[] |null = null;
 
 	constructor() {
 		makeAutoObservable(this);
@@ -39,6 +40,16 @@ export class AppContextClass {
 		});
 	});
 
+	public addLease = action(async (leaseDetails:Lease) => {
+		try {
+			if (!_.isNull(this.SelectedProperty)) {
+				return await DataService.addLease(this.SelectedProperty.PropertyId, leaseDetails);
+			}
+		} catch (error) {
+			alert("An error occurred. Try again later.");
+			return 0;
+		}
+	});
 }
 
 export const AppContext = createContext(new AppContextClass());

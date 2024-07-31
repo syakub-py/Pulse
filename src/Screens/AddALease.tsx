@@ -2,11 +2,10 @@ import React, {useContext, useState} from "react";
 import { observer } from "mobx-react-lite";
 import { View, TextInput, Button, StyleSheet, Text } from "react-native";
 import Layout from "../Components/Layout";
-import DataService from "../Utils/DataService";
 import {AppContext} from "../Contexts/AppContext";
-import _ from "lodash";
 import Header from "../Components/Header";
 import BackButton from "../Components/BackButton";
+import _ from "lodash";
 
 function AddALease() {
 	const appContext = useContext(AppContext);
@@ -28,8 +27,8 @@ function AddALease() {
 
 	const handleSubmit = async () => {
 		try {
-			if (!_.isEmpty(appContext.SelectedProperty)) {
-				const LeaseId = await DataService.addLease(appContext.SelectedProperty?.PropertyId,  leaseDetails);
+			const LeaseId = await appContext.addLease(leaseDetails);
+			if (!_.isUndefined(LeaseId)){
 				handleInputChange("LeaseId", LeaseId);
 			}
 		} catch (error) {

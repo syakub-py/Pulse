@@ -12,9 +12,9 @@ function LeaseCard(props:Props){
 	return (
 		<View style={styles.card} key={lease.LeaseId}>
 			<Text style={[styles.text, styles.header]}>Lease ID: {lease.LeaseId}</Text>
-			<Text style={styles.text}>Start Date: {lease.StartDate.toDateString()}</Text>
-			<Text style={styles.text}>End Date: {lease.EndDate.toDateString()}</Text>
-			<Text style={styles.text}>Monthly Rent: ${lease.MonthlyRent}</Text>
+			<Text style={styles.text}>Start Date: {lease.StartDate}</Text>
+			<Text style={styles.text}>End Date: {lease.EndDate}</Text>
+			<Text style={styles.text}>Monthly Rent: ${lease.MonthlyRent?.toLocaleString("en-us")}</Text>
 		</View>
 	);
 }

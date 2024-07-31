@@ -10,7 +10,7 @@ function AreLeases(){
 	const appContext = useContext(AppContext);
 	return(
 		<View>
-			<SwipeListView data={appContext.SelectedProperty?.Leases}
+			<SwipeListView data={appContext.SelectedPropertyLeases}
 				renderItem={({item, index})=>(<LeaseCard lease={item}/>)}
 				rightOpenValue={-50}
 				renderHiddenItem={({ item }) => (

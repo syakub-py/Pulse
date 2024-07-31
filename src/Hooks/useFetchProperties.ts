@@ -14,7 +14,6 @@ export default function useFetchProperties() {
 		if (!_.isUndefined(properties)) {
 			appContext.Properties = properties;
 			appContext.setSelectedProperty(properties[0]);
-			authContext.isLoading = false;
 		}
 	}, [authContext.uid]);
 

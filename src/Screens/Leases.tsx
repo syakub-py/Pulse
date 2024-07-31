@@ -25,7 +25,7 @@ function Leases(){
 				/>
 			</View>
 			{
-				(!_.isEmpty(appContext.SelectedProperty?.Leases))?(
+				(!_.isEmpty(appContext.SelectedPropertyLeases))?(
 					<AreLeases/>
 				):(
 					<NoLeases/>

@@ -16,7 +16,6 @@ function AddAProperty() {
 		Address: "",
 		PropertyType: "",
 		isRental: false,
-		Leases: []
 	});
 
 	const propertyTypes: ItemType<string>[] = [
