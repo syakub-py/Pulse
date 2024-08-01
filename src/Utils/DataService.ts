@@ -54,6 +54,5 @@ export default new class DataService {
 
 	async deleteLease(leaseId:number):Promise<void> {
 		await http.delete("/deleteLease/" + leaseId);
-
 	}
 }();

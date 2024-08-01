@@ -7,11 +7,6 @@ declare global {
         isRental:boolean;
     }
 
-    interface Tenant {
-        TenantId: string;
-        Name: string;
-    }
-
     interface Lease {
         LeaseId?: number;
         StartDate: string;

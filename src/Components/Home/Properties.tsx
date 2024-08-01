@@ -31,13 +31,6 @@ function Properties() {
 						<Text style={styles.todoText}>Property todos</Text>
 						<Button title={"Add"} containerStyle={styles.addTodoButton} textStyle={styles.addTodoButtonText} iconName={"add"}/>
 					</View>
-					{/*<FlatList*/}
-					{/*  data={item.ConnectedDevices}*/}
-					{/*  style={{width:Dimensions.get("window").width}}*/}
-					{/*  columnWrapperStyle={styles.deviceTileRow}*/}
-					{/*  renderItem={({item})=>(*/}
-					{/*  )}*/}
-					{/*/>*/}
 				</View>
 			)}
 		/>
