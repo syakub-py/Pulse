@@ -15,7 +15,7 @@ export default function useGetAllDataFromStorage(): void {
 				if (!authContext.isLoggedIn) {
 					authContext.isLoading = false;
 					return;
-				};
+				}
 				const user = await auth.signInWithEmailAndPassword(authContext.username, authContext.password);
 				if (_.isNull(user.user)) return;
 				authContext.setUid(user.user?.uid);

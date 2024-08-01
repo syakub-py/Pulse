@@ -7,7 +7,8 @@ import DropdownPicker, { ItemType } from "react-native-dropdown-picker";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import BackButton from "../Components/BackButton";
-import IsRental from "../Components/AddAProperty/IsRental";
+
+
 function AddAProperty() {
 	const [property, setProperty] = useState<Property>({
 		PropertyId: 0,
@@ -37,7 +38,11 @@ function AddAProperty() {
 	const handleSubmit = async (): Promise<void> => {
 		property.PropertyType = selectedPropertyType;
 		await appContext.addProperty(property);
-		navigation.navigate("BottomNavBar");
+		if (property.isRental){
+			navigation.navigate("AddALease");
+		}else{
+			navigation.navigate("BottomNavBar");
+		}
 	};
 
 	return (
@@ -73,11 +78,6 @@ function AddAProperty() {
 				title={!property.isRental ? "Not a Rental" : "Is a Rental"}
 				onPress={() => handleInputChange("isRental", !property.isRental)}
 			/>
-			{
-				property.isRental?(
-					<IsRental property={property} handleInputChange={handleInputChange} />
-				):null
-			}
 			<Button title="Add This Property" onPress={handleSubmit} />
 		</SafeAreaView>
 	);

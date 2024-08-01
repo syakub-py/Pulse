@@ -5,8 +5,14 @@ declare global {
         Address: string;
         PropertyType: string;
         isRental:boolean;
-        Rent?:number,
-        numOfTenants?:number,
+    }
+
+    interface Lease {
+        LeaseId?: number;
+        StartDate: string;
+        EndDate: string;
+        MonthlyRent: number | null;
+        PropertyId?: number;
     }
 
     interface PasswordRequirement{
@@ -33,6 +39,8 @@ declare global {
         "Analytics": undefined,
         "AllProperties": undefined,
         "Loading": undefined,
+        "Leases": undefined,
+        "AddALease":undefined
     }
 }
 

@@ -19,7 +19,7 @@ function HomeLayout({ children }: { children: React.ReactNode }) {
 	const handlePressActionButton = () => {
 		navigation.navigate("AddAProperty");
 	};
-
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const propertyTypeImages: { [key: string]: any } = {
 		Home: require("../../../assets/DefaultPictures/houseWallpaper.jpg"),
 		Condo: require("../../../assets/DefaultPictures/condoWallpaper.jpg"),

@@ -5,15 +5,15 @@ import Layout from "../Components/Layout";
 import Header from "../Components/Header";
 import PropertyCard from "../Components/AllProperties/PropertyCard";
 import {SwipeListView} from "react-native-swipe-list-view";
-import {Pressable, View, StyleSheet} from "react-native";
-import Ionicons from "react-native-vector-icons/Ionicons";
+import { View, StyleSheet} from "react-native";
 import BackButton from "../Components/BackButton";
+import TrashButton from "../Components/TrashButton";
 
 function AllProperties() {
 	const appContext = useContext(AppContext);
 
 	const handleDeleteProperty = (propertyId:number) => {
-		appContext.deleteHome(propertyId);
+		appContext.deleteProperty(propertyId);
 	};
 
 	return(
@@ -26,10 +26,7 @@ function AllProperties() {
 				data={appContext.Properties}
 				rightOpenValue={-50}
 				renderHiddenItem={({ item }) => (
-					<Pressable
-						style={styles.trashButton} onPress={()=>handleDeleteProperty(item.PropertyId)}>
-						<Ionicons name={"trash-outline"} size={24} color={"red"} />
-					</Pressable>
+					<TrashButton onPress={()=>handleDeleteProperty(item.PropertyId)}/>
 				)}
 				renderItem={({ item }) => (
 					<PropertyCard property={item} />
@@ -43,18 +40,8 @@ function AllProperties() {
 export default observer(AllProperties);
 
 const styles = StyleSheet.create({
-	trashButton:{
-		position: "absolute",
-		flexDirection: "row",
-		top: 0,
-		right: 0,
-		bottom: 0,
-		width: 70,
-		alignItems: "center",
-		justifyContent: "center",
-	},
 	header:{
 		flexDirection: "row",
 		alignItems: "center",
 	}
-})
+});

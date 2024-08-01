@@ -6,6 +6,7 @@ import PulseAI from "./PulseAI";
 import { StyleSheet } from "react-native";
 import { observer } from "mobx-react-lite";
 import Analytics from "./Analytics";
+import Leases from "./Leases";
 
 function BottomNavigationBar() {
 	const Tab = createBottomTabNavigator();
@@ -39,7 +40,7 @@ function BottomNavigationBar() {
 			})}
 		>
 			<Tab.Screen name={"Home"} component={Home} />
-			<Tab.Screen name={"Lease"} component={PulseAI} />
+			<Tab.Screen name={"Lease"} component={Leases} />
 			<Tab.Screen name={"AI"} component={PulseAI} />
 			<Tab.Screen name={"Analytics"} component={Analytics} />
 			<Tab.Screen name={"Settings"} component={Settings} />

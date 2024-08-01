@@ -3,19 +3,34 @@ import {action, makeAutoObservable, runInAction} from "mobx";
 import {auth} from "../Utils/Firebase";
 import {IMessage} from "react-native-gifted-chat";
 import DataService from "../Utils/DataService";
-import {toNumber} from "lodash";
+import _, {toNumber} from "lodash";
 
 export class AppContextClass {
 	public Properties:Property[] = [];
 	public Messages:IMessage[] = [];
 	public SelectedProperty:Property | null = null;
+	public SelectedPropertyLeases: Lease[] = [];
 
 	constructor() {
 		makeAutoObservable(this);
 	}
 
+	public addPropertyLease = action((lease:Lease)=>{
+		runInAction(() => {
+			this.SelectedPropertyLeases.push(lease);
+		});
+	});
+
 	public setSelectedProperty = action((SelectedProperty: Property) =>{
-		this.SelectedProperty = SelectedProperty;
+		runInAction(()=>{
+			this.SelectedProperty = SelectedProperty;
+		});
+	});
+
+	public setProperties = action((Properties: Property[]) =>{
+		runInAction(()=>{
+			this.Properties = Properties;
+		});
 	});
 
 	public addProperty = action(async (property: Property) => {
@@ -32,12 +47,33 @@ export class AppContextClass {
 		}
 	});
 
-	public deleteHome = action(async (propertyId: number)=> {
+	public deleteProperty = action(async (propertyId: number)=> {
 		await DataService.deleteProperty(propertyId);
 		runInAction(() => {
+			this.SelectedPropertyLeases = [];
 			this.Properties = this.Properties.filter((h) => toNumber(h.PropertyId) !== propertyId);
 		});
 	});
+
+	public addLease = action(async (leaseDetails:Lease ) => {
+		try {
+			if (!_.isNull(this.SelectedProperty)) {
+				return await DataService.addLease(this.SelectedProperty.PropertyId, leaseDetails);
+			}
+		} catch (error) {
+			alert("An error occurred. Try again later.");
+			return 0;
+		}
+	});
+
+	public deleteLease = action(async (leaseId:number) => {
+		await DataService.deleteLease(leaseId);
+		runInAction(() => {
+			this.SelectedPropertyLeases = [];
+		});
+	});
+
+
 }
 
 export const AppContext = createContext(new AppContextClass());
