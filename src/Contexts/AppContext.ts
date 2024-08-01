@@ -10,6 +10,7 @@ export class AppContextClass {
 	public Messages:IMessage[] = [];
 	public SelectedProperty:Property | null = null;
 	public SelectedPropertyLeases: Lease[] = [];
+	public Tenants:Tenant[] = [];
 
 	constructor() {
 		makeAutoObservable(this);
@@ -73,7 +74,13 @@ export class AppContextClass {
 		});
 	});
 
+	public addTenant = action(async (TenantDetails:Tenant ) => {
+		return await DataService.addTenant(TenantDetails);
+	});
 
-}
+	public setTenants = action(async (TenantDetails:Tenant ) => {
+		this.Tenants.push(TenantDetails)
+	});
+};
 
 export const AppContext = createContext(new AppContextClass());

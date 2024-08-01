@@ -48,7 +48,7 @@ function AddALease() {
 	};
 
 	const handleSubmit = () =>{
-		navigation.navigate("BottomNavBar");
+		navigation.navigate("AddATenant");
 	};
 
 	return (

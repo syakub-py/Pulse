@@ -27,6 +27,14 @@ declare global {
         user:string;
     }
 
+    interface Tenant{
+        TenantId?:number;
+        Name:string;
+        AnnualIncome:number;
+        PhoneNumber:string;
+        DateOfBirth:string;
+    }
+
     type RootStackParamList = {
         "BottomNavBar": undefined
         "Home": undefined
@@ -40,7 +48,8 @@ declare global {
         "AllProperties": undefined,
         "Loading": undefined,
         "Leases": undefined,
-        "AddALease":undefined
+        "AddALease":undefined,
+        "AddATenant": undefined
     }
 }
 

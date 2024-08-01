@@ -55,4 +55,8 @@ export default new class DataService {
 	async deleteLease(leaseId:number):Promise<void> {
 		await http.delete("/deleteLease/" + leaseId);
 	}
+	async addTenant(tenantDetails:Tenant ){
+		const response = await http.post("/addTenant/" + tenantDetails);
+		return response.data.tenant_id;
+	}
 }();
