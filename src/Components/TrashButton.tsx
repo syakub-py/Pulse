@@ -14,7 +14,7 @@ function TrashButton(props:Props){
 			style={styles.trashButton} onPress={props.onPress}>
 			<Ionicons name={"trash-outline"} size={24} color={"red"} />
 		</Pressable>
-	)
+	);
 }
 
 export default observer(TrashButton);
@@ -30,4 +30,4 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		justifyContent: "center",
 	},
-})
+});

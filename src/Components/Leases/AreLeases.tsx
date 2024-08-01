@@ -12,7 +12,7 @@ function AreLeases(){
 	return(
 		<View>
 			<SwipeListView data={appContext.SelectedPropertyLeases}
-				renderItem={({item, index})=>(<LeaseCard lease={item}/>)}
+				renderItem={({item})=>(<LeaseCard lease={item}/>)}
 				rightOpenValue={-50}
 				renderHiddenItem={({ item }) => (
 					<TrashButton onPress={()=> {
