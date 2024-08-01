@@ -9,11 +9,17 @@ export class AppContextClass {
 	public Properties:Property[] = [];
 	public Messages:IMessage[] = [];
 	public SelectedProperty:Property | null = null;
-	public SelectedPropertyLeases: Lease[] |null = null;
+	public SelectedPropertyLeases: Lease[] = [];
 
 	constructor() {
 		makeAutoObservable(this);
 	}
+
+	public addPropertyLease = action((lease:Lease)=>{
+		runInAction(() => {
+			this.SelectedPropertyLeases.push(lease);
+		});
+	});
 
 	public setSelectedProperty = action((SelectedProperty: Property) =>{
 		runInAction(()=>{
@@ -44,12 +50,12 @@ export class AppContextClass {
 	public deleteProperty = action(async (propertyId: number)=> {
 		await DataService.deleteProperty(propertyId);
 		runInAction(() => {
-			this.SelectedPropertyLeases = null;
+			this.SelectedPropertyLeases = [];
 			this.Properties = this.Properties.filter((h) => toNumber(h.PropertyId) !== propertyId);
 		});
 	});
 
-	public addLease = action(async (leaseDetails:Lease) => {
+	public addLease = action(async (leaseDetails:Lease ) => {
 		try {
 			if (!_.isNull(this.SelectedProperty)) {
 				return await DataService.addLease(this.SelectedProperty.PropertyId, leaseDetails);
@@ -63,7 +69,7 @@ export class AppContextClass {
 	public deleteLease = action(async (leaseId:number) => {
 		await DataService.deleteLease(leaseId);
 		runInAction(() => {
-			this.SelectedPropertyLeases = null;
+			this.SelectedPropertyLeases = [];
 		});
 	});
 

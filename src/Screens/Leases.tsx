@@ -14,23 +14,27 @@ import {StackNavigationProp} from "@react-navigation/stack";
 function Leases(){
 	const appContext = useContext(AppContext);
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Leases">>();
+	const hasLeases = !_.isEmpty(appContext.SelectedPropertyLeases);
+	const headerTitle = hasLeases ? `Your Leases for ${appContext.SelectedProperty?.Name}` : "Your Leases";
+
 	return (
 		<Layout>
-			<View style={styles.headerContainer}>
-				<Header title={`Your Leases for ${appContext.SelectedProperty?.Name}`}/>
-				<FloatingActionButton
-					icon={"add"}
-					styles={styles.fab}
-					onPress={() => navigation.navigate("AddALease")}
-				/>
+			<View>
+				<View style={styles.headerContainer}>
+					<Header title={headerTitle} />
+					{
+						!_.isEmpty(appContext.SelectedProperty)?(
+							<FloatingActionButton
+								icon={"add"}
+								styles={styles.fab}
+								onPress={() => navigation.navigate("AddALease")}
+							/>
+						):null
+					}
+
+				</View>
+				{hasLeases ? <AreLeases /> : <NoLeases />}
 			</View>
-			{
-				(!_.isEmpty(appContext.SelectedPropertyLeases))?(
-					<AreLeases/>
-				):(
-					<NoLeases/>
-				)
-			}
 		</Layout>
 	);
 }

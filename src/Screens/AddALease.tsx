@@ -1,15 +1,18 @@
 import React, {useContext, useState} from "react";
 import { observer } from "mobx-react-lite";
-import { View, TextInput, Button, StyleSheet, Text } from "react-native";
+import {View, TextInput, Button, StyleSheet, Text, FlatList} from "react-native";
 import Layout from "../Components/Layout";
 import {AppContext} from "../Contexts/AppContext";
 import Header from "../Components/Header";
 import BackButton from "../Components/BackButton";
 import _ from "lodash";
+import {useNavigation} from "@react-navigation/native";
+import {StackNavigationProp} from "@react-navigation/stack";
+import LeaseCard from "../Components/Leases/LeaseCard";
 
 function AddALease() {
 	const appContext = useContext(AppContext);
-
+	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "AddALease">>();
 	const [leaseDetails, setLeaseDetails] = useState<Lease>({
 		StartDate: "",
 		EndDate: "",
@@ -25,16 +28,27 @@ function AddALease() {
 		});
 	};
 
-	const handleSubmit = async () => {
+	const handleAddLease = async () => {
 		try {
 			const LeaseId = await appContext.addLease(leaseDetails);
 			if (!_.isUndefined(LeaseId)){
 				handleInputChange("LeaseId", LeaseId);
-				appContext.SelectedPropertyLeases?.push(leaseDetails);
+				appContext.addPropertyLease(leaseDetails);
+				setLeaseDetails({
+					LeaseId:undefined,
+					StartDate: "",
+					EndDate: "",
+					MonthlyRent: null,
+					PropertyId:appContext.SelectedProperty?.PropertyId
+				});
 			}
 		} catch (error) {
 			console.error(error);
 		}
+	};
+
+	const handleSubmit = () =>{
+		navigation.navigate("BottomNavBar");
 	};
 
 	return (
@@ -72,7 +86,13 @@ function AddALease() {
 						placeholder="Enter Monthly Rent"
 					/>
 				</View>
-				<Button title="Add Lease" onPress={handleSubmit} />
+				<Button title="Add Lease" onPress={handleAddLease} />
+				<FlatList
+					data={appContext.SelectedPropertyLeases}
+					renderItem={({item, index})=>(
+						<LeaseCard lease={item} key={index} />
+					)}/>
+				<Button title="Done" onPress={handleSubmit} />
 			</View>
 		</Layout>
 	);

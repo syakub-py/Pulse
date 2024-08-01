@@ -38,7 +38,11 @@ function AddAProperty() {
 	const handleSubmit = async (): Promise<void> => {
 		property.PropertyType = selectedPropertyType;
 		await appContext.addProperty(property);
-		navigation.navigate("BottomNavBar");
+		if (property.isRental){
+			navigation.navigate("AddALease");
+		}else{
+			navigation.navigate("BottomNavBar");
+		}
 	};
 
 	return (
