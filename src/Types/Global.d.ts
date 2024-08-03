@@ -8,11 +8,11 @@ declare global {
     }
 
     interface Lease {
-        LeaseId?: number;
+        LeaseId: number;
         StartDate: string;
         EndDate: string;
         MonthlyRent: number | null;
-        PropertyId?: number;
+        PropertyId: number;
     }
 
     interface PasswordRequirement{
@@ -29,6 +29,7 @@ declare global {
 
     interface Tenant{
         TenantId?:number;
+        LeaseId: number | undefined;
         Name:string;
         AnnualIncome:number;
         PhoneNumber:string;

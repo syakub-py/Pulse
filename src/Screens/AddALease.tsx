@@ -14,10 +14,11 @@ function AddALease() {
 	const appContext = useContext(AppContext);
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "AddALease">>();
 	const [leaseDetails, setLeaseDetails] = useState<Lease>({
+		LeaseId:0,
 		StartDate: "",
 		EndDate: "",
 		MonthlyRent: null,
-		PropertyId:appContext.SelectedProperty?.PropertyId
+		PropertyId:!_.isNil(appContext.SelectedProperty)?appContext.SelectedProperty.PropertyId: 0
 	});
 
 
@@ -30,18 +31,18 @@ function AddALease() {
 
 	const handleAddLease = async () => {
 		try {
-			const LeaseId = await appContext.addLease(leaseDetails);
-			if (!_.isUndefined(LeaseId)){
-				handleInputChange("LeaseId", LeaseId);
-				appContext.addPropertyLease(leaseDetails);
-				setLeaseDetails({
-					LeaseId:undefined,
-					StartDate: "",
-					EndDate: "",
-					MonthlyRent: null,
-					PropertyId:appContext.SelectedProperty?.PropertyId
-				});
+			if (_.isNull(appContext.SelectedProperty?.PropertyId)){
+				alert("There is no property selected");
+				return;
 			}
+			await appContext.addLease(leaseDetails);
+			setLeaseDetails({
+				LeaseId: 0,
+				StartDate: "",
+				EndDate: "",
+				MonthlyRent: null,
+				PropertyId: appContext.SelectedProperty.PropertyId
+			});
 		} catch (error) {
 			console.error(error);
 		}

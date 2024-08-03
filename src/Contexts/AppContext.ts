@@ -16,9 +16,9 @@ export class AppContextClass {
 		makeAutoObservable(this);
 	}
 
-	public addPropertyLease = action((lease:Lease)=>{
+	public setPropertyLeases = action((leases:Lease[])=>{
 		runInAction(() => {
-			this.SelectedPropertyLeases.push(lease);
+			this.SelectedPropertyLeases= leases;
 		});
 	});
 
@@ -56,13 +56,17 @@ export class AppContextClass {
 		});
 	});
 
-	public addLease = action(async (leaseDetails:Lease ) => {
+	public addLease = action(async (lease:Lease ) => {
 		try {
 			if (!_.isNull(this.SelectedProperty)) {
-				return await DataService.addLease(this.SelectedProperty.PropertyId, leaseDetails);
+				lease.LeaseId = await DataService.addLease(this.SelectedProperty.PropertyId, lease);
+				runInAction(() => {
+					this.SelectedPropertyLeases.push(lease);
+				});
 			}
 		} catch (error) {
-			alert("An error occurred. Try again later.");
+			console.error(lease);
+			alert("An error occurred.");
 			return 0;
 		}
 	});
@@ -70,17 +74,17 @@ export class AppContextClass {
 	public deleteLease = action(async (leaseId:number) => {
 		await DataService.deleteLease(leaseId);
 		runInAction(() => {
-			this.SelectedPropertyLeases = [];
+			this.SelectedPropertyLeases = this.SelectedPropertyLeases.filter((l) => toNumber(l.LeaseId) !== leaseId);
 		});
 	});
 
-	public addTenant = action(async (TenantDetails:Tenant ) => {
-		return await DataService.addTenant(TenantDetails);
+	public addTenant = action(async (LeaseId:number, tenant:Tenant ) => {
+		tenant.TenantId = await DataService.addTenant(LeaseId, tenant);
+		runInAction(() => {
+			this.Tenants.push(tenant);
+			console.log(this.Tenants);
+		});
 	});
-
-	public setTenants = action(async (TenantDetails:Tenant ) => {
-		this.Tenants.push(TenantDetails)
-	});
-};
+}
 
 export const AppContext = createContext(new AppContextClass());
