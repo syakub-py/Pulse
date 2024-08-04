@@ -82,7 +82,12 @@ export class AppContextClass {
 		tenant.TenantId = await DataService.addTenant(LeaseId, tenant);
 		runInAction(() => {
 			this.Tenants.push(tenant);
-			console.log(this.Tenants);
+		});
+	});
+
+	public setTenants = action((tenants:Tenant[]) => {
+		runInAction(()=>{
+			this.Tenants = tenants;
 		});
 	});
 }

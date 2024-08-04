@@ -29,7 +29,8 @@ declare global {
 
     interface Tenant{
         TenantId?:number;
-        LeaseId: number | undefined;
+        LeaseId?: number;
+        TenantName?: string;
         Name:string;
         AnnualIncome:number;
         PhoneNumber:string;
