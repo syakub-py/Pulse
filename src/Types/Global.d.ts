@@ -9,6 +9,7 @@ declare global {
 
     interface Lease {
         LeaseId: number;
+        TenantName: string;
         StartDate: string;
         EndDate: string;
         MonthlyRent: number | null;
@@ -30,7 +31,6 @@ declare global {
     interface Tenant{
         TenantId?:number;
         LeaseId?: number;
-        TenantName?: string;
         Name:string;
         AnnualIncome:number;
         PhoneNumber:string;

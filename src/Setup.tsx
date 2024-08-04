@@ -4,16 +4,14 @@ import useCreateChatIfDoesntExist from "./Hooks/useCreateChatIfDoesntExist";
 import useFetchChatMessages from "./Hooks/useFetchChatMessages";
 import {observer} from "mobx-react-lite";
 import useFetchProperties from "./Hooks/useFetchProperties";
-import useGetLeases from "./Hooks/useGetLeases";
-import useGetTenants from "./Hooks/useGetTenants";
+import useGetLeasesAndTenants from "./Hooks/useGetLeasesAndTenants";
 
 function Setup() {
 	useGetAllDataFromStorage();
 	useCreateChatIfDoesntExist();
 	useFetchChatMessages();
 	useFetchProperties();
-	useGetLeases();
-	useGetTenants();
+	useGetLeasesAndTenants();
 	return <MainStack />;
 }
 

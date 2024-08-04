@@ -11,7 +11,7 @@ function LeaseCard(props:Props){
 	const {lease} = props;
 	return (
 		<View style={styles.card} key={lease.LeaseId}>
-			<Text style={[styles.text, styles.header]}>Lease ID: {lease.LeaseId}</Text>
+			<Text style={[styles.text, styles.header]}>Current tenant: {lease.TenantName}</Text>
 			<Text style={styles.text}>Start Date: {lease.StartDate}</Text>
 			<Text style={styles.text}>End Date: {lease.EndDate}</Text>
 			<Text style={styles.text}>Monthly Rent: ${lease.MonthlyRent?.toLocaleString("en-us")}</Text>
