@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { observer } from "mobx-react-lite";
 import {View, TextInput, Button, StyleSheet, Text, FlatList} from "react-native";
 import Layout from "../Components/Layout";
@@ -9,6 +9,7 @@ import _ from "lodash";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import LeaseCard from "../Components/Leases/LeaseCard";
+import ErrorMessage from "../ErrorMessage";
 
 function AddALease() {
 	const appContext = useContext(AppContext);
@@ -20,13 +21,45 @@ function AddALease() {
 		MonthlyRent: null,
 		PropertyId:!_.isNil(appContext.SelectedProperty)?appContext.SelectedProperty.PropertyId: 0
 	});
-
-
+	const [newLeases, setNewLeases] = useState<Lease[]>([]);
+	const [errors, setErrors] = useState({
+		StartDate: "",
+		EndDate: "",
+		MonthlyRent: ""
+	});
 	const handleInputChange = (name:string, value:string | number) => {
 		setLeaseDetails({
 			...leaseDetails,
 			[name]: value,
 		});
+	};
+
+	const validateInputs = () => {
+		const errorMessages = {
+			StartDate: "",
+			EndDate: "",
+			MonthlyRent: ""
+		};
+
+		if (!leaseDetails.StartDate) {
+			errorMessages.StartDate = "Start date is required";
+		} else if (!/^\d{4}-\d{2}-\d{2}$/.test(leaseDetails.StartDate)) {
+			errorMessages.StartDate = "Invalid date format. Please use YYYY-MM-DD.";
+		}
+
+		if (!leaseDetails.EndDate) {
+			errorMessages.EndDate = "End date is required";
+		} else if (!/^\d{4}-\d{2}-\d{2}$/.test(leaseDetails.EndDate)) {
+			errorMessages.EndDate = "Invalid date format. Please use YYYY-MM-DD.";
+		}
+
+		if (!leaseDetails.MonthlyRent) {
+			errorMessages.MonthlyRent = "Monthly rent is required";
+		} else if (isNaN(Number(leaseDetails.MonthlyRent))) {
+			errorMessages.MonthlyRent = "Monthly rent must be a number";
+		}
+
+		setErrors(errorMessages);
 	};
 
 	const handleAddLease = async () => {
@@ -35,7 +68,14 @@ function AddALease() {
 				alert("There is no property selected");
 				return;
 			}
+			validateInputs();
+			if (errors.StartDate || errors.EndDate || errors.MonthlyRent) {
+				alert("Please fix all errors before adding lease");
+				return;
+			}
+
 			await appContext.addLease(leaseDetails);
+			setNewLeases([...newLeases, leaseDetails]);
 			setLeaseDetails({
 				LeaseId: 0,
 				StartDate: "",
@@ -59,6 +99,9 @@ function AddALease() {
 				<Header title={"Add A Lease"} />
 			</View>
 			<View style={styles.container}>
+				<ErrorMessage message={errors.MonthlyRent} />
+				<ErrorMessage message={errors.StartDate} />
+				<ErrorMessage message={errors.EndDate} />
 				<View style={styles.inputContainer}>
 					<Text style={styles.label}>Start Date:</Text>
 					<TextInput
@@ -89,10 +132,11 @@ function AddALease() {
 				</View>
 				<Button title="Add Lease" onPress={handleAddLease} />
 				<FlatList
-					data={appContext.SelectedPropertyLeases}
+					data={newLeases}
 					renderItem={({item, index})=>(
 						<LeaseCard lease={item} key={index} />
 					)}/>
+
 				<Button title="Done" onPress={handleSubmit} />
 			</View>
 		</Layout>
@@ -125,5 +169,6 @@ const styles = StyleSheet.create({
 	headerContainer:{
 		flexDirection: "row",
 		alignItems: "center",
-	}
+	},
+
 });

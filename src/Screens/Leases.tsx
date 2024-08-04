@@ -23,7 +23,7 @@ function Leases(){
 				<View style={styles.headerContainer}>
 					<Header title={headerTitle} />
 					{
-						!_.isEmpty(appContext.SelectedProperty)?(
+						(!_.isEmpty(appContext.SelectedProperty) && appContext.SelectedProperty?.isRental)?(
 							<FloatingActionButton
 								icon={"add"}
 								styles={styles.fab}

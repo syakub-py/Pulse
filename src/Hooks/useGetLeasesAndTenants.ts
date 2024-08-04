@@ -8,24 +8,28 @@ export default function useGetLeasesAndTenants() {
 	const appContext = useContext(AppContext);
 	const authContext = useContext(AuthContext);
 
-	const fetchTenants = useCallback(async () => {
+	const fetchLeasesAndTenants = useCallback(async () => {
 		if (_.isEmpty(authContext.uid) || _.isUndefined(appContext.SelectedProperty?.PropertyId)) return;
-		const [leases, tenants] = await Promise.all([
-			DataService.getLeases(appContext.SelectedProperty.PropertyId),
-			DataService.getTenants(authContext.uid)
-		]);
-		appContext.setTenants(tenants);
-		const leasesWithTenants = leases.map(lease => {
-			const matchingTenant = tenants.find(tenant => tenant.LeaseId === lease.LeaseId);
-			return !_.isUndefined(matchingTenant) ? { ...lease, TenantName: matchingTenant.Name } : lease;
-		});
-		appContext.setPropertyLeases(leasesWithTenants);
-		authContext.isLoading = false;
 
+		const [leases, tenants = appContext.Tenants] = await Promise.all([
+			appContext.SelectedProperty?.isRental?DataService.getLeases(appContext.SelectedProperty.PropertyId):[],
+			_.isEmpty(appContext.Tenants) ? DataService.getTenants(authContext.uid) : Promise.resolve(appContext.Tenants)
+		]);
+
+		if (_.isEmpty(appContext.Tenants)) {
+			appContext.setTenants(tenants);
+		}
+		if (!_.isUndefined(leases)) {
+			appContext.setPropertyLeases(leases.map(lease => {
+				const matchingTenant = tenants.find(tenant => tenant.LeaseId === lease.LeaseId);
+				return !_.isUndefined(matchingTenant) ? { ...lease, TenantName: matchingTenant.Name } : lease;
+			}));
+		}
+		authContext.isLoading = false;
 	}, [authContext.uid, appContext.SelectedProperty]);
 
 	useEffect(() => {
-		void fetchTenants();
+		void fetchLeasesAndTenants();
 	}, [authContext.uid, appContext.SelectedProperty]);
 }
 
