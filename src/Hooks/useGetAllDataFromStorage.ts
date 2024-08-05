@@ -26,5 +26,5 @@ export default function useGetAllDataFromStorage(): void {
 			}
 		};
 		void determineInitialRoute();
-	}, [authContext.isLoggedIn, authContext.username, authContext.password]);
+	}, [authContext.isLoggedIn, authContext.username, authContext.password, authContext, navigation]);
 }

@@ -17,7 +17,7 @@ export default function useFetchProperties() {
 			appContext.setProperties(properties);
 			authContext.isLoading = false;
 		}
-	}, [authContext.uid]);
+	}, [appContext, authContext]);
 
 	useEffect(() => {
 		void fetchProperties();

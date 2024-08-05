@@ -15,7 +15,7 @@ function Login() {
 	const loginCallback = useCallback(async () => {
 		await login(username, password);
 		navigation.navigate("BottomNavBar");
-	}, []);
+	}, [login, navigation, password, username]);
 
 	return (
 		<ImageBackground

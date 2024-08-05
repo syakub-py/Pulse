@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useCallback, useState} from "react";
 import { observer } from "mobx-react-lite";
 import {View, TextInput, Button, StyleSheet, Text, FlatList} from "react-native";
 import Layout from "../Components/Layout";
@@ -22,14 +22,14 @@ function AddALease() {
 	});
 	const [newLeases, setNewLeases] = useState<Lease[]>([]);
 
-	const handleInputChange = (name:string, value:string | number) => {
+	const handleInputChange = useCallback((name:string, value:string | number) => {
 		setLeaseDetails({
 			...leaseDetails,
 			[name]: value,
 		});
-	};
+	}, [leaseDetails]);
 
-	const areValidInputs = () => {
+	const areValidInputs = useCallback(() => {
 		if (!leaseDetails.StartDate) {
 			alert("Start date is required");
 			return false;
@@ -54,9 +54,9 @@ function AddALease() {
 			return false;
 		}
 		return true;
-	};
+	}, [leaseDetails]);
 
-	const handleAddLease = async () => {
+	const handleAddLease = useCallback(async () => {
 		try {
 			if (_.isNull(appContext.SelectedProperty?.PropertyId)){
 				alert("There is no property selected");
@@ -79,7 +79,7 @@ function AddALease() {
 		} catch (error) {
 			console.error(error);
 		}
-	};
+	}, [appContext, areValidInputs, leaseDetails, newLeases]);
 
 	const handleSubmit = () =>{
 		navigation.navigate("AddATenant");

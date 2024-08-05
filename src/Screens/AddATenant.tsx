@@ -27,7 +27,7 @@ function AddATenant() {
 			...tenantDetails,
 			[name]: value,
 		});
-	}, []);
+	}, [tenantDetails]);
 
 	const areValidInputs = () => {
 		if (!tenantDetails.Name) {

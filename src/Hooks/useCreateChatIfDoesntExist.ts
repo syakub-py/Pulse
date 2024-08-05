@@ -15,9 +15,9 @@ export default function useCreateChatIfDoesntExist() {
 		}catch(e){
 			console.error(e);
 		}
-	}, []);
+	}, [authContext.uid]);
 
 	useEffect(() => {
 		void initializeChat();
-	}, [authContext.isLoggedIn]);
+	}, [authContext.isLoggedIn, initializeChat]);
 }

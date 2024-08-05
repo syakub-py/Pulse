@@ -15,7 +15,7 @@ export default function useFetchChatMessages() {
 
 		if (_.isUndefined(messages)) return;
 		appContext.setMessages(messages);
-	}, []);
+	}, [appContext]);
 
 	useEffect(() => {
 		void fetchMessages();

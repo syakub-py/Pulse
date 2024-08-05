@@ -16,11 +16,16 @@ const compat = new FlatCompat({
 });
 
 export default [
-	...compat.extends("eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:react/recommended"),
+	...compat.extends(
+		"eslint:recommended",
+		"plugin:@typescript-eslint/recommended",
+		"plugin:react/recommended",
+		"plugin:react-hooks/recommended"
+	),
 	{
 		plugins: {
 			"@typescript-eslint": typescriptEslint,
-			react
+			react	
 		},
 		languageOptions: {
 			globals: {

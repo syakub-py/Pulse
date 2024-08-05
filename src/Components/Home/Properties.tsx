@@ -11,7 +11,7 @@ function Properties() {
 	const onViewableItemsChanged = useCallback(({ viewableItems }: { viewableItems: ViewToken<Property>[], changed: ViewToken<Property>[] }) => {
 		if (_.isEmpty(viewableItems)) return;
 		appContext.setSelectedProperty(viewableItems[0].item);
-	}, []);
+	}, [appContext]);
 
 	return (
 		<FlatList

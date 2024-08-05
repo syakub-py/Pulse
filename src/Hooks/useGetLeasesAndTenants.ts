@@ -26,11 +26,11 @@ export default function useGetLeasesAndTenants() {
 			}));
 		}
 		authContext.isLoading = false;
-	}, [authContext.uid, appContext.SelectedProperty]);
+	}, [authContext, appContext]);
 
 	useEffect(() => {
 		void fetchLeasesAndTenants();
-	}, [authContext.uid, appContext.SelectedProperty]);
+	}, [authContext.uid, appContext.SelectedProperty, fetchLeasesAndTenants]);
 }
 
 

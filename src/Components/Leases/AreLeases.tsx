@@ -15,7 +15,7 @@ function AreLeases(){
 		if (_.isUndefined(leaseId)) return;
 		await DataService.deleteLease(leaseId);
 		appContext.deleteLease(leaseId);
-	}, []);
+	}, [appContext]);
 
 	return(
 		<View>

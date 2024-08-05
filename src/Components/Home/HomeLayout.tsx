@@ -1,5 +1,5 @@
 import {View, SafeAreaView, StyleSheet, Animated, Text, Image} from "react-native";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useMemo } from "react";
 import { useAuthContext } from "../../Contexts/AuthContext";
 import { observer } from "mobx-react-lite";
 import { LinearGradient } from "expo-linear-gradient";
@@ -14,27 +14,27 @@ function HomeLayout({ children }: { children: React.ReactNode }) {
 	const appContext = useAppContext();
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Home">>();
 	const [imageSource, setImageSource] = useState(undefined);
-	const opacity = new Animated.Value(0);
-
-	const handlePressActionButton = () => {
+	const opacity = useMemo(() => new Animated.Value(0), []);
+	
+	const handlePressActionButton = useCallback(() => {
 		navigation.navigate("AddAProperty");
-	};
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const propertyTypeImages: { [key: string]: any } = {
-		Home: require("../../../assets/DefaultPictures/houseWallpaper.jpg"),
-		Condo: require("../../../assets/DefaultPictures/condoWallpaper.jpg"),
-		"Vacation Home": require("../../../assets/DefaultPictures/vacationHomeWallpaper.jpg"),
-		"Multi-Family":require("../../../assets/DefaultPictures/multiFamilyWallpaper.jpg"),
-		"Commercial Building": require("../../../assets/DefaultPictures/commercialBuildingWallpaper.jpg"),
-	};
+	}, [navigation]);
 
 	const updateImageSource = useCallback(() => {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		const propertyTypeImages: { [key: string]: any } = {
+			Home: require("../../../assets/DefaultPictures/houseWallpaper.jpg"),
+			Condo: require("../../../assets/DefaultPictures/condoWallpaper.jpg"),
+			"Vacation Home": require("../../../assets/DefaultPictures/vacationHomeWallpaper.jpg"),
+			"Multi-Family":require("../../../assets/DefaultPictures/multiFamilyWallpaper.jpg"),
+			"Commercial Building": require("../../../assets/DefaultPictures/commercialBuildingWallpaper.jpg"),
+		};
 		if (!_.isNil(appContext.SelectedProperty) && !_.isEmpty(appContext.Properties)) {
 			setImageSource(propertyTypeImages[appContext.SelectedProperty.PropertyType]);
 		}else{
 			setImageSource(propertyTypeImages["Home"]);
 		}
-	}, [appContext.SelectedProperty, propertyTypeImages]);
+	}, [appContext.Properties, appContext.SelectedProperty]);
 
 	useEffect(() => {
 		updateImageSource();
@@ -47,7 +47,7 @@ function HomeLayout({ children }: { children: React.ReactNode }) {
 			duration: 500,
 			useNativeDriver: true,
 		}).start();
-	}, [imageSource]);
+	}, [imageSource, opacity]);
 
 	return (
 		<View style={styles.backgroundImage}>
