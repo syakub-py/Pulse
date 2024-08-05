@@ -37,7 +37,7 @@ export class AppContextClass {
 	public addProperty = action(async (property: Property) => {
 		try {
 			if (auth.currentUser?.uid){
-				property.PropertyId = await DataService.addProperty(auth.currentUser?.uid, property);
+				property.PropertyId = await DataService.addProperty(auth.currentUser.uid, property);
 				runInAction(() => {
 					this.Properties.push(property);
 				});

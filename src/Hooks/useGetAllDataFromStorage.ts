@@ -18,7 +18,7 @@ export default function useGetAllDataFromStorage(): void {
 				}
 				const user = await auth.signInWithEmailAndPassword(authContext.username, authContext.password);
 				if (_.isNull(user.user)) return;
-				authContext.setUid(user.user?.uid);
+				authContext.setUid(user.user.uid);
 				authContext.setProfilePicture(auth.currentUser?.photoURL);
 			} catch (FirebaseError) {
 				await authContext.logout();

@@ -12,7 +12,7 @@ export default function useGetLeasesAndTenants() {
 		if (_.isEmpty(authContext.uid) || _.isUndefined(appContext.SelectedProperty?.PropertyId)) return;
 
 		const [leases, tenants = appContext.Tenants] = await Promise.all([
-			appContext.SelectedProperty?.isRental?DataService.getLeases(appContext.SelectedProperty.PropertyId):[],
+			appContext.SelectedProperty.isRental?DataService.getLeases(appContext.SelectedProperty.PropertyId):[],
 			_.isEmpty(appContext.Tenants) ? DataService.getTenants(authContext.uid) : Promise.resolve(appContext.Tenants)
 		]);
 
