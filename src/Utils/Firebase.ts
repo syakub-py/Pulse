@@ -3,16 +3,15 @@ import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import "firebase/compat/analytics";
 import "firebase/compat/storage";
-import {envVariables} from "../../env";
 
 const firebaseConfig = {
-	apiKey: envVariables.API_KEY,
-	authDomain: envVariables.AUTH_DOMAIN,
-	projectId: envVariables.PROJECT_ID,
-	storageBucket: envVariables.STORAGE_BUCKET,
-	messagingSenderId: envVariables.MESSAGING_SENDER_ID,
-	appId: envVariables.APP_ID,
-	measurementId: envVariables.MEASUREMENT_ID,
+	apiKey: process.env.API_KEY,
+	authDomain: process.env.AUTH_DOMAIN,
+	projectId: process.env.PROJECT_ID,
+	storageBucket: process.env.STORAGE_BUCKET,
+	messagingSenderId: process.env.MESSAGING_SENDER_ID,
+	appId: process.env.APP_ID,
+	measurementId: process.env.MEASUREMENT_ID,
 };
 
 firebase.initializeApp(firebaseConfig);
