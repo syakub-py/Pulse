@@ -75,6 +75,7 @@ export class AppContextClass {
 		await DataService.deleteLease(leaseId);
 		runInAction(() => {
 			this.SelectedPropertyLeases = this.SelectedPropertyLeases.filter((l) => toNumber(l.LeaseId) !== leaseId);
+			this.Tenants = this.Tenants.filter((t)=>t.LeaseId !== leaseId);
 		});
 	});
 
