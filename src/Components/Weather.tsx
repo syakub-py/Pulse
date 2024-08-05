@@ -1,6 +1,5 @@
 import {useEffect, useState} from "react";
 import DataService from "../Utils/DataService";
-import {envVariables} from "../../env";
 import {View, Text, StyleSheet} from "react-native";
 
 const convertToFahrenheit = (celsius:number) => {
@@ -10,7 +9,7 @@ const convertToFahrenheit = (celsius:number) => {
 export default function Weather(){
 	const [weatherData, setWeatherData] = useState<WeatherResponse>();
 	useEffect(() => {
-		DataService.getWeather("New York", envVariables.WEATHER_API_KEY).then((result)=>{
+		DataService.getWeather("New York", process.env.WEATHER_API_KEY).then((result)=>{
 			setWeatherData(result?.data);
 		});
 	}, []);

@@ -58,6 +58,7 @@ export default [
 			"@typescript-eslint/no-unnecessary-condition": "warn",
 			"@typescript-eslint/no-floating-promises": "warn",
 			"@typescript-eslint/no-require-imports": "off",
+			"@typescript-eslint/no-unused-vars": "off"
 		},
 	},
 ];
