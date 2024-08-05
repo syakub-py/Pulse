@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useState} from "react";
 import { observer } from "mobx-react-lite";
 import {View, TextInput, Button, StyleSheet, Text, FlatList} from "react-native";
 import Layout from "../Components/Layout";
@@ -9,7 +9,6 @@ import _ from "lodash";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import LeaseCard from "../Components/Leases/LeaseCard";
-import ErrorMessage from "../ErrorMessage";
 
 function AddALease() {
 	const appContext = useContext(AppContext);
@@ -22,11 +21,7 @@ function AddALease() {
 		PropertyId:!_.isNil(appContext.SelectedProperty)?appContext.SelectedProperty.PropertyId: 0
 	});
 	const [newLeases, setNewLeases] = useState<Lease[]>([]);
-	const [errors, setErrors] = useState({
-		StartDate: "",
-		EndDate: "",
-		MonthlyRent: ""
-	});
+
 	const handleInputChange = (name:string, value:string | number) => {
 		setLeaseDetails({
 			...leaseDetails,
@@ -34,32 +29,31 @@ function AddALease() {
 		});
 	};
 
-	const validateInputs = () => {
-		const errorMessages = {
-			StartDate: "",
-			EndDate: "",
-			MonthlyRent: ""
-		};
-
+	const areValidInputs = () => {
 		if (!leaseDetails.StartDate) {
-			errorMessages.StartDate = "Start date is required";
+			alert("Start date is required");
+			return false;
 		} else if (!/^\d{4}-\d{2}-\d{2}$/.test(leaseDetails.StartDate)) {
-			errorMessages.StartDate = "Invalid date format. Please use YYYY-MM-DD.";
+			alert("Invalid date format. Please use YYYY-MM-DD.");
+			return false;
 		}
 
 		if (!leaseDetails.EndDate) {
-			errorMessages.EndDate = "End date is required";
+			alert("End date is required");
+			return false;
 		} else if (!/^\d{4}-\d{2}-\d{2}$/.test(leaseDetails.EndDate)) {
-			errorMessages.EndDate = "Invalid date format. Please use YYYY-MM-DD.";
+			alert("Invalid date format. Please use YYYY-MM-DD.");
+			return false;
 		}
 
 		if (!leaseDetails.MonthlyRent) {
-			errorMessages.MonthlyRent = "Monthly rent is required";
+			alert("Monthly rent is required");
+			return false;
 		} else if (isNaN(Number(leaseDetails.MonthlyRent))) {
-			errorMessages.MonthlyRent = "Monthly rent must be a number";
+			alert("Monthly rent must be a number");
+			return false;
 		}
-
-		setErrors(errorMessages);
+		return true;
 	};
 
 	const handleAddLease = async () => {
@@ -68,9 +62,8 @@ function AddALease() {
 				alert("There is no property selected");
 				return;
 			}
-			validateInputs();
-			if (errors.StartDate || errors.EndDate || errors.MonthlyRent) {
-				alert("Please fix all errors before adding lease");
+
+			if (!areValidInputs()) {
 				return;
 			}
 
@@ -99,16 +92,13 @@ function AddALease() {
 				<Header title={"Add A Lease"} />
 			</View>
 			<View style={styles.container}>
-				<ErrorMessage message={errors.MonthlyRent} />
-				<ErrorMessage message={errors.StartDate} />
-				<ErrorMessage message={errors.EndDate} />
 				<View style={styles.inputContainer}>
-					<Text style={styles.label}>Start Date:</Text>
 					<TextInput
 						style={styles.input}
 						value={leaseDetails.StartDate.toString()}
 						onChangeText={(value) => handleInputChange("StartDate", value)}
-						placeholder="YYYY-MM-DD"
+						placeholder="Start Date: YYYY-MM-DD"
+						placeholderTextColor="white"
 					/>
 				</View>
 				<View style={styles.inputContainer}>
@@ -117,7 +107,8 @@ function AddALease() {
 						style={styles.input}
 						value={leaseDetails.EndDate.toString()}
 						onChangeText={(value) => handleInputChange("EndDate", value)}
-						placeholder="YYYY-MM-DD"
+						placeholder="End Date: YYYY-MM-DD"
+						placeholderTextColor="white"
 					/>
 				</View>
 				<View style={styles.inputContainer}>
@@ -127,7 +118,8 @@ function AddALease() {
 						value={leaseDetails.MonthlyRent?.toString() ?? ""}
 						onChangeText={(value) => handleInputChange("MonthlyRent", value)}
 						keyboardType="numeric"
-						placeholder="Enter Monthly Rent"
+						placeholder="Monthly Rent"
+						placeholderTextColor="white"
 					/>
 				</View>
 				<Button title="Add Lease" onPress={handleAddLease} />

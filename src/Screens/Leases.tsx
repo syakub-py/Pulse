@@ -15,13 +15,12 @@ function Leases(){
 	const appContext = useContext(AppContext);
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Leases">>();
 	const hasLeases = !_.isEmpty(appContext.SelectedPropertyLeases);
-	const headerTitle = hasLeases ? `Your Leases for ${appContext.SelectedProperty?.Name}` : "Your Leases";
 
 	return (
 		<Layout>
 			<View>
 				<View style={styles.headerContainer}>
-					<Header title={headerTitle} />
+					<Header title={`${appContext.SelectedProperty?.Name} lease(s)`} />
 					{
 						(!_.isEmpty(appContext.SelectedProperty) && appContext.SelectedProperty?.isRental)?(
 							<FloatingActionButton

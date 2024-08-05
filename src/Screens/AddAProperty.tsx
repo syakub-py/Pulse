@@ -10,7 +10,7 @@ import BackButton from "../Components/BackButton";
 
 
 function AddAProperty() {
-	const [property, setProperty] = useState<Property>({
+	const [propertyDetails, setPropertyDetails] = useState<Property>({
 		PropertyId: 0,
 		Name: "",
 		Address: "",
@@ -32,19 +32,19 @@ function AddAProperty() {
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "AddAProperty">>();
 
 	const handleInputChange = (field: keyof Property, value: string | string[] | boolean | number) => {
-		setProperty((prev) => ({ ...prev, [field]: value }));
+		setPropertyDetails((prev) => ({ ...prev, [field]: value }));
 	};
 
 	const handleSubmit = async (): Promise<void> => {
-		property.PropertyType = selectedPropertyType;
-		await appContext.addProperty(property);
-		if (property.isRental){
+		propertyDetails.PropertyType = selectedPropertyType;
+		await appContext.addProperty(propertyDetails);
+		if (propertyDetails.isRental){
+			appContext.setSelectedProperty(propertyDetails);
 			navigation.navigate("AddALease");
 		}else{
 			navigation.navigate("BottomNavBar");
 		}
 	};
-
 	return (
 		<SafeAreaView style={styles.container}>
 			<View style={styles.header}>
@@ -55,14 +55,14 @@ function AddAProperty() {
 				style={styles.input}
 				placeholder="Give the property a nick name"
 				placeholderTextColor="white"
-				value={property.Name}
+				value={propertyDetails.Name}
 				onChangeText={(value) => handleInputChange("Name", value)}
 			/>
 			<TextInput
 				style={styles.input}
 				placeholder="Address"
 				placeholderTextColor="white"
-				value={property.Address}
+				value={propertyDetails.Address}
 				onChangeText={(value) => handleInputChange("Address", value)}
 			/>
 			<DropdownPicker
@@ -75,8 +75,8 @@ function AddAProperty() {
 				{...styles}
 			/>
 			<Button
-				title={!property.isRental ? "Not a Rental" : "Is a Rental"}
-				onPress={() => handleInputChange("isRental", !property.isRental)}
+				title={!propertyDetails.isRental ? "Not a Rental" : "Is a Rental"}
+				onPress={() => handleInputChange("isRental", !propertyDetails.isRental)}
 			/>
 			<Button title="Add This Property" onPress={handleSubmit} />
 		</SafeAreaView>

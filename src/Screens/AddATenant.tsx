@@ -1,12 +1,13 @@
 import { observer } from "mobx-react-lite";
 import Layout from "../Components/Layout";
 import Header from "../Components/Header";
-import { Button, View, TextInput, Text, StyleSheet } from "react-native";
+import { Button, View, TextInput, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import _ from "lodash";
 import { AppContext } from "../Contexts/AppContext";
+import BackButton from "../Components/BackButton";
 
 function AddATenant() {
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "AddATenant">>();
@@ -29,15 +30,47 @@ function AddATenant() {
 		});
 	};
 
+	const areValidInputs = () => {
+		if (!tenantDetails.Name) {
+			alert("Name is required");
+			return false;
+		}
+
+		if (!tenantDetails.AnnualIncome || isNaN(Number(tenantDetails.AnnualIncome))) {
+			alert("Annual income is required and must be a number");
+			return false;
+		}
+
+		if (!tenantDetails.PhoneNumber) {
+			alert("Phone number is required");
+			return false;
+		} else if (!/^\d{3}-\d{3}-\d{4}$/.test(tenantDetails.PhoneNumber)) {
+			alert("Invalid phone number format. Please use XXX-XXX-XXXX.");
+			return false;
+		}
+
+		if (!tenantDetails.DateOfBirth) {
+			alert("Date of birth is required");
+			return false;
+		} else if (!/^\d{4}-\d{2}-\d{2}$/.test(tenantDetails.DateOfBirth)) {
+			alert("Invalid date format. Please use YYYY-MM-DD.");
+			return false;
+		}
+		return true;
+	};
+
 	const handleAddTenant = async () => {
 		try {
 			if (leaseIndex >= appContext.SelectedPropertyLeases.length) {
 				navigation.navigate("BottomNavBar");
 				return;
 			}
-
 			if (_.isUndefined(LeaseId)) {
-				alert("There is no lease id");
+				alert("There is no lease selected");
+				return;
+			}
+
+			if (!areValidInputs()) {
 				return;
 			}
 
@@ -51,43 +84,43 @@ function AddATenant() {
 
 	return (
 		<Layout>
-			<Header title={"Add Your tenants for this property"} />
+			<View style={styles.headerContainer}>
+				<BackButton/>
+				<Header title={"Add Your tenants for this property"} />
+			</View>
 			<View style={{ padding: 20 }}>
-				<Text>
-					Adding tenant for Lease {leaseIndex + 1} of {appContext.SelectedPropertyLeases.length}
-				</Text>
-				<Text>Name:</Text>
 				<TextInput
 					placeholder="John Doe"
 					value={tenantDetails.Name}
 					onChangeText={(text) => handleInputChange("Name", text)}
 					style={styles.input}
+					placeholderTextColor="white"
 				/>
 
-				<Text>Annual Income:</Text>
 				<TextInput
 					placeholder="50000"
 					value={tenantDetails.AnnualIncome.toString()}
 					onChangeText={(text) => handleInputChange("AnnualIncome", parseInt(text))}
 					style={styles.input}
 					keyboardType="numeric"
+					placeholderTextColor="white"
 				/>
 
-				<Text>Phone Number:</Text>
 				<TextInput
 					placeholder="123-456-7890"
 					value={tenantDetails.PhoneNumber}
 					onChangeText={(text) => handleInputChange("PhoneNumber", text)}
 					style={styles.input}
 					keyboardType="phone-pad"
+					placeholderTextColor="white"
 				/>
 
-				<Text>Date of Birth:</Text>
 				<TextInput
-					placeholder="MM/DD/YYYY"
+					placeholder="Date of birth: YYYY-MM-DD"
 					value={tenantDetails.DateOfBirth}
 					onChangeText={(text) => handleInputChange("DateOfBirth", text)}
 					style={styles.input}
+					placeholderTextColor="white"
 				/>
 
 				<Button title={leaseIndex < appContext.SelectedPropertyLeases.length - 1 ? "Add Tenant and Continue" : "Add Tenant and Finish"} onPress={handleAddTenant} />
@@ -107,6 +140,11 @@ const styles = StyleSheet.create({
 		borderRadius: 5,
 		paddingHorizontal: 10,
 		paddingVertical: 5,
-		color: "white",
+		color:"white"
 	},
+	headerContainer:{
+		flexDirection: "row",
+		alignItems: "center",
+	},
+
 });
