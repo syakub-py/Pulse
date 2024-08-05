@@ -13,8 +13,8 @@ function AddATenant() {
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "AddATenant">>();
 	const appContext = useContext(AppContext);
 	const [leaseIndex, setLeaseIndex] = useState(0);
-	const LeaseId = !_.isUndefined(appContext.SelectedPropertyLeases[leaseIndex]) ? appContext.SelectedPropertyLeases[leaseIndex].LeaseId : undefined;
-
+	const LeasesWithNoTenants = appContext.SelectedPropertyLeases.filter((lease) => _.isUndefined(lease.TenantName));
+	const LeaseId = !_.isUndefined(LeasesWithNoTenants[leaseIndex]) ? LeasesWithNoTenants[leaseIndex].LeaseId : undefined;
 	const [tenantDetails, setTenantDetails] = useState<Tenant>({
 		Name: "",
 		PhoneNumber: "",
@@ -37,6 +37,7 @@ function AddATenant() {
 
 		if (!tenantDetails.AnnualIncome || isNaN(Number(tenantDetails.AnnualIncome))) {
 			alert("Annual income is required and must be a number");
+			tenantDetails.AnnualIncome = 0;
 			return false;
 		}
 
@@ -61,19 +62,20 @@ function AddATenant() {
 
 	const handleAddTenant = async () => {
 		try {
-			if (leaseIndex >= appContext.SelectedPropertyLeases.length) {
-				navigation.navigate("BottomNavBar");
-				return;
-			}
+
 			if (_.isUndefined(LeaseId)) {
 				alert("There is no lease selected");
 				return;
 			}
-
 			if (!areValidInputs()) {
 				return;
 			}
-
+			if (leaseIndex >= LeasesWithNoTenants.length-1) {
+				navigation.navigate("BottomNavBar");
+				LeasesWithNoTenants[leaseIndex].TenantName = tenantDetails.Name;
+				await appContext.addTenant(LeaseId, { ...tenantDetails, LeaseId: LeaseId });
+				return;
+			}
 			await appContext.addTenant(LeaseId, { ...tenantDetails, LeaseId: LeaseId });
 			setLeaseIndex(leaseIndex + 1);
 
@@ -123,7 +125,7 @@ function AddATenant() {
 					placeholderTextColor="white"
 				/>
 
-				<Button title={leaseIndex < appContext.SelectedPropertyLeases.length - 1 ? "Add Tenant and Continue" : "Add Tenant and Finish"} onPress={handleAddTenant} />
+				<Button title={leaseIndex < LeasesWithNoTenants.length - 1 ? "Add Tenant and Continue" : "Add Tenant and Finish"} onPress={handleAddTenant} />
 			</View>
 		</Layout>
 	);
@@ -140,7 +142,8 @@ const styles = StyleSheet.create({
 		borderRadius: 5,
 		paddingHorizontal: 10,
 		paddingVertical: 5,
-		color:"white"
+		color:"white",
+		marginHorizontal:10
 	},
 	headerContainer:{
 		flexDirection: "row",
@@ -149,5 +152,4 @@ const styles = StyleSheet.create({
 	contentContainer:{
 		padding: 20
 	}
-
 });
