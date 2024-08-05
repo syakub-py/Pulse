@@ -125,24 +125,20 @@ function CreateUsernameAndPassword() {
 				<Header title={"Sign Up"}/>
 			</View>
 			<View style={styles.profilePictureContainer}>
-				{
-					(profilePicture)?(
-						<Image src={profilePicture} style={styles.profilePicture}/>
-					):(
-						<UploadPictures onclick={selectPicture}/>
-					)
-				}
+				{(profilePicture)?(
+					<Image src={profilePicture} style={styles.profilePicture}/>
+				):(
+					<UploadPictures onclick={selectPicture}/>
+				)}
 			</View>
 			<TextInput onChangeText={(text) => setUsername(text)} placeholder={"Email"} style={styles.textInput}/>
 			<TextInput onChangeText={(text) => setPassword(text)} placeholder={"Password"} style={styles.textInput} secureTextEntry/>
 			<PasswordRequirementCheckBox requirements={requirements}/>
-			{
-				(isLoading)?(
-					<ActivityIndicator size="small" color="white"/>
-				):(
-					<Button title={"Next"} onPress={handleSignUp}/>
-				)
-			}
+			{(isLoading)?(
+				<ActivityIndicator size="small" color="white"/>
+			):(
+				<Button title={"Next"} onPress={handleSignUp}/>
+			)}
 		</Layout>
 
 	);
