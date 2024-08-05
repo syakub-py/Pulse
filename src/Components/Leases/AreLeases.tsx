@@ -6,13 +6,15 @@ import {SwipeListView} from "react-native-swipe-list-view";
 import {useCallback} from "react";
 import {useAppContext} from "../../Contexts/AppContext";
 import _ from "lodash";
+import DataService from "../../Utils/DataService";
 
 function AreLeases(){
 	const appContext = useAppContext();
 
-	const deleteLease = useCallback(async (item: Lease) => {
-		if (_.isUndefined(item.LeaseId)) return;
-		await appContext.deleteLease(item.LeaseId);
+	const deleteLease = useCallback(async (leaseId: number) => {
+		if (_.isUndefined(leaseId)) return;
+		await DataService.deleteLease(leaseId);
+		appContext.deleteLease(leaseId);
 	}, []);
 
 	return(
@@ -21,9 +23,7 @@ function AreLeases(){
 				renderItem={({item})=>(<LeaseCard lease={item}/>)}
 				rightOpenValue={-50}
 				renderHiddenItem={({ item }) => (
-					<TrashButton
-						onPress={async () => deleteLease(item)}
-					/>
+					<TrashButton onPress={async () => deleteLease(item.LeaseId)} />
 				)}
 			/>
 		</View>

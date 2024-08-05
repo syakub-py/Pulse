@@ -20,15 +20,15 @@ function Leases(){
 			<View>
 				<View style={styles.headerContainer}>
 					<Header title={`${appContext.SelectedProperty?.Name} lease(s)`} />
-					{
-						(!_.isEmpty(appContext.SelectedProperty) && appContext.SelectedProperty.isRental)?(
-							<FloatingActionButton
-								icon={"add"}
-								styles={styles.fab}
-								onPress={() => navigation.navigate("AddALease")}
-							/>
-						):null
-					}
+					{(_.isEmpty(appContext.SelectedProperty) || !appContext.SelectedProperty.isRental)?(
+						null
+					) : (
+						<FloatingActionButton
+							icon={"add"}
+							styles={styles.fab}
+							onPress={() => navigation.navigate("AddALease")}
+						/>
+					)}
 
 				</View>
 				{hasLeases ? <AreLeases /> : <NoLeases />}

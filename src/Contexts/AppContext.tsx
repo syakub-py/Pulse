@@ -52,9 +52,7 @@ class AppContextClass {
 		try {
 			if (!_.isNull(this.SelectedProperty)) {
 				lease.LeaseId = await DataService.addLease(this.SelectedProperty.PropertyId, lease);
-				runInAction(() => {
-					this.SelectedPropertyLeases.push(lease);
-				});
+				this.SelectedPropertyLeases.push(lease);
 			}
 		} catch (error) {
 			console.error(lease);
@@ -63,8 +61,7 @@ class AppContextClass {
 		}
 	});
 
-	public deleteLease = action(async (leaseId:number) => {
-		await DataService.deleteLease(leaseId);
+	public deleteLease = action((leaseId:number) => {
 		runInAction(() => {
 			this.SelectedPropertyLeases = this.SelectedPropertyLeases.filter((l) => toNumber(l.LeaseId) !== leaseId);
 			this.Tenants = this.Tenants.filter((t)=>t.LeaseId !== leaseId);

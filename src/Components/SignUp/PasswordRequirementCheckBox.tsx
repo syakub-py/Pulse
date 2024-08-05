@@ -11,11 +11,9 @@ function PasswordRequirementCheckBox(props: Props){
 	return (
 		<View>
 			<Text style={styles.titleText}>Password Requirements:</Text>
-			{
-				requirements.map((requirement, index) => (
-					<Requirement key={index} requirement={requirement} />
-				))
-			}
+			{requirements.map((requirement, index) => (
+				<Requirement key={index} requirement={requirement} />
+			))}
 		</View>
 	);
 }

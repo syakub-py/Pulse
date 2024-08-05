@@ -55,9 +55,7 @@ function HomeLayout({ children }: { children: React.ReactNode }) {
 				source={imageSource}
 				style={[
 					styles.backgroundImage,
-					{
-						opacity: opacity,
-					},
+					{ opacity },
 				]}
 				resizeMode="cover"
 			/>
@@ -84,15 +82,13 @@ function HomeLayout({ children }: { children: React.ReactNode }) {
 					<View>
 						{children}
 					</View>
-					{
-						!_.isEmpty(appContext.Properties)?(
-							<FloatingActionButton
-								icon={"add"}
-								styles={styles.fab}
-								onPress={() => handlePressActionButton()}
-							/>
-						):null
-					}
+					{_.isEmpty(appContext.Properties)? ( null ) : (
+						<FloatingActionButton
+							icon={"add"}
+							styles={styles.fab}
+							onPress={() => handlePressActionButton()}
+						/>
+					)}
 
 				</SafeAreaView>
 			</LinearGradient>

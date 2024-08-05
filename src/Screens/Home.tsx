@@ -13,10 +13,10 @@ function Home() {
 
 	return (
 		<HomeLayout>
-			{_.isEmpty(appContext.Properties) ? (
-				<NoProperties onClick={()=>navigation.navigate("AddAProperty")}/>
-			) : (
+			{!_.isEmpty(appContext.Properties) ? (
 				<Properties />
+			) : (
+				<NoProperties onClick={()=>navigation.navigate("AddAProperty")}/>
 			)}
 		</HomeLayout>
 	);

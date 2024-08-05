@@ -16,11 +16,12 @@ function MessageInputBar(props: InputToolbarProps<IMessage>) {
 				/>
 			)}
 			renderSend={(sendProps: SendProps<IMessage>) => (
-				<MessageSendButton onSend={()=>{
-					if (sendProps.text && sendProps.onSend) {
-						sendProps.onSend({ text: sendProps.text.trim() } as IMessage, true);
-					}
-				}}
+				<MessageSendButton
+					onSend={()=>{
+						if (sendProps.text && sendProps.onSend) {
+							sendProps.onSend({ text: sendProps.text.trim() } as IMessage, true);
+						}
+					}}
 				/>
 			)}
 		/>
