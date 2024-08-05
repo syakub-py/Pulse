@@ -45,6 +45,7 @@ function AddAProperty() {
 			navigation.navigate("BottomNavBar");
 		}
 	};
+
 	return (
 		<SafeAreaView style={styles.container}>
 			<View style={styles.header}>

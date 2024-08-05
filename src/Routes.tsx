@@ -15,6 +15,7 @@ import Loading from "./Screens/Loading";
 import Leases from "./Screens/Leases";
 import AddALease from "./Screens/AddALease";
 import AddATenant from "./Screens/AddATenant";
+import AllTenants from "./Screens/AllTenants";
 
 
 export default function Routes() {
@@ -44,5 +45,7 @@ export default function Routes() {
 		<Screen key = "Leases" name="Leases" component={Leases} />,
 		<Screen key = "AddALease" name="AddALease" component={AddALease} />,
 		<Screen key = "AddATenant" name="AddATenant" component={AddATenant} />,
+		<Screen key = "AllTenants" name="AllTenants" component={AllTenants} />,
+
 	];
 }

@@ -17,7 +17,6 @@ function AddATenant() {
 
 	const [tenantDetails, setTenantDetails] = useState<Tenant>({
 		Name: "",
-		AnnualIncome: 0,
 		PhoneNumber: "",
 		DateOfBirth: "",
 		LeaseId: LeaseId
@@ -32,7 +31,7 @@ function AddATenant() {
 
 	const areValidInputs = () => {
 		if (!tenantDetails.Name) {
-			alert("Name is required");
+			alert("A Name is required");
 			return false;
 		}
 
@@ -56,6 +55,7 @@ function AddATenant() {
 			alert("Invalid date format. Please use YYYY-MM-DD.");
 			return false;
 		}
+
 		return true;
 	};
 
@@ -78,7 +78,7 @@ function AddATenant() {
 			setLeaseIndex(leaseIndex + 1);
 
 		} catch (error) {
-			console.error(error);
+			alert("There was an issue adding your lease");
 		}
 	};
 
@@ -88,7 +88,7 @@ function AddATenant() {
 				<BackButton/>
 				<Header title={"Add Your tenants for this property"} />
 			</View>
-			<View style={{ padding: 20 }}>
+			<View style={styles.contentContainer}>
 				<TextInput
 					placeholder="John Doe"
 					value={tenantDetails.Name}
@@ -98,8 +98,8 @@ function AddATenant() {
 				/>
 
 				<TextInput
-					placeholder="50000"
-					value={tenantDetails.AnnualIncome.toString()}
+					placeholder="$50,000"
+					value={tenantDetails.AnnualIncome?.toString()}
 					onChangeText={(text) => handleInputChange("AnnualIncome", parseInt(text))}
 					style={styles.input}
 					keyboardType="numeric"
@@ -146,5 +146,8 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		alignItems: "center",
 	},
+	contentContainer:{
+		padding: 20
+	}
 
 });

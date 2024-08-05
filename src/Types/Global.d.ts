@@ -32,7 +32,7 @@ declare global {
         TenantId?:number;
         LeaseId?: number;
         Name:string;
-        AnnualIncome:number;
+        AnnualIncome?:number;
         PhoneNumber:string;
         DateOfBirth:string;
     }
@@ -51,7 +51,8 @@ declare global {
         "Loading": undefined,
         "Leases": undefined,
         "AddALease":undefined,
-        "AddATenant": undefined
+        "AddATenant": undefined,
+        "AllTenants": undefined,
     }
 }
 
