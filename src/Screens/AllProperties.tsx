@@ -1,5 +1,5 @@
 import {observer} from "mobx-react-lite";
-import {useContext} from "react";
+import {useCallback, useContext} from "react";
 import {AppContext} from "../Contexts/AppContext";
 import Layout from "../Components/Layout";
 import Header from "../Components/Header";
@@ -12,9 +12,9 @@ import TrashButton from "../Components/TrashButton";
 function AllProperties() {
 	const appContext = useContext(AppContext);
 
-	const handleDeleteProperty = (propertyId:number) => {
-		appContext.deleteProperty(propertyId);
-	};
+	const handleDeleteProperty = useCallback(async (propertyId:number) => {
+		await appContext.deleteProperty(propertyId);
+	}, []);
 
 	return(
 		<Layout>

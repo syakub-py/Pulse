@@ -47,7 +47,7 @@ export default [
 		}
 	},
 	{
-		files: ["**/*.ts"],
+		files: ["**/*.ts", "**/*.tsx"],
 		languageOptions: {
 			parser: tsParser,
 			parserOptions: {
@@ -57,6 +57,7 @@ export default [
 		rules: {
 			"@typescript-eslint/no-unnecessary-condition": "warn",
 			"@typescript-eslint/no-floating-promises": "warn",
+			"@typescript-eslint/no-require-imports": "off",
 		},
 	},
 ];
