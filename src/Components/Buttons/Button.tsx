@@ -1,6 +1,5 @@
 import {Pressable, StyleProp, Text, TextStyle, View, ViewStyle} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import React from "react";
 import {observer} from "mobx-react-lite";
 
 interface Props {

@@ -1,17 +1,17 @@
-import React, {useState, useCallback, useContext} from "react";
+import {useState, useCallback} from "react";
 import {SafeAreaView, StyleSheet, View, Text,  LogBox} from "react-native";
 import {GiftedChat, IMessage} from "react-native-gifted-chat";
 import DataService from "../Utils/DataService";
-import {AuthContext} from "../Contexts/AuthContext";
 import MessageInputBar from "../Components/PulseAI/MessageInputBar";
-import {AppContext} from "../Contexts/AppContext";
 import {observer} from "mobx-react-lite";
+import { useAuthContext } from "../Contexts/AuthContext";
+import { useAppContext } from "../Contexts/AppContext";
 //temp solution
 LogBox.ignoreLogs(["Warning: Avatar: Support for defaultProps"]);
 
 function PulseAI() {
-	const authContext = useContext(AuthContext);
-	const appContext = useContext(AppContext);
+	const authContext = useAuthContext();
+	const appContext = useAppContext();
 	const [messages, setMessages] = useState<IMessage[]>(appContext.Messages);
 	const [isTyping, setIsTyping] = useState(false);
 

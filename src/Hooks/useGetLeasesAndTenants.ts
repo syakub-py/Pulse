@@ -1,12 +1,12 @@
-import {useCallback, useContext, useEffect} from "react";
-import {AppContext} from "../Contexts/AppContext";
-import {AuthContext} from "../Contexts/AuthContext";
+import {useCallback, useEffect} from "react";
+import {useAppContext} from "../Contexts/AppContext";
+import {useAuthContext} from "../Contexts/AuthContext";
 import _ from "lodash";
 import DataService from "../Utils/DataService";
 
 export default function useGetLeasesAndTenants() {
-	const appContext = useContext(AppContext);
-	const authContext = useContext(AuthContext);
+	const appContext = useAppContext();
+	const authContext = useAuthContext();
 
 	const fetchLeasesAndTenants = useCallback(async () => {
 		if (_.isEmpty(authContext.uid) || _.isUndefined(appContext.SelectedProperty?.PropertyId)) return;

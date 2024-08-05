@@ -1,13 +1,12 @@
 import { observer } from "mobx-react-lite";
 import {TextInput, StyleSheet, Button, SafeAreaView, View} from "react-native";
-import { useContext, useState } from "react";
-import { AppContext } from "../Contexts/AppContext";
+import { useState } from "react";
 import Header from "../Components/Header";
 import DropdownPicker, { ItemType } from "react-native-dropdown-picker";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import BackButton from "../Components/BackButton";
-
+import { useAppContext } from "../Contexts/AppContext";
 
 function AddAProperty() {
 	const [propertyDetails, setPropertyDetails] = useState<Property>({
@@ -28,7 +27,7 @@ function AddAProperty() {
 
 	const [open, setOpen] = useState(false);
 	const [selectedPropertyType, setSelectedPropertyType] = useState(propertyTypes[0].value as string);
-	const appContext = useContext(AppContext);
+	const appContext = useAppContext();
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "AddAProperty">>();
 
 	const handleInputChange = (field: keyof Property, value: string | string[] | boolean | number) => {

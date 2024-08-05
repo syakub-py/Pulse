@@ -1,8 +1,6 @@
-import React from "react";
 import {View, Text, StyleSheet} from "react-native";
 import Requirement from "./Requirement";
 import {observer} from "mobx-react-lite";
-
 
 interface Props{
 	requirements:PasswordRequirement[]

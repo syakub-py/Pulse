@@ -1,14 +1,14 @@
 import {observer} from "mobx-react-lite";
 import Layout from "../Components/Layout";
 import {FlatList, View, StyleSheet} from "react-native";
-import {useContext} from "react";
-import {AppContext} from "../Contexts/AppContext";
 import TenantCard from "../Components/AllTenants/TenantCard";
 import BackButton from "../Components/BackButton";
 import Header from "../Components/Header";
+import { useAppContext } from "../Contexts/AppContext";
 
 function AllTenants() {
-	const appContext = useContext(AppContext);
+	const appContext = useAppContext();
+
 	return(
 		<Layout>
 			<View style={styles.header}>

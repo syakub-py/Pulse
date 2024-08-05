@@ -1,12 +1,12 @@
-import {useContext, useEffect} from "react";
+import {useEffect} from "react";
 import {auth} from "../Utils/Firebase";
-import {AuthContext} from "../Contexts/AuthContext";
+import {useAuthContext} from "../Contexts/AuthContext";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import _ from "lodash";
 
 export default function useGetAllDataFromStorage(): void {
-	const authContext = useContext(AuthContext);
+	const authContext = useAuthContext();
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 	useEffect(() => {
 		const determineInitialRoute = async () => {

@@ -1,17 +1,17 @@
 import { observer } from "mobx-react-lite";
 import {Dimensions, FlatList, StyleSheet, Text, View, ViewToken} from "react-native";
 import Button from "../Buttons/Button";
-import React, { useContext } from "react";
-import { AppContext } from "../../Contexts/AppContext";
+import { useCallback } from "react";
+import { useAppContext } from "../../Contexts/AppContext";
+import _ from "lodash";
 
 function Properties() {
-	const appContext = useContext(AppContext);
+	const appContext = useAppContext();
 
-	const onViewableItemsChanged = ({ viewableItems }: { viewableItems: ViewToken<Property>[], changed: ViewToken<Property>[] }) => {
-		if (viewableItems.length > 0) {
-			appContext.setSelectedProperty(viewableItems[0].item);
-		}
-	};
+	const onViewableItemsChanged = useCallback(({ viewableItems }: { viewableItems: ViewToken<Property>[], changed: ViewToken<Property>[] }) => {
+		if (_.isEmpty(viewableItems)) return;
+		appContext.setSelectedProperty(viewableItems[0].item);
+	}, []);
 
 	return (
 		<FlatList
@@ -40,7 +40,6 @@ function Properties() {
 export default observer(Properties);
 
 const styles = StyleSheet.create({
-
 	homeAddress: {
 		fontSize: 15,
 		margin: 15,

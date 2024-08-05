@@ -1,11 +1,11 @@
-import {createContext} from "react";
+import {createContext, useContext, useMemo} from "react";
 import {action, makeAutoObservable, runInAction} from "mobx";
 import {auth} from "../Utils/Firebase";
 import {IMessage} from "react-native-gifted-chat";
 import DataService from "../Utils/DataService";
 import _, {toNumber} from "lodash";
 
-export class AppContextClass {
+class AppContextClass {
 	public Properties:Property[] = [];
 	public Messages:IMessage[] = [];
 	public SelectedProperty:Property | null = null;
@@ -17,31 +17,23 @@ export class AppContextClass {
 	}
 
 	public setPropertyLeases = action((leases:Lease[])=>{
-		runInAction(() => {
-			this.SelectedPropertyLeases= leases;
-		});
+		this.SelectedPropertyLeases = leases;
 	});
 
 	public setSelectedProperty = action((SelectedProperty: Property) =>{
-		runInAction(()=>{
-			this.SelectedProperty = SelectedProperty;
-		});
+		this.SelectedProperty = SelectedProperty;
 	});
 
 	public setProperties = action((Properties: Property[]) =>{
-		runInAction(()=>{
-			this.Properties = Properties;
-		});
+		this.Properties = Properties;
+		this.setSelectedProperty(Properties[0]);
 	});
 
 	public addProperty = action(async (property: Property) => {
 		try {
-			if (auth.currentUser?.uid){
-				property.PropertyId = await DataService.addProperty(auth.currentUser.uid, property);
-				runInAction(() => {
-					this.Properties.push(property);
-				});
-			}
+			if (_.isUndefined(auth.currentUser?.uid)) return;
+			property.PropertyId = await DataService.addProperty(auth.currentUser.uid, property);
+			this.Properties.push(property);
 		} catch (error) {
 			console.error("Error adding property:", error);
 			alert("An error occurred. Try again later.");
@@ -81,16 +73,36 @@ export class AppContextClass {
 
 	public addTenant = action(async (LeaseId:number, tenant:Tenant ) => {
 		tenant.TenantId = await DataService.addTenant(LeaseId, tenant);
-		runInAction(() => {
-			this.Tenants.push(tenant);
-		});
+		this.Tenants.push(tenant);
 	});
 
 	public setTenants = action((tenants:Tenant[]) => {
-		runInAction(()=>{
-			this.Tenants = tenants;
-		});
+		this.Tenants = tenants;
 	});
+
+	public setMessages = action((messages: IMessage[]) => {
+		this.Messages = messages.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+	});
+
+	public logout() {
+		this.Properties = [];
+		this.Messages = [];
+		this.SelectedProperty = null;
+		this.SelectedPropertyLeases = [];
+		this.Tenants = [];
+	}
 }
 
-export const AppContext = createContext(new AppContextClass());
+const AppContext = createContext(new AppContextClass());
+
+export default function AppContextProvider ({ children }: { children: React.ReactNode }) {
+	const appContext = useMemo(() => new AppContextClass(), []);
+
+	return (
+		<AppContext.Provider value={appContext}>
+			{children}
+		</AppContext.Provider>
+	);
+}
+
+export const useAppContext = () => useContext(AppContext);

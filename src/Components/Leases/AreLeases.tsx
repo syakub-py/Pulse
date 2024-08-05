@@ -3,12 +3,12 @@ import {View} from "react-native";
 import LeaseCard from "./LeaseCard";
 import TrashButton from "../TrashButton";
 import {SwipeListView} from "react-native-swipe-list-view";
-import React, {useCallback, useContext} from "react";
-import {AppContext} from "../../Contexts/AppContext";
+import {useCallback} from "react";
+import {useAppContext} from "../../Contexts/AppContext";
 import _ from "lodash";
 
 function AreLeases(){
-	const appContext = useContext(AppContext);
+	const appContext = useAppContext();
 
 	const deleteLease = useCallback(async (item: Lease) => {
 		if (_.isUndefined(item.LeaseId)) return;

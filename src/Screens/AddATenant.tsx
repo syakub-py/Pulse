@@ -4,14 +4,14 @@ import Header from "../Components/Header";
 import { Button, View, TextInput, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import React, { useContext, useState } from "react";
+import { useCallback, useState } from "react";
 import _ from "lodash";
-import { AppContext } from "../Contexts/AppContext";
 import BackButton from "../Components/BackButton";
+import { useAppContext } from "../Contexts/AppContext";
 
 function AddATenant() {
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "AddATenant">>();
-	const appContext = useContext(AppContext);
+	const appContext = useAppContext();
 	const [leaseIndex, setLeaseIndex] = useState(0);
 	const LeasesWithNoTenants = appContext.SelectedPropertyLeases.filter((lease) => _.isUndefined(lease.TenantName));
 	const LeaseId = !_.isUndefined(LeasesWithNoTenants[leaseIndex]) ? LeasesWithNoTenants[leaseIndex].LeaseId : undefined;
@@ -22,12 +22,12 @@ function AddATenant() {
 		LeaseId: LeaseId
 	});
 
-	const handleInputChange = (name: string, value: string | number) => {
+	const handleInputChange = useCallback((name: string, value: string | number) => {
 		setTenantDetails({
 			...tenantDetails,
 			[name]: value,
 		});
-	};
+	}, []);
 
 	const areValidInputs = () => {
 		if (!tenantDetails.Name) {

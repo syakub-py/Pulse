@@ -1,15 +1,10 @@
-import { NavigationContainer } from "@react-navigation/native";
-import { AuthContextClass, AuthContext } from "./src/Contexts/AuthContext";
-import { AppContextClass, AppContext } from "./src/Contexts/AppContext";
-import { useMemo } from "react";
-import Setup from "./src/Setup";
 import { StatusBar } from "react-native";
-
+import { NavigationContainer } from "@react-navigation/native";
+import Setup from "./src/Setup";
+import AppContextProvider from "./src/Contexts/AppContext";
+import AuthContextProvider from "./src/Contexts/AuthContext";
 
 export default function App() {
-	const appContext = useMemo(() => new AppContextClass(), []);
-	const authContext = useMemo(() => new AuthContextClass(), []);
-	
 	return (
 		<>
 			<StatusBar
@@ -18,13 +13,13 @@ export default function App() {
 				translucent={true}
 				barStyle="dark-content"
 			/>
-			<AuthContext.Provider value={authContext}>
-				<AppContext.Provider value={appContext}>
+			<AuthContextProvider>
+				<AppContextProvider>
 					<NavigationContainer>
 						<Setup/>
 					</NavigationContainer>
-				</AppContext.Provider>
-			</AuthContext.Provider>
+				</AppContextProvider>
+			</AuthContextProvider>
 		</>
 	);
 }

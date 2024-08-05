@@ -1,17 +1,17 @@
-import React, {useContext, useState} from "react";
+import {useState} from "react";
 import { observer } from "mobx-react-lite";
 import {View, TextInput, Button, StyleSheet, Text, FlatList} from "react-native";
 import Layout from "../Components/Layout";
-import {AppContext} from "../Contexts/AppContext";
 import Header from "../Components/Header";
 import BackButton from "../Components/BackButton";
 import _ from "lodash";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import LeaseCard from "../Components/Leases/LeaseCard";
+import { useAppContext } from "../Contexts/AppContext";
 
 function AddALease() {
-	const appContext = useContext(AppContext);
+	const appContext = useAppContext();
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "AddALease">>();
 	const [leaseDetails, setLeaseDetails] = useState<Lease>({
 		LeaseId:0,

@@ -1,7 +1,6 @@
 import {observer} from "mobx-react-lite";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {Pressable, StyleSheet} from "react-native";
-import React from "react";
 
 interface Props{
 	onPress?:() => void;

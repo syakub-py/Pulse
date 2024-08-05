@@ -1,10 +1,10 @@
-import { createContext } from "react";
+import { createContext, useContext, useMemo } from "react";
 import { action, makeAutoObservable, runInAction} from "mobx";
 import _ from "lodash";
 import AsyncStorageClass from "../Classes/AsyncStorage";
 import {auth} from "../Utils/Firebase";
 
-export class AuthContextClass {
+class AuthContextClass {
 	constructor() {
 		makeAutoObservable(this);
 	}
@@ -66,4 +66,16 @@ export class AuthContextClass {
 	}
 }
 
-export const AuthContext = createContext(new AuthContextClass());
+const AuthContext = createContext(new AuthContextClass());
+
+export default function AuthContextProvider ({ children }: { children: React.ReactNode }) {
+	const authContext = useMemo(() => new AuthContextClass(), []);
+
+	return (
+		<AuthContext.Provider value={authContext}>
+			{children}
+		</AuthContext.Provider>
+	);
+}
+
+export const useAuthContext = () => useContext(AuthContext);

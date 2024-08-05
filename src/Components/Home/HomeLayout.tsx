@@ -1,18 +1,18 @@
 import {View, SafeAreaView, StyleSheet, Animated, Text, Image} from "react-native";
-import React, { useContext, useState, useCallback, useEffect } from "react";
-import { AuthContext } from "../../Contexts/AuthContext";
+import { useState, useCallback, useEffect } from "react";
+import { useAuthContext } from "../../Contexts/AuthContext";
 import { observer } from "mobx-react-lite";
 import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import FloatingActionButton from "../FloatingActionButton";
-import { AppContext } from "../../Contexts/AppContext";
+import { useAppContext } from "../../Contexts/AppContext";
 import _ from "lodash";
 
 function HomeLayout({ children }: { children: React.ReactNode }) {
-	const authContext = useContext(AuthContext);
+	const authContext = useAuthContext();
+	const appContext = useAppContext();
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Home">>();
-	const appContext = useContext(AppContext);
 	const [imageSource, setImageSource] = useState(undefined);
 	const opacity = new Animated.Value(0);
 
