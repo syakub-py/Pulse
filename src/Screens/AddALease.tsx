@@ -1,54 +1,88 @@
-import React, {useContext, useState} from "react";
+import {useCallback, useState} from "react";
 import { observer } from "mobx-react-lite";
 import {View, TextInput, Button, StyleSheet, Text, FlatList} from "react-native";
 import Layout from "../Components/Layout";
-import {AppContext} from "../Contexts/AppContext";
 import Header from "../Components/Header";
 import BackButton from "../Components/BackButton";
 import _ from "lodash";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import LeaseCard from "../Components/Leases/LeaseCard";
+import { useAppContext } from "../Contexts/AppContext";
 
 function AddALease() {
-	const appContext = useContext(AppContext);
+	const appContext = useAppContext();
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "AddALease">>();
 	const [leaseDetails, setLeaseDetails] = useState<Lease>({
+		LeaseId:0,
 		StartDate: "",
 		EndDate: "",
 		MonthlyRent: null,
-		PropertyId:appContext.SelectedProperty?.PropertyId
+		PropertyId:!_.isNil(appContext.SelectedProperty)?appContext.SelectedProperty.PropertyId: 0
 	});
+	const [newLeases, setNewLeases] = useState<Lease[]>([]);
 
-
-	const handleInputChange = (name:string, value:string | number) => {
+	const handleInputChange = useCallback((name:string, value:string | number) => {
 		setLeaseDetails({
 			...leaseDetails,
 			[name]: value,
 		});
-	};
+	}, [leaseDetails]);
 
-	const handleAddLease = async () => {
+	const areValidInputs = useCallback(() => {
+		if (!leaseDetails.StartDate) {
+			alert("Start date is required");
+			return false;
+		} else if (!/^\d{4}-\d{2}-\d{2}$/.test(leaseDetails.StartDate)) {
+			alert("Invalid date format. Please use YYYY-MM-DD.");
+			return false;
+		}
+
+		if (!leaseDetails.EndDate) {
+			alert("End date is required");
+			return false;
+		} else if (!/^\d{4}-\d{2}-\d{2}$/.test(leaseDetails.EndDate)) {
+			alert("Invalid date format. Please use YYYY-MM-DD.");
+			return false;
+		}
+
+		if (!leaseDetails.MonthlyRent) {
+			alert("Monthly rent is required");
+			return false;
+		} else if (isNaN(Number(leaseDetails.MonthlyRent))) {
+			alert("Monthly rent must be a number");
+			return false;
+		}
+		return true;
+	}, [leaseDetails]);
+
+	const handleAddLease = useCallback(async () => {
 		try {
-			const LeaseId = await appContext.addLease(leaseDetails);
-			if (!_.isUndefined(LeaseId)){
-				handleInputChange("LeaseId", LeaseId);
-				appContext.addPropertyLease(leaseDetails);
-				setLeaseDetails({
-					LeaseId:undefined,
-					StartDate: "",
-					EndDate: "",
-					MonthlyRent: null,
-					PropertyId:appContext.SelectedProperty?.PropertyId
-				});
+			if (_.isNull(appContext.SelectedProperty?.PropertyId)){
+				alert("There is no property selected");
+				return;
 			}
+
+			if (!areValidInputs()) {
+				return;
+			}
+
+			await appContext.addLease(leaseDetails);
+			setNewLeases([...newLeases, leaseDetails]);
+			setLeaseDetails({
+				LeaseId: 0,
+				StartDate: "",
+				EndDate: "",
+				MonthlyRent: null,
+				PropertyId: appContext.SelectedProperty.PropertyId
+			});
 		} catch (error) {
 			console.error(error);
 		}
-	};
+	}, [appContext, areValidInputs, leaseDetails, newLeases]);
 
 	const handleSubmit = () =>{
-		navigation.navigate("BottomNavBar");
+		navigation.navigate("AddATenant");
 	};
 
 	return (
@@ -59,12 +93,12 @@ function AddALease() {
 			</View>
 			<View style={styles.container}>
 				<View style={styles.inputContainer}>
-					<Text style={styles.label}>Start Date:</Text>
 					<TextInput
 						style={styles.input}
 						value={leaseDetails.StartDate.toString()}
 						onChangeText={(value) => handleInputChange("StartDate", value)}
-						placeholder="YYYY-MM-DD"
+						placeholder="Start Date: YYYY-MM-DD"
+						placeholderTextColor="white"
 					/>
 				</View>
 				<View style={styles.inputContainer}>
@@ -73,7 +107,8 @@ function AddALease() {
 						style={styles.input}
 						value={leaseDetails.EndDate.toString()}
 						onChangeText={(value) => handleInputChange("EndDate", value)}
-						placeholder="YYYY-MM-DD"
+						placeholder="End Date: YYYY-MM-DD"
+						placeholderTextColor="white"
 					/>
 				</View>
 				<View style={styles.inputContainer}>
@@ -83,15 +118,17 @@ function AddALease() {
 						value={leaseDetails.MonthlyRent?.toString() ?? ""}
 						onChangeText={(value) => handleInputChange("MonthlyRent", value)}
 						keyboardType="numeric"
-						placeholder="Enter Monthly Rent"
+						placeholder="Monthly Rent"
+						placeholderTextColor="white"
 					/>
 				</View>
 				<Button title="Add Lease" onPress={handleAddLease} />
 				<FlatList
-					data={appContext.SelectedPropertyLeases}
+					data={newLeases}
 					renderItem={({item, index})=>(
 						<LeaseCard lease={item} key={index} />
 					)}/>
+
 				<Button title="Done" onPress={handleSubmit} />
 			</View>
 		</Layout>
@@ -124,5 +161,6 @@ const styles = StyleSheet.create({
 	headerContainer:{
 		flexDirection: "row",
 		alignItems: "center",
-	}
+	},
+
 });

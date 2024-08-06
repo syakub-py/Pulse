@@ -1,8 +1,6 @@
-import React from "react";
 import {View, Text, StyleSheet} from "react-native";
 import Requirement from "./Requirement";
 import {observer} from "mobx-react-lite";
-
 
 interface Props{
 	requirements:PasswordRequirement[]
@@ -13,11 +11,9 @@ function PasswordRequirementCheckBox(props: Props){
 	return (
 		<View>
 			<Text style={styles.titleText}>Password Requirements:</Text>
-			{
-				requirements.map((requirement, index) => (
-					<Requirement key={index} requirement={requirement} />
-				))
-			}
+			{requirements.map((requirement, index) => (
+				<Requirement key={index} requirement={requirement} />
+			))}
 		</View>
 	);
 }

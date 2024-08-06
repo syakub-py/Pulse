@@ -1,4 +1,3 @@
-import React from "react";
 import {TouchableOpacity, StyleProp, ViewStyle} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {observer} from "mobx-react-lite";

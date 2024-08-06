@@ -1,6 +1,4 @@
-import {useContext} from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import {AuthContext} from "./Contexts/AuthContext";
 import Login from "./Screens/Login";
 import CreateUsernameAndPassword from "./Screens/SignUp/CreateUsernameAndPassword";
 import Home from "./Screens/Home";
@@ -14,10 +12,13 @@ import AllProperties from "./Screens/AllProperties";
 import Loading from "./Screens/Loading";
 import Leases from "./Screens/Leases";
 import AddALease from "./Screens/AddALease";
+import AddATenant from "./Screens/AddATenant";
+import AllTenants from "./Screens/AllTenants";
+import { useAuthContext } from "./Contexts/AuthContext";
 
 
 export default function Routes() {
-	const authContext = useContext(AuthContext);
+	const authContext = useAuthContext();
 	const { Screen } = createNativeStackNavigator<RootStackParamList>();
 
 	if (authContext.isLoading) {
@@ -42,5 +43,8 @@ export default function Routes() {
 		<Screen key = "AllProperties" name="AllProperties" component={AllProperties} />,
 		<Screen key = "Leases" name="Leases" component={Leases} />,
 		<Screen key = "AddALease" name="AddALease" component={AddALease} />,
+		<Screen key = "AddATenant" name="AddATenant" component={AddATenant} />,
+		<Screen key = "AllTenants" name="AllTenants" component={AllTenants} />,
+
 	];
 }

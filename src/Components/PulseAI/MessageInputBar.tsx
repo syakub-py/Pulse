@@ -1,4 +1,3 @@
-import React from "react";
 import { StyleSheet } from "react-native";
 import {InputToolbar, InputToolbarProps, IMessage, Composer, SendProps} from "react-native-gifted-chat";
 import MessageSendButton from "../Buttons/MessageSendButton";
@@ -17,11 +16,12 @@ function MessageInputBar(props: InputToolbarProps<IMessage>) {
 				/>
 			)}
 			renderSend={(sendProps: SendProps<IMessage>) => (
-				<MessageSendButton onSend={()=>{
-					if (sendProps.text && sendProps.onSend) {
-						sendProps.onSend({ text: sendProps.text.trim() } as IMessage, true);
-					}
-				}}
+				<MessageSendButton
+					onSend={()=>{
+						if (sendProps.text && sendProps.onSend) {
+							sendProps.onSend({ text: sendProps.text.trim() } as IMessage, true);
+						}
+					}}
 				/>
 			)}
 		/>

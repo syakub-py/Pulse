@@ -1,22 +1,21 @@
 import Layout from "../Components/Layout";
 import {StyleSheet, ScrollView, View, Image, Text} from "react-native";
 import Setting from "../Components/Settings/Setting";
-import {useContext} from "react";
-import {AuthContext} from "../Contexts/AuthContext";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {observer} from "mobx-react-lite";
 import Header from "../Components/Header";
-import {AppContext} from "../Contexts/AppContext";
-
+import { useAuthContext } from "../Contexts/AuthContext";
+import { useAppContext } from "../Contexts/AppContext";
 
 function Settings(){
-	const authContext = useContext(AuthContext);
-	const appContext = useContext(AppContext);
+	const authContext = useAuthContext();
+	const appContext = useAppContext();
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Settings">>();
 
 	const logout = async () =>{
 		await authContext.logout();
+		appContext.logout();
 		navigation.navigate("Login");
 	};
 
@@ -32,7 +31,7 @@ function Settings(){
 					</View>
 				</View>
 				<Setting title={"Finished Todos"}/>
-				<Setting title={"Your Tenants"}/>
+				<Setting title={"Your Tenants"} onClick={()=>navigation.navigate("AllTenants")}/>
 				<Setting title={"Your Properties"} onClick={()=>navigation.navigate("AllProperties")} />
 				<Setting title={"Logout"} onClick={()=> logout()}/>
 			</ScrollView>

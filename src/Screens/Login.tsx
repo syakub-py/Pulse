@@ -1,5 +1,5 @@
 import {View, TextInput, Button, Text, StyleSheet, Image, SafeAreaView, ImageBackground} from "react-native";
-import {useState} from "react";
+import {useCallback, useState} from "react";
 import { useNavigation } from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import useLogin from "../Hooks/useLogin";
@@ -11,6 +11,11 @@ function Login() {
 	const [password, setPassword] = useState("");
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Login">>();
 	const login = useLogin();
+
+	const loginCallback = useCallback(async () => {
+		await login(username, password);
+		navigation.navigate("BottomNavBar");
+	}, [login, navigation, password, username]);
 
 	return (
 		<ImageBackground
@@ -37,7 +42,7 @@ function Login() {
 							style={styles.input}
 							secureTextEntry
 						/>
-						<Button title='Login' onPress={() => login(username, password)} />
+						<Button title='Login' onPress={loginCallback} />
 						<Text style={styles.registerText} onPress={()=>navigation.navigate("CreateUsernameAndPassword")}>Dont have an account? Register here</Text>
 					</View>
 				</SafeAreaView>

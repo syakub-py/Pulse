@@ -1,40 +1,40 @@
 import {View, SafeAreaView, StyleSheet, Animated, Text, Image} from "react-native";
-import React, { useContext, useState, useCallback, useEffect } from "react";
-import { AuthContext } from "../../Contexts/AuthContext";
+import { useState, useCallback, useEffect, useMemo } from "react";
+import { useAuthContext } from "../../Contexts/AuthContext";
 import { observer } from "mobx-react-lite";
 import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import FloatingActionButton from "../FloatingActionButton";
-import { AppContext } from "../../Contexts/AppContext";
+import { useAppContext } from "../../Contexts/AppContext";
 import _ from "lodash";
 
 function HomeLayout({ children }: { children: React.ReactNode }) {
-	const authContext = useContext(AuthContext);
+	const authContext = useAuthContext();
+	const appContext = useAppContext();
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Home">>();
-	const appContext = useContext(AppContext);
 	const [imageSource, setImageSource] = useState(undefined);
-	const opacity = new Animated.Value(0);
+	const opacity =  new Animated.Value(0);
 
-	const handlePressActionButton = () => {
+	const handlePressActionButton = useCallback(() => {
 		navigation.navigate("AddAProperty");
-	};
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const propertyTypeImages: { [key: string]: any } = {
-		Home: require("../../../assets/DefaultPictures/houseWallpaper.jpg"),
-		Condo: require("../../../assets/DefaultPictures/condoWallpaper.jpg"),
-		"Vacation Home": require("../../../assets/DefaultPictures/vacationHomeWallpaper.jpg"),
-		"Multi-Family":require("../../../assets/DefaultPictures/multiFamilyWallpaper.jpg"),
-		"Commercial Building": require("../../../assets/DefaultPictures/commercialBuildingWallpaper.jpg"),
-	};
+	}, [navigation]);
 
 	const updateImageSource = useCallback(() => {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		const propertyTypeImages: { [key: string]: any } = {
+			Home: require("../../../assets/DefaultPictures/houseWallpaper.jpg"),
+			Condo: require("../../../assets/DefaultPictures/condoWallpaper.jpg"),
+			"Vacation Home": require("../../../assets/DefaultPictures/vacationHomeWallpaper.jpg"),
+			"Multi-Family":require("../../../assets/DefaultPictures/multiFamilyWallpaper.jpg"),
+			"Commercial Building": require("../../../assets/DefaultPictures/commercialBuildingWallpaper.jpg"),
+		};
 		if (!_.isNil(appContext.SelectedProperty) && !_.isEmpty(appContext.Properties)) {
 			setImageSource(propertyTypeImages[appContext.SelectedProperty.PropertyType]);
 		}else{
 			setImageSource(propertyTypeImages["Home"]);
 		}
-	}, [appContext.SelectedProperty, propertyTypeImages]);
+	}, [appContext.Properties, appContext.SelectedProperty]);
 
 	useEffect(() => {
 		updateImageSource();
@@ -47,7 +47,7 @@ function HomeLayout({ children }: { children: React.ReactNode }) {
 			duration: 500,
 			useNativeDriver: true,
 		}).start();
-	}, [imageSource]);
+	}, [imageSource, opacity]);
 
 	return (
 		<View style={styles.backgroundImage}>
@@ -55,9 +55,7 @@ function HomeLayout({ children }: { children: React.ReactNode }) {
 				source={imageSource}
 				style={[
 					styles.backgroundImage,
-					{
-						opacity: opacity,
-					},
+					{ opacity },
 				]}
 				resizeMode="cover"
 			/>
@@ -84,15 +82,13 @@ function HomeLayout({ children }: { children: React.ReactNode }) {
 					<View>
 						{children}
 					</View>
-					{
-						!_.isEmpty(appContext.Properties)?(
-							<FloatingActionButton
-								icon={"add"}
-								styles={styles.fab}
-								onPress={() => handlePressActionButton()}
-							/>
-						):null
-					}
+					{_.isEmpty(appContext.Properties)? ( null ) : (
+						<FloatingActionButton
+							icon={"add"}
+							styles={styles.fab}
+							onPress={() => handlePressActionButton()}
+						/>
+					)}
 
 				</SafeAreaView>
 			</LinearGradient>

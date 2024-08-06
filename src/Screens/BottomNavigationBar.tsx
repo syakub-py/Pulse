@@ -23,7 +23,7 @@ function BottomNavigationBar() {
 					let iconName;
 					const rn = route.name;
 					if (rn === "Home") {
-						iconName = focused ? "apps" : "apps-outline";
+						iconName = focused ? "list" : "list-outline";
 					} else if (rn === "Settings") {
 						iconName = focused ? "settings" : "settings-outline";
 					} else if (rn === "Analytics") {

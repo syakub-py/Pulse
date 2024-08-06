@@ -8,11 +8,12 @@ declare global {
     }
 
     interface Lease {
-        LeaseId?: number;
+        LeaseId: number;
+        TenantName?: string;
         StartDate: string;
         EndDate: string;
         MonthlyRent: number | null;
-        PropertyId?: number;
+        PropertyId: number;
     }
 
     interface PasswordRequirement{
@@ -25,6 +26,15 @@ declare global {
         text: string;
         createdAt: string;
         user:string;
+    }
+
+    interface Tenant{
+        TenantId?:number;
+        LeaseId?: number;
+        Name:string;
+        AnnualIncome?:number;
+        PhoneNumber:string;
+        DateOfBirth:string;
     }
 
     type RootStackParamList = {
@@ -40,7 +50,9 @@ declare global {
         "AllProperties": undefined,
         "Loading": undefined,
         "Leases": undefined,
-        "AddALease":undefined
+        "AddALease":undefined,
+        "AddATenant": undefined,
+        "AllTenants": undefined,
     }
 }
 

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {Text, View, StyleSheet} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {observer} from "mobx-react-lite";

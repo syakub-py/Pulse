@@ -2,11 +2,9 @@ import {observer} from "mobx-react-lite";
 import {Pressable, StyleSheet, Text} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-
 interface Props{
 	onClick:()=>void
 }
-
 
 function NoProperties(props: Props) {
 	const {onClick} = props;
@@ -18,7 +16,6 @@ function NoProperties(props: Props) {
 		</Pressable>
 	);
 }
-
 
 export default observer(NoProperties);
 

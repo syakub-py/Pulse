@@ -1,23 +1,23 @@
-import {useContext, useEffect} from "react";
+import {useCallback, useEffect} from "react";
 import AsyncStorageClass from "../Classes/AsyncStorage";
-import {auth} from "../Utils/Firebase";
 import DataService from "../Utils/DataService";
 import _ from "lodash";
-import {AuthContext} from "../Contexts/AuthContext";
+import {useAuthContext} from "../Contexts/AuthContext";
 
 export default function useCreateChatIfDoesntExist() {
-	const authContext = useContext(AuthContext);
+	const authContext = useAuthContext();
+
+	const initializeChat = useCallback(async () => {
+		try {
+			const chatId = await AsyncStorageClass.getDataFromStorage("chatId");
+			if (!_.isUndefined(chatId) || _.isEmpty(authContext.uid)) return;
+			await DataService.createChat(authContext.uid);
+		}catch(e){
+			console.error(e);
+		}
+	}, [authContext.uid]);
+
 	useEffect(() => {
-		const initializeChat = async () => {
-			try {
-				const chatId = await AsyncStorageClass.getDataFromStorage("chatId");
-				if (_.isUndefined(chatId) && auth.currentUser?.uid) {
-					await DataService.createChat(auth.currentUser.uid);
-				}
-			}catch(e){
-				console.error(e);
-			}
-		};
 		void initializeChat();
-	}, [authContext.isLoggedIn]);
+	}, [authContext.isLoggedIn, initializeChat]);
 }

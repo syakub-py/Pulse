@@ -1,8 +1,7 @@
 import {Image, StyleSheet, TextInput, View, ActivityIndicator, Button} from "react-native";
 import {useNavigation} from "@react-navigation/native";
-import {useContext, useState} from "react";
+import {useState} from "react";
 import PasswordRequirementCheckBox from "../../Components/SignUp/PasswordRequirementCheckBox";
-import {AuthContext} from "../../Contexts/AuthContext";
 import * as ImagePicker from "expo-image-picker";
 import _ from "lodash";
 import {storage, auth} from "../../Utils/Firebase";
@@ -13,6 +12,7 @@ import UploadPictures from "../../Components/UploadPictures";
 import Layout from "../../Components/Layout";
 import Header from "../../Components/Header";
 import BackButton from "../../Components/BackButton";
+import { useAuthContext } from "../../Contexts/AuthContext";
 
 const uploadProfilePicture = async (profilePicturePath:string, username:string) => {
 	if (_.isEmpty(profilePicturePath)) {
@@ -55,7 +55,7 @@ function CreateUsernameAndPassword() {
 	const [profilePicture, setProfilePicture] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "CreateUsernameAndPassword">>();
-	const authContext = useContext(AuthContext);
+	const authContext = useAuthContext();
 	const requirements:PasswordRequirement[] = [
 		{
 			label: "At least 8 characters and less than 50 characters",
@@ -107,7 +107,7 @@ function CreateUsernameAndPassword() {
 					}else{
 						authContext.setProfilePicture("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
 					}
-					authContext.setUid(user.user?.uid);
+					authContext.setUid(user.user.uid);
 				}
 				setIsLoading(false);
 			} catch (error) {
@@ -125,24 +125,20 @@ function CreateUsernameAndPassword() {
 				<Header title={"Sign Up"}/>
 			</View>
 			<View style={styles.profilePictureContainer}>
-				{
-					(profilePicture)?(
-						<Image src={profilePicture} style={styles.profilePicture}/>
-					):(
-						<UploadPictures onclick={selectPicture}/>
-					)
-				}
+				{(profilePicture)?(
+					<Image src={profilePicture} style={styles.profilePicture}/>
+				):(
+					<UploadPictures onclick={selectPicture}/>
+				)}
 			</View>
 			<TextInput onChangeText={(text) => setUsername(text)} placeholder={"Email"} style={styles.textInput}/>
 			<TextInput onChangeText={(text) => setPassword(text)} placeholder={"Password"} style={styles.textInput} secureTextEntry/>
 			<PasswordRequirementCheckBox requirements={requirements}/>
-			{
-				(isLoading)?(
-					<ActivityIndicator size="small" color="white"/>
-				):(
-					<Button title={"Next"} onPress={handleSignUp}/>
-				)
-			}
+			{(isLoading)?(
+				<ActivityIndicator size="small" color="white"/>
+			):(
+				<Button title={"Next"} onPress={handleSignUp}/>
+			)}
 		</Layout>
 
 	);
