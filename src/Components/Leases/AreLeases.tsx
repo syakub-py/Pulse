@@ -13,8 +13,7 @@ function AreLeases(){
 
 	const deleteLease = useCallback(async (leaseId: number) => {
 		if (_.isUndefined(leaseId)) return;
-		await DataService.deleteLease(leaseId);
-		appContext.deleteLease(leaseId);
+		await appContext.deleteLease(leaseId);
 	}, [appContext]);
 
 	return(
