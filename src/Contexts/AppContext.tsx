@@ -2,7 +2,9 @@ import {createContext, useContext, useMemo} from "react";
 import {action, makeAutoObservable, runInAction} from "mobx";
 import {auth} from "../Utils/Firebase";
 import {IMessage} from "react-native-gifted-chat";
-import DataService from "../Utils/DataService";
+import PropertyService from "../Utils/Services/PropertyService";
+import LeaseService from "../Utils/Services/LeaseService";
+import TenantService from "../Utils/Services/TenantService";
 import _, {toNumber} from "lodash";
 
 class AppContextClass {
@@ -37,7 +39,7 @@ class AppContextClass {
 	public addProperty = action(async (property: Property) => {
 		try {
 			if (auth.currentUser?.uid){
-				property.PropertyId = await DataService.addProperty(auth.currentUser?.uid, property);
+				property.PropertyId = await PropertyService.addProperty(auth.currentUser?.uid, property);
 				runInAction(() => {
 					this.Properties.push(property);
 				});
@@ -49,7 +51,7 @@ class AppContextClass {
 	});
 
 	public deleteProperty = action(async (propertyId: number)=> {
-		await DataService.deleteProperty(propertyId);
+		await PropertyService.deleteProperty(propertyId);
 		runInAction(() => {
 			this.SelectedPropertyLeases = [];
 			this.Properties = this.Properties.filter((h) => toNumber(h.PropertyId) !== propertyId);
@@ -59,7 +61,7 @@ class AppContextClass {
 	public addLease = action(async (lease:Lease ) => {
 		try {
 			if (!_.isNull(this.SelectedProperty)) {
-				lease.LeaseId = await DataService.addLease(this.SelectedProperty.PropertyId, lease);
+				lease.LeaseId = await LeaseService.addLease(this.SelectedProperty.PropertyId, lease);
 				runInAction(() => {
 					this.SelectedPropertyLeases.push(lease);
 				});
@@ -72,7 +74,7 @@ class AppContextClass {
 	});
 
 	public deleteLease = action(async (leaseId:number) => {
-		await DataService.deleteLease(leaseId);
+		await LeaseService.deleteLease(leaseId);
 		runInAction(() => {
 			this.SelectedPropertyLeases = this.SelectedPropertyLeases.filter((l) => toNumber(l.LeaseId) !== leaseId);
 			this.Tenants = this.Tenants.filter((t)=>t.LeaseId !== leaseId);
@@ -80,7 +82,7 @@ class AppContextClass {
 	});
 
 	public addTenant = action(async (LeaseId:number, tenant:Tenant ) => {
-		tenant.TenantId = await DataService.addTenant(LeaseId, tenant);
+		tenant.TenantId = await TenantService.addTenant(LeaseId, tenant);
 		runInAction(() => {
 			this.Tenants.push(tenant);
 		});

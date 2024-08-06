@@ -1,7 +1,7 @@
 import {useState, useCallback} from "react";
 import {SafeAreaView, StyleSheet, View, Text,  LogBox} from "react-native";
 import {GiftedChat, IMessage} from "react-native-gifted-chat";
-import DataService from "../Utils/DataService";
+import ChatService from "../Utils/Services/ChatService";
 import MessageInputBar from "../Components/PulseAI/MessageInputBar";
 import {observer} from "mobx-react-lite";
 import { useAuthContext } from "../Contexts/AuthContext";
@@ -21,7 +21,7 @@ function PulseAI() {
 		);
 		const userMessage = newMessages[0].text;
 		setIsTyping(true);
-		const responseText = await DataService.generateChatResponse(userMessage);
+		const responseText = await ChatService.generateChatResponse(userMessage);
 		const responseMessage = {
 			_id: Math.floor(Math.random() * 1000000),
 			text: responseText,

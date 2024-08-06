@@ -1,6 +1,6 @@
 import {useCallback, useEffect} from "react";
 import AsyncStorageClass from "../Classes/AsyncStorage";
-import DataService from "../Utils/DataService";
+import ChatService from "../Utils/Services/ChatService";
 import _ from "lodash";
 import {useAuthContext} from "../Contexts/AuthContext";
 
@@ -11,7 +11,7 @@ export default function useCreateChatIfDoesntExist() {
 		try {
 			const chatId = await AsyncStorageClass.getDataFromStorage("chatId");
 			if (!_.isUndefined(chatId) || _.isEmpty(authContext.uid)) return;
-			await DataService.createChat(authContext.uid);
+			await ChatService.createChat(authContext.uid);
 		}catch(e){
 			console.error(e);
 		}

@@ -6,7 +6,6 @@ import {SwipeListView} from "react-native-swipe-list-view";
 import {useCallback} from "react";
 import {useAppContext} from "../../Contexts/AppContext";
 import _ from "lodash";
-import DataService from "../../Utils/DataService";
 
 function AreLeases(){
 	const appContext = useAppContext();
