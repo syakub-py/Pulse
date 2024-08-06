@@ -14,8 +14,8 @@ function HomeLayout({ children }: { children: React.ReactNode }) {
 	const appContext = useAppContext();
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Home">>();
 	const [imageSource, setImageSource] = useState(undefined);
-	const opacity = useMemo(() => new Animated.Value(0), []);
-	
+	const opacity =  new Animated.Value(0);
+
 	const handlePressActionButton = useCallback(() => {
 		navigation.navigate("AddAProperty");
 	}, [navigation]);

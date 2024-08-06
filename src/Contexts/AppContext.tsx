@@ -17,23 +17,31 @@ class AppContextClass {
 	}
 
 	public setPropertyLeases = action((leases:Lease[])=>{
-		this.SelectedPropertyLeases = leases;
+		runInAction(() => {
+			this.SelectedPropertyLeases= leases;
+		});
 	});
 
 	public setSelectedProperty = action((SelectedProperty: Property) =>{
-		this.SelectedProperty = SelectedProperty;
+		runInAction(()=>{
+			this.SelectedProperty = SelectedProperty;
+		});
 	});
 
 	public setProperties = action((Properties: Property[]) =>{
-		this.Properties = Properties;
-		this.setSelectedProperty(Properties[0]);
+		runInAction(()=>{
+			this.Properties = Properties;
+		});
 	});
 
 	public addProperty = action(async (property: Property) => {
 		try {
-			if (_.isUndefined(auth.currentUser?.uid)) return;
-			property.PropertyId = await DataService.addProperty(auth.currentUser.uid, property);
-			this.Properties.push(property);
+			if (auth.currentUser?.uid){
+				property.PropertyId = await DataService.addProperty(auth.currentUser?.uid, property);
+				runInAction(() => {
+					this.Properties.push(property);
+				});
+			}
 		} catch (error) {
 			console.error("Error adding property:", error);
 			alert("An error occurred. Try again later.");
@@ -52,7 +60,9 @@ class AppContextClass {
 		try {
 			if (!_.isNull(this.SelectedProperty)) {
 				lease.LeaseId = await DataService.addLease(this.SelectedProperty.PropertyId, lease);
-				this.SelectedPropertyLeases.push(lease);
+				runInAction(() => {
+					this.SelectedPropertyLeases.push(lease);
+				});
 			}
 		} catch (error) {
 			console.error(lease);
@@ -61,7 +71,8 @@ class AppContextClass {
 		}
 	});
 
-	public deleteLease = action((leaseId:number) => {
+	public deleteLease = action(async (leaseId:number) => {
+		await DataService.deleteLease(leaseId);
 		runInAction(() => {
 			this.SelectedPropertyLeases = this.SelectedPropertyLeases.filter((l) => toNumber(l.LeaseId) !== leaseId);
 			this.Tenants = this.Tenants.filter((t)=>t.LeaseId !== leaseId);
@@ -70,15 +81,21 @@ class AppContextClass {
 
 	public addTenant = action(async (LeaseId:number, tenant:Tenant ) => {
 		tenant.TenantId = await DataService.addTenant(LeaseId, tenant);
-		this.Tenants.push(tenant);
+		runInAction(() => {
+			this.Tenants.push(tenant);
+		});
 	});
 
 	public setTenants = action((tenants:Tenant[]) => {
-		this.Tenants = tenants;
+		runInAction(()=>{
+			this.Tenants = tenants;
+		});
 	});
 
 	public setMessages = action((messages: IMessage[]) => {
-		this.Messages = messages.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+		runInAction(()=> {
+			this.Messages = messages.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+		});
 	});
 
 	public logout() {

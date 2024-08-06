@@ -12,12 +12,10 @@ export default function useFetchProperties() {
 		if (_.isEmpty(authContext.uid)) return;
 		const properties = await DataService.getProperty(authContext.uid);
 		if (_.isUndefined(properties)) return;
-	
-		if (!_.isUndefined(properties)) {
-			appContext.setProperties(properties);
-			authContext.isLoading = false;
-		}
-	}, [appContext, authContext]);
+		appContext.setProperties(properties);
+		authContext.isLoading = false;
+
+	}, [authContext.uid]);
 
 	useEffect(() => {
 		void fetchProperties();

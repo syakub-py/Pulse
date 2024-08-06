@@ -6,7 +6,7 @@ import {useAuthContext} from "../Contexts/AuthContext";
 
 export default function useCreateChatIfDoesntExist() {
 	const authContext = useAuthContext();
-	
+
 	const initializeChat = useCallback(async () => {
 		try {
 			const chatId = await AsyncStorageClass.getDataFromStorage("chatId");
