@@ -12,21 +12,20 @@ export default function useGetLeasesAndTenants() {
 		if (_.isEmpty(authContext.uid) || _.isUndefined(appContext.SelectedProperty?.PropertyId)) return;
 
 		const [leases, tenants = appContext.Tenants] = await Promise.all([
-			appContext.SelectedProperty.isRental?DataService.getLeases(appContext.SelectedProperty.PropertyId):[],
+			appContext.SelectedProperty.isRental ? DataService.getLeases(appContext.SelectedProperty.PropertyId):[],
 			_.isEmpty(appContext.Tenants) ? DataService.getTenants(authContext.uid) : Promise.resolve(appContext.Tenants)
 		]);
 
-		if (_.isEmpty(appContext.Tenants)) {
-			appContext.setTenants(tenants);
-		}
-		if (!_.isUndefined(leases)) {
-			appContext.setPropertyLeases(leases.map(lease => {
-				const matchingTenant = tenants.find(tenant => tenant.LeaseId === lease.LeaseId);
-				return !_.isUndefined(matchingTenant) ? { ...lease, TenantName: matchingTenant.Name } : lease;
-			}));
-		}
+		appContext.setTenants(tenants);
+
+		if (_.isUndefined(leases)) return;
+
+		appContext.setPropertyLeases(leases.map(lease => {
+			const matchingTenant = tenants.find(tenant => tenant.LeaseId === lease.LeaseId);
+			return !_.isUndefined(matchingTenant) ? { ...lease, TenantName: matchingTenant.Name } : lease;
+		}));
 		authContext.isLoading = false;
-	}, [authContext, appContext]);
+	}, [authContext.uid, appContext.SelectedProperty]);
 
 	useEffect(() => {
 		void fetchLeasesAndTenants();
