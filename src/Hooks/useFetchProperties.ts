@@ -1,5 +1,5 @@
 import {useCallback, useEffect} from "react";
-import DataService from "../Utils/DataService";
+import PropertyService from "../Utils/Services/PropertyService";
 import {useAppContext} from "../Contexts/AppContext";
 import _ from "lodash";
 import {useAuthContext} from "../Contexts/AuthContext";
@@ -10,7 +10,7 @@ export default function useFetchProperties() {
 
 	const fetchProperties = useCallback(async () => {
 		if (_.isEmpty(authContext.uid)) return;
-		const properties = await DataService.getProperty(authContext.uid);
+		const properties = await PropertyService.getProperty(authContext.uid);
 		if (_.isUndefined(properties)) return;
 		appContext.setProperties(properties);
 		authContext.isLoading = false;

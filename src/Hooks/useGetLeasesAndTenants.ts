@@ -2,7 +2,8 @@ import {useCallback, useEffect} from "react";
 import {useAppContext} from "../Contexts/AppContext";
 import {useAuthContext} from "../Contexts/AuthContext";
 import _ from "lodash";
-import DataService from "../Utils/DataService";
+import LeaseService from "../Utils/Services/LeaseService";
+import TenantService from "../Utils/Services/TenantService";
 
 export default function useGetLeasesAndTenants() {
 	const appContext = useAppContext();
@@ -12,8 +13,8 @@ export default function useGetLeasesAndTenants() {
 		if (_.isEmpty(authContext.uid) || _.isUndefined(appContext.SelectedProperty?.PropertyId)) return;
 
 		const [leases, tenants = appContext.Tenants] = await Promise.all([
-			appContext.SelectedProperty.isRental ? DataService.getLeases(appContext.SelectedProperty.PropertyId):[],
-			_.isEmpty(appContext.Tenants) ? DataService.getTenants(authContext.uid) : Promise.resolve(appContext.Tenants)
+			appContext.SelectedProperty.isRental ? LeaseService.getLeases(appContext.SelectedProperty.PropertyId):[],
+			_.isEmpty(appContext.Tenants) ? TenantService.getTenants(authContext.uid) : Promise.resolve(appContext.Tenants)
 		]);
 
 		appContext.setTenants(tenants);
