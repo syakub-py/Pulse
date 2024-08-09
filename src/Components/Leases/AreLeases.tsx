@@ -1,5 +1,5 @@
 import {observer} from "mobx-react-lite";
-import {Pressable, View} from "react-native";
+import {Pressable, View, StyleSheet} from "react-native";
 import LeaseCard from "./LeaseCard";
 import TrashButton from "../TrashButton";
 import {SwipeListView} from "react-native-swipe-list-view";
@@ -24,19 +24,16 @@ function AreLeases(){
 	return(
 		<View>
 			<SwipeListView data={appContext.SelectedPropertyLeases}
-			   renderItem={({ item }) => {
-				   if (isModalVisible) {
-					   return (
+			   renderItem={({ item }) => (
+				   <View style={styles.container}>
+					   <Pressable onPress={toggleModal}>
+						   <LeaseCard lease={item} />
+					   </Pressable>
+					   {isModalVisible && (
 						   <LeaseDetails toggleModal={toggleModal} isVisible={isModalVisible} lease={item} />
-					   );
-				   } else {
-					   return (
-						   <Pressable onPress={toggleModal}>
-							   <LeaseCard lease={item} />
-						   </Pressable>
-					   );
-				   }
-			   }}
+					   )}
+				   </View>
+			   )}
 			   rightOpenValue={-50}
 			   renderHiddenItem={({ item }) => (
 				   <TrashButton onPress={async () => deleteLease(item.LeaseId)} />
@@ -48,3 +45,11 @@ function AreLeases(){
 
 
 export default observer(AreLeases);
+
+
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		flexDirection: "column",
+	},
+});

@@ -14,6 +14,8 @@ declare global {
         EndDate: string;
         MonthlyRent: number | null;
         PropertyId: number;
+        Terms:string;
+        Status: boolean;
     }
 
     interface PasswordRequirement{
@@ -32,9 +34,13 @@ declare global {
         TenantId?:number;
         LeaseId?: number;
         Name:string;
-        AnnualIncome?:number;
         PhoneNumber:string;
+        Email:string;
+        AnnualIncome:number;
         DateOfBirth:string;
+        DocumentProvidedUrl:string;
+        SocialSecurity:string;
+        CoSigner?:string;
     }
 
     type RootStackParamList = {

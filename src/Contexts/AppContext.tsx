@@ -1,6 +1,6 @@
 import {createContext, useContext, useMemo} from "react";
 import {action, makeAutoObservable, runInAction} from "mobx";
-import {auth} from "../Utils/Firebase";
+import {auth, storage} from "../Utils/Firebase";
 import {IMessage} from "react-native-gifted-chat";
 import PropertyService from "../Utils/Services/PropertyService";
 import LeaseService from "../Utils/Services/LeaseService";
@@ -107,6 +107,22 @@ class AppContextClass {
 		this.SelectedPropertyLeases = [];
 		this.Tenants = [];
 	}
+	public uploadPicture = async (profilePicturePath:string, username:string, path:string) => {
+		if (_.isEmpty(profilePicturePath)) {
+			return "";
+		}
+		try {
+			const filename = profilePicturePath.split("/").pop();
+			const response = await fetch(profilePicturePath);
+			const blob = await response.blob();
+			const storageRef = storage.ref().child(path + `${filename}`);
+			await storageRef.put(blob);
+			return await storageRef.getDownloadURL();
+		} catch (error) {
+			console.error(error);
+			return "";
+		}
+	};
 }
 
 const AppContext = createContext(new AppContextClass());

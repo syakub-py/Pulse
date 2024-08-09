@@ -1,21 +1,31 @@
 import { observer } from "mobx-react-lite";
 import Layout from "../Components/Layout";
 import Header from "../Components/Header";
-import { Button, View, TextInput, StyleSheet } from "react-native";
+import {Button, View, TextInput, StyleSheet, Image} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { useCallback, useState } from "react";
 import _ from "lodash";
 import BackButton from "../Components/BackButton";
 import { useAppContext } from "../Contexts/AppContext";
+import UploadPictures from "../Components/UploadPictures";
+import * as ImagePicker from "expo-image-picker";
+import {useAuthContext} from "../Contexts/AuthContext";
 
 function AddATenant() {
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "AddATenant">>();
 	const appContext = useAppContext();
+	const authContext = useAuthContext();
 	const [leaseIndex, setLeaseIndex] = useState(0);
-	const LeasesWithNoTenants = appContext.SelectedPropertyLeases.filter((lease) => _.isUndefined(lease.TenantName));
+	const LeasesWithNoTenants = appContext.SelectedPropertyLeases.filter((lease) => _.isUndefined(lease.TenantName) || _.isEmpty(lease.TenantName));
 	const LeaseId = !_.isUndefined(LeasesWithNoTenants[leaseIndex]) ? LeasesWithNoTenants[leaseIndex].LeaseId : undefined;
+	const [DocumentPicture, setDocumentPicture] = useState("");
 	const [tenantDetails, setTenantDetails] = useState<Tenant>({
+		AnnualIncome: 0,
+		DocumentProvidedUrl: "",
+		Email: "",
+		SocialSecurity: "",
+		TenantId: 0,
 		Name: "",
 		PhoneNumber: "",
 		DateOfBirth: "",
@@ -56,13 +66,27 @@ function AddATenant() {
 			alert("Invalid date format. Please use YYYY-MM-DD.");
 			return false;
 		}
+		if (!tenantDetails.Email) {
+			alert("Email is required");
+			return false;
+		} else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(tenantDetails.Email)) {
+			alert("Invalid email format");
+			return false;
+		}
+
+		if (!tenantDetails.SocialSecurity) {
+			alert("Social Security Number is required");
+			return false;
+		} else if (!/^\d{3}-\d{2}-\d{4}$/.test(tenantDetails.SocialSecurity)) {
+			alert("Invalid Social Security Number format. Please use XXX-XX-XXXX.");
+			return false;
+		}
 
 		return true;
 	};
 
 	const handleAddTenant = async () => {
 		try {
-
 			if (_.isUndefined(LeaseId)) {
 				alert("There is no lease selected");
 				return;
@@ -73,6 +97,7 @@ function AddATenant() {
 			if (leaseIndex >= LeasesWithNoTenants.length-1) {
 				navigation.navigate("BottomNavBar");
 				LeasesWithNoTenants[leaseIndex].TenantName = tenantDetails.Name;
+				tenantDetails.DocumentProvidedUrl = await appContext.uploadPicture(DocumentPicture, authContext.username,`/DocumentPictures/${tenantDetails.Name}/`);
 				await appContext.addTenant(LeaseId, { ...tenantDetails, LeaseId: LeaseId });
 				return;
 			}
@@ -84,6 +109,19 @@ function AddATenant() {
 		}
 	};
 
+	const selectPicture = async () => {
+		const result = await ImagePicker.launchImageLibraryAsync({
+			mediaTypes: ImagePicker.MediaTypeOptions.Images,
+			aspect: [4, 3],
+			quality: 1,
+			allowsMultipleSelection: false,
+		});
+		if (result.canceled) {
+			return;
+		}
+		setDocumentPicture(result.assets[0].uri);
+	};
+
 	return (
 		<Layout>
 			<View style={styles.headerContainer}>
@@ -91,6 +129,12 @@ function AddATenant() {
 				<Header title={"Add Your tenants for this property"} />
 			</View>
 			<View style={styles.contentContainer}>
+				{(DocumentPicture) ? (
+					<Image src={DocumentPicture} style={styles.documentPictureContainer}/>
+				) : (
+					<UploadPictures onclick={selectPicture}/>
+				)}
+
 				<TextInput
 					placeholder="John Doe"
 					value={tenantDetails.Name}
@@ -101,7 +145,7 @@ function AddATenant() {
 
 				<TextInput
 					placeholder="$50,000"
-					value={tenantDetails.AnnualIncome?.toString()}
+					value={tenantDetails.AnnualIncome.toString()}
 					onChangeText={(text) => handleInputChange("AnnualIncome", parseInt(text))}
 					style={styles.input}
 					keyboardType="numeric"
@@ -121,6 +165,23 @@ function AddATenant() {
 					placeholder="Date of birth: YYYY-MM-DD"
 					value={tenantDetails.DateOfBirth}
 					onChangeText={(text) => handleInputChange("DateOfBirth", text)}
+					style={styles.input}
+					placeholderTextColor="white"
+				/>
+
+				<TextInput
+					placeholder="Social Sec: 123-12-1234"
+					value={tenantDetails.SocialSecurity}
+					onChangeText={(text) => handleInputChange("SocialSecurity", text)}
+					style={styles.input}
+					keyboardType="phone-pad"
+					placeholderTextColor="white"
+				/>
+
+				<TextInput
+					placeholder="example@example.com"
+					value={tenantDetails.Email}
+					onChangeText={(text) => handleInputChange("Email", text)}
 					style={styles.input}
 					placeholderTextColor="white"
 				/>
@@ -151,5 +212,10 @@ const styles = StyleSheet.create({
 	},
 	contentContainer:{
 		padding: 20
+	},
+	documentPictureContainer:{
+		width:200,
+		height:200,
+		borderRadius:10,
 	}
 });
