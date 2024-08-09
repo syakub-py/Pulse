@@ -23,6 +23,7 @@ function AddATenant() {
 	const [tenantDetails, setTenantDetails] = useState<Tenant>({
 		AnnualIncome: 0,
 		DocumentProvidedUrl: "",
+		UserId:authContext.uid,
 		Email: "",
 		SocialSecurity: "",
 		TenantId: 0,

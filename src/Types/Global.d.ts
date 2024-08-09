@@ -15,7 +15,7 @@ declare global {
         MonthlyRent: number | null;
         PropertyId: number;
         Terms:string;
-        Status: boolean;
+        isExpired: boolean;
     }
 
     interface PasswordRequirement{
@@ -33,6 +33,7 @@ declare global {
     interface Tenant{
         TenantId?:number;
         LeaseId?: number;
+        UserId: string;
         Name:string;
         PhoneNumber:string;
         Email:string;

@@ -22,4 +22,14 @@ export default new class TenantService {
 			return [];
 		}
 	}
+
+	async startTenantSignUp(LeaseId: string, tenantEmail: string): Promise<void> {
+		try{
+			await http.get(`/tenant/tenantSignUp/${LeaseId}/${tenantEmail}`);
+		}catch (error){
+			alert("Failed to send tenant invite");
+			console.error("Error creating tenant:", error);
+		}
+	}
+
 }();

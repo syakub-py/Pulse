@@ -9,6 +9,7 @@ import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import LeaseCard from "../Components/Leases/LeaseCard";
 import { useAppContext } from "../Contexts/AppContext";
+import TenantService from "../Utils/Services/TenantService";
 
 function AddALease() {
 	const appContext = useAppContext();
@@ -18,12 +19,14 @@ function AddALease() {
 		StartDate: "",
 		EndDate: "",
 		MonthlyRent: null,
-		Status: true,
+		isExpired: false,
 		TenantName: "",
 		Terms: "",
 		PropertyId:!_.isNil(appContext.SelectedProperty)?appContext.SelectedProperty.PropertyId: 0
 	});
 	const [newLeases, setNewLeases] = useState<Lease[]>([]);
+	const [tenantEmail, setTenantEmail] = useState("");
+
 
 	const handleInputChange = useCallback((name:string, value:string | number) => {
 		setLeaseDetails({
@@ -71,9 +74,12 @@ function AddALease() {
 			}
 
 			await appContext.addLease(leaseDetails);
+			if (_.isUndefined(appContext.SelectedPropertyLeases[appContext.SelectedPropertyLeases.length-1].LeaseId)) return;
+			await TenantService.startTenantSignUp(appContext.SelectedPropertyLeases[appContext.SelectedPropertyLeases.length-1].LeaseId.toString(), tenantEmail);
+
 			setNewLeases([...newLeases, leaseDetails]);
 			setLeaseDetails({
-				Status: true,
+				isExpired: false,
 				TenantName: "",
 				Terms: "",
 				LeaseId: 0,
@@ -85,10 +91,10 @@ function AddALease() {
 		} catch (error) {
 			console.error(error);
 		}
-	}, [appContext, areValidInputs, leaseDetails, newLeases]);
+	}, [appContext, areValidInputs, leaseDetails, newLeases, tenantEmail]);
 
 	const handleSubmit = () =>{
-		navigation.navigate("AddATenant");
+		navigation.navigate("BottomNavBar");
 	};
 
 	return (
@@ -140,6 +146,18 @@ function AddALease() {
 						placeholderTextColor="white"
 					/>
 				</View>
+
+				<View style={styles.inputContainer}>
+					<Text style={styles.label}>Tenant Email:</Text>
+					<TextInput
+						style={styles.input}
+						value={tenantEmail}
+						onChangeText={(value) => setTenantEmail(value)}
+						placeholder="Enter tenant's email"
+						placeholderTextColor="white"
+					/>
+				</View>
+
 				<Button title="Add Lease" onPress={handleAddLease} />
 				<FlatList
 					data={newLeases}
