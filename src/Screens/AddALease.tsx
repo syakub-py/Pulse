@@ -18,6 +18,9 @@ function AddALease() {
 		StartDate: "",
 		EndDate: "",
 		MonthlyRent: null,
+		Status: true,
+		TenantName: "",
+		Terms: "",
 		PropertyId:!_.isNil(appContext.SelectedProperty)?appContext.SelectedProperty.PropertyId: 0
 	});
 	const [newLeases, setNewLeases] = useState<Lease[]>([]);
@@ -70,6 +73,9 @@ function AddALease() {
 			await appContext.addLease(leaseDetails);
 			setNewLeases([...newLeases, leaseDetails]);
 			setLeaseDetails({
+				Status: true,
+				TenantName: "",
+				Terms: "",
 				LeaseId: 0,
 				StartDate: "",
 				EndDate: "",
@@ -119,6 +125,18 @@ function AddALease() {
 						onChangeText={(value) => handleInputChange("MonthlyRent", value)}
 						keyboardType="numeric"
 						placeholder="Monthly Rent"
+						placeholderTextColor="white"
+					/>
+				</View>
+
+				<View style={styles.inputContainer}>
+					<Text style={styles.label}>Monthly Rent:</Text>
+					<TextInput
+						style={styles.input}
+						value={leaseDetails.Terms}
+						onChangeText={(value) => handleInputChange("Terms", value)}
+						placeholder="Enter The terms of the lease"
+						multiline={true}
 						placeholderTextColor="white"
 					/>
 				</View>

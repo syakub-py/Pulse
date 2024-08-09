@@ -13,23 +13,9 @@ import Layout from "../../Components/Layout";
 import Header from "../../Components/Header";
 import BackButton from "../../Components/BackButton";
 import { useAuthContext } from "../../Contexts/AuthContext";
+import {useAppContext} from "../../Contexts/AppContext";
 
-const uploadProfilePicture = async (profilePicturePath:string, username:string) => {
-	if (_.isEmpty(profilePicturePath)) {
-		return "";
-	}
-	try {
-		const filename = profilePicturePath.split("/").pop();
-		const response = await fetch(profilePicturePath);
-		const blob = await response.blob();
-		const storageRef = storage.ref().child(`ProfilePictures/${username}/${filename}`);
-		await storageRef.put(blob);
-		return await storageRef.getDownloadURL();
-	} catch (error) {
-		console.error(error);
-		return "";
-	}
-};
+
 
 const validateForm = (username: string, password: string, requirements: PasswordRequirement[]): boolean => {
 	const emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
@@ -56,6 +42,7 @@ function CreateUsernameAndPassword() {
 	const [isLoading, setIsLoading] = useState(false);
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "CreateUsernameAndPassword">>();
 	const authContext = useAuthContext();
+	const appContext = useAppContext();
 	const requirements:PasswordRequirement[] = [
 		{
 			label: "At least 8 characters and less than 50 characters",
@@ -101,7 +88,7 @@ function CreateUsernameAndPassword() {
 				const user = await auth.createUserWithEmailAndPassword(username, password);
 				if (!_.isEmpty(user.user) && !_.isNull(user.user)) {
 					if (!_.isEmpty(profilePicture)) {
-						const profilePictureUrl = await uploadProfilePicture(profilePicture, username);
+						const profilePictureUrl = await appContext.uploadPicture(profilePicture, username, `ProfilePictures/${username}/`);
 						authContext.setProfilePicture(profilePictureUrl);
 						await updateProfile(user.user, {photoURL: profilePictureUrl});
 					}else{

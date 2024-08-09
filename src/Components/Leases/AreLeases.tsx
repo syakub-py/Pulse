@@ -1,14 +1,20 @@
 import {observer} from "mobx-react-lite";
-import {View} from "react-native";
+import {Pressable, View, StyleSheet} from "react-native";
 import LeaseCard from "./LeaseCard";
 import TrashButton from "../TrashButton";
 import {SwipeListView} from "react-native-swipe-list-view";
-import {useCallback} from "react";
+import {useCallback, useState} from "react";
 import {useAppContext} from "../../Contexts/AppContext";
 import _ from "lodash";
+import LeaseDetails from "./LeaseDetails";
 
 function AreLeases(){
 	const appContext = useAppContext();
+	const [isModalVisible, setModalVisible] = useState(false);
+
+	const toggleModal = () => {
+		setModalVisible(!isModalVisible);
+	};
 
 	const deleteLease = useCallback(async (leaseId: number) => {
 		if (_.isUndefined(leaseId)) return;
@@ -18,11 +24,20 @@ function AreLeases(){
 	return(
 		<View>
 			<SwipeListView data={appContext.SelectedPropertyLeases}
-				renderItem={({item})=>(<LeaseCard lease={item}/>)}
-				rightOpenValue={-50}
-				renderHiddenItem={({ item }) => (
-					<TrashButton onPress={async () => deleteLease(item.LeaseId)} />
-				)}
+			   renderItem={({ item }) => (
+				   <View style={styles.container}>
+					   <Pressable onPress={toggleModal}>
+						   <LeaseCard lease={item} />
+					   </Pressable>
+					   {isModalVisible && (
+						   <LeaseDetails toggleModal={toggleModal} isVisible={isModalVisible} lease={item} />
+					   )}
+				   </View>
+			   )}
+			   rightOpenValue={-50}
+			   renderHiddenItem={({ item }) => (
+				   <TrashButton onPress={async () => deleteLease(item.LeaseId)} />
+			   )}
 			/>
 		</View>
 	);
@@ -30,3 +45,11 @@ function AreLeases(){
 
 
 export default observer(AreLeases);
+
+
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		flexDirection: "column",
+	},
+});
