@@ -99,10 +99,10 @@ function AddATenant() {
 				navigation.navigate("BottomNavBar");
 				LeasesWithNoTenants[leaseIndex].TenantName = tenantDetails.Name;
 				tenantDetails.DocumentProvidedUrl = await appContext.uploadPicture(DocumentPicture, authContext.username,`/DocumentPictures/${tenantDetails.Name}/`);
-				await appContext.addTenant(LeaseId, { ...tenantDetails, LeaseId: LeaseId });
+				// await appContext.addTenant(LeaseId, { ...tenantDetails, LeaseId: LeaseId });
 				return;
 			}
-			await appContext.addTenant(LeaseId, { ...tenantDetails, LeaseId: LeaseId });
+			// await appContext.addTenant(LeaseId, { ...tenantDetails, LeaseId: LeaseId });
 			setLeaseIndex(leaseIndex + 1);
 
 		} catch (error) {

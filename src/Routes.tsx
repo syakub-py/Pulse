@@ -15,6 +15,7 @@ import AddALease from "./Screens/AddALease";
 import AddATenant from "./Screens/AddATenant";
 import AllTenants from "./Screens/AllTenants";
 import { useAuthContext } from "./Contexts/AuthContext";
+import TenantCode from "./Screens/SignUp/TenantCode";
 
 
 export default function Routes() {
@@ -31,6 +32,7 @@ export default function Routes() {
 		return [
 			<Screen key = "Login" name="Login" component={Login} />,
 			<Screen key = "CreateUsernameAndPassword" name = "CreateUsernameAndPassword" component = {CreateUsernameAndPassword}/>,
+			<Screen key = "EnterTenantCode" name = "EnterTenantCode" component = {TenantCode}/>,
 			<Screen key = "BottomNavBar" name="BottomNavBar" component={BottomNavigationBar} />
 		];
 	}

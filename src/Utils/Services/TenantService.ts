@@ -1,9 +1,10 @@
 import http from "../HttpCommon";
+import _ from "lodash";
 
 export default new class TenantService {
-	async addTenant(leaseId: number, tenantDetails: Tenant): Promise<number> {
+	async addTenant(tenantDetails: Tenant): Promise<number> {
 		try {
-			const response = await http.post(`/tenant/addTenant/${leaseId}`, tenantDetails);
+			const response = await http.post("/tenant/addTenant/", tenantDetails);
 			return response.data.tenant_id;
 		} catch (error) {
 			console.error("Error adding tenant:", error);
@@ -25,10 +26,19 @@ export default new class TenantService {
 
 	async startTenantSignUp(LeaseId: string, tenantEmail: string): Promise<void> {
 		try{
-			await http.get(`/tenant/tenantSignUp/${LeaseId}/${tenantEmail}`);
+			await http.get(`/tenant/startTenantSignUp/${LeaseId}/${tenantEmail}`);
 		}catch (error){
 			alert("Failed to send tenant invite");
 			console.error("Error creating tenant:", error);
+		}
+	}
+
+	async isCodeValid(code: string): Promise<boolean> {
+		try {
+			const response = await http.get(`/tenant/checkTenantCode/${code}`);
+			return !_.isUndefined(response.data);
+		} catch (error) {
+			return false;
 		}
 	}
 

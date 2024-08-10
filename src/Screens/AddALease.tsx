@@ -75,8 +75,8 @@ function AddALease() {
 
 			await appContext.addLease(leaseDetails);
 			if (_.isUndefined(appContext.SelectedPropertyLeases[appContext.SelectedPropertyLeases.length-1].LeaseId)) return;
-			await TenantService.startTenantSignUp(appContext.SelectedPropertyLeases[appContext.SelectedPropertyLeases.length-1].LeaseId.toString(), tenantEmail);
-
+			await TenantService.startTenantSignUp(appContext.SelectedPropertyLeases[appContext.SelectedPropertyLeases.length-1].LeaseId.toString(), tenantEmail.toLowerCase());
+			alert("Sent invite to " + tenantEmail.toLowerCase());
 			setNewLeases([...newLeases, leaseDetails]);
 			setLeaseDetails({
 				isExpired: false,
@@ -88,6 +88,7 @@ function AddALease() {
 				MonthlyRent: null,
 				PropertyId: appContext.SelectedProperty.PropertyId
 			});
+			setTenantEmail("");
 		} catch (error) {
 			console.error(error);
 		}
