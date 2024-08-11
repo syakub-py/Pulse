@@ -1,4 +1,4 @@
-import {useCallback, useState} from "react";
+import {useCallback, useMemo, useState} from "react";
 import { observer } from "mobx-react-lite";
 import {View, TextInput, Button, StyleSheet, Text, FlatList} from "react-native";
 import Layout from "../Components/Layout";
@@ -22,7 +22,7 @@ function AddALease() {
 		isExpired: false,
 		TenantName: "",
 		Terms: "",
-		PropertyId:!_.isNil(appContext.SelectedProperty)?appContext.SelectedProperty.PropertyId: 0
+		PropertyId: _.isNil(appContext.SelectedProperty) ? 0 :  appContext.SelectedProperty.PropertyId
 	});
 	const [newLeases, setNewLeases] = useState<Lease[]>([]);
 	const [tenantEmail, setTenantEmail] = useState("");
@@ -35,7 +35,7 @@ function AddALease() {
 		});
 	}, [leaseDetails]);
 
-	const areValidInputs = useCallback(() => {
+	const areValidInputs = useMemo(() => {
 		if (!leaseDetails.StartDate) {
 			alert("Start date is required");
 			return false;
@@ -60,7 +60,7 @@ function AddALease() {
 			return false;
 		}
 		return true;
-	}, [leaseDetails]);
+	}, [leaseDetails.StartDate, leaseDetails.EndDate, leaseDetails.MonthlyRent]);
 
 	const handleAddLease = useCallback(async () => {
 		try {
@@ -69,9 +69,7 @@ function AddALease() {
 				return;
 			}
 
-			if (!areValidInputs()) {
-				return;
-			}
+			if (!areValidInputs) return;
 
 			await appContext.addLease(leaseDetails);
 			if (_.isUndefined(appContext.SelectedPropertyLeases[appContext.SelectedPropertyLeases.length-1].LeaseId)) return;
@@ -94,9 +92,9 @@ function AddALease() {
 		}
 	}, [appContext, areValidInputs, leaseDetails, newLeases, tenantEmail]);
 
-	const handleSubmit = () =>{
+	const handleSubmit = useCallback(() =>{
 		navigation.navigate("BottomNavBar");
-	};
+	}, [navigation]);
 
 	return (
 		<Layout>
