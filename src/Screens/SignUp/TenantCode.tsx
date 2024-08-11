@@ -1,7 +1,7 @@
 import {observer} from "mobx-react-lite";
 import Layout from "../../Components/Layout";
 import {Button, TextInput, View, StyleSheet, Pressable, Text} from "react-native";
-import {useState} from "react";
+import {useCallback, useState} from "react";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import TenantService from "../../Utils/Services/TenantService";
@@ -9,25 +9,25 @@ import Header from "../../Components/Header";
 import BackButton from "../../Components/BackButton";
 import {useAuthContext} from "../../Contexts/AuthContext";
 
-
 function TenantCode() {
 	const [code, setCode] = useState("");
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "EnterTenantCode">>();
 	const authContext = useAuthContext();
-	const handleCodeSubmit = async () => {
-		if (code.length === 6) {
-			const isCodeValidResponse = await TenantService.isCodeValid(code);
-			authContext.setLeaseId(isCodeValidResponse.lease_id);
-			authContext.setTenantSignUpCode(code);
-			if (!isCodeValidResponse.isValid) {
-				alert("Invalid code or code expired");
-				return;
-			}
-			navigation.navigate("AddATenant");
-		} else {
+	
+	const handleCodeSubmit = useCallback(async () => {
+		if (code.length !== 6) {
 			alert("Please make sure the code is six digits");
+			return;
 		}
-	};
+		const isCodeValidResponse = await TenantService.isCodeValid(code);
+		authContext.setLeaseId(isCodeValidResponse.lease_id);
+		authContext.setTenantSignUpCode(code);
+		if (!isCodeValidResponse.isValid) {
+			alert("Invalid code or code expired");
+			return;
+		}
+		navigation.navigate("AddATenant");
+	}, [authContext, code, navigation]);
 
 	return (
 		<Layout>

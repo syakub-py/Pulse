@@ -23,26 +23,30 @@ function AreLeases(){
 
 	return(
 		<View>
-			<SwipeListView data={appContext.SelectedPropertyLeases}
-			   renderItem={({ item }) => (
-				   <View style={styles.container}>
-					   <Pressable onPress={toggleModal}>
-						   <LeaseCard lease={item} />
-					   </Pressable>
-					   {isModalVisible && (
-						   <LeaseDetails toggleModal={toggleModal} isVisible={isModalVisible} lease={item} tenant={appContext.Tenants.find((tenant)=>tenant.LeaseId === item.LeaseId)}/>
-					   )}
-				   </View>
-			   )}
-			   rightOpenValue={-50}
-			   renderHiddenItem={({ item }) => (
-				   <TrashButton onPress={async () => deleteLease(item.LeaseId)} />
-			   )}
+			<SwipeListView
+				data={appContext.SelectedPropertyLeases}
+				renderItem={({ item }) => (
+					<View style={styles.container}>
+						<Pressable onPress={toggleModal}>
+							<LeaseCard lease={item} />
+						</Pressable>
+						{isModalVisible && (
+							<LeaseDetails
+								toggleModal={toggleModal}
+								lease={item}
+								tenant={appContext.Tenants.find((tenant)=>tenant.LeaseId === item.LeaseId)}
+							/>
+						)}
+					</View>
+				)}
+				rightOpenValue={-50}
+				renderHiddenItem={({ item }) => (
+					<TrashButton onPress={async () => deleteLease(item.LeaseId)} />
+				)}
 			/>
 		</View>
 	);
 }
-
 
 export default observer(AreLeases);
 

@@ -5,10 +5,12 @@ import {AxiosResponse} from "axios";
 import {auth} from "../Firebase";
 
 export default new class ChatService {
+	private readonly serviceHeader = "/chat";
+
 	async generateChatResponse(prompt: string): Promise<string> {
 		try {
 			const chatId = await AsyncStorageClass.getDataFromStorage("chatId");
-			const response = await http.get(`/chat/generateResponse/${chatId.toString()}/${prompt}`);
+			const response = await http.get(`${this.serviceHeader}/generateResponse/${chatId.toString()}/${prompt}`);
 			return response.data.text;
 		} catch (error) {
 			console.error("Error generating chat response:", error);
@@ -19,7 +21,7 @@ export default new class ChatService {
 
 	async getMessages(chatId: number): Promise<IMessage[]> {
 		try {
-			const response: AxiosResponse<ChatMessage[]> = await http.get<ChatMessage[]>(`/chat/getMessages/${chatId}`);
+			const response: AxiosResponse<ChatMessage[]> = await http.get<ChatMessage[]>(`${this.serviceHeader}/getMessages/${chatId}`);
 			const data: ChatMessage[] = response.data;
 			return data.map(msg => ({
 				_id: msg._id,
@@ -40,7 +42,7 @@ export default new class ChatService {
 
 	async createChat(userId: string): Promise<void> {
 		try {
-			const response = await http.get(`/chat/createChat/${userId}`);
+			const response = await http.get(`${this.serviceHeader}/createChat/${userId}`);
 			await AsyncStorageClass.saveDataToStorage("chatId", response.data.chat_id);
 		} catch (error) {
 			console.error("Error creating chat:", error);
