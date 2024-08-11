@@ -22,7 +22,7 @@ function AddATenant() {
 		AnnualIncome: 0,
 		DocumentProvidedUrl: "",
 		UserId:authContext.uid,
-		Email: "",
+		Email: authContext.username,
 		SocialSecurity: "",
 		TenantId: 0,
 		Name: "",
@@ -40,6 +40,11 @@ function AddATenant() {
 	const areValidInputs = () => {
 		if (!tenantDetails.Name) {
 			alert("A Name is required");
+			return false;
+		}
+
+		if(_.isEmpty(DocumentPicture)){
+			alert("Please upload a document");
 			return false;
 		}
 
@@ -62,13 +67,6 @@ function AddATenant() {
 			return false;
 		} else if (!/^\d{4}-\d{2}-\d{2}$/.test(tenantDetails.DateOfBirth)) {
 			alert("Invalid date format. Please use YYYY-MM-DD.");
-			return false;
-		}
-		if (!tenantDetails.Email) {
-			alert("Email is required");
-			return false;
-		} else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(tenantDetails.Email)) {
-			alert("Invalid email format");
 			return false;
 		}
 
@@ -169,13 +167,6 @@ function AddATenant() {
 					placeholderTextColor="white"
 				/>
 
-				<TextInput
-					placeholder="example@example.com"
-					value={tenantDetails.Email}
-					onChangeText={(text) => handleInputChange("Email", text)}
-					style={styles.input}
-					placeholderTextColor="white"
-				/>
 
 				<Button title={"Done"} onPress={handleAddTenant} />
 			</View>
@@ -195,7 +186,8 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 10,
 		paddingVertical: 5,
 		color:"white",
-		marginHorizontal:10
+		marginHorizontal:10,
+		marginVertical:10,
 	},
 	headerContainer:{
 		flexDirection: "row",

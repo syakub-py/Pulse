@@ -10,7 +10,7 @@ export default function useCreateChatIfDoesntExist() {
 	const initializeChat = useCallback(async () => {
 		try {
 			const chatId = await AsyncStorageClass.getDataFromStorage("chatId");
-			if (!_.isUndefined(chatId) || _.isEmpty(authContext.uid)) return;
+			if (_.isUndefined(chatId) || _.isEmpty(authContext.uid)) return;
 			await ChatService.createChat(authContext.uid);
 		}catch(e){
 			console.error(e);
