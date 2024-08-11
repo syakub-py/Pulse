@@ -16,9 +16,7 @@ function AddATenant() {
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "AddATenant">>();
 	const appContext = useAppContext();
 	const authContext = useAuthContext();
-	const [leaseIndex, setLeaseIndex] = useState(0);
-	const LeasesWithNoTenants = appContext.SelectedPropertyLeases.filter((lease) => _.isUndefined(lease.TenantName) || _.isEmpty(lease.TenantName));
-	const LeaseId = !_.isUndefined(LeasesWithNoTenants[leaseIndex]) ? LeasesWithNoTenants[leaseIndex].LeaseId : undefined;
+	const LeaseId = authContext.leaseId;
 	const [DocumentPicture, setDocumentPicture] = useState("");
 	const [tenantDetails, setTenantDetails] = useState<Tenant>({
 		AnnualIncome: 0,
@@ -30,7 +28,6 @@ function AddATenant() {
 		Name: "",
 		PhoneNumber: "",
 		DateOfBirth: "",
-		LeaseId: LeaseId
 	});
 
 	const handleInputChange = useCallback((name: string, value: string | number) => {
@@ -88,23 +85,16 @@ function AddATenant() {
 
 	const handleAddTenant = async () => {
 		try {
-			if (_.isUndefined(LeaseId)) {
+			if (_.isUndefined(LeaseId) || _.isNull(LeaseId) || _.isNull(authContext.TenantSignUpCode)) {
 				alert("There is no lease selected");
 				return;
 			}
-			if (!areValidInputs()) {
-				return;
-			}
-			if (leaseIndex >= LeasesWithNoTenants.length-1) {
-				navigation.navigate("BottomNavBar");
-				LeasesWithNoTenants[leaseIndex].TenantName = tenantDetails.Name;
-				tenantDetails.DocumentProvidedUrl = await appContext.uploadPicture(DocumentPicture, authContext.username,`/DocumentPictures/${tenantDetails.Name}/`);
-				// await appContext.addTenant(LeaseId, { ...tenantDetails, LeaseId: LeaseId });
-				return;
-			}
-			// await appContext.addTenant(LeaseId, { ...tenantDetails, LeaseId: LeaseId });
-			setLeaseIndex(leaseIndex + 1);
-
+			if (!areValidInputs()) return;
+			navigation.navigate("BottomNavBar");
+			tenantDetails.DocumentProvidedUrl = await appContext.uploadPicture(DocumentPicture, authContext.username,`/DocumentPictures/${tenantDetails.Name}/`);
+			await appContext.addTenant({ ...tenantDetails, LeaseId: LeaseId }, authContext.TenantSignUpCode);
+			authContext.setLeaseId(null);
+			authContext.setTenantSignUpCode(null);
 		} catch (error) {
 			alert("There was an issue adding your lease");
 		}
@@ -127,7 +117,7 @@ function AddATenant() {
 		<Layout>
 			<View style={styles.headerContainer}>
 				<BackButton/>
-				<Header title={"Add Your tenants for this property"} />
+				<Header title={"Please fill out all your information"} />
 			</View>
 			<View style={styles.contentContainer}>
 				{(DocumentPicture) ? (
@@ -187,7 +177,7 @@ function AddATenant() {
 					placeholderTextColor="white"
 				/>
 
-				<Button title={leaseIndex < LeasesWithNoTenants.length - 1 ? "Add Tenant and Continue" : "Add Tenant and Finish"} onPress={handleAddTenant} />
+				<Button title={"Done"} onPress={handleAddTenant} />
 			</View>
 		</Layout>
 	);

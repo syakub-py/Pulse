@@ -81,8 +81,8 @@ class AppContextClass {
 		});
 	});
 
-	public addTenant = action(async ( tenant:Tenant ) => {
-		tenant.TenantId = await TenantService.addTenant(tenant);
+	public addTenant = action(async ( tenant:Tenant, code:string ) => {
+		tenant.TenantId = await TenantService.addTenant(tenant, code);
 		runInAction(() => {
 			this.Tenants.push(tenant);
 		});

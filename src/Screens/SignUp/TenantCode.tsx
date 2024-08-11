@@ -1,21 +1,26 @@
 import {observer} from "mobx-react-lite";
 import Layout from "../../Components/Layout";
-import {Button, TextInput, View, StyleSheet} from "react-native";
+import {Button, TextInput, View, StyleSheet, Pressable, Text} from "react-native";
 import {useState} from "react";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import TenantService from "../../Utils/Services/TenantService";
+import Header from "../../Components/Header";
+import BackButton from "../../Components/BackButton";
+import {useAuthContext} from "../../Contexts/AuthContext";
 
 
 function TenantCode() {
 	const [code, setCode] = useState("");
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "EnterTenantCode">>();
-
+	const authContext = useAuthContext();
 	const handleCodeSubmit = async () => {
 		if (code.length === 6) {
-			const isColdValid = await TenantService.isCodeValid(code);
-			if (!isColdValid) {
-				alert("invalid code or code expired");
+			const isCodeValidResponse = await TenantService.isCodeValid(code);
+			authContext.setLeaseId(isCodeValidResponse.lease_id);
+			authContext.setTenantSignUpCode(code);
+			if (!isCodeValidResponse.isValid) {
+				alert("Invalid code or code expired");
 				return;
 			}
 			navigation.navigate("AddATenant");
@@ -26,6 +31,10 @@ function TenantCode() {
 
 	return (
 		<Layout>
+			<View style={styles.headerContainer}>
+				<BackButton/>
+				<Header title={"Enter Your Code"}/>
+			</View>
 			<View style={styles.container}>
 				<TextInput
 					style={styles.input}
@@ -33,8 +42,12 @@ function TenantCode() {
 					value={code}
 					keyboardType="numeric"
 					maxLength={6}
+					placeholderTextColor="white"
 					placeholder="Enter your 6-digit code"
 				/>
+				<Pressable onPress={()=>navigation.navigate("Login")}>
+					<Text style={styles.text}>Not a Tenant? Click here to skip</Text>
+				</Pressable>
 				<Button
 					title="Submit"
 					onPress={handleCodeSubmit}
@@ -53,9 +66,18 @@ const styles = StyleSheet.create({
 	},
 	input: {
 		height: 40,
-		borderColor: 'gray',
+		borderColor: "gray",
 		borderWidth: 1,
 		marginBottom: 20,
-		paddingHorizontal: 10
+		paddingHorizontal: 10,
+		color: "white"
+	},
+	text:{
+		color: "white",
+		fontSize: 20,
+	},
+	headerContainer:{
+		alignItems:"center",
+		flexDirection: "row",
 	}
 });

@@ -44,6 +44,11 @@ declare global {
         CoSigner?:string;
     }
 
+    interface CodeValidationResponse {
+        isValid: boolean;
+        lease_id: number;
+    }
+
     type RootStackParamList = {
         "BottomNavBar": undefined
         "Home": undefined
