@@ -30,7 +30,7 @@ function AreLeases(){
 						   <LeaseCard lease={item} />
 					   </Pressable>
 					   {isModalVisible && (
-						   <LeaseDetails toggleModal={toggleModal} isVisible={isModalVisible} lease={item} />
+						   <LeaseDetails toggleModal={toggleModal} isVisible={isModalVisible} lease={item} tenant={appContext.Tenants.find((tenant)=>tenant.LeaseId === item.LeaseId)}/>
 					   )}
 				   </View>
 			   )}

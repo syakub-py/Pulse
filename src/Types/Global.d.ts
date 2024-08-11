@@ -5,6 +5,7 @@ declare global {
         Address: string;
         PropertyType: string;
         isRental:boolean;
+        isTenant:boolean;
     }
 
     interface Lease {
@@ -41,7 +42,6 @@ declare global {
         DateOfBirth:string;
         DocumentProvidedUrl:string;
         SocialSecurity:string;
-        CoSigner?:string;
     }
 
     interface CodeValidationResponse {

@@ -10,7 +10,6 @@ import { useAppContext } from "../Contexts/AppContext";
 function Home() {
 	const appContext = useAppContext();
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Home">>();
-
 	return (
 		<HomeLayout>
 			{!_.isEmpty(appContext.Properties) ? (

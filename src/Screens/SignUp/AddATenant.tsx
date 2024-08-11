@@ -1,16 +1,16 @@
 import { observer } from "mobx-react-lite";
-import Layout from "../Components/Layout";
-import Header from "../Components/Header";
+import Layout from "../../Components/Layout";
+import Header from "../../Components/Header";
 import {Button, View, TextInput, StyleSheet, Image} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { useCallback, useState } from "react";
 import _ from "lodash";
-import BackButton from "../Components/BackButton";
-import { useAppContext } from "../Contexts/AppContext";
-import UploadPictures from "../Components/UploadPictures";
+import BackButton from "../../Components/BackButton";
+import { useAppContext } from "../../Contexts/AppContext";
+import UploadPictures from "../../Components/UploadPictures";
 import * as ImagePicker from "expo-image-picker";
-import {useAuthContext} from "../Contexts/AuthContext";
+import {useAuthContext} from "../../Contexts/AuthContext";
 
 function AddATenant() {
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "AddATenant">>();

@@ -18,7 +18,6 @@ export default function useGetLeasesAndTenants() {
 		]);
 
 		appContext.setTenants(tenants);
-
 		if (_.isUndefined(leases)) return;
 
 		appContext.setPropertyLeases(leases.map(lease => {

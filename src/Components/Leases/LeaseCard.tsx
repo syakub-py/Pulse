@@ -3,7 +3,7 @@ import {StyleSheet, Text, View} from "react-native";
 import {useAppContext} from "../../Contexts/AppContext";
 
 interface Props{
-	lease:Lease
+	lease:Lease,
 }
 
 

@@ -12,7 +12,7 @@ import AllProperties from "./Screens/AllProperties";
 import Loading from "./Screens/Loading";
 import Leases from "./Screens/Leases";
 import AddALease from "./Screens/AddALease";
-import AddATenant from "./Screens/AddATenant";
+import AddATenant from "./Screens/SignUp/AddATenant";
 import AllTenants from "./Screens/AllTenants";
 import { useAuthContext } from "./Contexts/AuthContext";
 import TenantCode from "./Screens/SignUp/TenantCode";
