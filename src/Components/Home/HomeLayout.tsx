@@ -14,6 +14,7 @@ function HomeLayout({ children }: { children: React.ReactNode }) {
 	const appContext = useAppContext();
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Home">>();
 	const [imageSource, setImageSource] = useState(undefined);
+	/* eslint-disable react-hooks/exhaustive-deps */
 	const opacity =  new Animated.Value(0);
 
 	const handlePressActionButton = useCallback(() => {

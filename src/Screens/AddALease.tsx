@@ -90,7 +90,7 @@ function AddALease() {
 		} catch (error) {
 			console.error(error);
 		}
-	}, [appContext, leaseDetails, newLeases, tenantEmail]);
+	}, [appContext, areValidInputs, leaseDetails, newLeases, tenantEmail]);
 
 	const handleSubmit = useCallback(() =>{
 		navigation.navigate("BottomNavBar");

@@ -25,6 +25,7 @@ export default function useGetLeasesAndTenants() {
 			return !_.isUndefined(matchingTenant) ? { ...lease, TenantName: matchingTenant.Name } : lease;
 		}));
 		authContext.isLoading = false;
+		/* eslint-disable react-hooks/exhaustive-deps */
 	}, [authContext.uid, appContext.SelectedProperty]);
 
 	useEffect(() => {
