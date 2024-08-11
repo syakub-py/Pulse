@@ -90,7 +90,7 @@ function AddATenant() {
 				return;
 			}
 			if (!areValidInputs()) return;
-			navigation.navigate("BottomNavBar");
+			navigation.navigate("Login");
 			tenantDetails.DocumentProvidedUrl = await appContext.uploadPicture(DocumentPicture, authContext.username,`/DocumentPictures/${tenantDetails.Name}/`);
 			await appContext.addTenant({ ...tenantDetails, LeaseId: LeaseId }, authContext.TenantSignUpCode);
 			authContext.setLeaseId(null);

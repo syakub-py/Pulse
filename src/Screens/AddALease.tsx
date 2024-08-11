@@ -27,15 +27,7 @@ function AddALease() {
 	const [newLeases, setNewLeases] = useState<Lease[]>([]);
 	const [tenantEmail, setTenantEmail] = useState("");
 
-
-	const handleInputChange = useCallback((name:string, value:string | number) => {
-		setLeaseDetails({
-			...leaseDetails,
-			[name]: value,
-		});
-	}, [leaseDetails]);
-
-	const areValidInputs = useMemo(() => {
+	const areValidInputs = () => {
 		if (!leaseDetails.StartDate) {
 			alert("Start date is required");
 			return false;
@@ -60,7 +52,15 @@ function AddALease() {
 			return false;
 		}
 		return true;
-	}, [leaseDetails.StartDate, leaseDetails.EndDate, leaseDetails.MonthlyRent]);
+	};
+
+	const handleInputChange = useCallback((name:string, value:string | number) => {
+		setLeaseDetails({
+			...leaseDetails,
+			[name]: value,
+		});
+	}, [leaseDetails]);
+
 
 	const handleAddLease = useCallback(async () => {
 		try {
@@ -69,7 +69,7 @@ function AddALease() {
 				return;
 			}
 
-			if (!areValidInputs) return;
+			if (!areValidInputs()) return;
 
 			await appContext.addLease(leaseDetails);
 			if (_.isUndefined(appContext.SelectedPropertyLeases[appContext.SelectedPropertyLeases.length-1].LeaseId)) return;
@@ -90,7 +90,7 @@ function AddALease() {
 		} catch (error) {
 			console.error(error);
 		}
-	}, [appContext, areValidInputs, leaseDetails, newLeases, tenantEmail]);
+	}, [appContext, leaseDetails, newLeases, tenantEmail]);
 
 	const handleSubmit = useCallback(() =>{
 		navigation.navigate("BottomNavBar");

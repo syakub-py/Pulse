@@ -1,16 +1,36 @@
 import {observer} from "mobx-react-lite";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import {Pressable, StyleSheet} from "react-native";
+import {Alert, Pressable, StyleSheet} from "react-native";
 
 interface Props{
 	onPress?:() => void;
 }
 
-function TrashButton(props:Props){
+function TrashButton(props:Props) {
 
-	return(
+	const confirmDelete = () => {
+		Alert.alert(
+			"Confirm Deletion",
+			"Are you sure you want to delete this item?",
+			[
+				{
+					text: "Cancel",
+					style: "cancel"
+				},
+				{
+					text: "Delete",
+					onPress: props.onPress,
+					style: "destructive"
+				}
+			],
+			{ cancelable: true }
+		);
+	};
+
+	return (
 		<Pressable
-			style={styles.trashButton} onPress={props.onPress}>
+			style={styles.trashButton}
+			onPress={confirmDelete}>
 			<Ionicons name={"trash-outline"} size={24} color={"red"} />
 		</Pressable>
 	);
