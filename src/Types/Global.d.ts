@@ -11,6 +11,7 @@ declare global {
     interface Lease {
         LeaseId: number;
         TenantName?: string;
+        TenantUid:string;
         StartDate: string;
         EndDate: string;
         MonthlyRent: number | null;
