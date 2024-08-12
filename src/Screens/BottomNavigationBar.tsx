@@ -8,6 +8,7 @@ import { observer } from "mobx-react-lite";
 import Analytics from "./Analytics";
 import Leases from "./Leases";
 import {useAppContext} from "../Contexts/AppContext";
+import YourLease from "./YourLease";
 
 function BottomNavigationBar() {
 	const Tab = createBottomTabNavigator();
@@ -48,7 +49,7 @@ function BottomNavigationBar() {
 				(!appContext.SelectedProperty?.isTenant && appContext.SelectedPropertyLeases.length > 0) ? (
 					<Tab.Screen name={"Lease"} component={Leases} />
 				) : (appContext.SelectedPropertyLeases.length > 0) ? (
-					<Tab.Screen name={"Your Lease"} component={PulseAI} />
+					<Tab.Screen name={"Your Lease"} component={YourLease} />
 				) : null
 			}
 			<Tab.Screen name={"AI"} component={PulseAI} />

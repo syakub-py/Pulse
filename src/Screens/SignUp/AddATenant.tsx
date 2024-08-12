@@ -77,7 +77,6 @@ function AddATenant() {
 			alert("Invalid Social Security Number format. Please use XXX-XX-XXXX.");
 			return false;
 		}
-
 		return true;
 	};
 

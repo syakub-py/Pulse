@@ -24,6 +24,7 @@ export default function useGetLeasesAndTenants() {
 			const matchingTenant = tenants.find(tenant => tenant.LeaseId === lease.LeaseId);
 			return !_.isUndefined(matchingTenant) ? { ...lease, TenantName: matchingTenant.Name } : lease;
 		}));
+
 		authContext.isLoading = false;
 		/* eslint-disable react-hooks/exhaustive-deps */
 	}, [authContext.uid, appContext.SelectedProperty]);
