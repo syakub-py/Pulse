@@ -3,9 +3,9 @@ import http from "../HttpCommon";
 export default new class TenantService {
 	private readonly serviceHeader = "/tenant";
 
-	async addTenant(tenantDetails: Tenant, code:string): Promise<number> {
+	async addTenant(tenantDetails: Tenant): Promise<number> {
 		try {
-			const response = await http.post(`${this.serviceHeader}/addTenant/${code}`, tenantDetails);
+			const response = await http.post(`${this.serviceHeader}/addTenant/`, tenantDetails);
 			return response.data.tenant_id;
 		} catch (error) {
 			console.error("Error adding tenant:", error);

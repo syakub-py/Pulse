@@ -13,7 +13,7 @@ function TenantCode() {
 	const [code, setCode] = useState("");
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "EnterTenantCode">>();
 	const authContext = useAuthContext();
-	
+
 	const handleCodeSubmit = useCallback(async () => {
 		if (code.length !== 6) {
 			alert("Please make sure the code is six digits");
@@ -21,7 +21,6 @@ function TenantCode() {
 		}
 		const isCodeValidResponse = await TenantService.isCodeValid(code);
 		authContext.setLeaseId(isCodeValidResponse.lease_id);
-		authContext.setTenantSignUpCode(code);
 		if (!isCodeValidResponse.isValid) {
 			alert("Invalid code or code expired");
 			return;

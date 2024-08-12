@@ -14,7 +14,6 @@ class AuthContextClass {
 	public uid:string = "";
 	private isLoadingAuth: boolean = true;
 	public leaseId: number | null = null;
-	public TenantSignUpCode:string | null = null;
 
 	public setUsername = action((username: string) =>{
 		this.username = username;
@@ -37,10 +36,6 @@ class AuthContextClass {
 
 	public setLeaseId = action((LeaseId: number | null) =>{
 		this.leaseId = LeaseId;
-	});
-
-	public setTenantSignUpCode = action((code: string | null) =>{
-		this.TenantSignUpCode = code;
 	});
 
 	get isLoggedIn() {

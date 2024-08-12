@@ -82,18 +82,17 @@ function AddATenant() {
 
 	const handleAddTenant = async () => {
 		try {
-			if (_.isUndefined(LeaseId) || _.isNull(LeaseId) || _.isNull(authContext.TenantSignUpCode)) {
+			if (_.isUndefined(LeaseId) || _.isNull(LeaseId)) {
 				alert("There is no lease selected");
 				return;
 			}
 			if (!areValidInputs()) return;
 			navigation.navigate("Login");
 			tenantDetails.DocumentProvidedUrl = await appContext.uploadPicture(DocumentPicture, authContext.username,`/DocumentPictures/${tenantDetails.Name}/`);
-			await appContext.addTenant({ ...tenantDetails, LeaseId: LeaseId }, authContext.TenantSignUpCode);
+			await appContext.addTenant({ ...tenantDetails, LeaseId: LeaseId });
 			authContext.setLeaseId(null);
-			authContext.setTenantSignUpCode(null);
 		} catch (error) {
-			alert("There was an issue adding your lease");
+			alert("There was an issue with creating your account");
 		}
 	};
 
