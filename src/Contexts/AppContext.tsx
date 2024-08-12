@@ -56,6 +56,7 @@ class AppContextClass {
 		runInAction(() => {
 			this.SelectedPropertyLeases = [];
 			this.Properties = this.Properties.filter((h) => toNumber(h.PropertyId) !== propertyId);
+			this.SelectedProperty = null;
 		});
 	});
 

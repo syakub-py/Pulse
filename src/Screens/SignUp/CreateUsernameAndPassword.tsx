@@ -4,7 +4,7 @@ import {useState} from "react";
 import PasswordRequirementCheckBox from "../../Components/SignUp/PasswordRequirementCheckBox";
 import * as ImagePicker from "expo-image-picker";
 import _ from "lodash";
-import {storage, auth} from "../../Utils/Firebase";
+import {auth} from "../../Utils/Firebase";
 import {StackNavigationProp} from "@react-navigation/stack";
 import { updateProfile } from "firebase/auth";
 import {observer} from "mobx-react-lite";
@@ -39,7 +39,6 @@ function CreateUsernameAndPassword() {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [profilePicture, setProfilePicture] = useState("");
-	const [isLoading, setIsLoading] = useState(false);
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "CreateUsernameAndPassword">>();
 	const authContext = useAuthContext();
 	const appContext = useAppContext();
@@ -81,10 +80,10 @@ function CreateUsernameAndPassword() {
 
 	const handleSignUp = async () => {
 		if (validateForm(username, password, requirements)) {
+			authContext.isLoading = true;
 			authContext.setUsername(username);
 			authContext.setPassword(password);
 			try {
-				setIsLoading(true);
 				const user = await auth.createUserWithEmailAndPassword(username, password);
 				if (!_.isEmpty(user.user) && !_.isNull(user.user)) {
 					if (!_.isEmpty(profilePicture)) {
@@ -96,7 +95,6 @@ function CreateUsernameAndPassword() {
 					}
 					authContext.setUid(user.user.uid);
 				}
-				setIsLoading(false);
 			} catch (error) {
 				authContext.setProfilePicture("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
 				alert("Error uploading profile picture:" + error);
@@ -121,11 +119,8 @@ function CreateUsernameAndPassword() {
 			<TextInput onChangeText={(text) => setUsername(text)} placeholder={"Email"} style={styles.textInput}/>
 			<TextInput onChangeText={(text) => setPassword(text)} placeholder={"Password"} style={styles.textInput} secureTextEntry/>
 			<PasswordRequirementCheckBox requirements={requirements}/>
-			{(isLoading)?(
-				<ActivityIndicator size="small" color="white"/>
-			):(
-				<Button title={"Next"} onPress={handleSignUp}/>
-			)}
+			<Button title={"Next"} onPress={handleSignUp}/>
+
 		</Layout>
 
 	);

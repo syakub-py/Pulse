@@ -18,7 +18,6 @@ export default new class PropertyService {
 			const response = await http.get(`${this.serviceHeader}/getProperty/${userId}`);
 			return JSON.parse(response.data) as Property[];
 		} catch (error) {
-			console.log(error);
 			alert("An error occurred while getting property");
 			return [];
 		}

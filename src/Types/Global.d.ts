@@ -5,13 +5,13 @@ declare global {
         Address: string;
         PropertyType: string;
         isRental:boolean;
-        isTenant:boolean;
+        isTenant?:boolean;
     }
 
     interface Lease {
         LeaseId: number;
-        TenantName?: string;
-        TenantUid:string;
+        TenantName: string;
+        TenantUid?:string;
         StartDate: string;
         EndDate: string;
         MonthlyRent: number | null;

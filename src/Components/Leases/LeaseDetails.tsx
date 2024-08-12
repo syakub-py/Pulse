@@ -30,7 +30,7 @@ function LeaseDetails(props:Props){
 					<Text style={styles.text}>Phone Number: {tenant?.PhoneNumber}</Text>
 					<Text style={styles.text}>Document Provided: Drivers License</Text>
 					<Image
-						source={{uri:"https://static01.nyt.com/images/2013/03/17/nyregion/license/license-articleLarge.jpg?year=2013&h=400&w=600&s=1c750ce48ce85651562156f35d6d9d15ac2a042e5a1a8897de7d43fa35e1e75e&k=ZQJBKqZ0VN&tw=1"}}
+						source={{uri:tenant?.DocumentProvidedUrl}}
 						style={styles.driversLicencePicture}
 					/>
 					<Text style={styles.text}>Social Sec.: {tenant?.SocialSecurity}</Text>

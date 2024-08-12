@@ -1,7 +1,7 @@
 import {observer} from "mobx-react-lite";
 import Layout from "../../Components/Layout";
 import {Button, TextInput, View, StyleSheet, Pressable, Text} from "react-native";
-import {useCallback, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import TenantService from "../../Utils/Services/TenantService";
@@ -13,6 +13,11 @@ function TenantCode() {
 	const [code, setCode] = useState("");
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "EnterTenantCode">>();
 	const authContext = useAuthContext();
+
+	useEffect(() => {
+		authContext.isLoading = false;
+	}, []);
+
 
 	const handleCodeSubmit = useCallback(async () => {
 		if (code.length !== 6) {

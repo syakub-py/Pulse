@@ -70,7 +70,7 @@ function AddALease() {
 			}
 
 			if (!areValidInputs()) return;
-
+			leaseDetails.TenantName = "Wait for tenant information...";
 			await appContext.addLease(leaseDetails);
 			if (_.isUndefined(appContext.SelectedPropertyLeases[appContext.SelectedPropertyLeases.length-1].LeaseId)) return;
 			await TenantService.startTenantSignUp(appContext.SelectedPropertyLeases[appContext.SelectedPropertyLeases.length-1].LeaseId.toString(), tenantEmail.toLowerCase());

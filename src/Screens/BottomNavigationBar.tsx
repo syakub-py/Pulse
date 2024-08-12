@@ -9,6 +9,7 @@ import Analytics from "./Analytics";
 import Leases from "./Leases";
 import {useAppContext} from "../Contexts/AppContext";
 import YourLease from "./YourLease";
+import _ from "lodash";
 
 function BottomNavigationBar() {
 	const Tab = createBottomTabNavigator();
@@ -46,7 +47,7 @@ function BottomNavigationBar() {
 		>
 			<Tab.Screen name={"Home"} component={Home} />
 			{
-				(!appContext.SelectedProperty?.isTenant && appContext.SelectedPropertyLeases.length > 0) ? (
+				(!appContext.SelectedProperty?.isTenant && !_.isNull(appContext.SelectedProperty)) ? (
 					<Tab.Screen name={"Lease"} component={Leases} />
 				) : (appContext.SelectedPropertyLeases.length > 0) ? (
 					<Tab.Screen name={"Your Lease"} component={YourLease} />
