@@ -51,7 +51,6 @@ class AppContextClass {
 	});
 
 	public deleteProperty = action(async (propertyId: number)=> {
-		// TODO: Everywhere a service is called must be wrapped in a try-catch.
 		await PropertyService.deleteProperty(propertyId);
 		runInAction(() => {
 			this.SelectedPropertyLeases = [];
