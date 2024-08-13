@@ -6,23 +6,19 @@ import PropertyService from "../Utils/Services/PropertyService";
 import LeaseService from "../Utils/Services/LeaseService";
 import TenantService from "../Utils/Services/TenantService";
 import _, {toNumber} from "lodash";
+import TodoService from "../Utils/Services/TodoService";
 
 class AppContextClass {
 	public Properties:Property[] = [];
 	public Messages:IMessage[] = [];
 	public SelectedProperty:Property | null = null;
 	public SelectedPropertyLeases: Lease[] = [];
+	public SelectedPropertyTodos:Todo[] = []
 	public Tenants:Tenant[] = [];
 
 	constructor() {
 		makeAutoObservable(this);
 	}
-
-	public setPropertyLeases = action((leases:Lease[])=>{
-		runInAction(() => {
-			this.SelectedPropertyLeases= leases;
-		});
-	});
 
 	public setSelectedProperty = action((SelectedProperty: Property) =>{
 		runInAction(()=>{
@@ -56,6 +52,12 @@ class AppContextClass {
 			this.SelectedPropertyLeases = [];
 			this.Properties = this.Properties.filter((h) => toNumber(h.PropertyId) !== propertyId);
 			this.SelectedProperty = null;
+		});
+	});
+
+	public setPropertyLeases = action((leases:Lease[])=>{
+		runInAction(() => {
+			this.SelectedPropertyLeases= leases;
 		});
 	});
 
@@ -95,6 +97,21 @@ class AppContextClass {
 		});
 	});
 
+	public setSelectedPropertyTodos = action((todos:Todo[])=>{
+		runInAction(() => {
+			this.SelectedPropertyTodos= todos;
+		});
+	});
+
+	public addTodo = action(async (todo:Todo) => {
+		const response = await TodoService.addTodo(todo)
+		todo.RecommendedProfessional = response.recommendedProfessional;
+		todo.id = response.todoId;
+		runInAction(() => {
+			this.SelectedPropertyTodos.push(todo)
+		})
+	})
+
 	public setMessages = action((messages: IMessage[]) => {
 		runInAction(()=> {
 			this.Messages = messages.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
@@ -108,6 +125,7 @@ class AppContextClass {
 		this.SelectedPropertyLeases = [];
 		this.Tenants = [];
 	}
+
 	public uploadPicture = async (profilePicturePath:string, username:string, path:string) => {
 		if (_.isEmpty(profilePicturePath)) {
 			return "";

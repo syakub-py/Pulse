@@ -20,18 +20,6 @@ declare global {
         isExpired: boolean;
     }
 
-    interface PasswordRequirement{
-        label:string,
-        fulfilled:boolean
-    }
-
-    interface ChatMessage {
-        _id:number;
-        text: string;
-        createdAt: string;
-        user:string;
-    }
-
     interface Tenant{
         TenantId?:number;
         LeaseId?: number;
@@ -45,9 +33,37 @@ declare global {
         SocialSecurity:string;
     }
 
+    interface Todo{
+        id?:number,
+        PropertyId:number | undefined,
+        Title:string,
+        Status:string,
+        Priority:string,
+        Description:string,
+        AddedBy:string,
+        RecommendedProfessional?:string,
+    }
+
+    interface PasswordRequirement{
+        label:string,
+        fulfilled:boolean
+    }
+
+    interface ChatMessage {
+        _id:number;
+        text: string;
+        createdAt: string;
+        user:string;
+    }
+
     interface CodeValidationResponse {
         isValid: boolean;
         lease_id: number;
+    }
+
+    interface AddTodoResponse {
+        todoId:number;
+        recommendedProfessional:string;
     }
 
     type RootStackParamList = {
@@ -55,18 +71,19 @@ declare global {
         "Home": undefined
         "Login": undefined
         "Settings":undefined
+        "Loading": undefined,
+        "Leases": undefined,
         "ChatBot": undefined
         "CreateUsernameAndPassword": undefined
         "AddAProperty": undefined
-        "AddAndConfigureDevices": undefined,
         "Analytics": undefined,
         "AllProperties": undefined,
-        "Loading": undefined,
-        "Leases": undefined,
+        "AllTenants": undefined,
+        "AddATodo": undefined,
         "AddALease":undefined,
         "AddATenant": undefined,
-        "AllTenants": undefined,
         "EnterTenantCode": undefined,
+
     }
 }
 

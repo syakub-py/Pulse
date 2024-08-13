@@ -1,13 +1,15 @@
 import {Dimensions, StyleSheet, Text, View } from "react-native";
 import Button from "../Buttons/Button";
+import {useNavigation} from "@react-navigation/native";
+import {StackNavigationProp} from "@react-navigation/stack";
 
 interface Props {
 	property: Property
 }
 
-export default function SingleProperty(props: Props) {
+export default function Property(props: Props) {
 	const { property } = props;
-
+	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Home">>();
 	return (
 		<View style={styles.houseTileContainer}>
 			<Text style={styles.homeName}>{property.Name}</Text>
@@ -18,6 +20,7 @@ export default function SingleProperty(props: Props) {
 					title={"Add"}
 					containerStyle={styles.addTodoButton}
 					textStyle={styles.addTodoButtonText}
+					onPress={()=>navigation.navigate("AddATodo")}
 					iconName={"add"}
 				/>
 			</View>

@@ -3,7 +3,7 @@ import {FlatList, ViewToken} from "react-native";
 import { useCallback } from "react";
 import { useAppContext } from "../../Contexts/AppContext";
 import _ from "lodash";
-import SingleProperty from "./SingleProperty";
+import Property from "./Property";
 
 function Properties() {
 	const appContext = useAppContext();
@@ -24,7 +24,7 @@ function Properties() {
 				itemVisiblePercentThreshold: 50,
 			}}
 			renderItem={({ item }) => (
-				<SingleProperty property={item} />
+				<Property property={item} />
 			)}
 		/>
 	);

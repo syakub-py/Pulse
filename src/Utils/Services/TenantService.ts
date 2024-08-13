@@ -34,7 +34,7 @@ export default new class TenantService {
 		}
 	}
 
-	async isCodeValid(code: string): Promise<CodeValidationResponse > {
+	async isCodeValid(code: string): Promise<CodeValidationResponse> {
 		try {
 			const response = await http.get(`${this.serviceHeader}/checkTenantCode/${code}`);
 			return response.data;
