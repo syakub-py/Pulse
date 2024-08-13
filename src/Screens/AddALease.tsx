@@ -27,6 +27,7 @@ function AddALease() {
 	const [newLeases, setNewLeases] = useState<Lease[]>([]);
 	const [tenantEmail, setTenantEmail] = useState("");
 
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const areValidInputs = () => {
 		if (!leaseDetails.StartDate) {
 			alert("Start date is required");
