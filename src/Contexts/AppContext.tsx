@@ -104,11 +104,11 @@ class AppContextClass {
 	});
 
 	public addTodo = action(async (todo:Todo) => {
-		const response = await TodoService.addTodo(todo)
+		const response = await TodoService.addTodo(todo);
 		todo.RecommendedProfessional = response.recommendedProfessional;
 		todo.id = response.todoId;
 		runInAction(() => {
-			this.SelectedPropertyTodos.push(todo)
+			this.SelectedPropertyTodos.push(todo);
 		})
 	})
 

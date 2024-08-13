@@ -5,14 +5,14 @@ import _ from "lodash";
 import TodoService from "../Utils/Services/TodoService";
 
 
-export default function useGetTodos(){
+export default function useFetchTodos(){
 	const appContext = useAppContext();
 	const authContext = useAuthContext();
 
 	const fetchTodos = useCallback(async () => {
 		if (_.isEmpty(authContext.uid) || _.isUndefined(appContext.SelectedProperty?.PropertyId)) return;
 
-		const todos = await TodoService.getTodos(appContext.SelectedProperty.PropertyId)
+		const todos = await TodoService.getTodos(appContext.SelectedProperty.PropertyId);
 
 		if (_.isUndefined(todos)) return;
 

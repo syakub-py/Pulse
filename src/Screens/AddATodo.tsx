@@ -39,7 +39,15 @@ function AddATodo(){
 	};
 	const handleSubmit = async (): Promise<void> => {
 		await appContext.addTodo(todoDetails)
-		navigation.navigate("Home")
+		navigation.navigate("BottomNavBar")
+		setTodoDetails({
+			PropertyId:appContext.SelectedProperty?.PropertyId,
+			Title:"",
+			Description:"",
+			Priority:selectedPriority,
+			Status:"Not Seen",
+			AddedBy: authContext.username,
+		})
 	};
 
 	return(
