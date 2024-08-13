@@ -1,29 +1,36 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import {View, Text, StyleSheet, Pressable} from "react-native";
 import {observer} from "mobx-react-lite";
+import {useAuthContext} from "../../Contexts/AuthContext";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import {useNavigation} from "@react-navigation/native";
+import {StackNavigationProp} from "@react-navigation/stack";
 
 interface Props{
 	todo:Todo
 }
 
 function TodoCard(props: Props){
-	const {todo} = props
+	const {todo} = props;
+	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Home">>();
 	return (
-		<View style={styles.card}>
-			<Text style={styles.title}>{todo.Title}</Text>
-			<Text style={styles.description}>{todo.Description}</Text>
-			<View style={styles.infoRow}>
-				<Text style={styles.label}>Status:</Text>
-				<Text style={styles.value}>{todo.Status}</Text>
+		<Pressable onPress={()=>navigation.navigate("TodoDetails", {todo:todo})}>
+			<View style={styles.card}>
+				<Text style={styles.title}>{todo.Title}</Text>
+				<Text style={styles.description}>{todo.Description}</Text>
+				<View style={styles.infoRow}>
+					<Text style={styles.label}>Status:</Text>
+					<Text style={styles.value}>{todo.Status}</Text>
+				</View>
+				<View style={styles.infoRow}>
+					<Text style={styles.label}>Priority:</Text>
+					<Text style={styles.value}>{todo.Priority}</Text>
+				</View>
+				<Text style={styles.addedBy}>Added by: {todo.AddedBy}</Text>
 			</View>
-			<View style={styles.infoRow}>
-				<Text style={styles.label}>Priority:</Text>
-				<Text style={styles.value}>{todo.Priority}</Text>
-			</View>
-			<Text style={styles.addedBy}>Added by: {todo.AddedBy}</Text>
-		</View>
+		</Pressable>
 	);
-};
+}
 
 export default observer(TodoCard);
 
@@ -70,5 +77,9 @@ const styles = StyleSheet.create({
 		fontSize: 13,
 		color: "#9e9e9e",
 	},
+	header:{
+		flexDirection:"row",
+		justifyContent: "space-between",
+	}
 });
 

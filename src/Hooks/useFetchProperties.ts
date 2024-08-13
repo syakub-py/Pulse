@@ -1,8 +1,8 @@
 import {useCallback, useEffect} from "react";
 import PropertyService from "../Utils/Services/PropertyService";
-import {useAppContext} from "../Contexts/AppContext";
 import _ from "lodash";
 import {useAuthContext} from "../Contexts/AuthContext";
+import {useAppContext} from "../Contexts/AppContext";
 
 export default function useFetchProperties() {
 	const appContext = useAppContext();
