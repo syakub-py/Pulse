@@ -25,7 +25,7 @@ export default [
 	{
 		plugins: {
 			"@typescript-eslint": typescriptEslint,
-			react	
+			react
 		},
 		languageOptions: {
 			globals: {
@@ -56,7 +56,7 @@ export default [
 		languageOptions: {
 			parser: tsParser,
 			parserOptions: {
-				project: ["./tsconfig.json"]
+				project: "./tsconfig.json",
 			},
 		},
 		rules: {

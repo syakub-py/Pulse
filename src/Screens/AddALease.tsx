@@ -1,4 +1,4 @@
-import {useCallback, useState} from "react";
+import {useCallback, useMemo, useState} from "react";
 import { observer } from "mobx-react-lite";
 import {View, TextInput, Button, StyleSheet, Text, FlatList} from "react-native";
 import Layout from "../Components/Layout";
@@ -9,6 +9,7 @@ import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import LeaseCard from "../Components/Leases/LeaseCard";
 import { useAppContext } from "../Contexts/AppContext";
+import TenantService from "../Utils/Services/TenantService";
 
 function AddALease() {
 	const appContext = useAppContext();
@@ -18,21 +19,16 @@ function AddALease() {
 		StartDate: "",
 		EndDate: "",
 		MonthlyRent: null,
-		Status: true,
+		isExpired: false,
 		TenantName: "",
 		Terms: "",
-		PropertyId:!_.isNil(appContext.SelectedProperty)?appContext.SelectedProperty.PropertyId: 0
+		PropertyId: _.isNil(appContext.SelectedProperty) ? 0 :  appContext.SelectedProperty.PropertyId
 	});
 	const [newLeases, setNewLeases] = useState<Lease[]>([]);
+	const [tenantEmail, setTenantEmail] = useState("");
 
-	const handleInputChange = useCallback((name:string, value:string | number) => {
-		setLeaseDetails({
-			...leaseDetails,
-			[name]: value,
-		});
-	}, [leaseDetails]);
-
-	const areValidInputs = useCallback(() => {
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	const areValidInputs = () => {
 		if (!leaseDetails.StartDate) {
 			alert("Start date is required");
 			return false;
@@ -57,7 +53,15 @@ function AddALease() {
 			return false;
 		}
 		return true;
+	};
+
+	const handleInputChange = useCallback((name:string, value:string | number) => {
+		setLeaseDetails({
+			...leaseDetails,
+			[name]: value,
+		});
 	}, [leaseDetails]);
+
 
 	const handleAddLease = useCallback(async () => {
 		try {
@@ -66,14 +70,15 @@ function AddALease() {
 				return;
 			}
 
-			if (!areValidInputs()) {
-				return;
-			}
-
+			if (!areValidInputs()) return;
+			leaseDetails.TenantName = "Wait for tenant information...";
 			await appContext.addLease(leaseDetails);
+			if (_.isUndefined(appContext.SelectedPropertyLeases[appContext.SelectedPropertyLeases.length-1].LeaseId)) return;
+			await TenantService.startTenantSignUp(appContext.SelectedPropertyLeases[appContext.SelectedPropertyLeases.length-1].LeaseId.toString(), tenantEmail.toLowerCase());
+			alert("Sent invite to " + tenantEmail.toLowerCase());
 			setNewLeases([...newLeases, leaseDetails]);
 			setLeaseDetails({
-				Status: true,
+				isExpired: false,
 				TenantName: "",
 				Terms: "",
 				LeaseId: 0,
@@ -82,14 +87,15 @@ function AddALease() {
 				MonthlyRent: null,
 				PropertyId: appContext.SelectedProperty.PropertyId
 			});
+			setTenantEmail("");
 		} catch (error) {
 			console.error(error);
 		}
-	}, [appContext, areValidInputs, leaseDetails, newLeases]);
+	}, [appContext, areValidInputs, leaseDetails, newLeases, tenantEmail]);
 
-	const handleSubmit = () =>{
-		navigation.navigate("AddATenant");
-	};
+	const handleSubmit = useCallback(() =>{
+		navigation.navigate("BottomNavBar");
+	}, [navigation]);
 
 	return (
 		<Layout>
@@ -140,6 +146,18 @@ function AddALease() {
 						placeholderTextColor="white"
 					/>
 				</View>
+
+				<View style={styles.inputContainer}>
+					<Text style={styles.label}>Tenant Email:</Text>
+					<TextInput
+						style={styles.input}
+						value={tenantEmail}
+						onChangeText={(value) => setTenantEmail(value)}
+						placeholder="Enter tenant's email"
+						placeholderTextColor="white"
+					/>
+				</View>
+
 				<Button title="Add Lease" onPress={handleAddLease} />
 				<FlatList
 					data={newLeases}

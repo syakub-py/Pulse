@@ -7,9 +7,13 @@ import { StyleSheet } from "react-native";
 import { observer } from "mobx-react-lite";
 import Analytics from "./Analytics";
 import Leases from "./Leases";
+import {useAppContext} from "../Contexts/AppContext";
+import YourLease from "./YourLease";
+import _ from "lodash";
 
 function BottomNavigationBar() {
 	const Tab = createBottomTabNavigator();
+	const appContext = useAppContext();
 	return (
 		<Tab.Navigator
 			initialRouteName={"Home"}
@@ -32,6 +36,8 @@ function BottomNavigationBar() {
 						iconName = focused ? "sparkles" : "sparkles-outline";
 					}else if (rn === "Lease") {
 						iconName = focused ? "albums" : "albums-outline";
+					} else if (rn === "Your Lease") {
+						iconName = focused ? "document" : "document-outline";
 					}
 					if (iconName){
 						return <Ionicons name={iconName} size={32} color={color}/>;
@@ -40,7 +46,13 @@ function BottomNavigationBar() {
 			})}
 		>
 			<Tab.Screen name={"Home"} component={Home} />
-			<Tab.Screen name={"Lease"} component={Leases} />
+			{
+				(!appContext.SelectedProperty?.isTenant && !_.isNull(appContext.SelectedProperty)) ? (
+					<Tab.Screen name={"Lease"} component={Leases} />
+				) : (appContext.SelectedPropertyLeases.length > 0) ? (
+					<Tab.Screen name={"Your Lease"} component={YourLease} />
+				) : null
+			}
 			<Tab.Screen name={"AI"} component={PulseAI} />
 			<Tab.Screen name={"Analytics"} component={Analytics} />
 			<Tab.Screen name={"Settings"} component={Settings} />

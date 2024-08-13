@@ -5,17 +5,19 @@ declare global {
         Address: string;
         PropertyType: string;
         isRental:boolean;
+        isTenant?:boolean;
     }
 
     interface Lease {
         LeaseId: number;
-        TenantName?: string;
+        TenantName: string;
+        TenantUid?:string;
         StartDate: string;
         EndDate: string;
         MonthlyRent: number | null;
         PropertyId: number;
         Terms:string;
-        Status: boolean;
+        isExpired: boolean;
     }
 
     interface PasswordRequirement{
@@ -33,6 +35,7 @@ declare global {
     interface Tenant{
         TenantId?:number;
         LeaseId?: number;
+        UserId: string;
         Name:string;
         PhoneNumber:string;
         Email:string;
@@ -40,7 +43,11 @@ declare global {
         DateOfBirth:string;
         DocumentProvidedUrl:string;
         SocialSecurity:string;
-        CoSigner?:string;
+    }
+
+    interface CodeValidationResponse {
+        isValid: boolean;
+        lease_id: number;
     }
 
     type RootStackParamList = {
@@ -59,6 +66,7 @@ declare global {
         "AddALease":undefined,
         "AddATenant": undefined,
         "AllTenants": undefined,
+        "EnterTenantCode": undefined,
     }
 }
 

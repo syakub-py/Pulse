@@ -17,15 +17,17 @@ export default function useGetLeasesAndTenants() {
 			_.isEmpty(appContext.Tenants) ? TenantService.getTenants(authContext.uid) : Promise.resolve(appContext.Tenants)
 		]);
 
-		appContext.setTenants(tenants);
-
 		if (_.isUndefined(leases)) return;
+
+		appContext.setTenants(tenants);
 
 		appContext.setPropertyLeases(leases.map(lease => {
 			const matchingTenant = tenants.find(tenant => tenant.LeaseId === lease.LeaseId);
 			return !_.isUndefined(matchingTenant) ? { ...lease, TenantName: matchingTenant.Name } : lease;
 		}));
+
 		authContext.isLoading = false;
+		/* eslint-disable react-hooks/exhaustive-deps */
 	}, [authContext.uid, appContext.SelectedProperty]);
 
 	useEffect(() => {

@@ -1,35 +1,33 @@
 import { observer } from "mobx-react-lite";
-import Layout from "../Components/Layout";
-import Header from "../Components/Header";
+import Layout from "../../Components/Layout";
+import Header from "../../Components/Header";
 import {Button, View, TextInput, StyleSheet, Image} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { useCallback, useState } from "react";
 import _ from "lodash";
-import BackButton from "../Components/BackButton";
-import { useAppContext } from "../Contexts/AppContext";
-import UploadPictures from "../Components/UploadPictures";
+import BackButton from "../../Components/BackButton";
+import { useAppContext } from "../../Contexts/AppContext";
+import UploadPictures from "../../Components/UploadPictures";
 import * as ImagePicker from "expo-image-picker";
-import {useAuthContext} from "../Contexts/AuthContext";
+import {useAuthContext} from "../../Contexts/AuthContext";
 
 function AddATenant() {
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "AddATenant">>();
 	const appContext = useAppContext();
 	const authContext = useAuthContext();
-	const [leaseIndex, setLeaseIndex] = useState(0);
-	const LeasesWithNoTenants = appContext.SelectedPropertyLeases.filter((lease) => _.isUndefined(lease.TenantName) || _.isEmpty(lease.TenantName));
-	const LeaseId = !_.isUndefined(LeasesWithNoTenants[leaseIndex]) ? LeasesWithNoTenants[leaseIndex].LeaseId : undefined;
+	const LeaseId = authContext.leaseId;
 	const [DocumentPicture, setDocumentPicture] = useState("");
 	const [tenantDetails, setTenantDetails] = useState<Tenant>({
 		AnnualIncome: 0,
 		DocumentProvidedUrl: "",
-		Email: "",
+		UserId:authContext.uid,
+		Email: authContext.username,
 		SocialSecurity: "",
 		TenantId: 0,
 		Name: "",
 		PhoneNumber: "",
 		DateOfBirth: "",
-		LeaseId: LeaseId
 	});
 
 	const handleInputChange = useCallback((name: string, value: string | number) => {
@@ -42,6 +40,11 @@ function AddATenant() {
 	const areValidInputs = () => {
 		if (!tenantDetails.Name) {
 			alert("A Name is required");
+			return false;
+		}
+
+		if(_.isEmpty(DocumentPicture)){
+			alert("Please upload a document");
 			return false;
 		}
 
@@ -66,13 +69,6 @@ function AddATenant() {
 			alert("Invalid date format. Please use YYYY-MM-DD.");
 			return false;
 		}
-		if (!tenantDetails.Email) {
-			alert("Email is required");
-			return false;
-		} else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(tenantDetails.Email)) {
-			alert("Invalid email format");
-			return false;
-		}
 
 		if (!tenantDetails.SocialSecurity) {
 			alert("Social Security Number is required");
@@ -81,31 +77,22 @@ function AddATenant() {
 			alert("Invalid Social Security Number format. Please use XXX-XX-XXXX.");
 			return false;
 		}
-
 		return true;
 	};
 
 	const handleAddTenant = async () => {
 		try {
-			if (_.isUndefined(LeaseId)) {
+			if (_.isUndefined(LeaseId) || _.isNull(LeaseId)) {
 				alert("There is no lease selected");
 				return;
 			}
-			if (!areValidInputs()) {
-				return;
-			}
-			if (leaseIndex >= LeasesWithNoTenants.length-1) {
-				navigation.navigate("BottomNavBar");
-				LeasesWithNoTenants[leaseIndex].TenantName = tenantDetails.Name;
-				tenantDetails.DocumentProvidedUrl = await appContext.uploadPicture(DocumentPicture, authContext.username,`/DocumentPictures/${tenantDetails.Name}/`);
-				await appContext.addTenant(LeaseId, { ...tenantDetails, LeaseId: LeaseId });
-				return;
-			}
-			await appContext.addTenant(LeaseId, { ...tenantDetails, LeaseId: LeaseId });
-			setLeaseIndex(leaseIndex + 1);
-
+			if (!areValidInputs()) return;
+			navigation.navigate("Login");
+			tenantDetails.DocumentProvidedUrl = await appContext.uploadPicture(DocumentPicture, authContext.username,`/DocumentPictures/${tenantDetails.Name}/`);
+			await appContext.addTenant({ ...tenantDetails, LeaseId: LeaseId });
+			authContext.setLeaseId(null);
 		} catch (error) {
-			alert("There was an issue adding your lease");
+			alert("There was an issue with creating your account");
 		}
 	};
 
@@ -126,7 +113,7 @@ function AddATenant() {
 		<Layout>
 			<View style={styles.headerContainer}>
 				<BackButton/>
-				<Header title={"Add Your tenants for this property"} />
+				<Header title={"Please fill out all your information"} />
 			</View>
 			<View style={styles.contentContainer}>
 				{(DocumentPicture) ? (
@@ -178,15 +165,8 @@ function AddATenant() {
 					placeholderTextColor="white"
 				/>
 
-				<TextInput
-					placeholder="example@example.com"
-					value={tenantDetails.Email}
-					onChangeText={(text) => handleInputChange("Email", text)}
-					style={styles.input}
-					placeholderTextColor="white"
-				/>
 
-				<Button title={leaseIndex < LeasesWithNoTenants.length - 1 ? "Add Tenant and Continue" : "Add Tenant and Finish"} onPress={handleAddTenant} />
+				<Button title={"Done"} onPress={handleAddTenant} />
 			</View>
 		</Layout>
 	);
@@ -204,7 +184,8 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 10,
 		paddingVertical: 5,
 		color:"white",
-		marginHorizontal:10
+		marginHorizontal:10,
+		marginVertical:10,
 	},
 	headerContainer:{
 		flexDirection: "row",

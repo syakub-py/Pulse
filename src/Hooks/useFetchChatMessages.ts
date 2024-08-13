@@ -17,6 +17,7 @@ export default function useFetchChatMessages() {
 
 		if (_.isUndefined(messages)) return;
 		appContext.setMessages(messages);
+		/* eslint-disable react-hooks/exhaustive-deps */
 	}, [authContext.isLoggedIn]);
 
 	useEffect(() => {
