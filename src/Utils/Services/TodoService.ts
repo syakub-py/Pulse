@@ -14,5 +14,15 @@ export default new class TodoService {
 		}
 	}
 
+	async getTodos(propertyId:number): Promise<Todo[]> {
+		try {
+			const response = await http.get(`${this.serviceHeader}/getTodos/${propertyId}`);
+			return JSON.parse(response.data) as Todo[];
+		} catch (error) {
+			console.error("Error getting Todos:", error);
+			alert("Error getting Todos");
+			return []
+		}
+	}
 
 }
