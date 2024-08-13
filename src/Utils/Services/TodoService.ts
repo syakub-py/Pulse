@@ -30,5 +30,14 @@ export default new class TodoService {
 		}
 	}
 
+	async deleteTodo(todoId: number): Promise<void> {
+		try {
+			await http.delete(`${this.serviceHeader}/deleteTodo/${todoId}`);
+		}catch (error){
+			console.error("Error deleting Todo:", error);
+			alert("Error deleting todo");
+		}
+	}
 
-}
+
+};

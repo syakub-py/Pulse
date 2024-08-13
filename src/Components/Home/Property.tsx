@@ -24,7 +24,7 @@ function Property(props: Props) {
 					title={"Add"}
 					containerStyle={styles.addTodoButton}
 					textStyle={styles.addTodoButtonText}
-					onPress={()=>navigation.navigate("AddATodo")}
+					onPress={() => navigation.navigate("AddATodo")}
 					iconName={"add"}
 				/>
 			</View>

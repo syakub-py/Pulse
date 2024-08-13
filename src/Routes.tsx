@@ -17,7 +17,7 @@ import AllTenants from "./Screens/AllTenants";
 import { useAuthContext } from "./Contexts/AuthContext";
 import TenantCode from "./Screens/SignUp/TenantCode";
 import AddATodo from "./Screens/AddATodo";
-import TodoDetails from "./Components/Todo/TodoDetails";
+import TodoDetails from "./Screens/TodoDetails";
 
 
 export default function Routes() {

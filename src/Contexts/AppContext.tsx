@@ -109,8 +109,15 @@ class AppContextClass {
 		todo.id = response.todoId;
 		runInAction(() => {
 			this.SelectedPropertyTodos.push(todo);
-		})
-	})
+		});
+	});
+
+	public deleteTodo = action(async (todoId:number) => {
+		await TodoService.deleteTodo(todoId);
+		runInAction(() => {
+			this.SelectedPropertyTodos.filter((todo)=>todo.id !== todoId);
+		});
+	});
 
 	public setMessages = action((messages: IMessage[]) => {
 		runInAction(()=> {
