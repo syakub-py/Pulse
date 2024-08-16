@@ -1,21 +1,20 @@
 import {View, TextInput, Button, Text, StyleSheet, Image, SafeAreaView, ImageBackground} from "react-native";
 import {useCallback, useState} from "react";
-import { useNavigation } from "@react-navigation/native";
-import {StackNavigationProp} from "@react-navigation/stack";
 import useLogin from "../Hooks/useLogin";
 import {observer} from "mobx-react-lite";
 import {LinearGradient} from "expo-linear-gradient";
+import {useNavigation} from "@react-navigation/native";
+import {StackNavigationProp} from "@react-navigation/stack";
 
 function Login() {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
-	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Login">>();
 	const login = useLogin();
+	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Login">>();
 
 	const loginCallback = useCallback(async () => {
 		await login(username, password);
-		navigation.navigate("BottomNavBar");
-	}, [login, navigation, password, username]);
+	}, [login, password, username]);
 
 	return (
 		<ImageBackground

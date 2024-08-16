@@ -25,7 +25,10 @@ function TodoDetails({route}:Props){
 	const appContext = useAppContext();
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "TodoDetails">>();
 	const handleDeleteTodo = async () =>{
-		if (_.isNil(todo.id)) return;
+		if (_.isNil(todo.id)) {
+			alert("todo id was empty");
+			return;
+		}
 		await appContext.deleteTodo(todo.id);
 		navigation.goBack();
 	};

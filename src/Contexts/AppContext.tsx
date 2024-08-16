@@ -13,7 +13,7 @@ class AppContextClass {
 	public Messages:IMessage[] = [];
 	public SelectedProperty:Property | null = null;
 	public SelectedPropertyLeases: Lease[] = [];
-	public SelectedPropertyTodos:Todo[] = []
+	public SelectedPropertyTodos:Todo[] = [];
 	public Tenants:Tenant[] = [];
 
 	constructor() {
@@ -115,7 +115,7 @@ class AppContextClass {
 	public deleteTodo = action(async (todoId:number) => {
 		await TodoService.deleteTodo(todoId);
 		runInAction(() => {
-			this.SelectedPropertyTodos.filter((todo)=>todo.id !== todoId);
+			this.SelectedPropertyTodos = this.SelectedPropertyTodos.filter((todo) => todo.id !== todoId);
 		});
 	});
 

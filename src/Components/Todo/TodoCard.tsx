@@ -1,8 +1,6 @@
 import React from "react";
 import {View, Text, StyleSheet, Pressable} from "react-native";
 import {observer} from "mobx-react-lite";
-import {useAuthContext} from "../../Contexts/AuthContext";
-import Ionicons from "react-native-vector-icons/Ionicons";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 
@@ -24,7 +22,12 @@ function TodoCard(props: Props){
 				</View>
 				<View style={styles.infoRow}>
 					<Text style={styles.label}>Priority:</Text>
-					<Text style={styles.value}>{todo.Priority}</Text>
+					<View style={[styles.priorityView, {
+						backgroundColor:
+							todo.Priority === "High" ? "red" :
+								todo.Priority === "Medium" ? "orange" :
+									"green"
+					}]} />
 				</View>
 				<Text style={styles.addedBy}>Added by: {todo.AddedBy}</Text>
 			</View>
@@ -80,6 +83,11 @@ const styles = StyleSheet.create({
 	header:{
 		flexDirection:"row",
 		justifyContent: "space-between",
+	},
+	priorityView:{
+		width: 10,
+		height: 10,
+		borderRadius: 10,
 	}
 });
 

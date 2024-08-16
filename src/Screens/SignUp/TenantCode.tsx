@@ -26,11 +26,11 @@ function TenantCode() {
 			return;
 		}
 		const isCodeValidResponse = await TenantService.isCodeValid(code);
-		authContext.setLeaseId(isCodeValidResponse.lease_id);
 		if (!isCodeValidResponse.isValid) {
 			alert("Invalid code or code expired");
 			return;
 		}
+		authContext.setLeaseId(isCodeValidResponse.lease_id);
 		navigation.navigate("AddATenant");
 	}, [authContext, code, navigation]);
 

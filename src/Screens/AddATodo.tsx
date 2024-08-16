@@ -2,7 +2,7 @@ import Layout from "../Components/Layout";
 import {Button, StyleSheet, TextInput, View} from "react-native";
 import {observer} from "mobx-react-lite";
 import Header from "../Components/Header";
-import {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useAuthContext} from "../Contexts/AuthContext";
 import DropdownPicker, {ItemType} from "react-native-dropdown-picker";
 import BackButton from "../Components/BackButton";
@@ -13,10 +13,9 @@ import {StackNavigationProp} from "@react-navigation/stack";
 
 function AddATodo(){
 	const authContext = useAuthContext();
-	const appContext = useAppContext()
-	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "AddATodo">>()
+	const appContext = useAppContext();
+	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "AddATodo">>();
 	const [open, setOpen] = useState(false);
-
 	const priorities: ItemType<string>[] = [
 		{ label: "Low", value: "Low" },
 		{ label: "Medium", value: "Medium" },
@@ -33,13 +32,16 @@ function AddATodo(){
 		Status:"Not Seen",
 		AddedBy: authContext.username,
 	});
+	useEffect(() => {
+		setTodoDetails((prev) => ({ ...prev, Priority: selectedPriority }));
+	}, [selectedPriority]);
 
 	const handleInputChange = (field: keyof Todo, value: string | string[] | boolean | number) => {
 		setTodoDetails((prev) => ({ ...prev, [field]: value }));
 	};
 	const handleSubmit = async (): Promise<void> => {
-		await appContext.addTodo(todoDetails)
-		navigation.navigate("BottomNavBar")
+		await appContext.addTodo(todoDetails);
+		navigation.navigate("BottomNavBar");
 		setTodoDetails({
 			PropertyId:appContext.SelectedProperty?.PropertyId,
 			Title:"",
@@ -47,7 +49,7 @@ function AddATodo(){
 			Priority:selectedPriority,
 			Status:"Not Seen",
 			AddedBy: authContext.username,
-		})
+		});
 	};
 
 	return(
@@ -60,14 +62,14 @@ function AddATodo(){
 				style={styles.input}
 				placeholder="Title"
 				placeholderTextColor="white"
-				value={todoDetails?.Title}
+				value={todoDetails.Title}
 				onChangeText={(value) => handleInputChange("Title", value)}
 			/>
 			<TextInput
 				style={styles.input}
 				placeholder="Descripton"
 				placeholderTextColor="white"
-				value={todoDetails?.Description}
+				value={todoDetails.Description}
 				onChangeText={(value) => handleInputChange("Description", value)}
 			/>
 			<DropdownPicker
@@ -82,11 +84,11 @@ function AddATodo(){
 			<Button title="Add Todo" onPress={handleSubmit} />
 
 		</Layout>
-	)
+	);
 }
 
 
-export default observer(AddATodo)
+export default observer(AddATodo);
 
 const styles= StyleSheet.create({
 	container: {

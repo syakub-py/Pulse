@@ -29,6 +29,7 @@ declare global {
         Email:string;
         AnnualIncome:number;
         DateOfBirth:string;
+        DocumentType:string;
         DocumentProvidedUrl:string;
         SocialSecurity:string;
     }

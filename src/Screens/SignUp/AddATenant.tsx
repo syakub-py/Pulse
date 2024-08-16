@@ -4,13 +4,14 @@ import Header from "../../Components/Header";
 import {Button, View, TextInput, StyleSheet, Image} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { useCallback, useState } from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import _ from "lodash";
 import BackButton from "../../Components/BackButton";
 import { useAppContext } from "../../Contexts/AppContext";
 import UploadPictures from "../../Components/UploadPictures";
 import * as ImagePicker from "expo-image-picker";
 import {useAuthContext} from "../../Contexts/AuthContext";
+import DropdownPicker, {ItemType} from "react-native-dropdown-picker";
 
 function AddATenant() {
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "AddATenant">>();
@@ -28,7 +29,25 @@ function AddATenant() {
 		Name: "",
 		PhoneNumber: "",
 		DateOfBirth: "",
+		DocumentType:"",
 	});
+	const [open, setOpen] = useState(false);
+
+	const documentTypes: ItemType<string>[] = [
+		{ label: "Driver's License", value: "Driver's License" },
+		{ label: "Passport", value: "Passport" },
+		{ label: "National Identity Card", value: "National Identity Card" },
+		{ label: "Social Security Card", value: "Social Security Card" },
+		{ label: "Birth Certificate", value: "Birth Certificate" },
+		{ label: "State ID Card", value: "State ID Card" },
+		{ label: "Voter Registration Card", value: "Voter Registration Card" },
+		{ label: "Military ID", value: "Military ID" },
+		{ label: "Permanent Resident Card (Green Card)", value: "Permanent Resident Card (Green Card)" },
+		{ label: "Tribal ID Card", value: "Tribal ID Card" },
+	];
+
+	const [selectedDocumentType, setSelectedDocumentType] = useState(documentTypes[0].value as string);
+
 
 	const handleInputChange = useCallback((name: string, value: string | number) => {
 		setTenantDetails({
@@ -92,7 +111,7 @@ function AddATenant() {
 			await appContext.addTenant({ ...tenantDetails, LeaseId: LeaseId });
 			authContext.setLeaseId(null);
 		} catch (error) {
-			alert("There was an issue with creating your account");
+			alert("There was an issue on our end. Please try again later.");
 		}
 	};
 
@@ -109,6 +128,10 @@ function AddATenant() {
 		setDocumentPicture(result.assets[0].uri);
 	};
 
+	useEffect(() => {
+		setTenantDetails((prev) => ({ ...prev, DocumentType: selectedDocumentType }));
+	}, [selectedDocumentType]);
+
 	return (
 		<Layout>
 			<View style={styles.headerContainer}>
@@ -116,6 +139,15 @@ function AddATenant() {
 				<Header title={"Please fill out all your information"} />
 			</View>
 			<View style={styles.contentContainer}>
+				<DropdownPicker
+					open={open}
+					value={selectedDocumentType}
+					items={documentTypes}
+					setOpen={setOpen}
+					setValue={setSelectedDocumentType}
+					placeholder="Select a Document"
+					{...styles}
+				/>
 				{(DocumentPicture) ? (
 					<Image src={DocumentPicture} style={styles.documentPictureContainer}/>
 				) : (
@@ -164,8 +196,6 @@ function AddATenant() {
 					keyboardType="phone-pad"
 					placeholderTextColor="white"
 				/>
-
-
 				<Button title={"Done"} onPress={handleAddTenant} />
 			</View>
 		</Layout>

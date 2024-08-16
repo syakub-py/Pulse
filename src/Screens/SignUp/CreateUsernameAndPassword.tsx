@@ -15,6 +15,7 @@ import BackButton from "../../Components/BackButton";
 import { useAuthContext } from "../../Contexts/AuthContext";
 import {useAppContext} from "../../Contexts/AppContext";
 
+import { FirebaseError } from "firebase/app";
 
 
 const validateForm = (username: string, password: string, requirements: PasswordRequirement[]): boolean => {
@@ -90,16 +91,24 @@ function CreateUsernameAndPassword() {
 						const profilePictureUrl = await appContext.uploadPicture(profilePicture, username, `ProfilePictures/${username}/`);
 						authContext.setProfilePicture(profilePictureUrl);
 						await updateProfile(user.user, {photoURL: profilePictureUrl});
-					}else{
+					} else {
 						authContext.setProfilePicture("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
 					}
 					authContext.setUid(user.user.uid);
 				}
-			} catch (error) {
+				navigation.navigate("EnterTenantCode");
+			}catch (error) {
+				if (error instanceof FirebaseError) {
+					console.error("Firebase Error:", error);
+					alert(error.message);
+				} else {
+					console.error("General Error:", error);
+					authContext.setProfilePicture("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
+					alert(error);
+				}
 				authContext.setProfilePicture("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
 				alert("Error uploading profile picture:" + error);
 			}
-			navigation.navigate("EnterTenantCode");
 		}
 	};
 
