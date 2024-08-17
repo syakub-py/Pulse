@@ -16,6 +16,7 @@ import { useAuthContext } from "../../Contexts/AuthContext";
 import {useAppContext} from "../../Contexts/AppContext";
 
 import { FirebaseError } from "firebase/app";
+import AsyncStorageClass from "../../Classes/AsyncStorage";
 
 
 const validateForm = (username: string, password: string, requirements: PasswordRequirement[]): boolean => {
@@ -82,8 +83,6 @@ function CreateUsernameAndPassword() {
 	const handleSignUp = async () => {
 		if (validateForm(username, password, requirements)) {
 			authContext.isLoading = true;
-			authContext.setUsername(username);
-			authContext.setPassword(password);
 			try {
 				const user = await auth.createUserWithEmailAndPassword(username, password);
 				if (!_.isEmpty(user.user) && !_.isNull(user.user)) {
@@ -95,18 +94,21 @@ function CreateUsernameAndPassword() {
 						authContext.setProfilePicture("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
 					}
 					authContext.setUid(user.user.uid);
+					authContext.setUsername(username);
+					authContext.setPassword(password);
 				}
 				navigation.navigate("EnterTenantCode");
 			}catch (error) {
 				if (error instanceof FirebaseError) {
 					console.error("Firebase Error:", error);
 					alert(error.message);
+					authContext.isLoading = false;
 				} else {
 					console.error("General Error:", error);
 					authContext.setProfilePicture("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
 					alert(error);
+					authContext.isLoading = false;
 				}
-				authContext.setProfilePicture("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
 			}
 		}
 	};
