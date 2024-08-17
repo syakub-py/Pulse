@@ -65,9 +65,15 @@ class AuthContextClass {
 			this.username = "";
 			this.password = "";
 		});
-		await auth.signOut();
-		await AsyncStorageClass.clearAllAsyncStorageData();
-		this.isLoading = false;
+		try{
+			await auth.signOut();
+			await AsyncStorageClass.clearAllAsyncStorageData();
+			this.isLoading = false;
+		}catch (e){
+			alert("Error logging out");
+			return;
+		}
+
 	}
 }
 

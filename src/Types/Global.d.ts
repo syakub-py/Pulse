@@ -17,7 +17,8 @@ declare global {
         MonthlyRent: number | null;
         PropertyId: number;
         Terms:string;
-        isExpired: boolean;
+        isLeaseExpired: boolean;
+        isTenantCodeExpired?: boolean;
     }
 
     interface Tenant{

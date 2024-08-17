@@ -14,8 +14,13 @@ function Settings(){
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Settings">>();
 
 	const logout = async () =>{
-		await authContext.logout();
-		appContext.logout();
+		try{
+			await authContext.logout();
+			appContext.logout();
+		}catch(e){
+			alert("there was an error logging out");
+			return;
+		}
 		navigation.navigate("Login");
 	};
 

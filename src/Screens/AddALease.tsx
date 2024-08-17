@@ -19,7 +19,7 @@ function AddALease() {
 		StartDate: "",
 		EndDate: "",
 		MonthlyRent: null,
-		isExpired: false,
+		isLeaseExpired: false,
 		TenantName: "",
 		Terms: "",
 		PropertyId: _.isNil(appContext.SelectedProperty) ? 0 :  appContext.SelectedProperty.PropertyId
@@ -72,13 +72,25 @@ function AddALease() {
 
 			if (!areValidInputs()) return;
 			leaseDetails.TenantName = "Wait for tenant information...";
-			await appContext.addLease(leaseDetails);
+
+			try{
+				await appContext.addLease(leaseDetails);
+			}catch(e){
+				return;
+			}
+
 			if (_.isUndefined(appContext.SelectedPropertyLeases[appContext.SelectedPropertyLeases.length-1].LeaseId)) return;
-			await TenantService.startTenantSignUp(appContext.SelectedPropertyLeases[appContext.SelectedPropertyLeases.length-1].LeaseId.toString(), tenantEmail.toLowerCase());
-			alert("Sent invite to " + tenantEmail.toLowerCase());
+
+			try{
+				await TenantService.startTenantSignUp(appContext.SelectedPropertyLeases[appContext.SelectedPropertyLeases.length-1].LeaseId.toString(), tenantEmail.toLowerCase());
+				alert("Sent invite to " + tenantEmail.toLowerCase());
+			}catch (e){
+				return;
+			}
+
 			setNewLeases([...newLeases, leaseDetails]);
 			setLeaseDetails({
-				isExpired: false,
+				isLeaseExpired: false,
 				TenantName: "",
 				Terms: "",
 				LeaseId: 0,

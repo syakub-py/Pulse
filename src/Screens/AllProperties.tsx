@@ -13,7 +13,11 @@ function AllProperties() {
 	const appContext = useAppContext();
 
 	const handleDeleteProperty = useCallback(async (propertyId:number) => {
-		await appContext.deleteProperty(propertyId);
+		try{
+			await appContext.deleteProperty(propertyId);
+		}catch (e){
+			return;
+		}
 	}, [appContext]);
 
 	return(

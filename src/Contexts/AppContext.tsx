@@ -42,7 +42,7 @@ class AppContextClass {
 			}
 		} catch (error) {
 			console.error("Error adding property:", error);
-			alert("An error occurred. Try again later.");
+			return;
 		}
 	});
 
@@ -51,7 +51,11 @@ class AppContextClass {
 		runInAction(() => {
 			this.SelectedPropertyLeases = [];
 			this.Properties = this.Properties.filter((h) => toNumber(h.PropertyId) !== propertyId);
-			this.SelectedProperty = null;
+			if (this.Properties.length > 0) {
+				this.SelectedProperty = this.Properties[this.Properties.length - 1];
+			} else {
+				this.SelectedProperty = null;
+			}
 		});
 	});
 
@@ -65,13 +69,13 @@ class AppContextClass {
 		try {
 			if (!_.isNull(this.SelectedProperty)) {
 				lease.LeaseId = await LeaseService.addLease(this.SelectedProperty.PropertyId, lease);
+				if (_.isNil(lease.LeaseId)) return;
 				runInAction(() => {
 					this.SelectedPropertyLeases.push(lease);
 				});
 			}
 		} catch (error) {
 			console.error(lease);
-			alert("An error occurred.");
 			return 0;
 		}
 	});
