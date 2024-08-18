@@ -12,10 +12,19 @@ export default function useFetchTodos(){
 	const fetchTodos = useCallback(async () => {
 		if (_.isEmpty(authContext.uid) || _.isUndefined(appContext.SelectedProperty?.PropertyId)) return;
 
-		const todos = await TodoService.getTodos(appContext.SelectedProperty.PropertyId);
+		const response = await TodoService.getTodos(appContext.SelectedProperty.PropertyId);
 
-		if (_.isUndefined(todos)) return;
+		if (_.isEmpty(response)) {
+			appContext.setSelectedPropertyTodos([]);
+			return;
+		}
 
+		if (appContext.isHTTPError(response)) {
+			alert(response.message);
+			return;
+		}
+
+		const todos = JSON.parse(response.toString()) as Todo[];
 		appContext.setSelectedPropertyTodos(todos);
 
 		/* eslint-disable react-hooks/exhaustive-deps */

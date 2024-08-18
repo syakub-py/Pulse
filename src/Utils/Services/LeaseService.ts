@@ -1,36 +1,22 @@
 import http from "../HttpCommon";
+import _ from "lodash";
+
 
 export default new class LeaseService {
 	private readonly serviceHeader = "/lease";
 
-	async addLease(propertyId: number, leaseDetails: Lease): Promise<number> {
-		try {
-			const response = await http.post(`${this.serviceHeader}/addLease/${propertyId}`, leaseDetails);
-			return response.data.lease_id;
-		} catch (error) {
-			console.error("Error adding lease:", error);
-			alert("There an internal error occurred while adding a Lease");
-			return 0;
-		}
+	async addLease(propertyId: number, tenantEmail:string,leaseDetails: Lease): Promise<number | HTTPError> {
+		const response =  await http.post(`${this.serviceHeader}/addLease/${tenantEmail}/${propertyId}`, leaseDetails);
+		return response.data;
 	}
 
-	async getLeases(propertyId: number): Promise<Lease[]> {
-		try {
-			const response = await http.get(`${this.serviceHeader}/getLeases/${propertyId}`);
-			return JSON.parse(response.data) as Lease[];
-		} catch (error) {
-			console.error("Error fetching leases:", error);
-			alert("There an internal error occurred while trying to get leases");
-			return [];
-		}
+	async getLeases(propertyId: number): Promise<Lease[] | HTTPError> {
+		const response= await http.get(`${this.serviceHeader}/getLeases/${propertyId}`);
+		return response.data;
 	}
 
-	async deleteLease(leaseId: number): Promise<void> {
-		try {
-			await http.delete(`${this.serviceHeader}/deleteLease/${leaseId}`);
-		} catch (error) {
-			console.error("Error deleting lease:", error);
-			alert("There an internal error occurred while trying to delete leases");
-		}
+	async deleteLease(leaseId: number): Promise<void | HTTPError> {
+		const response = await http.delete(`${this.serviceHeader}/deleteLease/${leaseId}`);
+		if (!_.isUndefined(response.data)) return response.data;
 	}
 }();

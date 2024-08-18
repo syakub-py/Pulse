@@ -10,6 +10,7 @@ import {StackNavigationProp} from "@react-navigation/stack";
 import LeaseCard from "../Components/Leases/LeaseCard";
 import { useAppContext } from "../Contexts/AppContext";
 import TenantService from "../Utils/Services/TenantService";
+import LeaseService from "../Utils/Services/LeaseService";
 
 function AddALease() {
 	const appContext = useAppContext();
@@ -73,20 +74,8 @@ function AddALease() {
 			if (!areValidInputs()) return;
 			leaseDetails.TenantName = "Wait for tenant information...";
 
-			try{
-				await appContext.addLease(leaseDetails);
-			}catch(e){
-				return;
-			}
-
-			if (_.isUndefined(appContext.SelectedPropertyLeases[appContext.SelectedPropertyLeases.length-1].LeaseId)) return;
-
-			try{
-				await TenantService.startTenantSignUp(appContext.SelectedPropertyLeases[appContext.SelectedPropertyLeases.length-1].LeaseId.toString(), tenantEmail.toLowerCase());
-				alert("Sent invite to " + tenantEmail.toLowerCase());
-			}catch (e){
-				return;
-			}
+			const isAddLeaseSuccessful = await appContext.addLease(leaseDetails, tenantEmail.toLowerCase());
+			if (!isAddLeaseSuccessful) return;
 
 			setNewLeases([...newLeases, leaseDetails]);
 			setLeaseDetails({

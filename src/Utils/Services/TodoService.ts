@@ -4,40 +4,18 @@ import _ from "lodash";
 export default new class TodoService {
 	private readonly serviceHeader = "/todo";
 
-	async addTodo(todoDetails: Todo): Promise<AddTodoResponse> {
-		try {
-			const response = await http.post(`${this.serviceHeader}/addTodo/`, todoDetails);
-			return response.data;
-		} catch (error) {
-			console.error("Error adding Todo:", error);
-			alert("Failed to add Todo");
-			return {todoId:0, recommendedProfessional:""};
-		}
+	async addTodo(todoDetails: Todo): Promise<AddTodoResponse | HTTPError> {
+		const response = await http.post(`${this.serviceHeader}/addTodo/`, todoDetails);
+		return response.data;
 	}
 
-	async getTodos(propertyId: number): Promise<Todo[]> {
-		try {
-			const response = await http.get(`${this.serviceHeader}/getTodos/${propertyId}`);
-
-			if (_.isEmpty(response.data)) return [];
-
-			return JSON.parse(response.data) as Todo[];
-
-		} catch (error) {
-			console.error("Error getting Todos:", error);
-			alert("Error getting Todos");
-			return [];
-		}
+	async getTodos(propertyId: number): Promise<Todo[] | HTTPError> {
+		const response = await http.get(`${this.serviceHeader}/getTodos/${propertyId}`);
+		return response.data;
 	}
 
-	async deleteTodo(todoId: number): Promise<void> {
-		try {
-			await http.delete(`${this.serviceHeader}/deleteTodo/${todoId}`);
-		}catch (error){
-			console.error("Error deleting Todo:", error);
-			alert("Error deleting todo");
-		}
+	async deleteTodo(todoId: number): Promise<void | HTTPError> {
+		const response = await http.delete(`${this.serviceHeader}/deleteTodo/${todoId}`);
+		if (!_.isUndefined(response.data)) return response.data;
 	}
-
-
 };

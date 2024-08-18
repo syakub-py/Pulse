@@ -82,7 +82,6 @@ function CreateUsernameAndPassword() {
 
 	const handleSignUp = async () => {
 		if (validateForm(username, password, requirements)) {
-			authContext.isLoading = true;
 			try {
 				const user = await auth.createUserWithEmailAndPassword(username, password);
 				if (!_.isEmpty(user.user) && !_.isNull(user.user)) {
@@ -102,13 +101,10 @@ function CreateUsernameAndPassword() {
 				if (error instanceof FirebaseError) {
 					console.error("Firebase Error:", error);
 					alert(error.message);
-					authContext.isLoading = false;
-				} else {
-					console.error("General Error:", error);
-					authContext.setProfilePicture("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-					alert(error);
-					authContext.isLoading = false;
 				}
+				console.error("General Error:", error);
+				authContext.setProfilePicture("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
+				alert(error);
 			}
 		}
 	};

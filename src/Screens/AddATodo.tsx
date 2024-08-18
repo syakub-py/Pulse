@@ -40,11 +40,10 @@ function AddATodo(){
 		setTodoDetails((prev) => ({ ...prev, [field]: value }));
 	};
 	const handleSubmit = async (): Promise<void> => {
-		try{
-			await appContext.addTodo(todoDetails);
-		}catch (e){
-			return;
-		}
+		const isAddTodoSuccessful = await appContext.addTodo(todoDetails);
+
+		if (!isAddTodoSuccessful) return;
+
 		navigation.navigate("BottomNavBar");
 		setTodoDetails({
 			PropertyId:appContext.SelectedProperty?.PropertyId,

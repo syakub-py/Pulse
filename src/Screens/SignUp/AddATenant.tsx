@@ -106,10 +106,11 @@ function AddATenant() {
 				return;
 			}
 			if (!areValidInputs()) return;
-			navigation.navigate("Login");
+			const isAddTenantSuccessful = await appContext.addTenant({ ...tenantDetails, LeaseId: LeaseId });
+			if (!isAddTenantSuccessful) return;
 			tenantDetails.DocumentProvidedUrl = await appContext.uploadPicture(DocumentPicture, authContext.username,`/DocumentPictures/${tenantDetails.Name}/`);
-			await appContext.addTenant({ ...tenantDetails, LeaseId: LeaseId });
 			authContext.setLeaseId(null);
+			navigation.navigate("Login");
 		} catch (error) {
 			alert("There was an issue on our end. Please try again later.");
 		}

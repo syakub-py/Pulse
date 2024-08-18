@@ -21,6 +21,11 @@ declare global {
         isTenantCodeExpired?: boolean;
     }
 
+    interface HTTPError {
+        message:string,
+        status_code:number,
+    }
+
     interface Tenant{
         TenantId?:number;
         LeaseId?: number;

@@ -20,6 +20,11 @@ class AppContextClass {
 		makeAutoObservable(this);
 	}
 
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	public isHTTPError(data: any): data is HTTPError {
+		return data && (data.status_code === 500 || data.status_code === 400 || data.status_code === 409);
+	}
+
 	public setSelectedProperty = action((SelectedProperty: Property) =>{
 		runInAction(()=>{
 			this.SelectedProperty = SelectedProperty;
@@ -33,30 +38,47 @@ class AppContextClass {
 	});
 
 	public addProperty = action(async (property: Property) => {
-		try {
-			if (auth.currentUser?.uid){
-				property.PropertyId = await PropertyService.addProperty(auth.currentUser.uid, property);
-				runInAction(() => {
-					this.Properties.push(property);
-				});
+		try{
+			if (!auth.currentUser?.uid) return false;
+			const response = await PropertyService.addProperty(auth.currentUser.uid, property);
+			if (this.isHTTPError(response)) {
+				alert(response.message);
+				return false;
 			}
-		} catch (error) {
-			console.error("Error adding property:", error);
-			return;
+			property.PropertyId = response;
+			runInAction(() => {
+				this.Properties.push(property);
+			});
+			return true;
+		}catch(e){
+			alert(e);
+			return false;
 		}
+
 	});
 
 	public deleteProperty = action(async (propertyId: number)=> {
-		await PropertyService.deleteProperty(propertyId);
-		runInAction(() => {
-			this.SelectedPropertyLeases = [];
-			this.Properties = this.Properties.filter((h) => toNumber(h.PropertyId) !== propertyId);
-			if (this.Properties.length > 0) {
-				this.SelectedProperty = this.Properties[this.Properties.length - 1];
-			} else {
-				this.SelectedProperty = null;
+		try{
+			const response = await PropertyService.deleteProperty(propertyId);
+			if (this.isHTTPError(response)) {
+				alert(response.message);
+				return false;
 			}
-		});
+			runInAction(() => {
+				this.SelectedPropertyLeases = [];
+				this.Properties = this.Properties.filter((h) => toNumber(h.PropertyId) !== propertyId);
+				if (!_.isEmpty(this.Properties)) {
+					this.SelectedProperty = this.Properties[this.Properties.length - 1];
+					return true;
+				}
+				this.SelectedProperty = null;
+
+			});
+			return true;
+		}catch (e){
+			alert(e);
+			return false;
+		}
 	});
 
 	public setPropertyLeases = action((leases:Lease[])=>{
@@ -65,34 +87,61 @@ class AppContextClass {
 		});
 	});
 
-	public addLease = action(async (lease:Lease ) => {
-		try {
-			if (!_.isNull(this.SelectedProperty)) {
-				lease.LeaseId = await LeaseService.addLease(this.SelectedProperty.PropertyId, lease);
-				if (_.isNil(lease.LeaseId)) return;
-				runInAction(() => {
-					this.SelectedPropertyLeases.push(lease);
-				});
+	public addLease = action(async (lease:Lease, tenantEmail:string) => {
+		try{
+			if (_.isNull(this.SelectedProperty)) return false;
+			const response = await LeaseService.addLease(this.SelectedProperty.PropertyId, tenantEmail ,lease);
+			if (this.isHTTPError(response)) {
+				alert(response.message);
+				lease.LeaseId = 0;
+				return false;
 			}
-		} catch (error) {
-			console.error(lease);
-			return 0;
+			lease.LeaseId = response;
+			runInAction(() => {
+				this.SelectedPropertyLeases.push(lease);
+			});
+			alert("Sent invite to " + tenantEmail.toLowerCase());
+			return true;
+		}catch (e){
+			alert(e);
+			return false;
 		}
+
 	});
 
 	public deleteLease = action(async (leaseId:number) => {
-		await LeaseService.deleteLease(leaseId);
-		runInAction(() => {
-			this.SelectedPropertyLeases = this.SelectedPropertyLeases.filter((l) => toNumber(l.LeaseId) !== leaseId);
-			this.Tenants = this.Tenants.filter((t)=>t.LeaseId !== leaseId);
-		});
+		try{
+			const response = await LeaseService.deleteLease(leaseId);
+			if (!_.isUndefined(response) && this.isHTTPError(response)) {
+				alert(response.message);
+				return;
+			}
+			runInAction(() => {
+				this.SelectedPropertyLeases = this.SelectedPropertyLeases.filter((l) => toNumber(l.LeaseId) !== leaseId);
+				this.Tenants = this.Tenants.filter((t)=>t.LeaseId !== leaseId);
+			});
+		}catch(e){
+			alert(e);
+			console.error(e);
+		}
 	});
 
-	public addTenant = action(async ( tenant:Tenant ) => {
-		tenant.TenantId = await TenantService.addTenant(tenant);
-		runInAction(() => {
-			this.Tenants.push(tenant);
-		});
+	public addTenant = action(async (tenant:Tenant) => {
+		try{
+			const response = await TenantService.addTenant(tenant);
+			if (this.isHTTPError(response)) {
+				alert(response.message);
+				return false;
+			}
+			tenant.TenantId = response;
+			runInAction(() => {
+				this.Tenants.push(tenant);
+			});
+			return true;
+		}catch (e){
+			alert(e);
+			return false;
+		}
 	});
 
 	public setTenants = action((tenants:Tenant[]) => {
@@ -108,16 +157,32 @@ class AppContextClass {
 	});
 
 	public addTodo = action(async (todo:Todo) => {
-		const response = await TodoService.addTodo(todo);
-		todo.RecommendedProfessional = response.recommendedProfessional;
-		todo.id = response.todoId;
-		runInAction(() => {
-			this.SelectedPropertyTodos.push(todo);
-		});
+		try{
+			const response = await TodoService.addTodo(todo);
+			if (this.isHTTPError(response)) {
+				alert(response.message);
+				return false;
+			}
+			todo.RecommendedProfessional = response.recommendedProfessional;
+			todo.id = response.todoId;
+			runInAction(() => {
+				this.SelectedPropertyTodos.push(todo);
+			});
+			return true;
+		}catch (e){
+			alert(e);
+			return false;
+		}
+
 	});
 
 	public deleteTodo = action(async (todoId:number) => {
-		await TodoService.deleteTodo(todoId);
+		const response = await TodoService.deleteTodo(todoId);
+		if (this.isHTTPError(response)) {
+			alert(response.message);
+			return;
+		}
+
 		runInAction(() => {
 			this.SelectedPropertyTodos = this.SelectedPropertyTodos.filter((todo) => todo.id !== todoId);
 		});

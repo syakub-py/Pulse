@@ -37,12 +37,9 @@ function AddAProperty() {
 	const handleSubmit = async (): Promise<void> => {
 		propertyDetails.PropertyType = selectedPropertyType;
 
-		try{
-			await appContext.addProperty(propertyDetails);
-		}catch(e){
-			return;
-		}
+		const isAddPropertySuccessful = await appContext.addProperty(propertyDetails);
 
+		if (!isAddPropertySuccessful) return;
 		if (propertyDetails.isRental){
 			appContext.setSelectedProperty(propertyDetails);
 			navigation.navigate("AddALease");
