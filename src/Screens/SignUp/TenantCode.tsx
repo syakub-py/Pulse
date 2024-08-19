@@ -36,6 +36,7 @@ function TenantCode() {
 		}
 		authContext.setLeaseId(isCodeValidResponse.lease_id);
 		navigation.navigate("AddATenant");
+		/* eslint-disable react-hooks/exhaustive-deps */
 	}, [authContext, code, navigation]);
 
 	return (

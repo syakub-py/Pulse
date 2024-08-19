@@ -16,7 +16,6 @@ import { useAuthContext } from "../../Contexts/AuthContext";
 import {useAppContext} from "../../Contexts/AppContext";
 
 import { FirebaseError } from "firebase/app";
-import AsyncStorageClass from "../../Classes/AsyncStorage";
 
 
 const validateForm = (username: string, password: string, requirements: PasswordRequirement[]): boolean => {
