@@ -11,7 +11,7 @@ export default new class TodoService {
 
 	async getTodos(propertyId: number): Promise<Todo[] | HTTPError> {
 		const response = await http.get(`${this.serviceHeader}/getTodos/${propertyId}`);
-		return response.data;
+		return JSON.parse(response.data);
 	}
 
 	async deleteTodo(todoId: number): Promise<void | HTTPError> {

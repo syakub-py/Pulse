@@ -7,10 +7,10 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import React, {useCallback, useEffect, useState} from "react";
 import _ from "lodash";
 import BackButton from "../../Components/BackButton";
-import { useAppContext } from "../../Contexts/AppContext";
+import { useAppContext } from "@src/Contexts/AppContext";
 import UploadPictures from "../../Components/UploadPictures";
 import * as ImagePicker from "expo-image-picker";
-import {useAuthContext} from "../../Contexts/AuthContext";
+import {useAuthContext} from "@src/Contexts/AuthContext";
 import DropdownPicker, {ItemType} from "react-native-dropdown-picker";
 
 function AddATenant() {

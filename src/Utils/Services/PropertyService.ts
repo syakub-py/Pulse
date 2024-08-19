@@ -11,7 +11,7 @@ export default new class PropertyService {
 
 	async getProperty(userId:string):Promise<Property[] | HTTPError> {
 		const response = await http.get(`${this.serviceHeader}/getProperty/${userId}`);
-		return response.data;
+		return JSON.parse(response.data);
 	}
 
 	async deleteProperty(propertyId: number): Promise<void | HTTPError> {

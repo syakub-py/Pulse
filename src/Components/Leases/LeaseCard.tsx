@@ -1,6 +1,6 @@
 import {observer} from "mobx-react-lite";
 import {StyleSheet, Text, View} from "react-native";
-import {useAppContext} from "../../Contexts/AppContext";
+import {useAppContext} from "@src/Contexts/AppContext";
 import _ from "lodash";
 
 interface Props{

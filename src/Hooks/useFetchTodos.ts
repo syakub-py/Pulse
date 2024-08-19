@@ -12,15 +12,15 @@ export default function useFetchTodos(){
 	const fetchTodos = useCallback(async () => {
 		try {
 			if (_.isEmpty(authContext.uid) || _.isUndefined(appContext.SelectedProperty?.PropertyId)) return;
-	
+
 			const response = await TodoService.getTodos(appContext.SelectedProperty.PropertyId);
-	
+
 			if (appContext.isHTTPError(response)) {
 				alert(response.message);
 				return;
 			}
-	
-			appContext.setSelectedPropertyTodos(response);
+
+			appContext.setSelectedPropertyTodos(response as Todo[]);
 		} catch (error) {
 			console.error(error);
 		}

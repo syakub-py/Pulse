@@ -7,8 +7,8 @@ import {StackNavigationProp} from "@react-navigation/stack";
 import TenantService from "../../Utils/Services/TenantService";
 import Header from "../../Components/Header";
 import BackButton from "../../Components/BackButton";
-import {useAuthContext} from "../../Contexts/AuthContext";
-import {useAppContext} from "../../Contexts/AppContext";
+import {useAuthContext} from "@src/Contexts/AuthContext";
+import {useAppContext} from "@src/Contexts/AppContext";
 
 function TenantCode() {
 	const [code, setCode] = useState("");

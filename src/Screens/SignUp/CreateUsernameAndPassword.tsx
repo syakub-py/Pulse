@@ -4,7 +4,7 @@ import {useState} from "react";
 import PasswordRequirementCheckBox from "../../Components/SignUp/PasswordRequirementCheckBox";
 import * as ImagePicker from "expo-image-picker";
 import _ from "lodash";
-import {auth} from "../../Utils/Firebase";
+import {auth} from "@src/Utils/Firebase";
 import {StackNavigationProp} from "@react-navigation/stack";
 import { updateProfile } from "firebase/auth";
 import {observer} from "mobx-react-lite";
@@ -12,9 +12,8 @@ import UploadPictures from "../../Components/UploadPictures";
 import Layout from "../../Components/Layout";
 import Header from "../../Components/Header";
 import BackButton from "../../Components/BackButton";
-import { useAuthContext } from "../../Contexts/AuthContext";
-import {useAppContext} from "../../Contexts/AppContext";
-
+import { useAuthContext } from "@src/Contexts/AuthContext";
+import {useAppContext} from "@src/Contexts/AppContext";
 import { FirebaseError } from "firebase/app";
 
 
