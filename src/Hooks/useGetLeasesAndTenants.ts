@@ -47,5 +47,3 @@ export default function useGetLeasesAndTenants() {
 		void fetchLeasesAndTenants();
 	}, [authContext.uid, appContext.SelectedProperty, fetchLeasesAndTenants]);
 }
-
-
