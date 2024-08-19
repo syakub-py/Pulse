@@ -8,16 +8,13 @@ import TenantService from "../../Utils/Services/TenantService";
 import Header from "../../Components/Header";
 import BackButton from "../../Components/BackButton";
 import {useAuthContext} from "../../Contexts/AuthContext";
+import {useAppContext} from "../../Contexts/AppContext";
 
 function TenantCode() {
 	const [code, setCode] = useState("");
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "EnterTenantCode">>();
 	const authContext = useAuthContext();
-
-	useEffect(() => {
-		authContext.isLoading = false;
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	const appContext = useAppContext();
 
 
 	const handleCodeSubmit = useCallback(async () => {
@@ -25,7 +22,14 @@ function TenantCode() {
 			alert("Please make sure the code is six digits");
 			return;
 		}
+
 		const isCodeValidResponse = await TenantService.isCodeValid(code);
+
+		if (appContext.isHTTPError(isCodeValidResponse)) {
+			alert(isCodeValidResponse.message);
+			return;
+		}
+
 		if (!isCodeValidResponse.isValid) {
 			alert("Invalid code or code expired");
 			return;

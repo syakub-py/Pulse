@@ -95,8 +95,8 @@ function CreateUsernameAndPassword() {
 					authContext.setUid(user.user.uid);
 					authContext.setUsername(username);
 					authContext.setPassword(password);
+					navigation.navigate("EnterTenantCode");
 				}
-				navigation.navigate("EnterTenantCode");
 			}catch (error) {
 				if (error instanceof FirebaseError) {
 					console.error("Firebase Error:", error);

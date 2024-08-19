@@ -38,7 +38,7 @@ function TodoDetails({route}:Props){
 			<View style={[styles.headerContainer, styles.header]}>
 				<View style={styles.header}>
 					<BackButton />
-					<Header title="Todo Details"/>
+					<Header title={todo.Title}/>
 				</View>
 				<View>
 					<View style={styles.buttonContainer}>
@@ -51,11 +51,9 @@ function TodoDetails({route}:Props){
 							)
 						}
 					</View>
-
 				</View>
 			</View>
 			<ScrollView contentContainerStyle={styles.content}>
-				<Text style={styles.title}>{todo.Title}</Text>
 				<Text style={styles.description}>{todo.Description}</Text>
 				<View style={styles.infoRow}>
 					<Text style={styles.label}>Status:</Text>

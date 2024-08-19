@@ -110,6 +110,7 @@ function AddATenant() {
 			if (!isAddTenantSuccessful) return;
 			tenantDetails.DocumentProvidedUrl = await appContext.uploadPicture(DocumentPicture, authContext.username,`/DocumentPictures/${tenantDetails.Name}/`);
 			authContext.setLeaseId(null);
+			await authContext.logout();
 			navigation.navigate("Login");
 		} catch (error) {
 			alert("There was an issue on our end. Please try again later.");

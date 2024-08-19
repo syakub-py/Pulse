@@ -34,9 +34,7 @@ export default function Routes() {
 		return [
 			<Screen key = "Login" name="Login" component={Login} />,
 			<Screen key = "CreateUsernameAndPassword" name = "CreateUsernameAndPassword" component = {CreateUsernameAndPassword}/>,
-			<Screen key = "EnterTenantCode" name = "EnterTenantCode" component = {TenantCode}/>,
 			<Screen key = "BottomNavBar" name="BottomNavBar" component={BottomNavigationBar} />,
-			<Screen key = "AddATenant" name="AddATenant" component={AddATenant} />,
 		];
 	}
 	return [
@@ -51,5 +49,7 @@ export default function Routes() {
 		<Screen key = "AllTenants" name="AllTenants" component={AllTenants} />,
 		<Screen key = "AddATodo" name="AddATodo" component={AddATodo} />,
 		<Screen key = "TodoDetails" name="TodoDetails" component={TodoDetails} />,
+		<Screen key = "EnterTenantCode" name = "EnterTenantCode" component = {TenantCode}/>,
+		<Screen key = "AddATenant" name="AddATenant" component={AddATenant} />,
 	];
 }
