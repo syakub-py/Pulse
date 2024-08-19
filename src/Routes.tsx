@@ -16,6 +16,8 @@ import AddATenant from "./Screens/SignUp/AddATenant";
 import AllTenants from "./Screens/AllTenants";
 import { useAuthContext } from "./Contexts/AuthContext";
 import TenantCode from "./Screens/SignUp/TenantCode";
+import AddATodo from "./Screens/AddATodo";
+import TodoDetails from "./Screens/TodoDetails";
 
 
 export default function Routes() {
@@ -32,9 +34,7 @@ export default function Routes() {
 		return [
 			<Screen key = "Login" name="Login" component={Login} />,
 			<Screen key = "CreateUsernameAndPassword" name = "CreateUsernameAndPassword" component = {CreateUsernameAndPassword}/>,
-			<Screen key = "EnterTenantCode" name = "EnterTenantCode" component = {TenantCode}/>,
 			<Screen key = "BottomNavBar" name="BottomNavBar" component={BottomNavigationBar} />,
-			<Screen key = "AddATenant" name="AddATenant" component={AddATenant} />,
 		];
 	}
 	return [
@@ -47,6 +47,9 @@ export default function Routes() {
 		<Screen key = "Leases" name="Leases" component={Leases} />,
 		<Screen key = "AddALease" name="AddALease" component={AddALease} />,
 		<Screen key = "AllTenants" name="AllTenants" component={AllTenants} />,
-
+		<Screen key = "AddATodo" name="AddATodo" component={AddATodo} />,
+		<Screen key = "TodoDetails" name="TodoDetails" component={TodoDetails} />,
+		<Screen key = "EnterTenantCode" name = "EnterTenantCode" component = {TenantCode}/>,
+		<Screen key = "AddATenant" name="AddATenant" component={AddATenant} />,
 	];
 }

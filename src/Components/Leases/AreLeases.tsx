@@ -4,7 +4,7 @@ import LeaseCard from "./LeaseCard";
 import TrashButton from "../TrashButton";
 import {SwipeListView} from "react-native-swipe-list-view";
 import {useCallback, useState} from "react";
-import {useAppContext} from "../../Contexts/AppContext";
+import {useAppContext} from "@src/Contexts/AppContext";
 import _ from "lodash";
 import LeaseDetails from "./LeaseDetails";
 
@@ -12,9 +12,9 @@ function AreLeases(){
 	const appContext = useAppContext();
 	const [isModalVisible, setModalVisible] = useState(false);
 
-	const toggleModal = () => {
-		setModalVisible(!isModalVisible);
-	};
+	const toggleModal = useCallback(() => {
+		setModalVisible(prevState => !prevState);
+	}, []);
 
 	const deleteLease = useCallback(async (leaseId: number) => {
 		if (_.isUndefined(leaseId)) return;

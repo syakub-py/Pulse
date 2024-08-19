@@ -10,6 +10,7 @@ import {StackNavigationProp} from "@react-navigation/stack";
 import LeaseCard from "../Components/Leases/LeaseCard";
 import { useAppContext } from "../Contexts/AppContext";
 import TenantService from "../Utils/Services/TenantService";
+import LeaseService from "../Utils/Services/LeaseService";
 
 function AddALease() {
 	const appContext = useAppContext();
@@ -19,7 +20,7 @@ function AddALease() {
 		StartDate: "",
 		EndDate: "",
 		MonthlyRent: null,
-		isExpired: false,
+		isLeaseExpired: false,
 		TenantName: "",
 		Terms: "",
 		PropertyId: _.isNil(appContext.SelectedProperty) ? 0 :  appContext.SelectedProperty.PropertyId
@@ -72,13 +73,13 @@ function AddALease() {
 
 			if (!areValidInputs()) return;
 			leaseDetails.TenantName = "Wait for tenant information...";
-			await appContext.addLease(leaseDetails);
-			if (_.isUndefined(appContext.SelectedPropertyLeases[appContext.SelectedPropertyLeases.length-1].LeaseId)) return;
-			await TenantService.startTenantSignUp(appContext.SelectedPropertyLeases[appContext.SelectedPropertyLeases.length-1].LeaseId.toString(), tenantEmail.toLowerCase());
-			alert("Sent invite to " + tenantEmail.toLowerCase());
+
+			const isAddLeaseSuccessful = await appContext.addLease(leaseDetails, tenantEmail.toLowerCase());
+			if (!isAddLeaseSuccessful) return;
+
 			setNewLeases([...newLeases, leaseDetails]);
 			setLeaseDetails({
-				isExpired: false,
+				isLeaseExpired: false,
 				TenantName: "",
 				Terms: "",
 				LeaseId: 0,

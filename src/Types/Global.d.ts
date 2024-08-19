@@ -17,7 +17,38 @@ declare global {
         MonthlyRent: number | null;
         PropertyId: number;
         Terms:string;
-        isExpired: boolean;
+        isLeaseExpired: boolean;
+        isTenantCodeExpired?: boolean;
+    }
+
+    interface HTTPError {
+        message:string,
+        status_code:number,
+    }
+
+    interface Tenant{
+        TenantId?:number;
+        LeaseId?: number;
+        UserId: string;
+        Name:string;
+        PhoneNumber:string;
+        Email:string;
+        AnnualIncome:number;
+        DateOfBirth:string;
+        DocumentType:string;
+        DocumentProvidedUrl:string;
+        SocialSecurity:string;
+    }
+
+    interface Todo{
+        id?:number,
+        PropertyId:number | undefined,
+        Title:string,
+        Status:string,
+        Priority:string,
+        Description:string,
+        AddedBy:string,
+        RecommendedProfessional?:string,
     }
 
     interface PasswordRequirement{
@@ -32,22 +63,14 @@ declare global {
         user:string;
     }
 
-    interface Tenant{
-        TenantId?:number;
-        LeaseId?: number;
-        UserId: string;
-        Name:string;
-        PhoneNumber:string;
-        Email:string;
-        AnnualIncome:number;
-        DateOfBirth:string;
-        DocumentProvidedUrl:string;
-        SocialSecurity:string;
-    }
-
     interface CodeValidationResponse {
         isValid: boolean;
         lease_id: number;
+    }
+
+    interface AddTodoResponse {
+        todoId:number;
+        recommendedProfessional:string;
     }
 
     type RootStackParamList = {
@@ -55,18 +78,19 @@ declare global {
         "Home": undefined
         "Login": undefined
         "Settings":undefined
+        "Loading": undefined,
+        "Leases": undefined,
         "ChatBot": undefined
         "CreateUsernameAndPassword": undefined
         "AddAProperty": undefined
-        "AddAndConfigureDevices": undefined,
         "Analytics": undefined,
         "AllProperties": undefined,
-        "Loading": undefined,
-        "Leases": undefined,
+        "AllTenants": undefined,
+        "AddATodo": undefined,
         "AddALease":undefined,
         "AddATenant": undefined,
-        "AllTenants": undefined,
         "EnterTenantCode": undefined,
+        "TodoDetails": { todo:Todo },
     }
 }
 

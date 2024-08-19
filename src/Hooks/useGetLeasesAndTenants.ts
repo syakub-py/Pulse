@@ -10,23 +10,36 @@ export default function useGetLeasesAndTenants() {
 	const authContext = useAuthContext();
 
 	const fetchLeasesAndTenants = useCallback(async () => {
-		if (_.isEmpty(authContext.uid) || _.isUndefined(appContext.SelectedProperty?.PropertyId)) return;
-
-		const [leases, tenants = appContext.Tenants] = await Promise.all([
-			appContext.SelectedProperty.isRental ? LeaseService.getLeases(appContext.SelectedProperty.PropertyId):[],
-			_.isEmpty(appContext.Tenants) ? TenantService.getTenants(authContext.uid) : Promise.resolve(appContext.Tenants)
-		]);
-
-		if (_.isUndefined(leases)) return;
-
-		appContext.setTenants(tenants);
-
-		appContext.setPropertyLeases(leases.map(lease => {
-			const matchingTenant = tenants.find(tenant => tenant.LeaseId === lease.LeaseId);
-			return !_.isUndefined(matchingTenant) ? { ...lease, TenantName: matchingTenant.Name } : lease;
-		}));
-
-		authContext.isLoading = false;
+		try {
+			if (
+				_.isEmpty(authContext.uid) ||
+				_.isUndefined(appContext.SelectedProperty?.PropertyId) ||
+				!appContext.SelectedProperty.isRental
+			) return;
+	
+			const response = await LeaseService.getLeases(appContext.SelectedProperty.PropertyId);
+			if (appContext.isHTTPError(response)) {
+				alert(response.message);
+				throw Error(response.message);
+			}
+	
+			if (_.isEmpty(appContext.Tenants)){
+				const tenants= await TenantService.getTenants(authContext.uid);
+				appContext.setTenants(tenants);
+			}
+	
+			if (!_.isNil(response)){
+				const leases = JSON.parse(response.toString()) as Lease[];
+				appContext.setPropertyLeases(leases.map(lease => {
+					const matchingTenant = appContext.Tenants.find(tenant => tenant.LeaseId === lease.LeaseId);
+					return !_.isUndefined(matchingTenant) ? { ...lease, TenantName: matchingTenant.Name } : lease;
+				}));
+			}
+		} catch (error) {
+			console.error(error);
+		} finally {
+			authContext.isLoading = false;
+		}
 		/* eslint-disable react-hooks/exhaustive-deps */
 	}, [authContext.uid, appContext.SelectedProperty]);
 
@@ -34,6 +47,3 @@ export default function useGetLeasesAndTenants() {
 		void fetchLeasesAndTenants();
 	}, [authContext.uid, appContext.SelectedProperty, fetchLeasesAndTenants]);
 }
-
-
-

@@ -1,8 +1,8 @@
 import {useCallback, useEffect} from "react";
 import PropertyService from "../Utils/Services/PropertyService";
-import {useAppContext} from "../Contexts/AppContext";
 import _ from "lodash";
 import {useAuthContext} from "../Contexts/AuthContext";
+import {useAppContext} from "../Contexts/AppContext";
 
 export default function useFetchProperties() {
 	const appContext = useAppContext();
@@ -11,12 +11,14 @@ export default function useFetchProperties() {
 	const fetchProperties = useCallback(async () => {
 		if (_.isEmpty(authContext.uid)) return;
 		const properties = await PropertyService.getProperty(authContext.uid);
-		if (_.isUndefined(properties)) return;
-		appContext.setProperties(properties);
+		if (appContext.isHTTPError(properties)) {
+			alert(properties.message);
+			return;
+		}
+		appContext.setProperties(properties as Property[]);
 		authContext.isLoading = false;
-
 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [authContext.uid, appContext]);
+	}, [authContext.uid]);
 
 	useEffect(() => {
 		void fetchProperties();

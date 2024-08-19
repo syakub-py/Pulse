@@ -1,13 +1,19 @@
-import {Dimensions, StyleSheet, Text, View } from "react-native";
+import {Dimensions, FlatList, StyleSheet, Text, View} from "react-native";
 import Button from "../Buttons/Button";
+import {useNavigation} from "@react-navigation/native";
+import {StackNavigationProp} from "@react-navigation/stack";
+import { useAppContext } from "../../Contexts/AppContext";
+import {observer} from "mobx-react-lite";
+import TodoCard from "../Todo/TodoCard";
 
 interface Props {
 	property: Property
 }
 
-export default function SingleProperty(props: Props) {
+function Property(props: Props) {
 	const { property } = props;
-
+	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Home">>();
+	const appContext = useAppContext();
 	return (
 		<View style={styles.houseTileContainer}>
 			<Text style={styles.homeName}>{property.Name}</Text>
@@ -18,12 +24,24 @@ export default function SingleProperty(props: Props) {
 					title={"Add"}
 					containerStyle={styles.addTodoButton}
 					textStyle={styles.addTodoButtonText}
+					onPress={() => navigation.navigate("AddATodo")}
 					iconName={"add"}
 				/>
 			</View>
+			<FlatList
+				data={appContext.SelectedPropertyTodos}
+				renderItem={({item, index})=>(
+					<TodoCard todo={item}/>
+				)}
+				ListFooterComponent={() => (
+					<View style={styles.footer}/>
+				)}
+			/>
 		</View>
 	);
 }
+
+export default observer(Property);
 
 const styles = StyleSheet.create({
 	homeAddress: {
@@ -66,5 +84,8 @@ const styles = StyleSheet.create({
 		marginVertical:30,
 		width:Dimensions.get("window").width,
 		height: "100%",
+	},
+	footer: {
+		marginTop:120
 	},
 });

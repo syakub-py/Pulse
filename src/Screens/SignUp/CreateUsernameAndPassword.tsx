@@ -4,7 +4,7 @@ import {useState} from "react";
 import PasswordRequirementCheckBox from "../../Components/SignUp/PasswordRequirementCheckBox";
 import * as ImagePicker from "expo-image-picker";
 import _ from "lodash";
-import {auth} from "../../Utils/Firebase";
+import {auth} from "@src/Utils/Firebase";
 import {StackNavigationProp} from "@react-navigation/stack";
 import { updateProfile } from "firebase/auth";
 import {observer} from "mobx-react-lite";
@@ -12,9 +12,9 @@ import UploadPictures from "../../Components/UploadPictures";
 import Layout from "../../Components/Layout";
 import Header from "../../Components/Header";
 import BackButton from "../../Components/BackButton";
-import { useAuthContext } from "../../Contexts/AuthContext";
-import {useAppContext} from "../../Contexts/AppContext";
-
+import { useAuthContext } from "@src/Contexts/AuthContext";
+import {useAppContext} from "@src/Contexts/AppContext";
+import { FirebaseError } from "firebase/app";
 
 
 const validateForm = (username: string, password: string, requirements: PasswordRequirement[]): boolean => {
@@ -80,9 +80,6 @@ function CreateUsernameAndPassword() {
 
 	const handleSignUp = async () => {
 		if (validateForm(username, password, requirements)) {
-			authContext.isLoading = true;
-			authContext.setUsername(username);
-			authContext.setPassword(password);
 			try {
 				const user = await auth.createUserWithEmailAndPassword(username, password);
 				if (!_.isEmpty(user.user) && !_.isNull(user.user)) {
@@ -90,16 +87,23 @@ function CreateUsernameAndPassword() {
 						const profilePictureUrl = await appContext.uploadPicture(profilePicture, username, `ProfilePictures/${username}/`);
 						authContext.setProfilePicture(profilePictureUrl);
 						await updateProfile(user.user, {photoURL: profilePictureUrl});
-					}else{
+					} else {
 						authContext.setProfilePicture("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
 					}
 					authContext.setUid(user.user.uid);
+					authContext.setUsername(username);
+					authContext.setPassword(password);
+					navigation.navigate("EnterTenantCode");
 				}
-			} catch (error) {
+			}catch (error) {
+				if (error instanceof FirebaseError) {
+					console.error("Firebase Error:", error);
+					alert(error.message);
+				}
+				console.error("General Error:", error);
 				authContext.setProfilePicture("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-				alert("Error uploading profile picture:" + error);
+				alert(error);
 			}
-			navigation.navigate("EnterTenantCode");
 		}
 	};
 

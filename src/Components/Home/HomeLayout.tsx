@@ -83,7 +83,7 @@ function HomeLayout({ children }: { children: React.ReactNode }) {
 					<View>
 						{children}
 					</View>
-					{_.isEmpty(appContext.Properties)? ( null ) : (
+					{_.isEmpty(appContext.Properties)? null: (
 						<FloatingActionButton
 							icon={"add"}
 							styles={styles.fab}
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
 		position: "absolute",
 		bottom: 20,
 		right: 20,
-		backgroundColor: "transparent",
+		backgroundColor: "black",
 		padding: 10,
 		borderRadius: 30,
 		elevation: 5,

@@ -2,9 +2,22 @@
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
     "strict": true,
+    "baseUrl": "./",
+    "paths": {
+      "@assets/*": ["assets/*"],
+      "@src/*": ["src/*"]
+    },
+    "typeRoots": [
+      "./node_modules/@types" // Only this path is needed
+    ]
   },
   "include": [
-    "src",
-    "env.d.ts"
+    "src/**/*",
+    "*.d.ts",
+    "App.tsx",
+    "env.ts"
+  ],
+  "exclude": [
+    "node_modules"
   ]
 }

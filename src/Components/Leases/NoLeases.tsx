@@ -11,7 +11,6 @@ function NoLeases() {
 
 export default observer(NoLeases);
 
-
 const styles = StyleSheet.create({
 	container:{
 		alignItems:"center",

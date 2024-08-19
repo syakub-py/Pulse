@@ -2,9 +2,12 @@ import { auth } from "../Utils/Firebase";
 import { useCallback } from "react";
 import { useAuthContext } from "../Contexts/AuthContext";
 import _ from "lodash";
+import {useNavigation} from "@react-navigation/native";
+import {StackNavigationProp} from "@react-navigation/stack";
 
 export default function useLogin() {
 	const authContext = useAuthContext();
+	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Login">>();
 
 	return useCallback(async (username: string, password: string) => {
 		if (typeof username !== "string" || typeof password !== "string") {
@@ -24,9 +27,10 @@ export default function useLogin() {
 			authContext.setPassword(password);
 			authContext.setUid(user.user.uid);
 			authContext.isLoading = false;
+			navigation.navigate("BottomNavBar");
 		} catch (e) {
 			alert("Incorrect email or password");
-			console.log(e);
+			console.error(e);
 		}
-	},[authContext]);
+	},[authContext, navigation]);
 }
