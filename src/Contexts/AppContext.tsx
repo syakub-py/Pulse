@@ -163,8 +163,7 @@ class AppContextClass {
 				alert(response.message);
 				return false;
 			}
-			todo.RecommendedProfessional = response.recommendedProfessional;
-			todo.id = response.todoId;
+			todo.id = response;
 			runInAction(() => {
 				this.SelectedPropertyTodos.push(todo);
 			});

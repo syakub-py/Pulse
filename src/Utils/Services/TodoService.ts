@@ -4,7 +4,7 @@ import _ from "lodash";
 export default new class TodoService {
 	private readonly serviceHeader = "/todo";
 
-	async addTodo(todoDetails: Todo): Promise<AddTodoResponse | HTTPError> {
+	async addTodo(todoDetails: Todo): Promise<number | HTTPError> {
 		const response = await http.post(`${this.serviceHeader}/addTodo/`, todoDetails);
 		return response.data;
 	}

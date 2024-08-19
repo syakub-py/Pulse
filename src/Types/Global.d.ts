@@ -68,11 +68,6 @@ declare global {
         lease_id: number;
     }
 
-    interface AddTodoResponse {
-        todoId:number;
-        recommendedProfessional:string;
-    }
-
     type RootStackParamList = {
         "BottomNavBar": undefined
         "Home": undefined
