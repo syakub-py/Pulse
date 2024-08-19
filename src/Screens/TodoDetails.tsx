@@ -1,38 +1,34 @@
 import React, { useCallback, useEffect, useState } from "react";
-import {View, StyleSheet, Text, Pressable, ScrollView, ActivityIndicator} from "react-native";
+import { StyleSheet, Pressable, FlatList, ViewToken, Dimensions, View, Text } from "react-native";
 import { observer } from "mobx-react-lite";
 import Layout from "../Components/Layout";
-import Header from "../Components/Header";
 import BackButton from "../Components/BackButton";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import TrashButton from "../Components/TrashButton";
 import { useAuthContext } from "../Contexts/AuthContext";
 import { useAppContext } from "../Contexts/AppContext";
 import _ from "lodash";
-import { RouteProp, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import RecommendationsCard from "@src/Components/Todo/RecommendationsCard";
-import SubHeader from "@src/Components/Analytics/SubHeader";
-import FloatingActionButton from "@src/Components/FloatingActionButton";
+import TodoInformation from "@src/Components/Todo/TodoDetails/TodoInformation";
 
-type TodoDetailsScreenRouteProp = RouteProp<RootStackParamList, "TodoDetails">;
-
-interface Props {
-	route: TodoDetailsScreenRouteProp;
-}
-
-function TodoDetails({ route }: Props) {
-	const { todo } = route.params;
+function TodoDetails() {
 	const authContext = useAuthContext();
 	const appContext = useAppContext();
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "TodoDetails">>();
 	const [recommendations, setRecommendations] = useState<GoogleMapsPlaceResponse[]>([]);
 	const [isLoading, setIsLoading] = useState(false);
+
+	const onViewableItemsChanged = useCallback(({ viewableItems }: { viewableItems: ViewToken<Todo>[] }) => {
+		if (_.isEmpty(viewableItems)) return;
+		appContext.setSelectedPropertyTodo(viewableItems[0].item);
+	}, [appContext]);
+
 	const fetchRecommendations = useCallback(async () => {
 		setIsLoading(true);
-		if (_.isUndefined(todo.id)) return;
+		if (_.isNil(appContext.SelectedTodo?.id)) return;
 		try {
-			const response = await appContext.getRecommendations(todo.id);
+			const response = await appContext.getRecommendations(appContext.SelectedTodo.id);
 			const fetchedRecommendations = JSON.parse(response.toString()) as GoogleMapsPlaceResponse[];
 			setRecommendations(fetchedRecommendations);
 		} catch (error) {
@@ -40,52 +36,39 @@ function TodoDetails({ route }: Props) {
 			setRecommendations([]);
 		}
 		setIsLoading(false);
-	}, [todo.id, appContext]);
-
+	}, [appContext.SelectedTodo]);
 
 	useEffect(() => {
 		void fetchRecommendations();
 	}, [fetchRecommendations]);
 
 	const handleDeleteTodo = async () => {
-		if (_.isNil(todo.id)) {
+		if (_.isNil(appContext.SelectedTodo?.id)) {
 			alert("Todo ID was empty");
 			return;
 		}
-		await appContext.deleteTodo(todo.id);
+		await appContext.deleteTodo(appContext.SelectedTodo.id);
 		navigation.goBack();
 	};
 
 	return (
 		<Layout>
-			<ScrollView contentContainerStyle={styles.content}>
-				<View style={styles.header}>
-					<BackButton />
-					<Header title={todo.Title} />
-				</View>
-
-				<Text style={styles.description}>{todo.Description}</Text>
-				<View style={styles.infoRow}>
-					<Text style={styles.label}>Status:</Text>
-					<Text style={styles.value}>{todo.Status}</Text>
-				</View>
-				<View style={styles.infoRow}>
-					<Text style={styles.label}>Priority:</Text>
-					<Text style={styles.value}>{todo.Priority}</Text>
-				</View>
-				<SubHeader title={"Recommendations based on description"} />
-				{!isLoading ? (
-					recommendations.map((item) => (
-						<RecommendationsCard recommendation={item} key={item.name}/>
-					))
-				) : (
-					<ActivityIndicator size="small" color="white"/>
+			<FlatList
+				data={appContext.SelectedPropertyTodos}
+				horizontal={true}
+				showsHorizontalScrollIndicator={false}
+				pagingEnabled={true}
+				onViewableItemsChanged={onViewableItemsChanged}
+				renderItem={({ item }) => (
+					<TodoInformation
+						todo={item}
+						isLoading={isLoading}
+						recommendations={recommendations}
+					/>
 				)}
-				<Text style={styles.addedBy}>Added by: {todo.AddedBy}</Text>
-
-			</ScrollView>
-			<TrashButton onPress={handleDeleteTodo} style={styles.deleteFab}/>
-			{authContext.username === todo.AddedBy && (
+			/>
+			<TrashButton onPress={handleDeleteTodo} style={styles.deleteFab} />
+			{authContext.username === appContext.SelectedTodo?.AddedBy && (
 				<Pressable style={styles.editFab}>
 					<Ionicons name="pencil-outline" size={25} color="white" />
 				</Pressable>
@@ -97,45 +80,18 @@ function TodoDetails({ route }: Props) {
 export default observer(TodoDetails);
 
 const styles = StyleSheet.create({
-	headerContainer: {
-		justifyContent: "space-between",
-	},
 	header: {
 		flexDirection: "row",
 		alignItems: "center",
-	},
-	content: {
-		padding: 16,
+		position: "absolute",
+		top: 10,
+		left: 10,
+		zIndex: 1,
 	},
 	title: {
-		fontSize: 24,
+		marginLeft: 10,
+		fontSize: 20,
 		fontWeight: "bold",
-		color: "white",
-		marginBottom: 16,
-	},
-	description: {
-		fontSize: 16,
-		color: "#ccc",
-		marginBottom: 24,
-	},
-	infoRow: {
-		flexDirection: "row",
-		marginBottom: 8,
-	},
-	label: {
-		fontSize: 16,
-		fontWeight: "bold",
-		color: "white",
-		marginRight: 8,
-	},
-	value: {
-		fontSize: 16,
-		color: "#ccc",
-	},
-	addedBy: {
-		fontSize: 14,
-		color: "#aaa",
-		marginTop: 20,
 	},
 	deleteFab: {
 		position: "absolute",
@@ -146,7 +102,7 @@ const styles = StyleSheet.create({
 		borderRadius: 30,
 		elevation: 5,
 	},
-	editFab:{
+	editFab: {
 		position: "absolute",
 		bottom: 40,
 		left: 20,
@@ -154,5 +110,5 @@ const styles = StyleSheet.create({
 		padding: 10,
 		borderRadius: 30,
 		elevation: 5,
-	}
+	},
 });

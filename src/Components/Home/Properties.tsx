@@ -1,9 +1,9 @@
 import { observer } from "mobx-react-lite";
-import {FlatList, ViewToken} from "react-native";
+import { FlatList, ViewToken } from "react-native";
 import { useCallback } from "react";
-import { useAppContext } from "../../Contexts/AppContext";
+import { useAppContext } from "@src/Contexts/AppContext";
 import _ from "lodash";
-import Property from "./Property";
+import SelectedProperty from "@src/Components/Home/SelectedProperty";
 
 function Properties() {
 	const appContext = useAppContext();
@@ -24,7 +24,7 @@ function Properties() {
 				itemVisiblePercentThreshold: 50,
 			}}
 			renderItem={({ item }) => (
-				<Property property={item} />
+				<SelectedProperty property={item} />
 			)}
 		/>
 	);

@@ -92,7 +92,7 @@ declare global {
         "AddALease":undefined,
         "AddATenant": undefined,
         "EnterTenantCode": undefined,
-        "TodoDetails": { todo:Todo },
+        "TodoDetails": undefined,
     }
 }
 

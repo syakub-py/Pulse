@@ -1,8 +1,8 @@
-import {Dimensions, FlatList, StyleSheet, Text, View} from "react-native";
+import {Dimensions, FlatList, StyleSheet, Text, View, Pressable} from "react-native";
 import Button from "../Buttons/Button";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
-import { useAppContext } from "../../Contexts/AppContext";
+import { useAppContext } from "@src/Contexts/AppContext";
 import {observer} from "mobx-react-lite";
 import TodoCard from "../Todo/TodoCard";
 
@@ -10,7 +10,7 @@ interface Props {
 	property: Property
 }
 
-function Property(props: Props) {
+function SelectedProperty(props: Props) {
 	const { property } = props;
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Home">>();
 	const appContext = useAppContext();
@@ -31,7 +31,9 @@ function Property(props: Props) {
 			<FlatList
 				data={appContext.SelectedPropertyTodos}
 				renderItem={({item, index})=>(
-					<TodoCard todo={item}/>
+					<Pressable onPress={()=>navigation.navigate("TodoDetails")}>
+						<TodoCard todo={item}/>
+					</Pressable>
 				)}
 				ListFooterComponent={() => (
 					<View style={styles.footer}/>
@@ -41,7 +43,7 @@ function Property(props: Props) {
 	);
 }
 
-export default observer(Property);
+export default observer(SelectedProperty);
 
 const styles = StyleSheet.create({
 	homeAddress: {
