@@ -18,4 +18,10 @@ export default new class TodoService {
 		const response = await http.delete(`${this.serviceHeader}/deleteTodo/${todoId}`);
 		if (!_.isUndefined(response.data)) return response.data;
 	}
+
+	async getRecommendations(todoId: number): Promise<GoogleMapsPlaceResponse[]> {
+		const response = await http.get(`${this.serviceHeader}/getRecommendations/${todoId}`);
+		return response.data;
+	}
+
 };

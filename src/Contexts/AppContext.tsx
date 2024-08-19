@@ -15,6 +15,7 @@ class AppContextClass {
 	public SelectedPropertyLeases: Lease[] = [];
 	public SelectedPropertyTodos:Todo[] = [];
 	public Tenants:Tenant[] = [];
+	public TodoRecommendations:GoogleMapsPlaceResponse[] = [];
 
 	constructor() {
 		makeAutoObservable(this);
@@ -187,6 +188,23 @@ class AppContextClass {
 		});
 	});
 
+	public getRecommendations = action(async (todoId: number) => {
+		try {
+			const response = await TodoService.getRecommendations(todoId);
+			if (this.isHTTPError(response)) {
+				alert(response.message);
+				return this.TodoRecommendations;
+			}
+			runInAction(() => {
+				this.TodoRecommendations = response;
+			});
+		} catch (error) {
+			console.error("Error fetching recommendations:", error);
+			return [];
+		}
+	});
+
+
 	public setMessages = action((messages: IMessage[]) => {
 		runInAction(()=> {
 			this.Messages = messages.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
@@ -201,7 +219,7 @@ class AppContextClass {
 		this.Tenants = [];
 	}
 
-	public uploadPicture = async (profilePicturePath:string, username:string, path:string) => {
+	public uploadPicture = async (profilePicturePath:string, path:string) => {
 		if (_.isEmpty(profilePicturePath)) {
 			return "";
 		}

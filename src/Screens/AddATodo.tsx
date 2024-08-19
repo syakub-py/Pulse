@@ -1,5 +1,5 @@
 import Layout from "../Components/Layout";
-import {Button, StyleSheet, TextInput, View} from "react-native";
+import {ActivityIndicator, Button, StyleSheet, TextInput, View} from "react-native";
 import {observer} from "mobx-react-lite";
 import Header from "../Components/Header";
 import React, {useEffect, useState} from "react";
@@ -23,7 +23,7 @@ function AddATodo(){
 		{ label: "Emergency", value: "Emergency" },
 	];
 	const [selectedPriority, setSelectedPriority] = useState(priorities[0].value as string);
-
+	const [isLoading, setIsLoading] = useState(false);
 	const [todoDetails, setTodoDetails] = useState<Todo>({
 		PropertyId:appContext.SelectedProperty?.PropertyId,
 		Title:"",
@@ -40,10 +40,11 @@ function AddATodo(){
 		setTodoDetails((prev) => ({ ...prev, [field]: value }));
 	};
 	const handleSubmit = async (): Promise<void> => {
+		setIsLoading(true);
 		const isAddTodoSuccessful = await appContext.addTodo(todoDetails);
 
 		if (!isAddTodoSuccessful) return;
-
+		setIsLoading(false);
 		navigation.navigate("BottomNavBar");
 		setTodoDetails({
 			PropertyId:appContext.SelectedProperty?.PropertyId,
@@ -53,6 +54,7 @@ function AddATodo(){
 			Status:"Not Seen",
 			AddedBy: authContext.username,
 		});
+
 	};
 
 	return(
@@ -84,7 +86,13 @@ function AddATodo(){
 				placeholder="Set a Priorty"
 				{...styles}
 			/>
-			<Button title="Add Todo" onPress={handleSubmit} />
+			{
+				(isLoading)?(
+					<ActivityIndicator size="small" color="white"/>
+				):(
+					<Button title="Add Todo" onPress={handleSubmit} />
+				)
+			}
 
 		</Layout>
 	);

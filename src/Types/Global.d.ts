@@ -68,6 +68,11 @@ declare global {
         lease_id: number;
     }
 
+    interface GoogleMapsPlaceResponse{
+        name:string
+    }
+
+
     type RootStackParamList = {
         "BottomNavBar": undefined
         "Home": undefined

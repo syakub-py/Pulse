@@ -1,17 +1,16 @@
-import {observer} from "mobx-react-lite";
+import React, { useCallback, useEffect, useState } from "react";
+import { View, StyleSheet, Text, Pressable, ScrollView } from "react-native";
+import { observer } from "mobx-react-lite";
 import Layout from "../Components/Layout";
 import Header from "../Components/Header";
-import {View, StyleSheet, Text, ScrollView, Pressable} from "react-native";
 import BackButton from "../Components/BackButton";
-import {RouteProp, useNavigation} from "@react-navigation/native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import React from "react";
-import {useAuthContext} from "../Contexts/AuthContext";
 import TrashButton from "../Components/TrashButton";
+import { useAuthContext } from "../Contexts/AuthContext";
 import { useAppContext } from "../Contexts/AppContext";
 import _ from "lodash";
-import {StackNavigationProp} from "@react-navigation/stack";
-
+import { RouteProp, useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
 
 type TodoDetailsScreenRouteProp = RouteProp<RootStackParamList, "TodoDetails">;
 
@@ -19,41 +18,51 @@ interface Props {
 	route: TodoDetailsScreenRouteProp;
 }
 
-function TodoDetails({route}:Props){
-	const {todo} = route.params;
+function TodoDetails({ route }: Props) {
+	const { todo } = route.params;
 	const authContext = useAuthContext();
 	const appContext = useAppContext();
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "TodoDetails">>();
-	const handleDeleteTodo = async () =>{
+
+	const fetchRecommendations = useCallback(async () => {
+		if (_.isUndefined(todo.id)) return;
+		try {
+			const response = await appContext.getRecommendations(todo.id);
+			// appContext.(response);
+		} catch (error) {
+			console.error("Error fetching recommendations:", error);
+		}
+	}, [todo.id]);
+
+	useEffect(() => {
+		fetchRecommendations();
+	}, [fetchRecommendations]);
+
+	const handleDeleteTodo = async () => {
 		if (_.isNil(todo.id)) {
-			alert("todo id was empty");
+			alert("Todo ID was empty");
 			return;
 		}
 		await appContext.deleteTodo(todo.id);
 		navigation.goBack();
 	};
-
-	return(
+	return (
 		<Layout>
-			<View style={[styles.headerContainer, styles.header]}>
-				<View style={styles.header}>
-					<BackButton />
-					<Header title={todo.Title}/>
-				</View>
-				<View>
+			<ScrollView contentContainerStyle={styles.content}>
+				<View style={[styles.headerContainer, styles.header]}>
+					<View style={styles.header}>
+						<BackButton />
+						<Header title={todo.Title} />
+					</View>
 					<View style={styles.buttonContainer}>
-						<TrashButton onPress={() => handleDeleteTodo()} />
-						{
-							(authContext.username !== todo.AddedBy) ? null : (
-								<Pressable>
-									<Ionicons name={"pencil-outline"} size={25} color="white"/>
-								</Pressable>
-							)
-						}
+						<TrashButton onPress={handleDeleteTodo} />
+						{authContext.username === todo.AddedBy && (
+							<Pressable>
+								<Ionicons name="pencil-outline" size={25} color="white" />
+							</Pressable>
+						)}
 					</View>
 				</View>
-			</View>
-			<ScrollView contentContainerStyle={styles.content}>
 				<Text style={styles.description}>{todo.Description}</Text>
 				<View style={styles.infoRow}>
 					<Text style={styles.label}>Status:</Text>
@@ -64,6 +73,11 @@ function TodoDetails({route}:Props){
 					<Text style={styles.value}>{todo.Priority}</Text>
 				</View>
 				<Text style={styles.addedBy}>Added by: {todo.AddedBy}</Text>
+				{appContext.TodoRecommendations.map((item) => (
+					<Text key={item.name} style={{ color: "white" }}>
+						{item.name}
+					</Text>
+				))}
 			</ScrollView>
 		</Layout>
 	);
@@ -73,9 +87,9 @@ export default observer(TodoDetails);
 
 const styles = StyleSheet.create({
 	headerContainer: {
-		justifyContent:"space-between"
+		justifyContent: "space-between",
 	},
-	header:{
+	header: {
 		flexDirection: "row",
 		alignItems: "center",
 	},
@@ -118,5 +132,3 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 	},
 });
-
-

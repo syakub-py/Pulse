@@ -108,7 +108,7 @@ function AddATenant() {
 			if (!areValidInputs()) return;
 			const isAddTenantSuccessful = await appContext.addTenant({ ...tenantDetails, LeaseId: LeaseId });
 			if (!isAddTenantSuccessful) return;
-			tenantDetails.DocumentProvidedUrl = await appContext.uploadPicture(DocumentPicture, authContext.username,`/DocumentPictures/${tenantDetails.Name}/`);
+			tenantDetails.DocumentProvidedUrl = await appContext.uploadPicture(DocumentPicture, `/DocumentPictures/${tenantDetails.Name}/`);
 			authContext.setLeaseId(null);
 			await authContext.logout();
 			navigation.navigate("Login");
