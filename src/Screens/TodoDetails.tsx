@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { View, StyleSheet, Text, Pressable, ScrollView } from "react-native";
+import {View, StyleSheet, Text, Pressable, ScrollView, ActivityIndicator} from "react-native";
 import { observer } from "mobx-react-lite";
 import Layout from "../Components/Layout";
 import Header from "../Components/Header";
@@ -11,6 +11,8 @@ import { useAppContext } from "../Contexts/AppContext";
 import _ from "lodash";
 import { RouteProp, useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
+import RecommendationsCard from "@src/Components/Todo/RecommendationsCard";
+import SubHeader from "@src/Components/Analytics/SubHeader";
 
 type TodoDetailsScreenRouteProp = RouteProp<RootStackParamList, "TodoDetails">;
 
@@ -23,19 +25,25 @@ function TodoDetails({ route }: Props) {
 	const authContext = useAuthContext();
 	const appContext = useAppContext();
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "TodoDetails">>();
-
+	const [recommendations, setRecommendations] = useState<GoogleMapsPlaceResponse[]>([]);
+	const [isLoading, setIsLoading] = useState(false);
 	const fetchRecommendations = useCallback(async () => {
+		setIsLoading(true);
 		if (_.isUndefined(todo.id)) return;
 		try {
 			const response = await appContext.getRecommendations(todo.id);
-			// appContext.(response);
+			const fetchedRecommendations = JSON.parse(response.toString()) as GoogleMapsPlaceResponse[];
+			setRecommendations(fetchedRecommendations);
 		} catch (error) {
 			console.error("Error fetching recommendations:", error);
+			setRecommendations([]);
 		}
-	}, [todo.id]);
+		setIsLoading(false);
+	}, [todo.id, appContext]);
+
 
 	useEffect(() => {
-		fetchRecommendations();
+		void fetchRecommendations();
 	}, [fetchRecommendations]);
 
 	const handleDeleteTodo = async () => {
@@ -46,6 +54,7 @@ function TodoDetails({ route }: Props) {
 		await appContext.deleteTodo(todo.id);
 		navigation.goBack();
 	};
+
 	return (
 		<Layout>
 			<ScrollView contentContainerStyle={styles.content}>
@@ -72,12 +81,15 @@ function TodoDetails({ route }: Props) {
 					<Text style={styles.label}>Priority:</Text>
 					<Text style={styles.value}>{todo.Priority}</Text>
 				</View>
+				<SubHeader title={"Recommendations based on description"} />
+				{!isLoading ? (
+					recommendations.map((item) => (
+						<RecommendationsCard recommendation={item} key={item.name}/>
+					))
+				) : (
+					<ActivityIndicator size="small" color="white"/>
+				)}
 				<Text style={styles.addedBy}>Added by: {todo.AddedBy}</Text>
-				{appContext.TodoRecommendations.map((item) => (
-					<Text key={item.name} style={{ color: "white" }}>
-						{item.name}
-					</Text>
-				))}
 			</ScrollView>
 		</Layout>
 	);

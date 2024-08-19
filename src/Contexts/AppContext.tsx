@@ -193,11 +193,9 @@ class AppContextClass {
 			const response = await TodoService.getRecommendations(todoId);
 			if (this.isHTTPError(response)) {
 				alert(response.message);
-				return this.TodoRecommendations;
+				return [];
 			}
-			runInAction(() => {
-				this.TodoRecommendations = response;
-			});
+			return response;
 		} catch (error) {
 			console.error("Error fetching recommendations:", error);
 			return [];

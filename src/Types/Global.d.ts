@@ -69,7 +69,9 @@ declare global {
     }
 
     interface GoogleMapsPlaceResponse{
-        name:string
+        name:string,
+        vicinity:string,
+        rating:number
     }
 
 
