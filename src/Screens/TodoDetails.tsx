@@ -36,6 +36,7 @@ function TodoDetails() {
 			setRecommendations([]);
 		}
 		setIsLoading(false);
+		/*eslint-disable-next-line react-hooks/exhaustive-deps*/
 	}, [appContext.SelectedTodo]);
 
 	useEffect(() => {
