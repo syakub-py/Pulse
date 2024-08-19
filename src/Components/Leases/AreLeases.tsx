@@ -12,14 +12,13 @@ function AreLeases(){
 	const appContext = useAppContext();
 	const [isModalVisible, setModalVisible] = useState(false);
 
-	const toggleModal = () => {
-		setModalVisible(!isModalVisible);
-	};
+	const toggleModal = useCallback(() => {
+		setModalVisible(prevState => !prevState);
+	}, []);
 
 	const deleteLease = useCallback(async (leaseId: number) => {
 		if (_.isUndefined(leaseId)) return;
 		await appContext.deleteLease(leaseId);
-
 	}, [appContext]);
 
 	return(

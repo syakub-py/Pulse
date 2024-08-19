@@ -28,18 +28,21 @@ function Property(props: Props) {
 					iconName={"add"}
 				/>
 			</View>
-			<FlatList data={appContext.SelectedPropertyTodos}
-					  renderItem={({item, index})=>(
-						  <TodoCard todo={item}/>
-					  )}
-					  ListFooterComponent={() => (
-						  <View style={styles.footer}/>
-					  )}
+			<FlatList
+				data={appContext.SelectedPropertyTodos}
+				renderItem={({item, index})=>(
+					<TodoCard todo={item}/>
+				)}
+				ListFooterComponent={() => (
+					<View style={styles.footer}/>
+				)}
 			/>
 		</View>
 	);
 }
+
 export default observer(Property);
+
 const styles = StyleSheet.create({
 	homeAddress: {
 		fontSize: 15,
