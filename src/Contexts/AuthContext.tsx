@@ -73,7 +73,6 @@ class AuthContextClass {
 			alert("Error logging out");
 			return;
 		}
-
 	}
 }
 

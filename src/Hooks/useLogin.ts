@@ -30,7 +30,7 @@ export default function useLogin() {
 			navigation.navigate("BottomNavBar");
 		} catch (e) {
 			alert("Incorrect email or password");
-			console.log(e);
+			console.error(e);
 		}
 	},[authContext, navigation]);
 }

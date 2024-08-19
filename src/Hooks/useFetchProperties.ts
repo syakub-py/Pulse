@@ -11,11 +11,11 @@ export default function useFetchProperties() {
 	const fetchProperties = useCallback(async () => {
 		if (_.isEmpty(authContext.uid)) return;
 		const properties = await PropertyService.getProperty(authContext.uid);
-		if (_.isUndefined(properties) || appContext.isHTTPError(properties)) {
+		if (appContext.isHTTPError(properties)) {
 			alert(properties.message);
 			return;
 		}
-		appContext.setProperties(JSON.parse(properties.toString()) as Property[]);
+		appContext.setProperties(properties);
 		authContext.isLoading = false;
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [authContext.uid]);

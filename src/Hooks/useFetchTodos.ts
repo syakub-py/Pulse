@@ -10,28 +10,24 @@ export default function useFetchTodos(){
 	const authContext = useAuthContext();
 
 	const fetchTodos = useCallback(async () => {
-		if (_.isEmpty(authContext.uid) || _.isUndefined(appContext.SelectedProperty?.PropertyId)) return;
-
-		const response = await TodoService.getTodos(appContext.SelectedProperty.PropertyId);
-
-		if (_.isEmpty(response)) {
-			appContext.setSelectedPropertyTodos([]);
-			return;
+		try {
+			if (_.isEmpty(authContext.uid) || _.isUndefined(appContext.SelectedProperty?.PropertyId)) return;
+	
+			const response = await TodoService.getTodos(appContext.SelectedProperty.PropertyId);
+	
+			if (appContext.isHTTPError(response)) {
+				alert(response.message);
+				return;
+			}
+	
+			appContext.setSelectedPropertyTodos(response);
+		} catch (error) {
+			console.error(error);
 		}
-
-		if (appContext.isHTTPError(response)) {
-			alert(response.message);
-			return;
-		}
-
-		const todos = JSON.parse(response.toString()) as Todo[];
-		appContext.setSelectedPropertyTodos(todos);
-
 		/* eslint-disable react-hooks/exhaustive-deps */
 	}, [authContext.uid, appContext.SelectedProperty]);
 
 	useEffect(() => {
 		void fetchTodos();
 	}, [authContext.uid, appContext.SelectedProperty, fetchTodos]);
-
 }

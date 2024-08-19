@@ -10,9 +10,11 @@ export default function useGetLeasesAndTenants() {
 	const authContext = useAuthContext();
 
 	const fetchLeasesAndTenants = useCallback(async () => {
-		if (_.isEmpty(authContext.uid) || _.isUndefined(appContext.SelectedProperty?.PropertyId)) return;
-
-		if (!appContext.SelectedProperty.isRental) return;
+		if (
+			_.isEmpty(authContext.uid) ||
+			_.isUndefined(appContext.SelectedProperty?.PropertyId) ||
+			!appContext.SelectedProperty.isRental
+		) return;
 
 		const response = await LeaseService.getLeases(appContext.SelectedProperty.PropertyId);
 		if (appContext.isHTTPError(response)) {
