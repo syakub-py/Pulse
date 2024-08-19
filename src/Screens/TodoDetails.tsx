@@ -13,6 +13,7 @@ import { RouteProp, useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import RecommendationsCard from "@src/Components/Todo/RecommendationsCard";
 import SubHeader from "@src/Components/Analytics/SubHeader";
+import FloatingActionButton from "@src/Components/FloatingActionButton";
 
 type TodoDetailsScreenRouteProp = RouteProp<RootStackParamList, "TodoDetails">;
 
@@ -58,20 +59,11 @@ function TodoDetails({ route }: Props) {
 	return (
 		<Layout>
 			<ScrollView contentContainerStyle={styles.content}>
-				<View style={[styles.headerContainer, styles.header]}>
-					<View style={styles.header}>
-						<BackButton />
-						<Header title={todo.Title} />
-					</View>
-					<View style={styles.buttonContainer}>
-						<TrashButton onPress={handleDeleteTodo} />
-						{authContext.username === todo.AddedBy && (
-							<Pressable>
-								<Ionicons name="pencil-outline" size={25} color="white" />
-							</Pressable>
-						)}
-					</View>
+				<View style={styles.header}>
+					<BackButton />
+					<Header title={todo.Title} />
 				</View>
+
 				<Text style={styles.description}>{todo.Description}</Text>
 				<View style={styles.infoRow}>
 					<Text style={styles.label}>Status:</Text>
@@ -90,7 +82,14 @@ function TodoDetails({ route }: Props) {
 					<ActivityIndicator size="small" color="white"/>
 				)}
 				<Text style={styles.addedBy}>Added by: {todo.AddedBy}</Text>
+
 			</ScrollView>
+			<TrashButton onPress={handleDeleteTodo} style={styles.deleteFab}/>
+			{authContext.username === todo.AddedBy && (
+				<Pressable style={styles.editFab}>
+					<Ionicons name="pencil-outline" size={25} color="white" />
+				</Pressable>
+			)}
 		</Layout>
 	);
 }
@@ -138,9 +137,22 @@ const styles = StyleSheet.create({
 		color: "#aaa",
 		marginTop: 20,
 	},
-	buttonContainer: {
-		flexDirection: "row",
-		justifyContent: "space-between",
-		alignItems: "center",
+	deleteFab: {
+		position: "absolute",
+		bottom: 40,
+		right: 20,
+		backgroundColor: "black",
+		padding: 10,
+		borderRadius: 30,
+		elevation: 5,
 	},
+	editFab:{
+		position: "absolute",
+		bottom: 40,
+		left: 20,
+		backgroundColor: "black",
+		padding: 10,
+		borderRadius: 30,
+		elevation: 5,
+	}
 });

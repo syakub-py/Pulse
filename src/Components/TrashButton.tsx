@@ -1,9 +1,10 @@
 import {observer} from "mobx-react-lite";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import {Alert, Pressable, StyleSheet} from "react-native";
+import {Alert, Pressable, StyleSheet, ViewStyle} from "react-native";
 
 interface Props{
 	onPress?:() => void;
+	style?: ViewStyle;
 }
 
 function TrashButton(props:Props) {
@@ -29,7 +30,7 @@ function TrashButton(props:Props) {
 
 	return (
 		<Pressable
-			style={styles.trashButton}
+			style={props.style || styles.trashButton}
 			onPress={confirmDelete}>
 			<Ionicons name={"trash-outline"} size={24} color={"red"} />
 		</Pressable>

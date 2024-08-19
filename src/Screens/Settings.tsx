@@ -1,5 +1,5 @@
 import Layout from "../Components/Layout";
-import {StyleSheet, ScrollView, View, Image, Text} from "react-native";
+import {StyleSheet, ScrollView, View, Image, Text, Pressable} from "react-native";
 import Setting from "../Components/Settings/Setting";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
@@ -7,6 +7,7 @@ import {observer} from "mobx-react-lite";
 import Header from "../Components/Header";
 import { useAuthContext } from "../Contexts/AuthContext";
 import { useAppContext } from "../Contexts/AppContext";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 function Settings(){
 	const authContext = useAuthContext();
@@ -26,7 +27,12 @@ function Settings(){
 
 	return (
 		<Layout>
-			<Header title={"Settings"}/>
+			<View style={styles.headerContainer}>
+				<Header title={"Settings"}/>
+				<Pressable onPress={()=>logout()}>
+					<Ionicons name={"log-out-outline"} color={"white"} size={30} />
+				</Pressable>
+			</View>
 			<ScrollView style={styles.container}>
 				<View style={styles.userInfoContainer}>
 					<Image style={styles.profileImage} source={{uri:authContext.profilePicture}}/>
@@ -38,7 +44,8 @@ function Settings(){
 				<Setting title={"Finished Todos"}/>
 				<Setting title={"Your Tenants"} onClick={()=>navigation.navigate("AllTenants")}/>
 				<Setting title={"Your Properties"} onClick={()=>navigation.navigate("AllProperties")} />
-				<Setting title={"Logout"} onClick={()=> logout()}/>
+				<Setting title={"Change username or password"} onClick={()=>console.log("clicked")} />
+
 			</ScrollView>
 		</Layout>
 	);
@@ -72,6 +79,11 @@ const styles = StyleSheet.create({
 		color:"white",
 		fontSize:15,
 		fontWeight:"600",
+	},
+	headerContainer:{
+		flexDirection:"row",
+		alignItems:"center",
+		justifyContent:"space-between"
 	}
 });
 
