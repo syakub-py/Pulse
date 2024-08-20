@@ -92,7 +92,7 @@ declare global {
         "AddALease":undefined,
         "AddATenant": undefined,
         "EnterTenantCode": undefined,
-        "TodoDetails": undefined,
+        "TodoDetails": { selectedTodoIndex:number },
     }
 }
 

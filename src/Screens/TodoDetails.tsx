@@ -1,23 +1,46 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, {useCallback, useEffect, useRef, useState} from "react";
 import { StyleSheet, Pressable, FlatList, ViewToken, Dimensions, View, Text } from "react-native";
 import { observer } from "mobx-react-lite";
 import Layout from "../Components/Layout";
-import BackButton from "../Components/BackButton";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import TrashButton from "../Components/TrashButton";
 import { useAuthContext } from "../Contexts/AuthContext";
 import { useAppContext } from "../Contexts/AppContext";
 import _ from "lodash";
-import { useNavigation } from "@react-navigation/native";
+import {RouteProp, useNavigation} from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import TodoInformation from "@src/Components/Todo/TodoDetails/TodoInformation";
 
-function TodoDetails() {
+type TodoDetailsScreenRouteProp = RouteProp<RootStackParamList, "TodoDetails">;
+
+interface Props {
+	route: TodoDetailsScreenRouteProp;
+}
+
+function TodoDetails({ route }: Props) {
 	const authContext = useAuthContext();
 	const appContext = useAppContext();
+	const {selectedTodoIndex} = route.params;
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "TodoDetails">>();
 	const [recommendations, setRecommendations] = useState<GoogleMapsPlaceResponse[]>([]);
 	const [isLoading, setIsLoading] = useState(false);
+	const flatListRef = useRef<FlatList<Todo>>(null);
+
+	const onScrollToIndexFailed = (info: {
+		index: number;
+		highestMeasuredFrameIndex: number;
+		averageItemLength: number;
+	}) => {
+		flatListRef.current?.scrollToOffset({
+			offset: info.averageItemLength * info.index,
+			animated: true,
+		});
+		setTimeout(() => {
+			if (flatListRef.current) {
+				flatListRef.current.scrollToIndex({ index: info.index, animated: true });
+			}
+		}, 100);
+	};
 
 	const onViewableItemsChanged = useCallback(({ viewableItems }: { viewableItems: ViewToken<Todo>[] }) => {
 		if (_.isEmpty(viewableItems)) return;
@@ -43,6 +66,15 @@ function TodoDetails() {
 		void fetchRecommendations();
 	}, [fetchRecommendations]);
 
+	useEffect(() => {
+		if (flatListRef.current ) {
+			flatListRef.current.scrollToIndex({
+				index: selectedTodoIndex,
+				animated: true,
+			});
+		}
+	}, [selectedTodoIndex]);
+
 	const handleDeleteTodo = async () => {
 		if (_.isNil(appContext.SelectedTodo?.id)) {
 			alert("Todo ID was empty");
@@ -59,6 +91,7 @@ function TodoDetails() {
 				horizontal={true}
 				showsHorizontalScrollIndicator={false}
 				pagingEnabled={true}
+				ref={flatListRef}
 				onViewableItemsChanged={onViewableItemsChanged}
 				renderItem={({ item }) => (
 					<TodoInformation
@@ -67,6 +100,7 @@ function TodoDetails() {
 						recommendations={recommendations}
 					/>
 				)}
+				onScrollToIndexFailed={onScrollToIndexFailed}
 			/>
 			<TrashButton onPress={handleDeleteTodo} style={styles.deleteFab} />
 			{authContext.username === appContext.SelectedTodo?.AddedBy && (

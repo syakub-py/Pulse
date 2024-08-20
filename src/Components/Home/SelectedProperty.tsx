@@ -31,7 +31,7 @@ function SelectedProperty(props: Props) {
 			<FlatList
 				data={appContext.SelectedPropertyTodos}
 				renderItem={({item, index})=>(
-					<Pressable onPress={()=>navigation.navigate("TodoDetails")}>
+					<Pressable onPress={()=>navigation.navigate("TodoDetails", {selectedTodoIndex:index})}>
 						<TodoCard todo={item}/>
 					</Pressable>
 				)}

@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="able to scroll through todos" />
+    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="able to scroll through todos">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Home/SelectedProperty.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Home/SelectedProperty.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/TodoDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/TodoDetails.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Types/Global.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Types/Global.d.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -190,6 +195,7 @@
       <workItem from="1724089252523" duration="5177000" />
       <workItem from="1724097465199" duration="3780000" />
       <workItem from="1724106570101" duration="1376000" />
+      <workItem from="1724170292833" duration="915000" />
     </task>
     <task id="LOCAL-00052" summary="Add Tenants">
       <option name="closed" value="true" />
