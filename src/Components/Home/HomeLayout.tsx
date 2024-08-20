@@ -1,13 +1,14 @@
-import {View, SafeAreaView, StyleSheet, Animated, Text, Image} from "react-native";
+import {View, SafeAreaView, StyleSheet, Animated, Text, Image, TouchableOpacity} from "react-native";
 import { useState, useCallback, useEffect, useMemo } from "react";
 import { useAuthContext } from "../../Contexts/AuthContext";
 import { observer } from "mobx-react-lite";
 import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import FloatingActionButton from "../FloatingActionButton";
-import { useAppContext } from "../../Contexts/AppContext";
+import FloatingActionButton from "../Buttons/FloatingActionButton";
+import { useAppContext } from "@src/Contexts/AppContext";
 import _ from "lodash";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 function HomeLayout({ children }: { children: React.ReactNode }) {
 	const authContext = useAuthContext();
@@ -75,7 +76,7 @@ function HomeLayout({ children }: { children: React.ReactNode }) {
 							/>
 							<View style={styles.welcomeBackContainer}>
 								<Text style={styles.usernameText}>Welcome Back,</Text>
-								<Text style={styles.usernameText}>{authContext.username}</Text>
+								<Text style={styles.usernameText}>{authContext.username.toLowerCase()}</Text>
 							</View>
 						</View>
 						<Image source={require("../../../assets/icon.png")} style={styles.logo} />
@@ -84,11 +85,10 @@ function HomeLayout({ children }: { children: React.ReactNode }) {
 						{children}
 					</View>
 					{_.isEmpty(appContext.Properties)? null: (
-						<FloatingActionButton
-							icon={"add"}
-							styles={styles.fab}
-							onPress={() => handlePressActionButton()}
-						/>
+						<TouchableOpacity onPress={()=>handlePressActionButton()} style={styles.fabContainer}>
+							<Ionicons name={"add"} size={30} color="white" />
+							<Text style={styles.fabText}>Add Property</Text>
+						</TouchableOpacity>
 					)}
 
 				</SafeAreaView>
@@ -144,13 +144,21 @@ const styles = StyleSheet.create({
 	welcomeBackContainer: {
 		flexDirection: "column"
 	},
-	fab: {
+	fabContainer: {
 		position: "absolute",
 		bottom: 20,
 		right: 20,
-		backgroundColor: "black",
-		padding: 10,
-		borderRadius: 30,
+		backgroundColor: "#333",
+		padding: 15,
+		borderRadius: 15,
 		elevation: 5,
+		flexDirection: "row",
+		alignItems:"center",
 	},
+	fabText:{
+		color: "white",
+		fontWeight: "semibold",
+		paddingLeft:7,
+		fontSize:15
+	}
 });

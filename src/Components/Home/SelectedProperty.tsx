@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
 	addTodoContainer: {
 		flexDirection: "row",
 		justifyContent: "space-between",
+		alignItems: "center",
 	},
 	todoText: {
 		fontSize: 20,

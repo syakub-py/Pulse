@@ -2,7 +2,7 @@ import {observer} from "mobx-react-lite";
 import Layout from "../Components/Layout";
 import Header from "../Components/Header";
 import {StyleSheet, View} from "react-native";
-import FloatingActionButton from "../Components/FloatingActionButton";
+import FloatingActionButton from "../Components/Buttons/FloatingActionButton";
 import AreLeases from "../Components/Leases/AreLeases";
 import _ from "lodash";
 import NoLeases from "../Components/Leases/NoLeases";
