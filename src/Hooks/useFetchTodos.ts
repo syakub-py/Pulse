@@ -14,7 +14,6 @@ export default function useFetchTodos(){
 			if (_.isEmpty(authContext.uid) || _.isUndefined(appContext.SelectedProperty?.PropertyId)) return;
 
 			const response = await TodoService.getTodos(appContext.SelectedProperty.PropertyId);
-
 			if (appContext.isHTTPError(response)) {
 				alert(response.message);
 				return;
@@ -22,7 +21,7 @@ export default function useFetchTodos(){
 
 			appContext.setSelectedPropertyTodos(response as Todo[]);
 		} catch (error) {
-			console.error(error);
+			console.error("error fetching todos: " + error);
 		}
 		/* eslint-disable react-hooks/exhaustive-deps */
 	}, [authContext.uid, appContext.SelectedProperty]);

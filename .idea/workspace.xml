@@ -4,11 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="able to scroll through todos">
+    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="Todo scrolls to selected index">
+      <change afterPath="$PROJECT_DIR$/src/Components/Home/HomesCarousel.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Home/Properties.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Home/Properties.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Home/SelectedProperty.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Home/SelectedProperty.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Todo/TodoCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Todo/TodoCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Todo/TodoDetails/TodoInformation.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Todo/TodoDetails/TodoInformation.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contexts/AppContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/AppContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hooks/useFetchTodos.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useFetchTodos.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hooks/useGetLeasesAndTenants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useGetLeasesAndTenants.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Screens/TodoDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/TodoDetails.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Types/Global.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Types/Global.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utils/Services/TodoService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/Services/TodoService.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -195,15 +202,7 @@
       <workItem from="1724089252523" duration="5177000" />
       <workItem from="1724097465199" duration="3780000" />
       <workItem from="1724106570101" duration="1376000" />
-      <workItem from="1724170292833" duration="915000" />
-    </task>
-    <task id="LOCAL-00052" summary="Add Tenants">
-      <option name="closed" value="true" />
-      <created>1722543811233</created>
-      <option name="number" value="00052" />
-      <option name="presentableId" value="LOCAL-00052" />
-      <option name="project" value="LOCAL" />
-      <updated>1722543811233</updated>
+      <workItem from="1724170292833" duration="8459000" />
     </task>
     <task id="LOCAL-00053" summary="Add Tenant working">
       <option name="closed" value="true" />
@@ -589,7 +588,15 @@
       <option name="project" value="LOCAL" />
       <updated>1724107943733</updated>
     </task>
-    <option name="localTasksCounter" value="101" />
+    <task id="LOCAL-00101" summary="Todo scrolls to selected index">
+      <option name="closed" value="true" />
+      <created>1724171308610</created>
+      <option name="number" value="00101" />
+      <option name="presentableId" value="LOCAL-00101" />
+      <option name="project" value="LOCAL" />
+      <updated>1724171308611</updated>
+    </task>
+    <option name="localTasksCounter" value="102" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -608,7 +615,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="tenant codes working" />
     <MESSAGE value="properties showing for tenants" />
     <MESSAGE value="adding nice to haves" />
     <MESSAGE value="add lease details for tenant" />
@@ -633,6 +639,7 @@
     <MESSAGE value="recommendations working" />
     <MESSAGE value="ui work" />
     <MESSAGE value="able to scroll through todos" />
-    <option name="LAST_COMMIT_MESSAGE" value="able to scroll through todos" />
+    <MESSAGE value="Todo scrolls to selected index" />
+    <option name="LAST_COMMIT_MESSAGE" value="Todo scrolls to selected index" />
   </component>
 </project>

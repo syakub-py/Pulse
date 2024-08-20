@@ -197,7 +197,8 @@ class AppContextClass {
 
 	public getRecommendations = action(async (todoId: number) => {
 		try {
-			const response = await TodoService.getRecommendations(todoId);
+			if (_.isNil(this.SelectedProperty)) return [];
+			const response = await TodoService.getRecommendations(todoId, this.SelectedProperty.Address);
 			if (this.isHTTPError(response)) {
 				alert(response.message);
 				return [];

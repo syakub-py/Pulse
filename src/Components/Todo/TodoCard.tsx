@@ -11,7 +11,7 @@ function TodoCard(props: Props){
 	return (
 		<View style={styles.card}>
 			<Text style={styles.title}>{todo.Title}</Text>
-			<Text style={styles.description}>{todo.Description}</Text>
+			<Text style={styles.description} numberOfLines={3}>{todo.Description}</Text>
 			<View style={styles.infoRow}>
 				<Text style={styles.label}>Status:</Text>
 				<Text style={styles.value}>{todo.Status}</Text>

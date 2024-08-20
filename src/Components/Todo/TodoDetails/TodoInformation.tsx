@@ -29,7 +29,7 @@ function TodoInformation(props: Props) {
 				<Text style={styles.label}>Priority:</Text>
 				<Text style={styles.value}>{todo.Priority}</Text>
 			</View>
-			<SubHeader title={"Recommendations based on description"} />
+			<SubHeader title={"Professionals in your area: "} />
 			{!isLoading ? (
 				recommendations.map((todo) => (
 					<RecommendationsCard recommendation={todo} key={todo.name}/>

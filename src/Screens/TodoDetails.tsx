@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useRef, useState} from "react";
-import { StyleSheet, Pressable, FlatList, ViewToken, Dimensions, View, Text } from "react-native";
+import { StyleSheet, Pressable, FlatList, ViewToken} from "react-native";
 import { observer } from "mobx-react-lite";
 import Layout from "../Components/Layout";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -63,8 +63,9 @@ function TodoDetails({ route }: Props) {
 	}, [appContext.SelectedTodo]);
 
 	useEffect(() => {
+		if (appContext.SelectedProperty?.isTenant) return;
 		void fetchRecommendations();
-	}, [fetchRecommendations]);
+	}, [appContext.SelectedProperty?.isTenant, fetchRecommendations]);
 
 	useEffect(() => {
 		if (flatListRef.current ) {

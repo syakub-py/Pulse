@@ -83,9 +83,9 @@ const styles = StyleSheet.create({
 		color: "white",
 	},
 	houseTileContainer: {
-		marginVertical:30,
+		marginVertical:10,
 		width:Dimensions.get("window").width,
-		height: "100%",
+		height: "90%",
 	},
 	footer: {
 		marginTop:120

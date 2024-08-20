@@ -19,8 +19,8 @@ export default new class TodoService {
 		if (!_.isUndefined(response.data)) return response.data;
 	}
 
-	async getRecommendations(todoId: number): Promise<GoogleMapsPlaceResponse[]> {
-		const response = await http.get(`${this.serviceHeader}/getRecommendations/${todoId}`);
+	async getRecommendations(todoId: number, propertyAddress:string): Promise<GoogleMapsPlaceResponse[]> {
+		const response = await http.get(`${this.serviceHeader}/getRecommendations/${todoId}/${propertyAddress}`);
 		return response.data;
 	}
 

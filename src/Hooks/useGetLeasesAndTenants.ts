@@ -16,18 +16,18 @@ export default function useGetLeasesAndTenants() {
 				_.isUndefined(appContext.SelectedProperty?.PropertyId) ||
 				!appContext.SelectedProperty.isRental
 			) return;
-	
+
 			const response = await LeaseService.getLeases(appContext.SelectedProperty.PropertyId);
 			if (appContext.isHTTPError(response)) {
 				alert(response.message);
-				throw Error(response.message);
+				return;
 			}
-	
+
 			if (_.isEmpty(appContext.Tenants)){
 				const tenants= await TenantService.getTenants(authContext.uid);
 				appContext.setTenants(tenants);
 			}
-	
+
 			if (!_.isNil(response)){
 				const leases = JSON.parse(response.toString()) as Lease[];
 				appContext.setPropertyLeases(leases.map(lease => {
