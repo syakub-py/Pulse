@@ -21,14 +21,14 @@ declare global {
         isTenantCodeExpired?: boolean;
     }
 
-    interface HTTPError {
+    interface HTTPError{
         message:string,
         status_code:number,
     }
 
-    interface Tenant{
-        TenantId?:number;
-        LeaseId?: number;
+    interface User {
+        id?:number;
+        LeaseId: number | null;
         UserId: string;
         Name:string;
         PhoneNumber:string;
@@ -74,7 +74,6 @@ declare global {
         rating:number
     }
 
-
     type RootStackParamList = {
         "BottomNavBar": undefined
         "Home": undefined
@@ -90,7 +89,7 @@ declare global {
         "AllTenants": undefined,
         "AddATodo": undefined,
         "AddALease":undefined,
-        "AddATenant": undefined,
+        "AddAUser": undefined,
         "EnterTenantCode": undefined,
         "TodoDetails": { selectedTodoIndex:number },
     }

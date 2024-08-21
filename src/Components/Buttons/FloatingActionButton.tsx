@@ -1,4 +1,4 @@
-import {TouchableOpacity, StyleProp, ViewStyle, Text, View} from "react-native";
+import {TouchableOpacity, StyleProp, ViewStyle} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {observer} from "mobx-react-lite";
 

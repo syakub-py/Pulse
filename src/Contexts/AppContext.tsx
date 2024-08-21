@@ -5,8 +5,9 @@ import { IMessage } from "react-native-gifted-chat";
 import PropertyService from "../Utils/Services/PropertyService";
 import LeaseService from "../Utils/Services/LeaseService";
 import TenantService from "../Utils/Services/TenantService";
-import _, { toNumber } from "lodash";
+import _, {isNull, toNumber} from "lodash";
 import TodoService from "../Utils/Services/TodoService";
+import UserService from "@src/Utils/Services/UserService";
 
 class AppContextClass {
 	public Properties: Property[] = [];
@@ -14,7 +15,7 @@ class AppContextClass {
 	public SelectedProperty: Property | null = null;
 	public SelectedPropertyLeases: Lease[] = [];
 	public SelectedPropertyTodos: Todo[] = [];
-	public Tenants: Tenant[] = [];
+	public Tenants: User[] = [];
 	public TodoRecommendations: GoogleMapsPlaceResponse[] = [];
 	public SelectedTodo: Todo | null = null;
 
@@ -128,16 +129,17 @@ class AppContextClass {
 		}
 	});
 
-	public addTenant = action(async (tenant: Tenant) => {
+	public addUser = action(async (user: User) => {
 		try {
-			const response = await TenantService.addTenant(tenant);
+			const response = await UserService.addUser(user);
 			if (this.isHTTPError(response)) {
 				alert(response.message);
 				return false;
 			}
-			tenant.TenantId = response;
+			user.id = response;
+			if (_.isNull(user.LeaseId)) return true;
 			runInAction(() => {
-				this.Tenants.push(tenant);
+				this.Tenants.push(user);
 			});
 			return true;
 		} catch (e) {
@@ -146,7 +148,7 @@ class AppContextClass {
 		}
 	});
 
-	public setTenants = action((tenants: Tenant[]) => {
+	public setTenants = action((tenants: User[]) => {
 		runInAction(() => {
 			this.Tenants = tenants;
 		});

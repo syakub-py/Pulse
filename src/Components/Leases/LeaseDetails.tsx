@@ -6,7 +6,7 @@ import SubHeader from "../Analytics/SubHeader";
 interface Props {
 	toggleModal: () => void;
 	lease: Lease;
-	tenant?:Tenant
+	tenant?:User
 }
 
 function LeaseDetails(props:Props){

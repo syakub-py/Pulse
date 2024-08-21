@@ -35,7 +35,7 @@ function TenantCode() {
 			return;
 		}
 		authContext.setLeaseId(isCodeValidResponse.lease_id);
-		navigation.navigate("AddATenant");
+		navigation.navigate("AddAUser");
 		/* eslint-disable react-hooks/exhaustive-deps */
 	}, [authContext, code, navigation]);
 
@@ -55,7 +55,7 @@ function TenantCode() {
 					placeholderTextColor="white"
 					placeholder="Enter your 6-digit code"
 				/>
-				<Pressable onPress={()=>navigation.navigate("Login")}>
+				<Pressable onPress={()=>navigation.navigate("AddAUser")}>
 					<Text style={styles.text}>Not a Tenant? Click here to skip</Text>
 				</Pressable>
 				<Button

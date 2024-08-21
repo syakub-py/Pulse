@@ -3,7 +3,7 @@ import {View, Text, StyleSheet} from "react-native";
 
 
 interface Props {
-	tenant:Tenant;
+	tenant:User;
 }
 
 function TenantCard(props: Props){

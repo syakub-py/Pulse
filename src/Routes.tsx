@@ -12,7 +12,7 @@ import AllProperties from "./Screens/AllProperties";
 import Loading from "./Screens/Loading";
 import Leases from "./Screens/Leases";
 import AddALease from "./Screens/AddALease";
-import AddATenant from "./Screens/SignUp/AddATenant";
+import AddATenant from "./Screens/SignUp/AddAUser";
 import AllTenants from "./Screens/AllTenants";
 import { useAuthContext } from "./Contexts/AuthContext";
 import TenantCode from "./Screens/SignUp/TenantCode";
@@ -50,6 +50,6 @@ export default function Routes() {
 		<Screen key = "AddATodo" name="AddATodo" component={AddATodo} />,
 		<Screen key = "TodoDetails" name="TodoDetails" component={TodoDetails} />,
 		<Screen key = "EnterTenantCode" name = "EnterTenantCode" component = {TenantCode}/>,
-		<Screen key = "AddATenant" name="AddATenant" component={AddATenant} />,
+		<Screen key = "AddAUser" name="AddAUser" component={AddATenant} />,
 	];
 }

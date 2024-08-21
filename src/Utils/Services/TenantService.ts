@@ -3,15 +3,9 @@ import http from "../HttpCommon";
 export default new class TenantService {
 	private readonly serviceHeader = "/tenant";
 
-	async addTenant(tenantDetails: Tenant): Promise<number | HTTPError> {
-		const response = await http.post(`${this.serviceHeader}/addTenant/`, tenantDetails);
-		return response.data;
-	}
-
-	async getTenants(userId: string): Promise<Tenant[]> {
+	async getTenants(userId: string): Promise<User[]> {
 		const response = await http.get(`${this.serviceHeader}/getTenants/${userId}`);
-		return JSON.parse(response.data) as Tenant[];
-
+		return JSON.parse(response.data) as User[];
 	}
 
 	async isCodeValid(code: string): Promise<CodeValidationResponse | HTTPError> {

@@ -74,10 +74,6 @@ function HomeLayout({ children }: { children: React.ReactNode }) {
 								source={{ uri: authContext.profilePicture }}
 								style={styles.profilePicture}
 							/>
-							<View style={styles.welcomeBackContainer}>
-								<Text style={styles.usernameText}>Welcome Back,</Text>
-								<Text style={styles.usernameText}>{authContext.username.toLowerCase()}</Text>
-							</View>
 						</View>
 						<Image source={require("../../../assets/icon.png")} style={styles.logo} />
 					</View>
@@ -127,6 +123,8 @@ const styles = StyleSheet.create({
 		height: 50,
 		width: 50,
 		borderRadius: 25,
+		marginHorizontal: 10,
+		elevation: 5,
 	},
 	logo: {
 		height: 50,

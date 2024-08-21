@@ -4,13 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="Add Homes carousel">
+    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="ui work">
+      <change afterPath="$PROJECT_DIR$/src/Utils/Services/UserService.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/FloatingActionButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Buttons/FloatingActionButton.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/AllTenants/TenantCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/AllTenants/TenantCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Buttons/FloatingActionButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Buttons/FloatingActionButton.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Home/HomeLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Home/HomeLayout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Home/SelectedProperty.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Home/SelectedProperty.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Home/HomesCarousel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Home/HomesCarousel.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Home/Properties.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Home/Properties.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Leases/LeaseDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Leases/LeaseDetails.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Todo/TodoCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Todo/TodoCard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screens/Leases.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/Leases.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contexts/AppContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/AppContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/SignUp/AddATenant.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/SignUp/AddAUser.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/SignUp/TenantCode.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/SignUp/TenantCode.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Types/Global.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Types/Global.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utils/Services/TenantService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/Services/TenantService.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,8 +29,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="TypeScript File" />
         <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -197,15 +206,9 @@
       <workItem from="1724089252523" duration="5177000" />
       <workItem from="1724097465199" duration="3780000" />
       <workItem from="1724106570101" duration="1376000" />
-      <workItem from="1724170292833" duration="10761000" />
-    </task>
-    <task id="LOCAL-00054" summary="add useGetTenants.ts">
-      <option name="closed" value="true" />
-      <created>1722733309917</created>
-      <option name="number" value="00054" />
-      <option name="presentableId" value="LOCAL-00054" />
-      <option name="project" value="LOCAL" />
-      <updated>1722733309917</updated>
+      <workItem from="1724170292833" duration="10923000" />
+      <workItem from="1724190936831" duration="2887000" />
+      <workItem from="1724204210943" duration="4006000" />
     </task>
     <task id="LOCAL-00055" summary="combine getTenant and getLease hooks">
       <option name="closed" value="true" />
@@ -591,7 +594,15 @@
       <option name="project" value="LOCAL" />
       <updated>1724180068303</updated>
     </task>
-    <option name="localTasksCounter" value="103" />
+    <task id="LOCAL-00103" summary="ui work">
+      <option name="closed" value="true" />
+      <created>1724182179948</created>
+      <option name="number" value="00103" />
+      <option name="presentableId" value="LOCAL-00103" />
+      <option name="project" value="LOCAL" />
+      <updated>1724182179948</updated>
+    </task>
+    <option name="localTasksCounter" value="104" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -631,10 +642,10 @@
     <MESSAGE value="init commit" />
     <MESSAGE value="working on recommendations" />
     <MESSAGE value="recommendations working" />
-    <MESSAGE value="ui work" />
     <MESSAGE value="able to scroll through todos" />
     <MESSAGE value="Todo scrolls to selected index" />
     <MESSAGE value="Add Homes carousel" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add Homes carousel" />
+    <MESSAGE value="ui work" />
+    <option name="LAST_COMMIT_MESSAGE" value="ui work" />
   </component>
 </project>

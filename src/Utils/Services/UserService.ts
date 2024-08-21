@@ -1,0 +1,9 @@
+import http from "@src/Utils/HttpCommon";
+
+export default new class UserService {
+	private readonly serviceHeader = "/user";
+	async addUser(userDetails: User): Promise<number | HTTPError> {
+		const response = await http.post(`${this.serviceHeader}/addUser/`, userDetails);
+		return response.data;
+	}
+};

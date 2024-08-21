@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
 		paddingRight: 15,
 	},
 	button: {
-		backgroundColor: "whitesmoke",
+		backgroundColor: "rgba(255, 255, 255, 0.5)",
 		paddingHorizontal: 10,
 		paddingVertical: 5,
 		borderRadius: 5,
@@ -71,14 +71,14 @@ const styles = StyleSheet.create({
 		marginRight: 10
 	},
 	text: {
-		color: "black",
+		color: "white",
 		fontSize: 15,
 		fontWeight: "500"
 	},
 	selectedText: {
 		color: "white",
 		fontSize: 15,
-		fontWeight: "500"
+		fontWeight: "700"
 	}
 });
 
