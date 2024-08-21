@@ -1,6 +1,6 @@
-import {View, SafeAreaView, StyleSheet, Animated, Text, Image, TouchableOpacity} from "react-native";
-import { useState, useCallback, useEffect, useMemo } from "react";
-import { useAuthContext } from "../../Contexts/AuthContext";
+import {View, SafeAreaView, StyleSheet, Animated, Image} from "react-native";
+import { useState, useCallback, useEffect } from "react";
+import { useAuthContext } from "@src/Contexts/AuthContext";
 import { observer } from "mobx-react-lite";
 import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
@@ -8,7 +8,6 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import FloatingActionButton from "../Buttons/FloatingActionButton";
 import { useAppContext } from "@src/Contexts/AppContext";
 import _ from "lodash";
-import Ionicons from "react-native-vector-icons/Ionicons";
 
 function HomeLayout({ children }: { children: React.ReactNode }) {
 	const authContext = useAuthContext();
@@ -81,10 +80,11 @@ function HomeLayout({ children }: { children: React.ReactNode }) {
 						{children}
 					</View>
 					{_.isEmpty(appContext.Properties)? null: (
-						<TouchableOpacity onPress={()=>handlePressActionButton()} style={styles.fabContainer}>
-							<Ionicons name={"add"} size={30} color="white" />
-							<Text style={styles.fabText}>Add Property</Text>
-						</TouchableOpacity>
+						<FloatingActionButton
+							onPress={()=>handlePressActionButton()}
+							icon={"add"}
+							text={"Add Property"}
+						/>
 					)}
 
 				</SafeAreaView>

@@ -6,4 +6,8 @@ export default new class UserService {
 		const response = await http.post(`${this.serviceHeader}/addUser/`, userDetails);
 		return response.data;
 	}
+
+	async sendSignUpEmail(leaseId:number, email:string):Promise<void | HTTPError> {
+		await http.get(`/api/sendEmail/${leaseId}/${email.toLowerCase()}`);
+	}
 };

@@ -4,8 +4,7 @@ import { auth, storage } from "../Utils/Firebase";
 import { IMessage } from "react-native-gifted-chat";
 import PropertyService from "../Utils/Services/PropertyService";
 import LeaseService from "../Utils/Services/LeaseService";
-import TenantService from "../Utils/Services/TenantService";
-import _, {isNull, toNumber} from "lodash";
+import _, {toNumber} from "lodash";
 import TodoService from "../Utils/Services/TodoService";
 import UserService from "@src/Utils/Services/UserService";
 
@@ -16,7 +15,6 @@ class AppContextClass {
 	public SelectedPropertyLeases: Lease[] = [];
 	public SelectedPropertyTodos: Todo[] = [];
 	public Tenants: User[] = [];
-	public TodoRecommendations: GoogleMapsPlaceResponse[] = [];
 	public SelectedTodo: Todo | null = null;
 
 	constructor() {
@@ -93,13 +91,18 @@ class AppContextClass {
 	public addLease = action(async (lease: Lease, tenantEmail: string) => {
 		try {
 			if (_.isNull(this.SelectedProperty)) return false;
-			const response = await LeaseService.addLease(this.SelectedProperty.PropertyId, tenantEmail, lease);
+			const response = await LeaseService.addLease(this.SelectedProperty.PropertyId, lease);
 			if (this.isHTTPError(response)) {
 				alert(response.message);
 				lease.LeaseId = 0;
 				return false;
 			}
 			lease.LeaseId = response;
+			const sendEmailResponse = await UserService.sendSignUpEmail(lease.LeaseId, tenantEmail);
+			if (this.isHTTPError(sendEmailResponse)) {
+				alert(sendEmailResponse.message);
+				return false;
+			}
 			runInAction(() => {
 				this.SelectedPropertyLeases.push(lease);
 			});

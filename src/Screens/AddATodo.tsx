@@ -71,10 +71,11 @@ function AddATodo(){
 				onChangeText={(value) => handleInputChange("Title", value)}
 			/>
 			<TextInput
-				style={styles.input}
+				style={[styles.input, styles.multilineInput]}
 				placeholder="Descripton"
 				placeholderTextColor="white"
 				value={todoDetails.Description}
+				multiline={true}
 				onChangeText={(value) => handleInputChange("Description", value)}
 			/>
 			<DropdownPicker

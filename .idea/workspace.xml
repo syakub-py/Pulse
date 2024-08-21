@@ -4,22 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="ui work">
-      <change afterPath="$PROJECT_DIR$/src/Utils/Services/UserService.ts" afterDir="false" />
+    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="add UserService.ts">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/AllTenants/TenantCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/AllTenants/TenantCard.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Buttons/FloatingActionButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Buttons/FloatingActionButton.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Home/HomeLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Home/HomeLayout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Home/HomesCarousel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Home/HomesCarousel.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Home/Properties.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Home/Properties.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Leases/LeaseDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Leases/LeaseDetails.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Todo/TodoCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Todo/TodoCard.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Contexts/AppContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/AppContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screens/SignUp/AddATenant.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/SignUp/AddAUser.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screens/SignUp/TenantCode.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/SignUp/TenantCode.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Types/Global.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Types/Global.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Utils/Services/TenantService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/Services/TenantService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contexts/AuthContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/AuthContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/AddATodo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/AddATodo.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/BottomNavigationBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/BottomNavigationBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/Leases.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/Leases.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/SignUp/AddAUser.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/SignUp/AddAUser.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utils/Services/LeaseService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/Services/LeaseService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utils/Services/UserService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/Services/UserService.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -208,15 +205,9 @@
       <workItem from="1724106570101" duration="1376000" />
       <workItem from="1724170292833" duration="10923000" />
       <workItem from="1724190936831" duration="2887000" />
-      <workItem from="1724204210943" duration="4006000" />
-    </task>
-    <task id="LOCAL-00055" summary="combine getTenant and getLease hooks">
-      <option name="closed" value="true" />
-      <created>1722738456238</created>
-      <option name="number" value="00055" />
-      <option name="presentableId" value="LOCAL-00055" />
-      <option name="project" value="LOCAL" />
-      <updated>1722738456239</updated>
+      <workItem from="1724204210943" duration="4400000" />
+      <workItem from="1724246092411" duration="3123000" />
+      <workItem from="1724249924496" duration="5308000" />
     </task>
     <task id="LOCAL-00056" summary="start input validation">
       <option name="closed" value="true" />
@@ -602,7 +593,15 @@
       <option name="project" value="LOCAL" />
       <updated>1724182179948</updated>
     </task>
-    <option name="localTasksCounter" value="104" />
+    <task id="LOCAL-00104" summary="add UserService.ts">
+      <option name="closed" value="true" />
+      <created>1724209075107</created>
+      <option name="number" value="00104" />
+      <option name="presentableId" value="LOCAL-00104" />
+      <option name="project" value="LOCAL" />
+      <updated>1724209075107</updated>
+    </task>
+    <option name="localTasksCounter" value="105" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -621,7 +620,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="adding nice to haves" />
     <MESSAGE value="add lease details for tenant" />
     <MESSAGE value="fixed lease details for tenant" />
     <MESSAGE value="fixed some small bugs" />
@@ -646,6 +644,7 @@
     <MESSAGE value="Todo scrolls to selected index" />
     <MESSAGE value="Add Homes carousel" />
     <MESSAGE value="ui work" />
-    <option name="LAST_COMMIT_MESSAGE" value="ui work" />
+    <MESSAGE value="add UserService.ts" />
+    <option name="LAST_COMMIT_MESSAGE" value="add UserService.ts" />
   </component>
 </project>

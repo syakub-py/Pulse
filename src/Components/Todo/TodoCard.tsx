@@ -20,8 +20,9 @@ function TodoCard(props: Props){
 				<Text style={styles.label}>Priority:</Text>
 				<View style={[styles.priorityView, {
 					backgroundColor:
-						todo.Priority === "High" ? "darkorange" :
-							todo.Priority === "Medium" ? "yellow" :
+					todo.Priority === "Low"?"green":
+						todo.Priority === "Medium" ? "yellow" :
+							todo.Priority === "High" ? "darkorange" :
 								todo.Priority === "Emergency" ? "darkred" :
 									"transparent"
 				}]} />

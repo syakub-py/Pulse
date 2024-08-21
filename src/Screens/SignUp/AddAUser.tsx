@@ -44,7 +44,6 @@ function AddAUser() {
 		{ label: "Voter Registration Card", value: "Voter Registration Card" },
 		{ label: "Military ID", value: "Military ID" },
 		{ label: "Permanent Resident Card (Green Card)", value: "Permanent Resident Card (Green Card)" },
-		{ label: "Tribal ID Card", value: "Tribal ID Card" },
 	];
 
 	const [selectedDocumentType, setSelectedDocumentType] = useState(documentTypes[0].value as string);
@@ -102,7 +101,7 @@ function AddAUser() {
 	const handleAddUser = async () => {
 		try {
 			if (!areValidInputs()) return;
-			userDetails.DocumentProvidedUrl = await appContext.uploadPicture(DocumentPicture, `/DocumentPictures/${userDetails.Name}/`);
+			userDetails.DocumentProvidedUrl = await appContext.uploadPicture(DocumentPicture, `/DocumentPictures/${userDetails.Email}/`);
 			const isAddUserSuccessful = await appContext.addUser({ ...userDetails, LeaseId: LeaseId });
 			if (!isAddUserSuccessful) return;
 			authContext.setLeaseId(null);

@@ -49,7 +49,7 @@ function BottomNavigationBar() {
 			{
 				(!appContext.SelectedProperty?.isTenant && !_.isNull(appContext.SelectedProperty) && appContext.SelectedProperty.isRental) ? (
 					<Tab.Screen name={"Lease"} component={Leases} />
-				) : (appContext.SelectedPropertyLeases.length > 0) ? (
+				) : (appContext.SelectedProperty?.isRental) ? (
 					<Tab.Screen name={"Your Lease"} component={YourLease} />
 				) : null
 			}
