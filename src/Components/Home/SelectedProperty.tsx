@@ -1,10 +1,12 @@
-import {Dimensions, FlatList, StyleSheet, Text, View, Pressable} from "react-native";
+import {Dimensions, FlatList, StyleSheet, Text, View, Pressable, RefreshControl} from "react-native";
 import Button from "../Buttons/Button";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import { useAppContext } from "@src/Contexts/AppContext";
 import {observer} from "mobx-react-lite";
 import TodoCard from "../Todo/TodoCard";
+import useFetchTodos from "@src/Hooks/useFetchTodos";
+import {useState} from "react";
 
 interface Props {
 	property: Property
@@ -14,6 +16,15 @@ function SelectedProperty(props: Props) {
 	const { property } = props;
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Home">>();
 	const appContext = useAppContext();
+	const [refreshing, setRefreshing] = useState(false);
+
+	const fetchTodos = useFetchTodos();
+
+	const onRefresh = async () => {
+		setRefreshing(true);
+		await fetchTodos();
+		setRefreshing(false);
+	};
 	return (
 		<View style={styles.houseTileContainer}>
 			<Text style={styles.homeName}>{property.Name}</Text>
@@ -35,6 +46,9 @@ function SelectedProperty(props: Props) {
 						<TodoCard todo={item}/>
 					</Pressable>
 				)}
+				refreshControl={
+					<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+				}
 				ListFooterComponent={() => (
 					<View style={styles.footer}/>
 				)}

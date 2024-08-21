@@ -24,9 +24,11 @@ export default function useFetchTodos(){
 			console.error("error fetching todos: " + error);
 		}
 		/* eslint-disable react-hooks/exhaustive-deps */
-	}, [authContext.uid, appContext.SelectedProperty]);
+	}, []);
 
 	useEffect(() => {
 		void fetchTodos();
 	}, [authContext.uid, appContext.SelectedProperty, fetchTodos]);
+
+	return fetchTodos;
 }

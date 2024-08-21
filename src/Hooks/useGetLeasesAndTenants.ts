@@ -41,9 +41,10 @@ export default function useGetLeasesAndTenants() {
 			authContext.isLoading = false;
 		}
 		/* eslint-disable react-hooks/exhaustive-deps */
-	}, [authContext.uid, appContext.SelectedProperty]);
+	}, []);
 
 	useEffect(() => {
 		void fetchLeasesAndTenants();
 	}, [authContext.uid, appContext.SelectedProperty, fetchLeasesAndTenants]);
+	return fetchLeasesAndTenants;
 }

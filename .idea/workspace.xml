@@ -4,19 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="add UserService.ts">
+    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="ui work">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Buttons/FloatingActionButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Buttons/FloatingActionButton.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Home/HomeLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Home/HomeLayout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Todo/TodoCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Todo/TodoCard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contexts/AppContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/AppContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contexts/AuthContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/AuthContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screens/AddATodo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/AddATodo.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screens/BottomNavigationBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/BottomNavigationBar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screens/Leases.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/Leases.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screens/SignUp/AddAUser.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/SignUp/AddAUser.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Utils/Services/LeaseService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/Services/LeaseService.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Utils/Services/UserService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/Services/UserService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Home/SelectedProperty.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Home/SelectedProperty.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Leases/AreLeases.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Leases/AreLeases.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hooks/useFetchTodos.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useFetchTodos.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hooks/useGetLeasesAndTenants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useGetLeasesAndTenants.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -207,15 +200,7 @@
       <workItem from="1724190936831" duration="2887000" />
       <workItem from="1724204210943" duration="4400000" />
       <workItem from="1724246092411" duration="3123000" />
-      <workItem from="1724249924496" duration="5308000" />
-    </task>
-    <task id="LOCAL-00056" summary="start input validation">
-      <option name="closed" value="true" />
-      <created>1722786046601</created>
-      <option name="number" value="00056" />
-      <option name="presentableId" value="LOCAL-00056" />
-      <option name="project" value="LOCAL" />
-      <updated>1722786046601</updated>
+      <workItem from="1724249924496" duration="6357000" />
     </task>
     <task id="LOCAL-00057" summary="input validation">
       <option name="closed" value="true" />
@@ -601,7 +586,15 @@
       <option name="project" value="LOCAL" />
       <updated>1724209075107</updated>
     </task>
-    <option name="localTasksCounter" value="105" />
+    <task id="LOCAL-00105" summary="ui work">
+      <option name="closed" value="true" />
+      <created>1724256168902</created>
+      <option name="number" value="00105" />
+      <option name="presentableId" value="LOCAL-00105" />
+      <option name="project" value="LOCAL" />
+      <updated>1724256168902</updated>
+    </task>
+    <option name="localTasksCounter" value="106" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -643,8 +636,8 @@
     <MESSAGE value="able to scroll through todos" />
     <MESSAGE value="Todo scrolls to selected index" />
     <MESSAGE value="Add Homes carousel" />
-    <MESSAGE value="ui work" />
     <MESSAGE value="add UserService.ts" />
-    <option name="LAST_COMMIT_MESSAGE" value="add UserService.ts" />
+    <MESSAGE value="ui work" />
+    <option name="LAST_COMMIT_MESSAGE" value="ui work" />
   </component>
 </project>
