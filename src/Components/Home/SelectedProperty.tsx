@@ -41,6 +41,7 @@ function SelectedProperty(props: Props) {
 			</View>
 			<FlatList
 				data={appContext.SelectedPropertyTodos}
+				showsVerticalScrollIndicator={false}
 				renderItem={({item, index})=>(
 					<Pressable onPress={()=>navigation.navigate("TodoDetails", {selectedTodoIndex:index})}>
 						<TodoCard todo={item}/>

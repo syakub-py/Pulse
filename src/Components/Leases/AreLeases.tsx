@@ -8,13 +8,21 @@ import {useAppContext} from "@src/Contexts/AppContext";
 import _ from "lodash";
 import LeaseDetails from "./LeaseDetails";
 import useGetLeasesAndTenants from "@src/Hooks/useGetLeasesAndTenants";
+import Search from "@src/Components/Search";
+import Fuse from "fuse.js";
+
 
 function AreLeases(){
 	const appContext = useAppContext();
 	const [isModalVisible, setModalVisible] = useState(false);
 	const [refreshing, setRefreshing] = useState(false);
-
+	const [searchQuery, setSearchQuery] = useState("");
 	const fetchTenantAndLeases = useGetLeasesAndTenants();
+
+	const options = {
+		keys: ["TenantName"],
+		threshold: 0.3,
+	};
 
 	const onRefresh = async () => {
 		setRefreshing(true);
@@ -31,10 +39,14 @@ function AreLeases(){
 		await appContext.deleteLease(leaseId);
 	}, [appContext]);
 
+	const fuse = new Fuse(appContext.SelectedPropertyLeases, options);
+	const results = !_.isEmpty(searchQuery)?fuse.search(searchQuery).map(result => result.item):appContext.SelectedPropertyLeases;
+
 	return(
 		<View>
 			<SwipeListView
-				data={appContext.SelectedPropertyLeases}
+				data={results}
+				ListHeaderComponent={<Search searchQuery={searchQuery} onSearchQueryChange={setSearchQuery}/>}
 				renderItem={({ item }) => (
 					<View style={styles.container}>
 						<Pressable onPress={toggleModal}>
