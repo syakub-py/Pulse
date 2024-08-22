@@ -1,33 +1,47 @@
 import React from "react";
-import {View, Text, StyleSheet} from "react-native";
-import {observer} from "mobx-react-lite";
+import { View, Text, StyleSheet } from "react-native";
+import { observer } from "mobx-react-lite";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
-interface Props{
-	todo:Todo
+interface Props {
+	todo: Todo;
 }
 
-function TodoCard(props: Props){
-	const {todo} = props;
+function TodoCard(props: Props) {
+	const { todo } = props;
 	return (
 		<View style={styles.card}>
-			<Text style={styles.title}>{todo.Title}</Text>
-			<Text style={styles.description} numberOfLines={3}>{todo.Description}</Text>
-			<View style={styles.infoRow}>
-				<Text style={styles.label}>Status:</Text>
-				<Text style={styles.value}>{todo.Status}</Text>
+			<View style={styles.titleRow}>
+				<Text style={styles.title}>{todo.Title}</Text>
+				<View
+					style={[
+						styles.priorityView,
+						{
+							backgroundColor:
+								todo.Priority === "Low"
+									? "green"
+									: todo.Priority === "Medium"
+										? "yellow"
+										: todo.Priority === "High"
+											? "darkorange"
+											: todo.Priority === "Emergency"
+												? "darkred"
+												: "transparent",
+						},
+					]}
+				/>
 			</View>
-			<View style={styles.infoRow}>
-				<Text style={styles.label}>Priority:</Text>
-				<View style={[styles.priorityView, {
-					backgroundColor:
-					todo.Priority === "Low"?"green":
-						todo.Priority === "Medium" ? "yellow" :
-							todo.Priority === "High" ? "darkorange" :
-								todo.Priority === "Emergency" ? "darkred" :
-									"transparent"
-				}]} />
-			</View>
+			<Text style={styles.description} numberOfLines={3}>
+				{todo.Description}
+			</Text>
 			<Text style={styles.addedBy}>Added by: {todo.AddedBy}</Text>
+			<View style={styles.statusContainer}>
+				<Ionicons
+					name={todo.Status === "Seen" ? "eye-outline" : "eye-off-outline"}
+					size={20}
+					color={"white"}
+				/>
+			</View>
 		</View>
 	);
 }
@@ -46,46 +60,38 @@ const styles = StyleSheet.create({
 		shadowRadius: 10,
 		shadowOffset: { width: 0, height: 4 },
 		elevation: 5,
+		position: "relative",
+	},
+	titleRow: {
+		flexDirection: "row",
+		alignItems: "center",
+		justifyContent:"space-between",
+		marginBottom: 8,
 	},
 	title: {
 		fontSize: 20,
 		fontWeight: "bold",
-		marginBottom: 10,
 		color: "#ffffff",
+		marginRight: 10,
 	},
 	description: {
 		fontSize: 16,
 		color: "#d1d1d6",
 		marginBottom: 10,
 	},
-	infoRow: {
-		flexDirection: "row",
-		justifyContent: "space-between",
-		alignItems: "center",
-		marginBottom: 6,
-		color: "#d1d1d6",
-	},
-	label: {
-		fontWeight: "600",
-		color: "#d1d1d6",
-	},
-	value: {
-		fontWeight: "400",
-		color: "#ffffff",
+	priorityView: {
+		width: 12,
+		height: 12,
+		borderRadius: 6,
 	},
 	addedBy: {
 		marginTop: 12,
 		fontSize: 13,
 		color: "#9e9e9e",
 	},
-	header:{
-		flexDirection:"row",
-		justifyContent: "space-between",
+	statusContainer: {
+		position: "absolute",
+		bottom: 15,
+		right: 15,
 	},
-	priorityView:{
-		width: 10,
-		height: 10,
-		borderRadius: 10,
-	}
 });
-

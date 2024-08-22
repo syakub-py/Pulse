@@ -19,11 +19,6 @@ function AreLeases(){
 	const [searchQuery, setSearchQuery] = useState("");
 	const fetchTenantAndLeases = useGetLeasesAndTenants();
 
-	const options = {
-		keys: ["TenantName"],
-		threshold: 0.3,
-	};
-
 	const onRefresh = async () => {
 		setRefreshing(true);
 		await fetchTenantAndLeases();
@@ -39,7 +34,12 @@ function AreLeases(){
 		await appContext.deleteLease(leaseId);
 	}, [appContext]);
 
-	const fuse = new Fuse(appContext.SelectedPropertyLeases, options);
+	const searchOptions = {
+		keys: ["TenantName"],
+		threshold: 0.3,
+	};
+
+	const fuse = new Fuse(appContext.SelectedPropertyLeases, searchOptions);
 	const results = !_.isEmpty(searchQuery)?fuse.search(searchQuery).map(result => result.item):appContext.SelectedPropertyLeases;
 
 	return(
