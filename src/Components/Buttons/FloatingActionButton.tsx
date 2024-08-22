@@ -1,6 +1,5 @@
 import {TouchableOpacity, Text, StyleSheet} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import {observer} from "mobx-react-lite";
 
 interface Props{
 	onPress:()=>void,
@@ -8,7 +7,7 @@ interface Props{
 	text:string,
 }
 
-const FloatingActionButton = (props:Props) => {
+export default function FloatingActionButton (props:Props) {
 	const {onPress, icon, text} = props;
 	return (
 		<TouchableOpacity onPress={onPress} style={styles.fabContainer}>
@@ -19,8 +18,6 @@ const FloatingActionButton = (props:Props) => {
 	);
 };
 
-
-export default observer(FloatingActionButton);
 
 const styles = StyleSheet.create({
 	fabContainer: {

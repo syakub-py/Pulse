@@ -1,6 +1,5 @@
 import {Pressable, StyleProp, Text, TextStyle, View, ViewStyle} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import {observer} from "mobx-react-lite";
 
 interface Props {
 	onPress?: () => void;
@@ -10,19 +9,17 @@ interface Props {
 	iconName?:string,
 }
 
-function Button(props:Props){
+export default function Button(props:Props){
 	const {onPress, title, containerStyle, textStyle, iconName} = props;
 	return (
 		<Pressable onPress={onPress}>
 			<View style={containerStyle}>
-				{
-					(iconName)?(
-						<Ionicons name={iconName} size={20} color="white"/>
-					):null
+				{(!iconName) ?
+					null : 
+					<Ionicons name={iconName} size={20} color="white"/> 
 				}
 				<Text style={textStyle}>{title}</Text>
 			</View>
 		</Pressable>
 	);
 }
-export default observer(Button);
