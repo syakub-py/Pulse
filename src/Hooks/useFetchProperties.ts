@@ -16,7 +16,6 @@ export default function useFetchProperties() {
 			return;
 		}
 		appContext.setProperties(properties as Property[]);
-		authContext.isLoading = false;
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [authContext.uid]);
 

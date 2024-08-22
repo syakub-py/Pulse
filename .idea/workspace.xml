@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="add search on tenants name to lease">
+    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="Todo card ui work">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Leases/AreLeases.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Leases/AreLeases.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Todo/TodoCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Todo/TodoCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contexts/AuthContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/AuthContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hooks/useFetchProperties.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useFetchProperties.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -199,15 +199,7 @@
       <workItem from="1724204210943" duration="4400000" />
       <workItem from="1724246092411" duration="3123000" />
       <workItem from="1724249924496" duration="10184000" />
-      <workItem from="1724337803906" duration="350000" />
-    </task>
-    <task id="LOCAL-00059" summary="fixed add tenant">
-      <option name="closed" value="true" />
-      <created>1722874600295</created>
-      <option name="number" value="00059" />
-      <option name="presentableId" value="LOCAL-00059" />
-      <option name="project" value="LOCAL" />
-      <updated>1722874600295</updated>
+      <workItem from="1724337803906" duration="811000" />
     </task>
     <task id="LOCAL-00060" summary="remove deleted tenants from context">
       <option name="closed" value="true" />
@@ -593,7 +585,15 @@
       <option name="project" value="LOCAL" />
       <updated>1724262444066</updated>
     </task>
-    <option name="localTasksCounter" value="108" />
+    <task id="LOCAL-00108" summary="Todo card ui work">
+      <option name="closed" value="true" />
+      <created>1724338230595</created>
+      <option name="number" value="00108" />
+      <option name="presentableId" value="LOCAL-00108" />
+      <option name="project" value="LOCAL" />
+      <updated>1724338230595</updated>
+    </task>
+    <option name="localTasksCounter" value="109" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -612,7 +612,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fixed some small bugs" />
     <MESSAGE value="removed comment" />
     <MESSAGE value="fix lint errors" />
     <MESSAGE value="fix env errors" />
@@ -637,6 +636,7 @@
     <MESSAGE value="ui work" />
     <MESSAGE value="add refresh functionality to todos and tenants as leases" />
     <MESSAGE value="add search on tenants name to lease" />
-    <option name="LAST_COMMIT_MESSAGE" value="add search on tenants name to lease" />
+    <MESSAGE value="Todo card ui work" />
+    <option name="LAST_COMMIT_MESSAGE" value="Todo card ui work" />
   </component>
 </project>
