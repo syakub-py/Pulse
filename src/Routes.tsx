@@ -24,7 +24,7 @@ export default function Routes() {
 	const authContext = useAuthContext();
 	const { Screen } = createNativeStackNavigator<RootStackParamList>();
 
-	if (authContext.isLoading) {
+	if (authContext.isLoadingAuth) {
 		return [
 			<Screen key="Loading" name="Loading" component={Loading}/>
 		];

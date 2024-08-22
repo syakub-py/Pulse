@@ -38,7 +38,7 @@ export default function useGetLeasesAndTenants() {
 		} catch (error) {
 			console.error(error);
 		} finally {
-			authContext.isLoading = false;
+			authContext.isLoadingAuth = false;
 		}
 		/* eslint-disable react-hooks/exhaustive-deps */
 	}, []);

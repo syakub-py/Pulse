@@ -13,7 +13,7 @@ export default function useGetAllDataFromStorage(): void {
 			try {
 				await authContext.getAuthDataFromStorage();
 				if (!authContext.isLoggedIn) {
-					authContext.isLoading = false;
+					authContext.isLoadingAuth = false;
 					return;
 				}
 				const user = await auth.signInWithEmailAndPassword(authContext.username, authContext.password);
