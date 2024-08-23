@@ -66,9 +66,9 @@ function TodoDetails({ route }: Props) {
 	}, [appContext.SelectedTodo]);
 
 	useEffect(() => {
-		if (appContext.SelectedProperty?.isTenant) return;
+		if (appContext.SelectedProperty?.isCurrentUserTenant) return;
 		void fetchRecommendations();
-	}, [appContext.SelectedProperty?.isTenant, fetchRecommendations]);
+	}, [appContext.SelectedProperty?.isCurrentUserTenant, fetchRecommendations]);
 
 	useEffect(() => {
 		if (!flatListRef.current ) return;

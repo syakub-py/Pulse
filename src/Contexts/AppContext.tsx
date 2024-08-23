@@ -38,6 +38,7 @@ class AppContextClass {
 	public addProperty = action(async (property: Property) => {
 		try {
 			if (!auth.currentUser?.uid) return false;
+			console.log(property);
 			const response = await PropertyService.addProperty(auth.currentUser.uid, property);
 			if (isHTTPError(response)) {
 				alert(response.message);
@@ -87,7 +88,7 @@ class AppContextClass {
 
 	public addLease = action(async (lease: Lease, tenantEmail: string) => {
 		try {
-			if (_.isNull(this.SelectedProperty)) return false;
+			if (_.isNull(this.SelectedProperty) || _.isUndefined(this.SelectedProperty.PropertyId)) return false;
 			const response = await LeaseService.addLease(this.SelectedProperty.PropertyId, lease);
 			if (isHTTPError(response)) {
 				alert(response.message);

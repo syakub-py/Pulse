@@ -1,11 +1,15 @@
 declare global {
     interface Property {
-        PropertyId: number,
+        PropertyId?: number,
         Name:string,
         Address: string;
         PropertyType: string;
         isRental:boolean;
-        isTenant?:boolean;
+        PurchasePrice:string,
+        Taxes:string,
+        MortgagePayment:string,
+        OperatingExpenses:string,
+        isCurrentUserTenant?:boolean;
     }
 
     interface Lease {

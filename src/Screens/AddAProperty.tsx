@@ -10,11 +10,14 @@ import { useAppContext } from "../Contexts/AppContext";
 
 function AddAProperty() {
 	const [propertyDetails, setPropertyDetails] = useState<Property>({
-		PropertyId: 0,
 		Name: "",
 		Address: "",
 		PropertyType: "",
-		isRental: false
+		isRental: false,
+		PurchasePrice: "",
+		Taxes: "",
+		MortgagePayment: "",
+		OperatingExpenses: "",
 	});
 
 	const propertyTypes: ItemType<string>[] = [
@@ -76,6 +79,34 @@ function AddAProperty() {
 				setValue={setSelectedPropertyType}
 				placeholder="Property Type"
 				{...styles}
+			/>
+			<TextInput
+				style={styles.input}
+				placeholder="monthly operating expenses"
+				placeholderTextColor="white"
+				value={propertyDetails.OperatingExpenses}
+				onChangeText={(value) => handleInputChange("OperatingExpenses", value)}
+			/>
+			<TextInput
+				style={styles.input}
+				placeholder="monthly mortgage payment"
+				placeholderTextColor="white"
+				value={propertyDetails.MortgagePayment}
+				onChangeText={(value) => handleInputChange("MortgagePayment", value)}
+			/>
+			<TextInput
+				style={styles.input}
+				placeholder="Taxes"
+				placeholderTextColor="white"
+				value={propertyDetails.Taxes}
+				onChangeText={(value) => handleInputChange("Taxes", value)}
+			/>
+			<TextInput
+				style={styles.input}
+				placeholder="Purchase Price"
+				placeholderTextColor="white"
+				value={propertyDetails.PurchasePrice}
+				onChangeText={(value) => handleInputChange("PurchasePrice", value)}
 			/>
 			<Button
 				title={!propertyDetails.isRental ? "Not a Rental" : "Is a Rental"}

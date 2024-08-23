@@ -47,7 +47,7 @@ function BottomNavigationBar() {
 		>
 			<Tab.Screen name={"Home"} component={Home} />
 			{
-				(!appContext.SelectedProperty?.isTenant && !_.isNull(appContext.SelectedProperty) && appContext.SelectedProperty.isRental) ? (
+				(!appContext.SelectedProperty?.isCurrentUserTenant && !_.isNull(appContext.SelectedProperty) && appContext.SelectedProperty.isRental) ? (
 					<Tab.Screen name={"Lease"} component={Leases} />
 				) : (appContext.SelectedProperty?.isRental) ? (
 					<Tab.Screen name={"Your Lease"} component={YourLease} />

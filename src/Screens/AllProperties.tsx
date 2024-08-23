@@ -30,7 +30,7 @@ function AllProperties() {
 				data={appContext.Properties}
 				rightOpenValue={-50}
 				renderHiddenItem={({ item, index }) => {
-					if (appContext.Properties[index].isTenant) return null;
+					if (appContext.Properties[index].isCurrentUserTenant) return null;
 					return (
 						<TrashButton onPress={() => handleDeleteProperty(item.PropertyId)} />
 					);
