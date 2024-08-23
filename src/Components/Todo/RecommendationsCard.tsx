@@ -1,10 +1,9 @@
-import { observer } from "mobx-react-lite";
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import _ from "lodash";
 
-function RecommendationsCard({ recommendation }: { recommendation: GoogleMapsPlaceResponse }) {
+export default function RecommendationsCard({ recommendation }: { recommendation: GoogleMapsPlaceResponse }) {
 	return (
 		<View style={styles.cardContainer}>
 			<Text style={styles.name}>
@@ -14,18 +13,18 @@ function RecommendationsCard({ recommendation }: { recommendation: GoogleMapsPla
 				{recommendation.vicinity}
 			</Text>
 			{
-				(!_.isEqual(recommendation.rating, "N/A"))?(
+				(_.isEqual(recommendation.rating, "N/A"))?null:(
 					<View style = {styles.ratingContainer}>
 						<Ionicons size = {20} name = {"star"} color = {"#ebd61e"}/>
 						<Text style = {styles.rating}>{recommendation.rating.toFixed(1)}</Text>
 					</View>
-				):null
+				)
 			}
 		</View>
 	);
 }
 
-export default observer(RecommendationsCard);
+
 
 const styles = StyleSheet.create({
 	cardContainer: {

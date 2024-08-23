@@ -1,6 +1,5 @@
 import React from "react";
 import { View, TextInput, StyleSheet } from "react-native";
-import { observer } from "mobx-react-lite";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 interface Props {
@@ -8,7 +7,7 @@ interface Props {
 	onSearchQueryChange: (query: string) => void;
 }
 
-function Search({ searchQuery, onSearchQueryChange }: Props) {
+export default function Search({ searchQuery, onSearchQueryChange }: Props) {
 	return (
 		<View style={styles.searchContainer}>
 			<Ionicons name={"search"} size={25} color="gray" style={styles.icon} />
@@ -23,7 +22,7 @@ function Search({ searchQuery, onSearchQueryChange }: Props) {
 	);
 }
 
-export default observer(Search);
+
 
 const styles = StyleSheet.create({
 	searchContainer: {

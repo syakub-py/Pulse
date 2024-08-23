@@ -6,7 +6,7 @@ import { useAppContext } from "@src/Contexts/AppContext";
 import {observer} from "mobx-react-lite";
 import TodoCard from "../Todo/TodoCard";
 import useFetchTodos from "@src/Hooks/useFetchTodos";
-import {useState} from "react";
+import {useCallback, useState} from "react";
 
 interface Props {
 	property: Property
@@ -20,11 +20,11 @@ function SelectedProperty(props: Props) {
 
 	const fetchTodos = useFetchTodos();
 
-	const onRefresh = async () => {
+	const onRefresh = useCallback(async () => {
 		setRefreshing(true);
 		await fetchTodos();
 		setRefreshing(false);
-	};
+	}, [fetchTodos]);
 	return (
 		<View style={styles.houseTileContainer}>
 			<Text style={styles.homeName}>{property.Name}</Text>

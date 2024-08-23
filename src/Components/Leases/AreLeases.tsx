@@ -3,7 +3,7 @@ import {Pressable, View, StyleSheet, RefreshControl} from "react-native";
 import LeaseCard from "./LeaseCard";
 import TrashButton from "../TrashButton";
 import {SwipeListView} from "react-native-swipe-list-view";
-import {useCallback, useState} from "react";
+import {useCallback, useMemo, useState} from "react";
 import {useAppContext} from "@src/Contexts/AppContext";
 import _ from "lodash";
 import LeaseDetails from "./LeaseDetails";
@@ -19,11 +19,12 @@ function AreLeases(){
 	const [searchQuery, setSearchQuery] = useState("");
 	const fetchTenantAndLeases = useGetLeasesAndTenants();
 
-	const onRefresh = async () => {
+	const onRefresh = useCallback(async () => {
 		setRefreshing(true);
 		await fetchTenantAndLeases();
 		setRefreshing(false);
-	};
+	}, [fetchTenantAndLeases]);
+
 
 	const toggleModal = useCallback(() => {
 		setModalVisible(prevState => !prevState);
@@ -40,7 +41,11 @@ function AreLeases(){
 	};
 
 	const fuse = new Fuse(appContext.SelectedPropertyLeases, searchOptions);
-	const results = !_.isEmpty(searchQuery)?fuse.search(searchQuery).map(result => result.item):appContext.SelectedPropertyLeases;
+	const results = useMemo(() => {
+		return !_.isEmpty(searchQuery)
+			? fuse.search(searchQuery).map(result => result.item)
+			: appContext.SelectedPropertyLeases;
+	}, [searchQuery, appContext.SelectedPropertyLeases]);
 
 	return(
 		<View>

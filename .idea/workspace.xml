@@ -4,10 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="Todo card ui work">
+    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="fixed lint errors">
+      <change afterPath="$PROJECT_DIR$/src/Components/Home/CarouselItem.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contexts/AuthContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/AuthContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hooks/useFetchProperties.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useFetchProperties.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Home/HomeLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Home/HomeLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Home/HomesCarousel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Home/HomesCarousel.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Home/Properties.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Home/Properties.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Home/SelectedProperty.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Home/SelectedProperty.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Leases/AreLeases.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Leases/AreLeases.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Search.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Search.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Todo/RecommendationsCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Todo/RecommendationsCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Todo/TodoCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Todo/TodoCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Todo/TodoDetails/TodoInformation.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Todo/TodoDetails/TodoInformation.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/TrashButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/TrashButton.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/AddATodo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/AddATodo.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/Leases.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/Leases.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/Settings.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/Settings.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/SignUp/AddAUser.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/SignUp/AddAUser.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/TodoDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/TodoDetails.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,21 +65,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "#19 on AIintegration",
-    "last_opened_file_path": "/Users/boss/Programming Projects/Pulse/assets/DefaultPictures",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "npm.start.executor": "Run",
-    "ts.external.directory.path": "/Users/boss/Programming Projects/Pulse/node_modules/typescript/lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;#19 on AIintegration&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/boss/Programming Projects/Pulse/assets/DefaultPictures&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.start.executor&quot;: &quot;Run&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/boss/Programming Projects/Pulse/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/assets/DefaultPictures" />
@@ -199,15 +213,9 @@
       <workItem from="1724204210943" duration="4400000" />
       <workItem from="1724246092411" duration="3123000" />
       <workItem from="1724249924496" duration="10184000" />
-      <workItem from="1724337803906" duration="811000" />
-    </task>
-    <task id="LOCAL-00060" summary="remove deleted tenants from context">
-      <option name="closed" value="true" />
-      <created>1722874984284</created>
-      <option name="number" value="00060" />
-      <option name="presentableId" value="LOCAL-00060" />
-      <option name="project" value="LOCAL" />
-      <updated>1722874984284</updated>
+      <workItem from="1724337803906" duration="1145000" />
+      <workItem from="1724340295003" duration="62000" />
+      <workItem from="1724369564615" duration="2020000" />
     </task>
     <task id="LOCAL-00061" summary="minor fixes">
       <option name="closed" value="true" />
@@ -593,7 +601,15 @@
       <option name="project" value="LOCAL" />
       <updated>1724338230595</updated>
     </task>
-    <option name="localTasksCounter" value="109" />
+    <task id="LOCAL-00109" summary="fixed lint errors">
+      <option name="closed" value="true" />
+      <created>1724338937247</created>
+      <option name="number" value="00109" />
+      <option name="presentableId" value="LOCAL-00109" />
+      <option name="project" value="LOCAL" />
+      <updated>1724338937247</updated>
+    </task>
+    <option name="localTasksCounter" value="110" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -612,7 +628,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="removed comment" />
     <MESSAGE value="fix lint errors" />
     <MESSAGE value="fix env errors" />
     <MESSAGE value="add todo working" />
@@ -637,6 +652,7 @@
     <MESSAGE value="add refresh functionality to todos and tenants as leases" />
     <MESSAGE value="add search on tenants name to lease" />
     <MESSAGE value="Todo card ui work" />
-    <option name="LAST_COMMIT_MESSAGE" value="Todo card ui work" />
+    <MESSAGE value="fixed lint errors" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed lint errors" />
   </component>
 </project>

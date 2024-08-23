@@ -29,7 +29,7 @@ function Settings(){
 		<Layout>
 			<View style={styles.headerContainer}>
 				<Header title={"Settings"}/>
-				<Pressable onPress={()=>logout()}>
+				<Pressable onPress={logout}>
 					<Ionicons name={"log-out-outline"} color={"white"} size={30} />
 				</Pressable>
 			</View>

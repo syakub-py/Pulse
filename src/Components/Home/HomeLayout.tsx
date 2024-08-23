@@ -81,7 +81,7 @@ function HomeLayout({ children }: { children: React.ReactNode }) {
 					</View>
 					{_.isEmpty(appContext.Properties)? null: (
 						<FloatingActionButton
-							onPress={()=>handlePressActionButton()}
+							onPress={handlePressActionButton}
 							icon={"add"}
 							text={"Add Property"}
 						/>

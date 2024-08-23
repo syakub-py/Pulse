@@ -8,12 +8,14 @@ import NoLeases from "../Components/Leases/NoLeases";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import { useAppContext } from "../Contexts/AppContext";
+import {useMemo} from "react";
 
 function Leases(){
 	const appContext = useAppContext();
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Leases">>();
-	const hasLeases = !_.isEmpty(appContext.SelectedPropertyLeases);
-
+	const hasLeases = useMemo(() => {
+		return !_.isEmpty(appContext.SelectedPropertyLeases);
+	}, [appContext.SelectedPropertyLeases]);
 	return (
 		<Layout>
 			<Header title={`${appContext.SelectedProperty?.Name} lease(s)`} />

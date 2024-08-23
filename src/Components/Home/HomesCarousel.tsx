@@ -2,6 +2,7 @@ import { Pressable, FlatList, Text, StyleSheet } from "react-native";
 import { useAppContext } from "@src/Contexts/AppContext";
 import { observer } from "mobx-react-lite";
 import {useEffect, useRef} from "react";
+import CarouselItem from "@src/Components/Home/CarouselItem";
 
 interface Props{
 	selectedIndex: number;
@@ -31,15 +32,9 @@ function HomesCarousel(props:Props) {
 			ref = {flatListRef}
 			bounces={false}
 			initialScrollIndex={selectedIndex}
-			renderItem={({item, index})=>{
-				return (
-					<Pressable key={index} onPress={()=>scrollToActiveIndex(index)} style={selectedIndex === index ? styles.selectedButton : styles.button}>
-						<Text style={selectedIndex === index ? styles.selectedText : styles.text}>
-							{item.Name}
-						</Text>
-					</Pressable>
-				);
-			}}
+			renderItem={({item, index})=>(
+				<CarouselItem item={item} onPress={()=>scrollToActiveIndex(index)} index={index} selectedIndex={selectedIndex}/>
+			)}
 		/>
 
 	);
@@ -56,29 +51,5 @@ const styles = StyleSheet.create({
 	contentContainer: {
 		paddingRight: 15,
 	},
-	button: {
-		backgroundColor: "rgba(255, 255, 255, 0.5)",
-		paddingHorizontal: 10,
-		paddingVertical: 5,
-		borderRadius: 5,
-		marginRight: 10,
-	},
-	selectedButton: {
-		backgroundColor: "#333",
-		paddingHorizontal: 10,
-		paddingVertical: 5,
-		borderRadius: 5,
-		marginRight: 10
-	},
-	text: {
-		color: "white",
-		fontSize: 15,
-		fontWeight: "500"
-	},
-	selectedText: {
-		color: "white",
-		fontSize: 15,
-		fontWeight: "700"
-	}
 });
 

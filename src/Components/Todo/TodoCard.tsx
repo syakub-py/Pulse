@@ -1,14 +1,30 @@
-import React from "react";
+import React, {useMemo} from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { observer } from "mobx-react-lite";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 interface Props {
 	todo: Todo;
 }
 
-function TodoCard(props: Props) {
+export default function TodoCard(props: Props) {
 	const { todo } = props;
+
+	const getPriorityColor = (priority:string) => {
+		switch (priority) {
+		case "Low":
+			return "green";
+		case "Medium":
+			return "yellow";
+		case "High":
+			return "darkorange";
+		case "Emergency":
+			return "darkred";
+		default:
+			return "transparent";
+		}
+	};
+	const priorityColor = useMemo(() => getPriorityColor(todo.Priority), [todo.Priority]);
+
 	return (
 		<View style={styles.card}>
 			<View style={styles.titleRow}>
@@ -17,16 +33,7 @@ function TodoCard(props: Props) {
 					style={[
 						styles.priorityView,
 						{
-							backgroundColor:
-								todo.Priority === "Low"
-									? "green"
-									: todo.Priority === "Medium"
-										? "yellow"
-										: todo.Priority === "High"
-											? "darkorange"
-											: todo.Priority === "Emergency"
-												? "darkred"
-												: "transparent",
+							backgroundColor: priorityColor,
 						},
 					]}
 				/>
@@ -46,7 +53,7 @@ function TodoCard(props: Props) {
 	);
 }
 
-export default observer(TodoCard);
+
 
 const styles = StyleSheet.create({
 	card: {

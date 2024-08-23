@@ -2,7 +2,7 @@ import Layout from "../Components/Layout";
 import {ActivityIndicator, Button, StyleSheet, TextInput, View} from "react-native";
 import {observer} from "mobx-react-lite";
 import Header from "../Components/Header";
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {useAuthContext} from "../Contexts/AuthContext";
 import DropdownPicker, {ItemType} from "react-native-dropdown-picker";
 import BackButton from "../Components/BackButton";
@@ -39,23 +39,34 @@ function AddATodo(){
 	const handleInputChange = (field: keyof Todo, value: string | string[] | boolean | number) => {
 		setTodoDetails((prev) => ({ ...prev, [field]: value }));
 	};
-	const handleSubmit = async (): Promise<void> => {
+	const handleSubmit = useCallback(async (): Promise<void> => {
 		setIsLoading(true);
+
 		const isAddTodoSuccessful = await appContext.addTodo(todoDetails);
 
-		if (!isAddTodoSuccessful) return;
+		if (!isAddTodoSuccessful) {
+			setIsLoading(false);
+			return;
+		}
+
 		setIsLoading(false);
 		navigation.navigate("BottomNavBar");
+
 		setTodoDetails({
-			PropertyId:appContext.SelectedProperty?.PropertyId,
-			Title:"",
-			Description:"",
-			Priority:selectedPriority,
-			Status:"Not Seen",
+			PropertyId: appContext.SelectedProperty?.PropertyId,
+			Title: "",
+			Description: "",
+			Priority: selectedPriority,
+			Status: "Not Seen",
 			AddedBy: authContext.username,
 		});
-
-	};
+	}, [
+		appContext,
+		todoDetails,
+		navigation,
+		selectedPriority,
+		authContext.username
+	]);
 
 	return(
 		<Layout>

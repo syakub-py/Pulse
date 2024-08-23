@@ -18,20 +18,23 @@ function Properties() {
 	}, [appContext]);
 
 
-	const changeIndex = ({ nativeEvent }: NativeSyntheticEvent<NativeScrollEvent>) => {
-		const slide = Math.floor(nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width);
-		if (slide >= 0) {
-			setSelectedIndex(slide);
-		}
-	};
-	const scrollToActiveIndex = (index:number) =>{
-		propertiesFlatList.current?.scrollToIndex({
-			index: index,
-			animated: true,
-			viewPosition: 0.8,
-		});
-		setSelectedIndex(index);
-	};
+	const changeIndex = useCallback(
+		({ nativeEvent }: NativeSyntheticEvent<NativeScrollEvent>) => {
+			const slide = Math.floor(nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width);
+			if (slide >= 0) {
+				setSelectedIndex(slide);
+			}
+		}, []);
+
+	const scrollToActiveIndex = useCallback(
+		(index: number) => {
+			propertiesFlatList.current?.scrollToIndex({
+				index: index,
+				animated: true,
+				viewPosition: 0.8,
+			});
+			setSelectedIndex(index);
+		}, []);
 
 	return (
 		<View>

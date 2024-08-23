@@ -26,7 +26,7 @@ function TodoDetails({ route }: Props) {
 	const [isLoading, setIsLoading] = useState(false);
 	const flatListRef = useRef<FlatList<Todo>>(null);
 
-	const onScrollToIndexFailed = (info: {
+	const onScrollToIndexFailed = useCallback((info: {
 		index: number;
 		highestMeasuredFrameIndex: number;
 		averageItemLength: number;
@@ -35,12 +35,15 @@ function TodoDetails({ route }: Props) {
 			offset: info.averageItemLength * info.index,
 			animated: true,
 		});
+
 		setTimeout(() => {
 			if (flatListRef.current) {
 				flatListRef.current.scrollToIndex({ index: info.index, animated: true });
 			}
 		}, 100);
-	};
+	}, [flatListRef]);
+
+
 
 	const onViewableItemsChanged = useCallback(({ viewableItems }: { viewableItems: ViewToken<Todo>[] }) => {
 		if (_.isEmpty(viewableItems)) return;
@@ -68,22 +71,22 @@ function TodoDetails({ route }: Props) {
 	}, [appContext.SelectedProperty?.isTenant, fetchRecommendations]);
 
 	useEffect(() => {
-		if (flatListRef.current ) {
-			flatListRef.current.scrollToIndex({
-				index: selectedTodoIndex,
-				animated: true,
-			});
-		}
+		if (!flatListRef.current ) return;
+		flatListRef.current.scrollToIndex({
+			index: selectedTodoIndex,
+			animated: true,
+		});
 	}, [selectedTodoIndex]);
 
-	const handleDeleteTodo = async () => {
+	const handleDeleteTodo = useCallback(async () => {
 		if (_.isNil(appContext.SelectedTodo?.id)) {
 			alert("Todo ID was empty");
 			return;
 		}
+
 		await appContext.deleteTodo(appContext.SelectedTodo.id);
 		navigation.goBack();
-	};
+	}, [appContext, navigation]);
 
 	return (
 		<Layout>

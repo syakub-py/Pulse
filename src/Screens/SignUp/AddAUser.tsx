@@ -98,19 +98,32 @@ function AddAUser() {
 		return true;
 	};
 
-	const handleAddUser = async () => {
+
+	const handleAddUser = useCallback(async () => {
 		try {
 			if (!areValidInputs()) return;
+
 			userDetails.DocumentProvidedUrl = await appContext.uploadPicture(DocumentPicture, `/DocumentPictures/${userDetails.Email}/`);
-			const isAddUserSuccessful = await appContext.addUser({ ...userDetails, LeaseId: LeaseId });
+
+			const isAddUserSuccessful = await appContext.addUser({ ...userDetails, LeaseId });
+
 			if (!isAddUserSuccessful) return;
+
 			authContext.setLeaseId(null);
 			await authContext.logout();
 			navigation.navigate("Login");
+
 		} catch (error) {
 			alert("There was an issue on our end. Please try again later.");
 		}
-	};
+	}, [
+		appContext,
+		authContext,
+		navigation,
+		userDetails,
+		DocumentPicture,
+		LeaseId,
+	]);
 
 	const selectPicture = async () => {
 		const result = await ImagePicker.launchImageLibraryAsync({

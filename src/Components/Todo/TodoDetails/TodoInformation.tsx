@@ -3,7 +3,6 @@ import Header from "@src/Components/Header";
 import SubHeader from "@src/Components/Analytics/SubHeader";
 import RecommendationsCard from "@src/Components/Todo/RecommendationsCard";
 import React from "react";
-import {observer} from "mobx-react-lite";
 import BackButton from "@src/Components/BackButton";
 
 interface Props {
@@ -12,7 +11,7 @@ interface Props {
 	recommendations: GoogleMapsPlaceResponse[]
 }
 
-function TodoInformation(props: Props) {
+export default function TodoInformation(props: Props) {
 	const {todo, isLoading, recommendations} = props;
 	return (
 		<ScrollView contentContainerStyle={styles.content}>
@@ -30,12 +29,12 @@ function TodoInformation(props: Props) {
 				<Text style={styles.value}>{todo.Priority}</Text>
 			</View>
 			<SubHeader title={"Professionals in your area: "} />
-			{!isLoading ? (
+			{isLoading ? (
+				<ActivityIndicator size="small" color="white"/>
+			) : (
 				recommendations.map((todo) => (
 					<RecommendationsCard recommendation={todo} key={todo.name}/>
 				))
-			) : (
-				<ActivityIndicator size="small" color="white"/>
 			)}
 			<Text style={styles.addedBy}>Added by: {todo.AddedBy}</Text>
 
@@ -43,7 +42,7 @@ function TodoInformation(props: Props) {
 	);
 }
 
-export default observer(TodoInformation);
+
 
 const styles = StyleSheet.create({
 	headerContainer: {
