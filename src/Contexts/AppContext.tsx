@@ -7,6 +7,8 @@ import LeaseService from "../Utils/Services/LeaseService";
 import _, {toNumber} from "lodash";
 import TodoService from "../Utils/Services/TodoService";
 import UserService from "@src/Utils/Services/UserService";
+import isHTTPError from "@src/Utils/HttpError";
+
 
 class AppContextClass {
 	public Properties: Property[] = [];
@@ -19,11 +21,6 @@ class AppContextClass {
 
 	constructor() {
 		makeAutoObservable(this);
-	}
-
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	public isHTTPError(data: any): data is HTTPError {
-		return data && (data.status_code === 500 || data.status_code === 400 || data.status_code === 409);
 	}
 
 	public setSelectedProperty = action((SelectedProperty: Property) => {
@@ -42,7 +39,7 @@ class AppContextClass {
 		try {
 			if (!auth.currentUser?.uid) return false;
 			const response = await PropertyService.addProperty(auth.currentUser.uid, property);
-			if (this.isHTTPError(response)) {
+			if (isHTTPError(response)) {
 				alert(response.message);
 				return false;
 			}
@@ -61,7 +58,7 @@ class AppContextClass {
 	public deleteProperty = action(async (propertyId: number) => {
 		try {
 			const response = await PropertyService.deleteProperty(propertyId);
-			if (this.isHTTPError(response)) {
+			if (isHTTPError(response)) {
 				alert(response.message);
 				return false;
 			}
@@ -92,14 +89,14 @@ class AppContextClass {
 		try {
 			if (_.isNull(this.SelectedProperty)) return false;
 			const response = await LeaseService.addLease(this.SelectedProperty.PropertyId, lease);
-			if (this.isHTTPError(response)) {
+			if (isHTTPError(response)) {
 				alert(response.message);
 				lease.LeaseId = 0;
 				return false;
 			}
 			lease.LeaseId = response;
 			const sendEmailResponse = await UserService.sendSignUpEmail(lease.LeaseId, tenantEmail);
-			if (this.isHTTPError(sendEmailResponse)) {
+			if (isHTTPError(sendEmailResponse)) {
 				alert(sendEmailResponse.message);
 				return false;
 			}
@@ -118,7 +115,7 @@ class AppContextClass {
 	public deleteLease = action(async (leaseId: number) => {
 		try {
 			const response = await LeaseService.deleteLease(leaseId);
-			if (!_.isUndefined(response) && this.isHTTPError(response)) {
+			if (!_.isUndefined(response) && isHTTPError(response)) {
 				alert(response.message);
 				return;
 			}
@@ -135,7 +132,7 @@ class AppContextClass {
 	public addUser = action(async (user: User) => {
 		try {
 			const response = await UserService.addUser(user);
-			if (this.isHTTPError(response)) {
+			if (isHTTPError(response)) {
 				alert(response.message);
 				return false;
 			}
@@ -166,7 +163,7 @@ class AppContextClass {
 	public addTodo = action(async (todo: Todo) => {
 		try {
 			const response = await TodoService.addTodo(todo);
-			if (this.isHTTPError(response)) {
+			if (isHTTPError(response)) {
 				alert(response.message);
 				return false;
 			}
@@ -184,7 +181,7 @@ class AppContextClass {
 
 	public deleteTodo = action(async (todoId: number) => {
 		const response = await TodoService.deleteTodo(todoId);
-		if (this.isHTTPError(response)) {
+		if (isHTTPError(response)) {
 			alert(response.message);
 			return;
 		}
@@ -204,7 +201,7 @@ class AppContextClass {
 		try {
 			if (_.isNil(this.SelectedProperty)) return [];
 			const response = await TodoService.getRecommendations(todoId, this.SelectedProperty.Address);
-			if (this.isHTTPError(response)) {
+			if (isHTTPError(response)) {
 				alert(response.message);
 				return [];
 			}

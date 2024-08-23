@@ -4,6 +4,7 @@ import {useAuthContext} from "../Contexts/AuthContext";
 import _ from "lodash";
 import LeaseService from "../Utils/Services/LeaseService";
 import TenantService from "../Utils/Services/TenantService";
+import isHTTPError from "@src/Utils/HttpError";
 
 export default function useGetLeasesAndTenants() {
 	const appContext = useAppContext();
@@ -17,19 +18,23 @@ export default function useGetLeasesAndTenants() {
 				!appContext.SelectedProperty.isRental
 			) return;
 
-			const response = await LeaseService.getLeases(appContext.SelectedProperty.PropertyId);
-			if (appContext.isHTTPError(response)) {
-				alert(response.message);
+			const leaseResponse = await LeaseService.getLeases(appContext.SelectedProperty.PropertyId);
+			if (isHTTPError(leaseResponse)) {
+				alert(leaseResponse.message);
 				return;
 			}
 
 			if (_.isEmpty(appContext.Tenants)){
-				const tenants= await TenantService.getTenants(authContext.uid);
-				appContext.setTenants(tenants);
+				const tenantResponse= await TenantService.getTenants(authContext.uid);
+				if (isHTTPError(tenantResponse)){
+					alert(tenantResponse.message);
+					return;
+				}
+				appContext.setTenants(tenantResponse as User[]);
 			}
 
-			if (!_.isNil(response)){
-				const leases = JSON.parse(response.toString()) as Lease[];
+			if (!_.isNil(leaseResponse)){
+				const leases = JSON.parse(leaseResponse.toString()) as Lease[];
 				appContext.setPropertyLeases(leases.map(lease => {
 					const matchingTenant = appContext.Tenants.find(tenant => tenant.LeaseId === lease.LeaseId);
 					return !_.isUndefined(matchingTenant) ? { ...lease, TenantName: matchingTenant.Name } : lease;

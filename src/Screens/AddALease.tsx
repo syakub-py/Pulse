@@ -9,8 +9,7 @@ import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import LeaseCard from "../Components/Leases/LeaseCard";
 import { useAppContext } from "../Contexts/AppContext";
-import TenantService from "../Utils/Services/TenantService";
-import LeaseService from "../Utils/Services/LeaseService";
+import ValidateLeaseInputs from "@src/Utils/ValidateInputs/ValidateLeaseInputs";
 
 function AddALease() {
 	const appContext = useAppContext();
@@ -28,33 +27,7 @@ function AddALease() {
 	const [newLeases, setNewLeases] = useState<Lease[]>([]);
 	const [tenantEmail, setTenantEmail] = useState("");
 
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	const areValidInputs = () => {
-		if (!leaseDetails.StartDate) {
-			alert("Start date is required");
-			return false;
-		} else if (!/^\d{4}-\d{2}-\d{2}$/.test(leaseDetails.StartDate)) {
-			alert("Invalid date format. Please use YYYY-MM-DD.");
-			return false;
-		}
 
-		if (!leaseDetails.EndDate) {
-			alert("End date is required");
-			return false;
-		} else if (!/^\d{4}-\d{2}-\d{2}$/.test(leaseDetails.EndDate)) {
-			alert("Invalid date format. Please use YYYY-MM-DD.");
-			return false;
-		}
-
-		if (!leaseDetails.MonthlyRent) {
-			alert("Monthly rent is required");
-			return false;
-		} else if (isNaN(Number(leaseDetails.MonthlyRent))) {
-			alert("Monthly rent must be a number");
-			return false;
-		}
-		return true;
-	};
 
 	const handleInputChange = useCallback((name:string, value:string | number) => {
 		setLeaseDetails({
@@ -63,7 +36,6 @@ function AddALease() {
 		});
 	}, [leaseDetails]);
 
-
 	const handleAddLease = useCallback(async () => {
 		try {
 			if (_.isNull(appContext.SelectedProperty?.PropertyId)){
@@ -71,7 +43,7 @@ function AddALease() {
 				return;
 			}
 
-			if (!areValidInputs()) return;
+			if (!ValidateLeaseInputs(leaseDetails)) return;
 			leaseDetails.TenantName = "Wait for tenant information...";
 
 			const isAddLeaseSuccessful = await appContext.addLease(leaseDetails, tenantEmail.toLowerCase());
@@ -92,7 +64,7 @@ function AddALease() {
 		} catch (error) {
 			console.error(error);
 		}
-	}, [appContext, areValidInputs, leaseDetails, newLeases, tenantEmail]);
+	}, [appContext, ValidateLeaseInputs, leaseDetails, newLeases, tenantEmail]);
 
 	const handleSubmit = useCallback(() =>{
 		navigation.navigate("BottomNavBar");

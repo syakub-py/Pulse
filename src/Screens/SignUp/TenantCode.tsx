@@ -9,6 +9,8 @@ import Header from "../../Components/Header";
 import BackButton from "../../Components/BackButton";
 import {useAuthContext} from "@src/Contexts/AuthContext";
 import {useAppContext} from "@src/Contexts/AppContext";
+import isHTTPError from "@src/Utils/HttpError";
+
 
 function TenantCode() {
 	const [code, setCode] = useState("");
@@ -25,7 +27,7 @@ function TenantCode() {
 
 		const isCodeValidResponse = await TenantService.isCodeValid(code);
 
-		if (appContext.isHTTPError(isCodeValidResponse)) {
+		if (isHTTPError(isCodeValidResponse)) {
 			alert(isCodeValidResponse.message);
 			return;
 		}

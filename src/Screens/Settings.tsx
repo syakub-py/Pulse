@@ -8,22 +8,23 @@ import Header from "../Components/Header";
 import { useAuthContext } from "../Contexts/AuthContext";
 import { useAppContext } from "../Contexts/AppContext";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import {useCallback} from "react";
 
 function Settings(){
 	const authContext = useAuthContext();
 	const appContext = useAppContext();
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Settings">>();
 
-	const logout = async () =>{
-		try{
+	const logout = useCallback(async () => {
+		try {
 			await authContext.logout();
 			appContext.logout();
-		}catch(e){
-			alert("there was an error logging out");
+		} catch (e) {
+			alert("There was an error logging out");
 			return;
 		}
 		navigation.navigate("Login");
-	};
+	}, [authContext, appContext, navigation]);
 
 	return (
 		<Layout>

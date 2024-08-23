@@ -5,14 +5,13 @@ import {Button, View, TextInput, StyleSheet, Image} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, {useCallback, useEffect, useState} from "react";
-import _ from "lodash";
 import BackButton from "../../Components/BackButton";
 import { useAppContext } from "@src/Contexts/AppContext";
 import UploadPictures from "../../Components/UploadPictures";
 import * as ImagePicker from "expo-image-picker";
 import {useAuthContext} from "@src/Contexts/AuthContext";
 import DropdownPicker, {ItemType} from "react-native-dropdown-picker";
-
+import ValidateAddUserInputs from "@src/Utils/ValidateInputs/ValidateAddUserInputs";
 function AddAUser() {
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "AddAUser">>();
 	const appContext = useAppContext();
@@ -55,53 +54,11 @@ function AddAUser() {
 		});
 	}, [userDetails]);
 
-	const areValidInputs = () => {
-		if (!userDetails.Name) {
-			alert("A Name is required");
-			return false;
-		}
-
-		if(_.isEmpty(DocumentPicture)){
-			alert("Please upload a document");
-			return false;
-		}
-
-		if (!userDetails.AnnualIncome || isNaN(Number(userDetails.AnnualIncome))) {
-			alert("Annual income is required and must be a number");
-			userDetails.AnnualIncome = 0;
-			return false;
-		}
-
-		if (!userDetails.PhoneNumber) {
-			alert("Phone number is required");
-			return false;
-		} else if (!/^\d{3}-\d{3}-\d{4}$/.test(userDetails.PhoneNumber)) {
-			alert("Invalid phone number format. Please use XXX-XXX-XXXX.");
-			return false;
-		}
-
-		if (!userDetails.DateOfBirth) {
-			alert("Date of birth is required");
-			return false;
-		} else if (!/^\d{4}-\d{2}-\d{2}$/.test(userDetails.DateOfBirth)) {
-			alert("Invalid date format. Please use YYYY-MM-DD.");
-			return false;
-		}
-
-		if (!userDetails.SocialSecurity) {
-			alert("Social Security Number is required");
-			return false;
-		} else if (!/^\d{3}-\d{2}-\d{4}$/.test(userDetails.SocialSecurity)) {
-			alert("Invalid Social Security Number format. Please use XXX-XX-XXXX.");
-			return false;
-		}
-		return true;
-	};
 
 
 	const handleAddUser = useCallback(async () => {
 		try {
-			if (!areValidInputs()) return;
+			if (!ValidateAddUserInputs(userDetails, DocumentPicture)) return;
 
 			userDetails.DocumentProvidedUrl = await appContext.uploadPicture(DocumentPicture, `/DocumentPictures/${userDetails.Email}/`);
 
