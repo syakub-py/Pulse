@@ -5,7 +5,7 @@ import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import _ from "lodash";
 
-export default function useGetAllDataFromStorage(): void {
+export default function useGetAllDataFromStorage() {
 	const authContext = useAuthContext();
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 	useEffect(() => {

@@ -38,7 +38,6 @@ class AppContextClass {
 	public addProperty = action(async (property: Property) => {
 		try {
 			if (!auth.currentUser?.uid) return false;
-			console.log(property);
 			const response = await PropertyService.addProperty(auth.currentUser.uid, property);
 			if (isHTTPError(response)) {
 				alert(response.message);

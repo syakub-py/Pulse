@@ -11,7 +11,7 @@ interface Props{
 export default function CarouselItem(props:Props){
 	const {item, onPress, selectedIndex, index} = props;
 	return (
-		<Pressable  onPress={()=>onPress} style={selectedIndex === index ? styles.selectedButton : styles.button}>
+		<Pressable  onPress={()=>onPress(index)} style={selectedIndex === index ? styles.selectedButton : styles.button}>
 			<Text style={selectedIndex === index ? styles.selectedText : styles.text}>
 				{item.Name}
 			</Text>
