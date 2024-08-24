@@ -78,6 +78,14 @@ declare global {
         rating:number
     }
 
+    interface ExpenseAnalytic {
+        name: string;
+        expenseAmount: number;
+        color: string;
+        legendFontColor: string;
+        legendFontSize: number;
+    }
+
     type RootStackParamList = {
         "BottomNavBar": undefined
         "Home": undefined

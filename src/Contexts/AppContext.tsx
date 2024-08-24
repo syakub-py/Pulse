@@ -13,10 +13,11 @@ import isHTTPError from "@src/Utils/HttpError";
 class AppContextClass {
 	public Properties: Property[] = [];
 	public Messages: IMessage[] = [];
-	public SelectedProperty: Property | null = null;
 	public SelectedPropertyLeases: Lease[] = [];
 	public SelectedPropertyTodos: Todo[] = [];
 	public Tenants: User[] = [];
+	public Expenses:ExpenseAnalytic[] = [];
+	public SelectedProperty: Property | null = null;
 	public SelectedTodo: Todo | null = null;
 
 	constructor() {
@@ -212,10 +213,15 @@ class AppContextClass {
 		}
 	});
 
-
 	public setMessages = action((messages: IMessage[]) => {
 		runInAction(() => {
 			this.Messages = messages.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+		});
+	});
+
+	public setExpenses = action((expenses: ExpenseAnalytic[]) => {
+		runInAction(()=>{
+			this.Expenses = expenses;
 		});
 	});
 
