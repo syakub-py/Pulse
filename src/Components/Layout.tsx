@@ -1,8 +1,7 @@
 import {SafeAreaView, StyleSheet} from "react-native";
-import { observer } from "mobx-react-lite";
 
 
-function Layout({ children }:{ children: React.ReactNode }) {
+export default function Layout({ children }:{ children: React.ReactNode }) {
 	return (
 		<SafeAreaView style={styles.container}>
 			{children}
@@ -10,7 +9,6 @@ function Layout({ children }:{ children: React.ReactNode }) {
 	);
 }
 
-export default observer(Layout);
 
 const styles = StyleSheet.create({
 	container: {

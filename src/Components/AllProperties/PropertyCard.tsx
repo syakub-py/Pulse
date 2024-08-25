@@ -1,4 +1,3 @@
-import {observer} from "mobx-react-lite";
 import {Text, View, StyleSheet} from "react-native";
 
 
@@ -6,7 +5,7 @@ interface Props{
 	property:Property;
 }
 
-function PropertyCard(props: Props) {
+export default function PropertyCard(props: Props) {
 	const { property } = props;
 	return (
 		<View style={styles.container}>
@@ -16,8 +15,6 @@ function PropertyCard(props: Props) {
 		</View>
 	);
 }
-
-export default observer(PropertyCard);
 
 const styles = StyleSheet.create({
 	container: {

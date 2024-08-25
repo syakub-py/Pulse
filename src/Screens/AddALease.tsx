@@ -22,7 +22,6 @@ function AddALease() {
 		isLeaseExpired: false,
 		TenantName: "",
 		Terms: "",
-		PropertyId: _.isNil(appContext.SelectedProperty) ? 0 :  appContext.SelectedProperty.PropertyId
 	});
 	const [newLeases, setNewLeases] = useState<Lease[]>([]);
 	const [tenantEmail, setTenantEmail] = useState("");
@@ -38,7 +37,7 @@ function AddALease() {
 
 	const handleAddLease = useCallback(async () => {
 		try {
-			if (_.isNull(appContext.SelectedProperty?.PropertyId)){
+			if (_.isNil(appContext.SelectedProperty?.PropertyId)){
 				alert("There is no property selected");
 				return;
 			}
@@ -58,11 +57,10 @@ function AddALease() {
 				StartDate: "",
 				EndDate: "",
 				MonthlyRent: null,
-				PropertyId: appContext.SelectedProperty.PropertyId
 			});
 			setTenantEmail("");
 		} catch (error) {
-			console.error(error);
+			console.error("error adding a lease" + error);
 		}
 	}, [appContext, ValidateLeaseInputs, leaseDetails, newLeases, tenantEmail]);
 

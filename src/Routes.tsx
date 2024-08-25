@@ -18,6 +18,7 @@ import { useAuthContext } from "./Contexts/AuthContext";
 import TenantCode from "./Screens/SignUp/TenantCode";
 import AddATodo from "./Screens/AddATodo";
 import TodoDetails from "./Screens/TodoDetails";
+import AddATransaction from "@src/Screens/AddATransaction";
 
 
 export default function Routes() {
@@ -51,5 +52,7 @@ export default function Routes() {
 		<Screen key = "TodoDetails" name="TodoDetails" component={TodoDetails} />,
 		<Screen key = "EnterTenantCode" name = "EnterTenantCode" component = {TenantCode}/>,
 		<Screen key = "AddAUser" name="AddAUser" component={AddATenant} />,
+		<Screen key = "AddATransaction" name="AddATransaction" component={AddATransaction} />,
+
 	];
 }

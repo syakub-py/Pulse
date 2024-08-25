@@ -41,7 +41,7 @@ export default function useGetLeasesAndTenants() {
 				}));
 			}
 		} catch (error) {
-			console.error(error);
+			console.error("error retrieving tenants and leases" + error);
 		} finally {
 			authContext.isLoadingAuth = false;
 		}

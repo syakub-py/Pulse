@@ -4,24 +4,33 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="fixed lint errors">
-      <change afterPath="$PROJECT_DIR$/src/Components/Home/CarouselItem.tsx" afterDir="false" />
+    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="adding and getting transactions">
+      <change afterPath="$PROJECT_DIR$/src/Screens/AddATransaction.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Home/HomeLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Home/HomeLayout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Home/HomesCarousel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Home/HomesCarousel.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Home/Properties.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Home/Properties.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Home/SelectedProperty.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Home/SelectedProperty.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Leases/AreLeases.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Leases/AreLeases.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Search.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Search.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Todo/RecommendationsCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Todo/RecommendationsCard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Todo/TodoCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Todo/TodoCard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Todo/TodoDetails/TodoInformation.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Todo/TodoDetails/TodoInformation.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/TrashButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/TrashButton.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screens/AddATodo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/AddATodo.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screens/Leases.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/Leases.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screens/Settings.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/Settings.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/AllProperties/PropertyCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/AllProperties/PropertyCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/AllTenants/TenantCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/AllTenants/TenantCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Analytics/SubHeader.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Analytics/SubHeader.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/BackButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/BackButton.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Header.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Home/NoProperties.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Home/NoProperties.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Leases/LeaseCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Leases/LeaseCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Leases/LeaseDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Leases/LeaseDetails.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Leases/NoLeases.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Leases/NoLeases.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/PulseAI/MessageInputBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/PulseAI/MessageInputBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Settings/Setting.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Settings/Setting.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/SignUp/PasswordRequirementCheckBox.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/SignUp/PasswordRequirementCheckBox.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/SignUp/Requirement.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/SignUp/Requirement.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/UploadPictures.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/UploadPictures.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contexts/AppContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/AppContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hooks/useCreateChatIfDoesntExist.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useCreateChatIfDoesntExist.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hooks/useGetLeasesAndTenants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useGetLeasesAndTenants.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hooks/useLogin.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useLogin.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/AddALease.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/AddALease.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/Analytics.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/Analytics.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Screens/SignUp/AddAUser.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/SignUp/AddAUser.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screens/TodoDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/TodoDetails.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Types/Global.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Types/Global.d.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,21 +74,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;#19 on AIintegration&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/boss/Programming Projects/Pulse/assets/DefaultPictures&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;npm.start.executor&quot;: &quot;Run&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Users/boss/Programming Projects/Pulse/node_modules/typescript/lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "AIintegration",
+    "last_opened_file_path": "/Users/boss/Programming Projects/Pulse/assets/DefaultPictures",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "npm.start.executor": "Run",
+    "ts.external.directory.path": "/Users/boss/Programming Projects/Pulse/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/assets/DefaultPictures" />
@@ -215,47 +224,12 @@
       <workItem from="1724249924496" duration="10184000" />
       <workItem from="1724337803906" duration="1145000" />
       <workItem from="1724340295003" duration="62000" />
-      <workItem from="1724369564615" duration="2020000" />
-    </task>
-    <task id="LOCAL-00061" summary="minor fixes">
-      <option name="closed" value="true" />
-      <created>1722954731467</created>
-      <option name="number" value="00061" />
-      <option name="presentableId" value="LOCAL-00061" />
-      <option name="project" value="LOCAL" />
-      <updated>1722954731467</updated>
-    </task>
-    <task id="LOCAL-00062" summary="final touches">
-      <option name="closed" value="true" />
-      <created>1722955968284</created>
-      <option name="number" value="00062" />
-      <option name="presentableId" value="LOCAL-00062" />
-      <option name="project" value="LOCAL" />
-      <updated>1722955968284</updated>
-    </task>
-    <task id="LOCAL-00063" summary="Fixed hook dependencies">
-      <option name="closed" value="true" />
-      <created>1722963974842</created>
-      <option name="number" value="00063" />
-      <option name="presentableId" value="LOCAL-00063" />
-      <option name="project" value="LOCAL" />
-      <updated>1722963974842</updated>
-    </task>
-    <task id="LOCAL-00064" summary="Init commit">
-      <option name="closed" value="true" />
-      <created>1722965566733</created>
-      <option name="number" value="00064" />
-      <option name="presentableId" value="LOCAL-00064" />
-      <option name="project" value="LOCAL" />
-      <updated>1722965566733</updated>
-    </task>
-    <task id="LOCAL-00065" summary="changed the end points">
-      <option name="closed" value="true" />
-      <created>1722966461596</created>
-      <option name="number" value="00065" />
-      <option name="presentableId" value="LOCAL-00065" />
-      <option name="project" value="LOCAL" />
-      <updated>1722966461596</updated>
+      <workItem from="1724369564615" duration="2203000" />
+      <workItem from="1724441486958" duration="2791000" />
+      <workItem from="1724449198110" duration="2027000" />
+      <workItem from="1724508720931" duration="9312000" />
+      <workItem from="1724540848103" duration="5821000" />
+      <workItem from="1724558820031" duration="1772000" />
     </task>
     <task id="LOCAL-00066" summary="add error handling">
       <option name="closed" value="true" />
@@ -609,7 +583,47 @@
       <option name="project" value="LOCAL" />
       <updated>1724338937247</updated>
     </task>
-    <option name="localTasksCounter" value="110" />
+    <task id="LOCAL-00110" summary="made most recommended changes">
+      <option name="closed" value="true" />
+      <created>1724371753332</created>
+      <option name="number" value="00110" />
+      <option name="presentableId" value="LOCAL-00110" />
+      <option name="project" value="LOCAL" />
+      <updated>1724371753332</updated>
+    </task>
+    <task id="LOCAL-00111" summary="fixing issues">
+      <option name="closed" value="true" />
+      <created>1724445699262</created>
+      <option name="number" value="00111" />
+      <option name="presentableId" value="LOCAL-00111" />
+      <option name="project" value="LOCAL" />
+      <updated>1724445699262</updated>
+    </task>
+    <task id="LOCAL-00112" summary="finished fixing errors">
+      <option name="closed" value="true" />
+      <created>1724451180891</created>
+      <option name="number" value="00112" />
+      <option name="presentableId" value="LOCAL-00112" />
+      <option name="project" value="LOCAL" />
+      <updated>1724451180891</updated>
+    </task>
+    <task id="LOCAL-00113" summary="started analytics">
+      <option name="closed" value="true" />
+      <created>1724537120799</created>
+      <option name="number" value="00113" />
+      <option name="presentableId" value="LOCAL-00113" />
+      <option name="project" value="LOCAL" />
+      <updated>1724537120799</updated>
+    </task>
+    <task id="LOCAL-00114" summary="adding and getting transactions">
+      <option name="closed" value="true" />
+      <created>1724551608278</created>
+      <option name="number" value="00114" />
+      <option name="presentableId" value="LOCAL-00114" />
+      <option name="project" value="LOCAL" />
+      <updated>1724551608278</updated>
+    </task>
+    <option name="localTasksCounter" value="115" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -628,11 +642,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix lint errors" />
-    <MESSAGE value="fix env errors" />
-    <MESSAGE value="add todo working" />
-    <MESSAGE value="getTodos working" />
-    <MESSAGE value="getTodos bug fixed" />
     <MESSAGE value="todo details working" />
     <MESSAGE value="delete todo working" />
     <MESSAGE value="work on todo" />
@@ -653,6 +662,11 @@
     <MESSAGE value="add search on tenants name to lease" />
     <MESSAGE value="Todo card ui work" />
     <MESSAGE value="fixed lint errors" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed lint errors" />
+    <MESSAGE value="made most recommended changes" />
+    <MESSAGE value="fixing issues" />
+    <MESSAGE value="finished fixing errors" />
+    <MESSAGE value="started analytics" />
+    <MESSAGE value="adding and getting transactions" />
+    <option name="LAST_COMMIT_MESSAGE" value="adding and getting transactions" />
   </component>
 </project>

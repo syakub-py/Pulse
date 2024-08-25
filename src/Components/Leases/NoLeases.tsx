@@ -1,7 +1,6 @@
-import {observer} from "mobx-react-lite";
 import {View, Text, StyleSheet} from "react-native";
 
-function NoLeases() {
+export default function NoLeases() {
 	return(
 		<View style={styles.container}>
 			<Text style={styles.text}>This property has no leases</Text>
@@ -9,7 +8,6 @@ function NoLeases() {
 	);
 }
 
-export default observer(NoLeases);
 
 const styles = StyleSheet.create({
 	container:{

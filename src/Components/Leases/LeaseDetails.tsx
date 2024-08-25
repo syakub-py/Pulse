@@ -1,5 +1,4 @@
-import {observer} from "mobx-react-lite";
-import {View, Text, Button, StyleSheet, Image} from "react-native";
+import {View, Text, StyleSheet, Image} from "react-native";
 import Modal from "react-native-modal";
 import SubHeader from "../Analytics/SubHeader";
 
@@ -9,7 +8,7 @@ interface Props {
 	tenant?:User
 }
 
-function LeaseDetails(props:Props){
+export default function LeaseDetails(props:Props){
 	const {toggleModal, lease, tenant} = props;
 	return (
 		<View style={styles.container}>
@@ -42,7 +41,6 @@ function LeaseDetails(props:Props){
 
 }
 
-export default observer(LeaseDetails);
 
 const styles = StyleSheet.create({
 	container: {

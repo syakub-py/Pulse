@@ -103,7 +103,7 @@ function AddAUser() {
 		<Layout>
 			<View style={styles.headerContainer}>
 				<BackButton/>
-				<Header title={"Please fill out all your information"} />
+				<Header title={"Additional information"} />
 			</View>
 			<View style={styles.contentContainer}>
 				<DropdownPicker

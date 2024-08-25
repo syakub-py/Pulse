@@ -2,7 +2,7 @@ import {observer} from "mobx-react-lite";
 import Layout from "../Components/Layout";
 import Header from "../Components/Header";
 import {BarChart, PieChart} from "react-native-chart-kit";
-import {Dimensions, ScrollView} from "react-native";
+import {Dimensions, ScrollView, Text, View} from "react-native";
 import SubHeader from "../Components/Analytics/SubHeader";
 import {useAppContext} from "../Contexts/AppContext";
 import useGenerateAnalytics from "@src/Hooks/useGenerateAnalytics";
@@ -30,6 +30,14 @@ function Analytics(){
 		<Layout>
 			<Header title={"Your Analytics"}/>
 			<ScrollView>
+				<SubHeader title={"Transactions"}/>
+				{
+					appContext.Transactions.map((transaction)=>(
+						<View key={transaction.id}>
+							<Text></Text>
+						</View>
+					))
+				}
 				<SubHeader title={"Income"}/>
 				{/*<BarChart*/}
 				{/*	data={data}*/}
@@ -39,7 +47,7 @@ function Analytics(){
 				{/*	chartConfig={chartConfig}*/}
 				{/*	verticalLabelRotation={30}*/}
 				{/*/>*/}
-				<SubHeader title={"Expenses"}/>
+				<SubHeader title={"Expense Break down"}/>
 				<PieChart
 					data={appContext.ExpenseAnalyticData}
 					width={Dimensions.get("window").width}

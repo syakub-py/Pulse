@@ -1,4 +1,3 @@
-import {observer} from "mobx-react-lite";
 import {Pressable, StyleSheet, Text} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
@@ -6,7 +5,7 @@ interface Props{
 	onClick:()=>void
 }
 
-function NoProperties(props: Props) {
+export default function NoProperties(props: Props) {
 	const {onClick} = props;
 
 	return (
@@ -17,7 +16,6 @@ function NoProperties(props: Props) {
 	);
 }
 
-export default observer(NoProperties);
 
 const styles = StyleSheet.create({
 	container:{

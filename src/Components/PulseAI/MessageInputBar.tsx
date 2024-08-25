@@ -1,9 +1,8 @@
 import { StyleSheet } from "react-native";
 import {InputToolbar, InputToolbarProps, IMessage, Composer, SendProps} from "react-native-gifted-chat";
 import MessageSendButton from "../Buttons/MessageSendButton";
-import {observer} from "mobx-react-lite";
 
-function MessageInputBar(props: InputToolbarProps<IMessage>) {
+export default function MessageInputBar(props: InputToolbarProps<IMessage>) {
 	return (
 		<InputToolbar
 			{...props}
@@ -28,7 +27,6 @@ function MessageInputBar(props: InputToolbarProps<IMessage>) {
 	);
 }
 
-export default observer(MessageInputBar);
 
 const styles = StyleSheet.create({
 	inputContainer: {

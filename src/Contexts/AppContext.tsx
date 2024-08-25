@@ -129,7 +129,7 @@ class AppContextClass {
 			});
 		} catch (e) {
 			alert(e);
-			console.error(e);
+			console.error("Error deleting lease: " + e);
 		}
 	});
 
@@ -235,15 +235,22 @@ class AppContextClass {
 	});
 
 	public addTransaction = action(async (transaction: PropertyTransaction) => {
-		const addTransactionResponse = await TransactionService.addTransaction(transaction);
-		if (isHTTPError(addTransactionResponse)){
-			alert(addTransactionResponse.message);
-			return false;
+		try{
+			const addTransactionResponse = await TransactionService.addTransaction(transaction);
+			if (isHTTPError(addTransactionResponse)){
+				alert(addTransactionResponse.message);
+				return;
+			}
+			transaction.id = addTransactionResponse;
+			runInAction(() => {
+				this.Transactions.push(transaction);
+			});
+			return;
+		}catch (e){
+			console.error("Error adding transaction:", e);
+			return;
 		}
-		runInAction(() => {
-			this.Transactions.push(transaction);
-		});
-		return true;
+
 	});
 
 	public logout() {
@@ -266,7 +273,7 @@ class AppContextClass {
 			await storageRef.put(blob);
 			return await storageRef.getDownloadURL();
 		} catch (error) {
-			console.error(error);
+			console.error("error uploading picture: " + error);
 			return "";
 		}
 	};

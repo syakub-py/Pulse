@@ -1,4 +1,3 @@
-import {observer} from "mobx-react-lite";
 import {StyleSheet, Text, View} from "react-native";
 
 
@@ -7,7 +6,7 @@ interface Props{
 }
 
 
-function Header(props: Props) {
+export default function Header(props: Props) {
 	const {title} = props;
 	return (
 		<View style={styles.container}>
@@ -17,7 +16,6 @@ function Header(props: Props) {
 
 }
 
-export default observer(Header);
 
 const styles = StyleSheet.create({
 	title:{

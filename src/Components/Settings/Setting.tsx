@@ -1,13 +1,12 @@
 import {Text, StyleSheet, Pressable} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import {observer} from "mobx-react-lite";
 
 interface Props{
 	onClick?: ()=>void
 	title:string
 }
 
-function Setting(props: Props){
+export default function Setting(props: Props){
 	const {title, onClick} = props;
 	return(
 		<Pressable style={styles.container} onPress={onClick}>
@@ -17,7 +16,6 @@ function Setting(props: Props){
 	);
 }
 
-export default observer(Setting);
 
 const styles = StyleSheet.create({
 	title:{

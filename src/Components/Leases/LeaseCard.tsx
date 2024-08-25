@@ -20,8 +20,6 @@ function LeaseCard(props: Props) {
 				Monthly Rent: ${lease.MonthlyRent?.toLocaleString("en-US", { style: "currency", currency: "USD" })}
 			</Text>
 			<Text style={styles.text}>Address: {appContext.SelectedProperty?.Address}</Text>
-			{/*<Text style={styles.text}>Status: {lease.Status}</Text>*/}
-			{/*<Text style={styles.text}>Next Payment Due: {lease.NextPaymentDue}</Text>*/}
 		</View>
 	);
 }

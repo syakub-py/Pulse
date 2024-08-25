@@ -13,7 +13,7 @@ export default function useCreateChatIfDoesntExist() {
 			if (_.isUndefined(chatId) || _.isEmpty(authContext.uid)) return;
 			await ChatService.createChat(authContext.uid);
 		}catch(e){
-			console.error(e);
+			console.error("error creating chat: " + e);
 		}
 	}, [authContext.uid]);
 

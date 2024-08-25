@@ -15,11 +15,9 @@ declare global {
     interface Lease {
         LeaseId: number;
         TenantName: string;
-        TenantUid?:string;
         StartDate: string;
         EndDate: string;
         MonthlyRent: number | null;
-        PropertyId: number;
         Terms:string;
         isLeaseExpired: boolean;
         isTenantCodeExpired?: boolean;
@@ -87,6 +85,7 @@ declare global {
     }
 
     interface PropertyTransaction {
+        id?:number
         userId?:string
         propertyId?:number;
         amount: number
@@ -111,6 +110,7 @@ declare global {
         "AddATodo": undefined,
         "AddALease":undefined,
         "AddAUser": undefined,
+        "AddATransaction": undefined,
         "EnterTenantCode": undefined,
         "TodoDetails": { selectedTodoIndex:number },
     }
