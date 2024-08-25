@@ -3,7 +3,6 @@ import {useAppContext} from "../Contexts/AppContext";
 import _ from "lodash";
 import AnalyticsService from "@src/Utils/Services/AnalyticsService";
 import isHTTPError from "@src/Utils/HttpError";
-import {useAuthContext} from "@src/Contexts/AuthContext";
 
 export default function useGenerateAnalytics(){
 	const appContext = useAppContext();
@@ -14,11 +13,11 @@ export default function useGenerateAnalytics(){
 			alert(response.message);
 			return;
 		}
-		appContext.setExpenses(response as ExpenseAnalytic[]);
+		appContext.setExpenseAnalyticData(response as ExpenseAnalytic[]);
 	},[]);
 
 	useEffect(() => {
 		void fetchData();
-	}, [fetchData, appContext.SelectedProperty]);
+	}, [fetchData, appContext.SelectedProperty, appContext.Transactions]);
 }
 

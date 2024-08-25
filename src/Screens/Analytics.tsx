@@ -1,16 +1,16 @@
 import {observer} from "mobx-react-lite";
 import Layout from "../Components/Layout";
 import Header from "../Components/Header";
-import {LineChart, PieChart} from "react-native-chart-kit";
-import {ActivityIndicator, Dimensions, ScrollView} from "react-native";
+import {BarChart, PieChart} from "react-native-chart-kit";
+import {Dimensions, ScrollView} from "react-native";
 import SubHeader from "../Components/Analytics/SubHeader";
 import {useAppContext} from "../Contexts/AppContext";
 import useGenerateAnalytics from "@src/Hooks/useGenerateAnalytics";
+import useFetchTransactions from "@src/Hooks/useFetchTransactions";
 
 
 const chartConfig = {
-
-	backgroundColor: "transparent",
+	backgroundColor: "#333",
 	labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
 	decimalPlaces: 2,
 	color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
@@ -24,23 +24,24 @@ const chartConfig = {
 
 function Analytics(){
 	useGenerateAnalytics();
+	useFetchTransactions();
 	const appContext = useAppContext();
-
 	return (
 		<Layout>
 			<Header title={"Your Analytics"}/>
 			<ScrollView>
-				<SubHeader title={"Projected Income"}/>
-				{/*<LineChart*/}
-				{/*	data={lineGraphData}*/}
-				{/*	width={Dimensions.get("window").width}*/}
-				{/*	height={200}*/}
+				<SubHeader title={"Income"}/>
+				{/*<BarChart*/}
+				{/*	data={data}*/}
+				{/*	width={screenWidth}*/}
+				{/*	height={220}*/}
+				{/*	yAxisLabel="$"*/}
 				{/*	chartConfig={chartConfig}*/}
-				{/*	bezier*/}
+				{/*	verticalLabelRotation={30}*/}
 				{/*/>*/}
-				<SubHeader title={"Broken Down Expenses"}/>
+				<SubHeader title={"Expenses"}/>
 				<PieChart
-					data={appContext.Expenses}
+					data={appContext.ExpenseAnalyticData}
 					width={Dimensions.get("window").width}
 					height={200}
 					chartConfig={chartConfig}

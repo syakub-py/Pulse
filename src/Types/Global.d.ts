@@ -86,6 +86,15 @@ declare global {
         legendFontSize: number;
     }
 
+    interface PropertyTransaction {
+        userId?:string
+        propertyId?:number;
+        amount: number
+        description: string
+        transactionType: string
+        incomeOrExpense:string
+    }
+
     type RootStackParamList = {
         "BottomNavBar": undefined
         "Home": undefined

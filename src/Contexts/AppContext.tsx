@@ -8,6 +8,7 @@ import _, {toNumber} from "lodash";
 import TodoService from "../Utils/Services/TodoService";
 import UserService from "@src/Utils/Services/UserService";
 import isHTTPError from "@src/Utils/HttpError";
+import TransactionService from "@src/Utils/Services/TransactionService";
 
 
 class AppContextClass {
@@ -16,9 +17,11 @@ class AppContextClass {
 	public SelectedPropertyLeases: Lease[] = [];
 	public SelectedPropertyTodos: Todo[] = [];
 	public Tenants: User[] = [];
-	public Expenses:ExpenseAnalytic[] = [];
+	public ExpenseAnalyticData:ExpenseAnalytic[] = [];
+	public Transactions: PropertyTransaction[] = [];
 	public SelectedProperty: Property | null = null;
 	public SelectedTodo: Todo | null = null;
+
 
 	constructor() {
 		makeAutoObservable(this);
@@ -219,10 +222,28 @@ class AppContextClass {
 		});
 	});
 
-	public setExpenses = action((expenses: ExpenseAnalytic[]) => {
+	public setExpenseAnalyticData = action((expenseAnalytics: ExpenseAnalytic[]) => {
 		runInAction(()=>{
-			this.Expenses = expenses;
+			this.ExpenseAnalyticData = expenseAnalytics;
 		});
+	});
+
+	public setTransactions = action((transactions: PropertyTransaction[]) => {
+		runInAction(() => {
+			this.Transactions = transactions;
+		});
+	});
+
+	public addTransaction = action(async (transaction: PropertyTransaction) => {
+		const addTransactionResponse = await TransactionService.addTransaction(transaction);
+		if (isHTTPError(addTransactionResponse)){
+			alert(addTransactionResponse.message);
+			return false;
+		}
+		runInAction(() => {
+			this.Transactions.push(transaction);
+		});
+		return true;
 	});
 
 	public logout() {
