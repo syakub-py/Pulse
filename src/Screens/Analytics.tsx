@@ -7,6 +7,9 @@ import SubHeader from "../Components/Analytics/SubHeader";
 import {useAppContext} from "../Contexts/AppContext";
 import useGenerateAnalytics from "@src/Hooks/useGenerateAnalytics";
 import useFetchTransactions from "@src/Hooks/useFetchTransactions";
+import FloatingActionButton from "@src/Components/Buttons/FloatingActionButton";
+import {useNavigation} from "@react-navigation/native";
+import {StackNavigationProp} from "@react-navigation/stack";
 
 
 const chartConfig = {
@@ -26,6 +29,7 @@ function Analytics(){
 	useGenerateAnalytics();
 	useFetchTransactions();
 	const appContext = useAppContext();
+	const navigation =useNavigation<StackNavigationProp<RootStackParamList, "Analytics">>();
 	return (
 		<Layout>
 			<Header title={"Your Analytics"}/>
@@ -59,6 +63,7 @@ function Analytics(){
 					absolute
 				/>
 			</ScrollView>
+			<FloatingActionButton onPress={()=>navigation.navigate("AddATransaction")} icon={"add"} text={"Add Transaction"} />
 		</Layout>
 	);
 }

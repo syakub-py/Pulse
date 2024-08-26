@@ -9,7 +9,7 @@ export default new class TransactionService {
 	}
 
 	async getTransaction(propertyId:number):Promise<PropertyTransaction[] | HTTPError> {
-		const response = await http.get(`${this.serviceHeader}/getTransactions/${propertyId}`);
+		const response = await http.get(`${this.serviceHeader}/getTransaction/${propertyId}`);
 		return JSON.parse(response.data);
 	}
 }();

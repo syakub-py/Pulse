@@ -73,14 +73,7 @@ function AddAUser() {
 		} catch (error) {
 			alert("There was an issue on our end. Please try again later.");
 		}
-	}, [
-		appContext,
-		authContext,
-		navigation,
-		userDetails,
-		DocumentPicture,
-		LeaseId,
-	]);
+	}, []);
 
 	const selectPicture = async () => {
 		const result = await ImagePicker.launchImageLibraryAsync({
