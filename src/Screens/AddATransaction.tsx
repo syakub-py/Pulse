@@ -59,7 +59,7 @@ function AddATransaction() {
 			setIsLoading(false);
 			navigation.goBack();
 		}
-	}, [transactionDetails, appContext, authContext]);
+	}, [transactionDetails, appContext, authContext.uid, incomeOrExpense, transactionType, navigation]);
 
 	const handleInputChange = (field: keyof PropertyTransaction, value: string | number) => {
 		setTransactionDetails((prev) => ({ ...prev, [field]: value }));

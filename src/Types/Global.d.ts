@@ -21,6 +21,7 @@ declare global {
         Terms:string;
         isLeaseExpired: boolean;
         isTenantCodeExpired?: boolean;
+        TenantUid?:string
     }
 
     interface HTTPError{

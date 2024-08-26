@@ -14,6 +14,7 @@ export default function useGenerateAnalytics(){
 			return;
 		}
 		appContext.setExpenseAnalyticData(response as ExpenseAnalytic[]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	},[]);
 
 	useEffect(() => {

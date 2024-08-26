@@ -30,7 +30,7 @@ function AreLeases(){
 		setModalVisible(prevState => !prevState);
 	}, []);
 
-	const deleteLease = useCallback(async (leaseId: number) => {
+	const deleteLease = useCallback(async (leaseId: number | undefined) => {
 		if (_.isUndefined(leaseId)) return;
 		await appContext.deleteLease(leaseId);
 	}, [appContext]);
@@ -45,7 +45,8 @@ function AreLeases(){
 		return !_.isEmpty(searchQuery)
 			? fuse.search(searchQuery).map(result => result.item)
 			: appContext.SelectedPropertyLeases;
-	}, [searchQuery, appContext.SelectedPropertyLeases]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [fuse, appContext.SelectedPropertyLeases]);
 
 	return(
 		<View>

@@ -53,8 +53,6 @@ function AddAUser() {
 		});
 	}, [userDetails]);
 
-
-
 	const handleAddUser = useCallback(async () => {
 		try {
 			if (!ValidateAddUserInputs(userDetails, DocumentPicture)) return;
@@ -72,6 +70,7 @@ function AddAUser() {
 		} catch (error) {
 			alert("There was an issue on our end. Please try again later.");
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [userDetails, DocumentPicture, appContext, authContext, LeaseId, navigation]);
 
 	const selectPicture = async () => {
