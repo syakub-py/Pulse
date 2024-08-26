@@ -72,7 +72,7 @@ function AddATodo(){
 		<Layout>
 			<View style={styles.header}>
 				<BackButton/>
-				<Header title={"Add a Todo"}/>
+				<Header title={"Add Todo"}/>
 			</View>
 			<TextInput
 				style={styles.input}

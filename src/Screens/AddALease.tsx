@@ -26,7 +26,6 @@ function AddALease() {
 	const [tenantEmail, setTenantEmail] = useState("");
 
 
-
 	const handleInputChange = useCallback((name:string, value:string | number) => {
 		setLeaseDetails({
 			...leaseDetails,
