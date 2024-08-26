@@ -15,7 +15,6 @@ function AddALease() {
 	const appContext = useAppContext();
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "AddALease">>();
 	const [leaseDetails, setLeaseDetails] = useState<Lease>({
-		LeaseId:0,
 		StartDate: "",
 		EndDate: "",
 		MonthlyRent: null,
@@ -36,43 +35,42 @@ function AddALease() {
 	}, [leaseDetails]);
 
 	const handleAddLease = useCallback(async () => {
-		try {
-			if (_.isNil(appContext.SelectedProperty?.PropertyId)){
-				alert("There is no property selected");
-				return;
-			}
+	    try {
+	        if (_.isNil(appContext.SelectedProperty?.PropertyId)) {
+	            alert("There is no property selected");
+	            return;
+	        }
 
-			if (!ValidateLeaseInputs(leaseDetails)) return;
-			leaseDetails.TenantName = "Wait for tenant information...";
+	        if (!ValidateLeaseInputs(leaseDetails)) return;
+	        leaseDetails.TenantName = "Wait for tenant information...";
 
-			const isAddLeaseSuccessful = await appContext.addLease(leaseDetails, tenantEmail.toLowerCase());
-			if (!isAddLeaseSuccessful) return;
+	        const isAddLeaseSuccessful = await appContext.addLease(leaseDetails, tenantEmail.toLowerCase());
+	        if (!isAddLeaseSuccessful) return;
 
-			setNewLeases([...newLeases, leaseDetails]);
-			setLeaseDetails({
-				isLeaseExpired: false,
-				TenantName: "",
-				Terms: "",
-				LeaseId: 0,
-				StartDate: "",
-				EndDate: "",
-				MonthlyRent: null,
-			});
-			setTenantEmail("");
-		} catch (error) {
-			console.error("error adding a lease" + error);
-		}
-	}, [appContext, ValidateLeaseInputs, leaseDetails, newLeases, tenantEmail]);
+	        setNewLeases([...newLeases, leaseDetails]);
+	        setLeaseDetails({
+	            isLeaseExpired: false,
+	            TenantName: "",
+	            Terms: "",
+	            StartDate: "",
+	            EndDate: "",
+	            MonthlyRent: null,
+	        });
+	        setTenantEmail("");
+	    } catch (error) {
+	        console.error("error adding a lease" + error);
+	    }
+	}, [appContext, leaseDetails, tenantEmail, newLeases, setLeaseDetails]);
 
-	const handleSubmit = useCallback(() =>{
+	const handleSubmit = () =>{
 		navigation.navigate("BottomNavBar");
-	}, [navigation]);
+	};
 
 	return (
 		<Layout>
 			<View style={styles.headerContainer}>
 				<BackButton/>
-				<Header title={"Add A Lease"} />
+				<Header title={"Add Lease"} />
 			</View>
 			<View style={styles.container}>
 				<View style={styles.inputContainer}>

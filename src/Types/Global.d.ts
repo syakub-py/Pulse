@@ -13,7 +13,7 @@ declare global {
     }
 
     interface Lease {
-        LeaseId: number;
+        LeaseId?: number;
         TenantName: string;
         StartDate: string;
         EndDate: string;

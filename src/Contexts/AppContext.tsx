@@ -108,6 +108,7 @@ class AppContextClass {
 				this.SelectedPropertyLeases.push(lease);
 			});
 			alert("Sent invite to " + tenantEmail.toLowerCase());
+			lease.LeaseId = 0;
 			return true;
 		} catch (e) {
 			alert(e);

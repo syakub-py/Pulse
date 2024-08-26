@@ -37,19 +37,20 @@ function AddAProperty() {
 		setPropertyDetails((prev) => ({ ...prev, [field]: value }));
 	};
 
-	const handleSubmit = async (): Promise<void> => {
-		propertyDetails.PropertyType = selectedPropertyType;
+	const handleSubmit = useCallback(async (): Promise<void> => {
+	    propertyDetails.PropertyType = selectedPropertyType;
 
-		const isAddPropertySuccessful = await appContext.addProperty(propertyDetails);
+	    const isAddPropertySuccessful = await appContext.addProperty(propertyDetails);
 
-		if (!isAddPropertySuccessful) return;
-		if (propertyDetails.isRental){
-			appContext.setSelectedProperty(propertyDetails);
-			navigation.navigate("AddALease");
-		}else{
-			navigation.navigate("BottomNavBar");
-		}
-	};
+	    if (!isAddPropertySuccessful) return;
+
+	    if (propertyDetails.isRental) {
+	        appContext.setSelectedProperty(propertyDetails);
+	        navigation.navigate("AddALease");
+	    } else {
+	        navigation.navigate("BottomNavBar");
+	    }
+	}, [selectedPropertyType, appContext, propertyDetails, navigation]);
 
 	return (
 		<SafeAreaView style={styles.container}>

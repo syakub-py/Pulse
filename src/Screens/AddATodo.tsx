@@ -105,7 +105,6 @@ function AddATodo(){
 					<Button title="Add Todo" onPress={handleSubmit} />
 				)
 			}
-
 		</Layout>
 	);
 }

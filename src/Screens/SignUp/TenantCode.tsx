@@ -19,28 +19,28 @@ function TenantCode() {
 	const appContext = useAppContext();
 
 
-	const handleCodeSubmit = useCallback(async () => {
-		if (code.length !== 6) {
-			alert("Please make sure the code is six digits");
-			return;
-		}
+    const handleCodeSubmit = useCallback(async () => {
+        if (code.length !== 6) {
+            alert("Please make sure the code is six digits");
+            return;
+        }
 
-		const isCodeValidResponse = await TenantService.isCodeValid(code);
+        const isCodeValidResponse = await TenantService.isCodeValid(code);
 
-		if (isHTTPError(isCodeValidResponse)) {
-			alert(isCodeValidResponse.message);
-			return;
-		}
+        if (isHTTPError(isCodeValidResponse)) {
+            alert(isCodeValidResponse.message);
+            return;
+        }
 
-		if (!isCodeValidResponse.isValid) {
-			alert("Invalid code or code expired");
-			return;
-		}
-		authContext.setLeaseId(isCodeValidResponse.lease_id);
-		navigation.navigate("AddAUser");
-		/* eslint-disable react-hooks/exhaustive-deps */
-	}, [authContext, code, navigation]);
+        if (!isCodeValidResponse.isValid) {
+            alert("Invalid code or code expired");
+            return;
+        }
 
+        authContext.setLeaseId(isCodeValidResponse.lease_id);
+        navigation.navigate("AddAUser");
+    }, [code, authContext, navigation]);
+    
 	return (
 		<Layout>
 			<View style={styles.headerContainer}>
