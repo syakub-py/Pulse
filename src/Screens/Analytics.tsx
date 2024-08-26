@@ -1,8 +1,8 @@
 import {observer} from "mobx-react-lite";
 import Layout from "../Components/Layout";
 import Header from "../Components/Header";
-import {BarChart, PieChart} from "react-native-chart-kit";
-import {Dimensions, ScrollView, Text, View} from "react-native";
+import {PieChart} from "react-native-chart-kit";
+import {Dimensions, FlatList, ScrollView} from "react-native";
 import SubHeader from "../Components/Analytics/SubHeader";
 import {useAppContext} from "../Contexts/AppContext";
 import useGenerateAnalytics from "@src/Hooks/useGenerateAnalytics";
@@ -10,6 +10,7 @@ import useFetchTransactions from "@src/Hooks/useFetchTransactions";
 import FloatingActionButton from "@src/Components/Buttons/FloatingActionButton";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
+import TransactionCard from "@src/Components/Analytics/TransactionCard";
 
 
 const chartConfig = {
@@ -33,24 +34,12 @@ function Analytics(){
 	return (
 		<Layout>
 			<Header title={"Your Analytics"}/>
+			<SubHeader title={"Transactions"}/>
+			<FlatList data={appContext.Transactions}
+					  renderItem={({item, index})=>(
+						  <TransactionCard key={index} transaction={item}/>
+					  )}/>
 			<ScrollView>
-				<SubHeader title={"Transactions"}/>
-				{
-					appContext.Transactions.map((transaction)=>(
-						<View key={transaction.id}>
-							<Text></Text>
-						</View>
-					))
-				}
-				<SubHeader title={"Income"}/>
-				{/*<BarChart*/}
-				{/*	data={data}*/}
-				{/*	width={screenWidth}*/}
-				{/*	height={220}*/}
-				{/*	yAxisLabel="$"*/}
-				{/*	chartConfig={chartConfig}*/}
-				{/*	verticalLabelRotation={30}*/}
-				{/*/>*/}
 				<SubHeader title={"Expense Break down"}/>
 				<PieChart
 					data={appContext.ExpenseAnalyticData}

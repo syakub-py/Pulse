@@ -54,7 +54,12 @@ function BottomNavigationBar() {
 				) : null
 			}
 			<Tab.Screen name={"AI"} component={PulseAI} />
-			<Tab.Screen name={"Analytics"} component={Analytics} />
+			{
+				(!appContext.SelectedProperty?.isCurrentUserTenant && !_.isNull(appContext.SelectedProperty) && appContext.SelectedProperty.isRental) ? (
+					<Tab.Screen name={"Analytics"} component={Analytics} />
+				):null
+			}
+
 			<Tab.Screen name={"Settings"} component={Settings} />
 		</Tab.Navigator>
 	);

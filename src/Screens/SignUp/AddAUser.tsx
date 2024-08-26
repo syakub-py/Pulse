@@ -55,24 +55,24 @@ function AddAUser() {
 
 
 
-const handleAddUser = useCallback(async () => {
-        try {
-            if (!ValidateAddUserInputs(userDetails, DocumentPicture)) return;
+	const handleAddUser = useCallback(async () => {
+		try {
+			if (!ValidateAddUserInputs(userDetails, DocumentPicture)) return;
 
-            userDetails.DocumentProvidedUrl = await appContext.uploadPicture(DocumentPicture, `/DocumentPictures/${userDetails.Email}/`);
+			userDetails.DocumentProvidedUrl = await appContext.uploadPicture(DocumentPicture, `/DocumentPictures/${userDetails.Email}/`);
 
-            const isAddUserSuccessful = await appContext.addUser(userDetails);
+			const isAddUserSuccessful = await appContext.addUser(userDetails);
 
-            if (!isAddUserSuccessful) return;
+			if (!isAddUserSuccessful) return;
 
-            authContext.setLeaseId(null);
-            await authContext.logout();
-            navigation.navigate("Login");
+			authContext.setLeaseId(null);
+			await authContext.logout();
+			navigation.navigate("Login");
 
-        } catch (error) {
-            alert("There was an issue on our end. Please try again later.");
-        }
-    }, [userDetails, DocumentPicture, appContext, authContext, LeaseId, navigation]);
+		} catch (error) {
+			alert("There was an issue on our end. Please try again later.");
+		}
+	}, [userDetails, DocumentPicture, appContext, authContext, LeaseId, navigation]);
 
 	const selectPicture = async () => {
 		const result = await ImagePicker.launchImageLibraryAsync({

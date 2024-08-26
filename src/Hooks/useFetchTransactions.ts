@@ -28,5 +28,5 @@ export default function useFetchTransactions(){
 
 	useEffect(() => {
 		void fetchTransactions();
-	}, [authContext.uid, appContext.SelectedProperty, fetchTransactions]);
+	}, [appContext.SelectedProperty, fetchTransactions]);
 }

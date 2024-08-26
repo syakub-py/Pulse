@@ -5,17 +5,21 @@ import BackButton from "@src/Components/BackButton";
 import {useAppContext} from "@src/Contexts/AppContext";
 import React, {useCallback, useState} from "react";
 import {useAuthContext} from "@src/Contexts/AuthContext";
-import {View, StyleSheet, TextInput, ActivityIndicator, Button} from "react-native";
+import {View, StyleSheet, TextInput, ActivityIndicator, Button, Dimensions} from "react-native";
 import DropdownPicker, {ItemType} from "react-native-dropdown-picker";
+import {useNavigation} from "@react-navigation/native";
+import {StackNavigationProp} from "@react-navigation/stack";
 
 function AddATransaction() {
 	const appContext = useAppContext();
 	const authContext = useAuthContext();
+	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "AddATransaction">>();
 	const [transactionDetails, setTransactionDetails] = useState<PropertyTransaction>({
 		amount: 0,
 		description: "",
 		incomeOrExpense: "",
 		transactionType: "",
+		date:""
 	});
 
 	const transactionTypes: ItemType<string>[] = [
@@ -46,11 +50,14 @@ function AddATransaction() {
 		try {
 			transactionDetails.propertyId = appContext.SelectedProperty?.PropertyId;
 			transactionDetails.userId = authContext.uid;
+			transactionDetails.incomeOrExpense = incomeOrExpense;
+			transactionDetails.transactionType = transactionType;
 			await appContext.addTransaction(transactionDetails);
 		} catch (error) {
 			console.error("Failed to add transaction:", error);
 		} finally {
 			setIsLoading(false);
+			navigation.goBack();
 		}
 	}, [transactionDetails, appContext, authContext]);
 
@@ -66,11 +73,11 @@ function AddATransaction() {
 			</View>
 			<TextInput
 				style={styles.input}
-				placeholder="Amount"
+				placeholder="Date (YYYY-MM-DD)"
 				placeholderTextColor="white"
-				value={transactionDetails.amount.toString()}
-				onChangeText={(value) => handleInputChange("amount", parseFloat(value) || 0)}
-				keyboardType="numeric"
+				value={transactionDetails.date}
+				multiline={true}
+				onChangeText={(value) => handleInputChange("date", value)}
 			/>
 			<TextInput
 				style={[styles.input, styles.multilineInput]}
@@ -79,6 +86,14 @@ function AddATransaction() {
 				value={transactionDetails.description}
 				multiline={true}
 				onChangeText={(value) => handleInputChange("description", value)}
+			/>
+			<TextInput
+				style={styles.input}
+				placeholder="Amount"
+				placeholderTextColor="white"
+				value={transactionDetails.amount.toString()}
+				onChangeText={(value) => handleInputChange("amount", parseFloat(value) || 0)}
+				keyboardType="numeric"
 			/>
 			<DropdownPicker
 				open={openIncomeExpense}

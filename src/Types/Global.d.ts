@@ -92,6 +92,7 @@ declare global {
         description: string
         transactionType: string
         incomeOrExpense:string
+        date:string
     }
 
     type RootStackParamList = {
