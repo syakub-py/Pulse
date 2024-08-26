@@ -1,12 +1,11 @@
-import {observer} from "mobx-react-lite";
 import {View, Text, StyleSheet} from "react-native";
 
 
 interface Props {
-	tenant:Tenant;
+	tenant:User;
 }
 
-function TenantCard(props: Props){
+export default function TenantCard(props: Props){
 	const {tenant} = props;
 	return(
 		<View style={styles.container}>
@@ -16,9 +15,6 @@ function TenantCard(props: Props){
 		</View>
 	);
 }
-
-export default observer(TenantCard);
-
 
 
 const styles = StyleSheet.create({

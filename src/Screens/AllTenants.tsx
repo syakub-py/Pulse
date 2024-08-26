@@ -17,7 +17,7 @@ function AllTenants() {
 			</View>
 			<FlatList data={appContext.Tenants}
 				renderItem={({item})=>(
-					<TenantCard tenant={item} key={item.Name}/>
+					<TenantCard tenant={item} key={item.UserId}/>
 				)}/>
 		</Layout>
 	);

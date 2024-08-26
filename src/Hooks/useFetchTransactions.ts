@@ -2,33 +2,31 @@ import {useAppContext} from "../Contexts/AppContext";
 import {useAuthContext} from "../Contexts/AuthContext";
 import {useCallback, useEffect} from "react";
 import _ from "lodash";
-import TodoService from "../Utils/Services/TodoService";
 import isHTTPError from "@src/Utils/HttpError";
+import TransactionService from "@src/Utils/Services/TransactionService";
 
-export default function useFetchTodos(){
+export default function useFetchTransactions(){
 	const appContext = useAppContext();
 	const authContext = useAuthContext();
 
-	const fetchTodos = useCallback(async () => {
+	const fetchTransactions = useCallback(async () => {
 		try {
 			if (_.isEmpty(authContext.uid) || _.isUndefined(appContext.SelectedProperty?.PropertyId)) return;
 
-			const response = await TodoService.getTodos(appContext.SelectedProperty.PropertyId);
+			const response = await TransactionService.getTransaction(appContext.SelectedProperty.PropertyId);
 			if (isHTTPError(response)) {
 				alert(response.message);
 				return;
 			}
 
-			appContext.setSelectedPropertyTodos(response as Todo[]);
+			appContext.setTransactions(response as PropertyTransaction[]);
 		} catch (error) {
-			console.error("error fetching todos: " + error);
+			console.error("error fetching Transactions: " + error);
 		}
 		/* eslint-disable react-hooks/exhaustive-deps */
 	}, []);
 
 	useEffect(() => {
-		void fetchTodos();
-	}, [authContext.uid, appContext.SelectedProperty, fetchTodos]);
-
-	return fetchTodos;
+		void fetchTransactions();
+	}, [appContext.SelectedProperty, fetchTransactions]);
 }

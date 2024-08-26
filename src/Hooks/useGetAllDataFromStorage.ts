@@ -5,7 +5,7 @@ import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import _ from "lodash";
 
-export default function useGetAllDataFromStorage(): void {
+export default function useGetAllDataFromStorage() {
 	const authContext = useAuthContext();
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 	useEffect(() => {
@@ -13,7 +13,7 @@ export default function useGetAllDataFromStorage(): void {
 			try {
 				await authContext.getAuthDataFromStorage();
 				if (!authContext.isLoggedIn) {
-					authContext.isLoading = false;
+					authContext.isLoadingAuth = false;
 					return;
 				}
 				const user = await auth.signInWithEmailAndPassword(authContext.username, authContext.password);

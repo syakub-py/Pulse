@@ -8,16 +8,14 @@ import {SwipeListView} from "react-native-swipe-list-view";
 import { View, StyleSheet} from "react-native";
 import BackButton from "../Components/BackButton";
 import TrashButton from "../Components/TrashButton";
+import _ from "lodash";
 
 function AllProperties() {
 	const appContext = useAppContext();
 
-	const handleDeleteProperty = useCallback(async (propertyId:number) => {
-		try{
-			await appContext.deleteProperty(propertyId);
-		}catch (e){
-			return;
-		}
+	const handleDeleteProperty = useCallback(async (propertyId?:number) => {
+		if (_.isUndefined(propertyId)) return;
+		await appContext.deleteProperty(propertyId);
 	}, [appContext]);
 
 	return(
@@ -30,7 +28,7 @@ function AllProperties() {
 				data={appContext.Properties}
 				rightOpenValue={-50}
 				renderHiddenItem={({ item, index }) => {
-					if (appContext.Properties[index].isTenant) return null;
+					if (appContext.Properties[index].isCurrentUserTenant) return null;
 					return (
 						<TrashButton onPress={() => handleDeleteProperty(item.PropertyId)} />
 					);

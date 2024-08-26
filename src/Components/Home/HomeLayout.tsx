@@ -1,12 +1,12 @@
-import {View, SafeAreaView, StyleSheet, Animated, Text, Image} from "react-native";
-import { useState, useCallback, useEffect, useMemo } from "react";
-import { useAuthContext } from "../../Contexts/AuthContext";
+import {View, SafeAreaView, StyleSheet, Animated, Image} from "react-native";
+import { useState, useCallback, useEffect } from "react";
+import { useAuthContext } from "@src/Contexts/AuthContext";
 import { observer } from "mobx-react-lite";
 import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import FloatingActionButton from "../FloatingActionButton";
-import { useAppContext } from "../../Contexts/AppContext";
+import FloatingActionButton from "../Buttons/FloatingActionButton";
+import { useAppContext } from "@src/Contexts/AppContext";
 import _ from "lodash";
 
 function HomeLayout({ children }: { children: React.ReactNode }) {
@@ -73,10 +73,6 @@ function HomeLayout({ children }: { children: React.ReactNode }) {
 								source={{ uri: authContext.profilePicture }}
 								style={styles.profilePicture}
 							/>
-							<View style={styles.welcomeBackContainer}>
-								<Text style={styles.usernameText}>Welcome Back,</Text>
-								<Text style={styles.usernameText}>{authContext.username}</Text>
-							</View>
 						</View>
 						<Image source={require("../../../assets/icon.png")} style={styles.logo} />
 					</View>
@@ -85,9 +81,9 @@ function HomeLayout({ children }: { children: React.ReactNode }) {
 					</View>
 					{_.isEmpty(appContext.Properties)? null: (
 						<FloatingActionButton
+							onPress={handlePressActionButton}
 							icon={"add"}
-							styles={styles.fab}
-							onPress={() => handlePressActionButton()}
+							text={"Add Property"}
 						/>
 					)}
 
@@ -127,6 +123,8 @@ const styles = StyleSheet.create({
 		height: 50,
 		width: 50,
 		borderRadius: 25,
+		marginHorizontal: 10,
+		elevation: 5,
 	},
 	logo: {
 		height: 50,
@@ -144,13 +142,21 @@ const styles = StyleSheet.create({
 	welcomeBackContainer: {
 		flexDirection: "column"
 	},
-	fab: {
+	fabContainer: {
 		position: "absolute",
 		bottom: 20,
 		right: 20,
-		backgroundColor: "black",
-		padding: 10,
-		borderRadius: 30,
+		backgroundColor: "#333",
+		padding: 15,
+		borderRadius: 15,
 		elevation: 5,
+		flexDirection: "row",
+		alignItems:"center",
 	},
+	fabText:{
+		color: "white",
+		fontWeight: "semibold",
+		paddingLeft:7,
+		fontSize:15
+	}
 });

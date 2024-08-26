@@ -5,27 +5,26 @@ import {Button, View, TextInput, StyleSheet, Image} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, {useCallback, useEffect, useState} from "react";
-import _ from "lodash";
 import BackButton from "../../Components/BackButton";
 import { useAppContext } from "@src/Contexts/AppContext";
 import UploadPictures from "../../Components/UploadPictures";
 import * as ImagePicker from "expo-image-picker";
 import {useAuthContext} from "@src/Contexts/AuthContext";
 import DropdownPicker, {ItemType} from "react-native-dropdown-picker";
-
-function AddATenant() {
-	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "AddATenant">>();
+import ValidateAddUserInputs from "@src/Utils/ValidateInputs/ValidateAddUserInputs";
+function AddAUser() {
+	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "AddAUser">>();
 	const appContext = useAppContext();
 	const authContext = useAuthContext();
 	const LeaseId = authContext.leaseId;
 	const [DocumentPicture, setDocumentPicture] = useState("");
-	const [tenantDetails, setTenantDetails] = useState<Tenant>({
+	const [userDetails, setUserDetails] = useState<User>({
+		LeaseId: LeaseId,
 		AnnualIncome: 0,
 		DocumentProvidedUrl: "",
 		UserId:authContext.uid,
 		Email: authContext.username,
 		SocialSecurity: "",
-		TenantId: 0,
 		Name: "",
 		PhoneNumber: "",
 		DateOfBirth: "",
@@ -43,79 +42,36 @@ function AddATenant() {
 		{ label: "Voter Registration Card", value: "Voter Registration Card" },
 		{ label: "Military ID", value: "Military ID" },
 		{ label: "Permanent Resident Card (Green Card)", value: "Permanent Resident Card (Green Card)" },
-		{ label: "Tribal ID Card", value: "Tribal ID Card" },
 	];
 
 	const [selectedDocumentType, setSelectedDocumentType] = useState(documentTypes[0].value as string);
 
-
 	const handleInputChange = useCallback((name: string, value: string | number) => {
-		setTenantDetails({
-			...tenantDetails,
+		setUserDetails({
+			...userDetails,
 			[name]: value,
 		});
-	}, [tenantDetails]);
+	}, [userDetails]);
 
-	const areValidInputs = () => {
-		if (!tenantDetails.Name) {
-			alert("A Name is required");
-			return false;
-		}
-
-		if(_.isEmpty(DocumentPicture)){
-			alert("Please upload a document");
-			return false;
-		}
-
-		if (!tenantDetails.AnnualIncome || isNaN(Number(tenantDetails.AnnualIncome))) {
-			alert("Annual income is required and must be a number");
-			tenantDetails.AnnualIncome = 0;
-			return false;
-		}
-
-		if (!tenantDetails.PhoneNumber) {
-			alert("Phone number is required");
-			return false;
-		} else if (!/^\d{3}-\d{3}-\d{4}$/.test(tenantDetails.PhoneNumber)) {
-			alert("Invalid phone number format. Please use XXX-XXX-XXXX.");
-			return false;
-		}
-
-		if (!tenantDetails.DateOfBirth) {
-			alert("Date of birth is required");
-			return false;
-		} else if (!/^\d{4}-\d{2}-\d{2}$/.test(tenantDetails.DateOfBirth)) {
-			alert("Invalid date format. Please use YYYY-MM-DD.");
-			return false;
-		}
-
-		if (!tenantDetails.SocialSecurity) {
-			alert("Social Security Number is required");
-			return false;
-		} else if (!/^\d{3}-\d{2}-\d{4}$/.test(tenantDetails.SocialSecurity)) {
-			alert("Invalid Social Security Number format. Please use XXX-XX-XXXX.");
-			return false;
-		}
-		return true;
-	};
-
-	const handleAddTenant = async () => {
+	const handleAddUser = useCallback(async () => {
 		try {
-			if (_.isUndefined(LeaseId) || _.isNull(LeaseId)) {
-				alert("There is no lease selected");
-				return;
-			}
-			if (!areValidInputs()) return;
-			const isAddTenantSuccessful = await appContext.addTenant({ ...tenantDetails, LeaseId: LeaseId });
-			if (!isAddTenantSuccessful) return;
-			tenantDetails.DocumentProvidedUrl = await appContext.uploadPicture(DocumentPicture, authContext.username,`/DocumentPictures/${tenantDetails.Name}/`);
+			if (!ValidateAddUserInputs(userDetails, DocumentPicture)) return;
+
+			userDetails.DocumentProvidedUrl = await appContext.uploadPicture(DocumentPicture, `/DocumentPictures/${userDetails.Email}/`);
+
+			const isAddUserSuccessful = await appContext.addUser(userDetails);
+
+			if (!isAddUserSuccessful) return;
+
 			authContext.setLeaseId(null);
 			await authContext.logout();
 			navigation.navigate("Login");
+
 		} catch (error) {
 			alert("There was an issue on our end. Please try again later.");
 		}
-	};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [userDetails, DocumentPicture, appContext, authContext, LeaseId, navigation]);
 
 	const selectPicture = async () => {
 		const result = await ImagePicker.launchImageLibraryAsync({
@@ -131,14 +87,14 @@ function AddATenant() {
 	};
 
 	useEffect(() => {
-		setTenantDetails((prev) => ({ ...prev, DocumentType: selectedDocumentType }));
+		setUserDetails((prev) => ({ ...prev, DocumentType: selectedDocumentType }));
 	}, [selectedDocumentType]);
 
 	return (
 		<Layout>
 			<View style={styles.headerContainer}>
 				<BackButton/>
-				<Header title={"Please fill out all your information"} />
+				<Header title={"Additional information"} />
 			</View>
 			<View style={styles.contentContainer}>
 				<DropdownPicker
@@ -158,7 +114,7 @@ function AddATenant() {
 
 				<TextInput
 					placeholder="John Doe"
-					value={tenantDetails.Name}
+					value={userDetails.Name}
 					onChangeText={(text) => handleInputChange("Name", text)}
 					style={styles.input}
 					placeholderTextColor="white"
@@ -166,7 +122,7 @@ function AddATenant() {
 
 				<TextInput
 					placeholder="$50,000"
-					value={tenantDetails.AnnualIncome.toString()}
+					value={userDetails.AnnualIncome.toString()}
 					onChangeText={(text) => handleInputChange("AnnualIncome", parseInt(text))}
 					style={styles.input}
 					keyboardType="numeric"
@@ -175,7 +131,7 @@ function AddATenant() {
 
 				<TextInput
 					placeholder="123-456-7890"
-					value={tenantDetails.PhoneNumber}
+					value={userDetails.PhoneNumber}
 					onChangeText={(text) => handleInputChange("PhoneNumber", text)}
 					style={styles.input}
 					keyboardType="phone-pad"
@@ -184,7 +140,7 @@ function AddATenant() {
 
 				<TextInput
 					placeholder="Date of birth: YYYY-MM-DD"
-					value={tenantDetails.DateOfBirth}
+					value={userDetails.DateOfBirth}
 					onChangeText={(text) => handleInputChange("DateOfBirth", text)}
 					style={styles.input}
 					placeholderTextColor="white"
@@ -192,19 +148,19 @@ function AddATenant() {
 
 				<TextInput
 					placeholder="Social Sec: 123-12-1234"
-					value={tenantDetails.SocialSecurity}
+					value={userDetails.SocialSecurity}
 					onChangeText={(text) => handleInputChange("SocialSecurity", text)}
 					style={styles.input}
 					keyboardType="phone-pad"
 					placeholderTextColor="white"
 				/>
-				<Button title={"Done"} onPress={handleAddTenant} />
+				<Button title={"Done"} onPress={handleAddUser} />
 			</View>
 		</Layout>
 	);
 }
 
-export default observer(AddATenant);
+export default observer(AddAUser);
 
 const styles = StyleSheet.create({
 	input: {

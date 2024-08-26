@@ -1,12 +1,11 @@
 import {View, Text, StyleSheet} from "react-native";
 import Requirement from "./Requirement";
-import {observer} from "mobx-react-lite";
 
 interface Props{
 	requirements:PasswordRequirement[]
 }
 
-function PasswordRequirementCheckBox(props: Props){
+export default function PasswordRequirementCheckBox(props: Props){
 	const {requirements} = props;
 	return (
 		<View>
@@ -18,7 +17,6 @@ function PasswordRequirementCheckBox(props: Props){
 	);
 }
 
-export default observer(PasswordRequirementCheckBox);
 
 const styles = StyleSheet.create({
 	titleText:{

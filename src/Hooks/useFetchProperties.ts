@@ -3,6 +3,8 @@ import PropertyService from "../Utils/Services/PropertyService";
 import _ from "lodash";
 import {useAuthContext} from "../Contexts/AuthContext";
 import {useAppContext} from "../Contexts/AppContext";
+import isHTTPError from "@src/Utils/HttpError";
+
 
 export default function useFetchProperties() {
 	const appContext = useAppContext();
@@ -11,12 +13,11 @@ export default function useFetchProperties() {
 	const fetchProperties = useCallback(async () => {
 		if (_.isEmpty(authContext.uid)) return;
 		const properties = await PropertyService.getProperty(authContext.uid);
-		if (appContext.isHTTPError(properties)) {
+		if (isHTTPError(properties)) {
 			alert(properties.message);
 			return;
 		}
 		appContext.setProperties(properties as Property[]);
-		authContext.isLoading = false;
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [authContext.uid]);
 

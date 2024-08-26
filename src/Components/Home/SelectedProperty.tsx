@@ -1,19 +1,30 @@
-import {Dimensions, FlatList, StyleSheet, Text, View} from "react-native";
+import {Dimensions, FlatList, StyleSheet, Text, View, Pressable, RefreshControl} from "react-native";
 import Button from "../Buttons/Button";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
-import { useAppContext } from "../../Contexts/AppContext";
+import { useAppContext } from "@src/Contexts/AppContext";
 import {observer} from "mobx-react-lite";
 import TodoCard from "../Todo/TodoCard";
+import useFetchTodos from "@src/Hooks/useFetchTodos";
+import {useCallback, useState} from "react";
 
 interface Props {
 	property: Property
 }
 
-function Property(props: Props) {
+function SelectedProperty(props: Props) {
 	const { property } = props;
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Home">>();
 	const appContext = useAppContext();
+	const [refreshing, setRefreshing] = useState(false);
+
+	const fetchTodos = useFetchTodos();
+
+	const onRefresh = useCallback(async () => {
+		setRefreshing(true);
+		await fetchTodos();
+		setRefreshing(false);
+	}, [fetchTodos]);
 	return (
 		<View style={styles.houseTileContainer}>
 			<Text style={styles.homeName}>{property.Name}</Text>
@@ -30,9 +41,15 @@ function Property(props: Props) {
 			</View>
 			<FlatList
 				data={appContext.SelectedPropertyTodos}
+				showsVerticalScrollIndicator={false}
 				renderItem={({item, index})=>(
-					<TodoCard todo={item}/>
+					<Pressable onPress={()=>navigation.navigate("TodoDetails", {selectedTodoIndex:index})}>
+						<TodoCard todo={item}/>
+					</Pressable>
 				)}
+				refreshControl={
+					<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+				}
 				ListFooterComponent={() => (
 					<View style={styles.footer}/>
 				)}
@@ -41,7 +58,7 @@ function Property(props: Props) {
 	);
 }
 
-export default observer(Property);
+export default observer(SelectedProperty);
 
 const styles = StyleSheet.create({
 	homeAddress: {
@@ -52,6 +69,7 @@ const styles = StyleSheet.create({
 	addTodoContainer: {
 		flexDirection: "row",
 		justifyContent: "space-between",
+		alignItems: "center",
 	},
 	todoText: {
 		fontSize: 20,
@@ -81,9 +99,9 @@ const styles = StyleSheet.create({
 		color: "white",
 	},
 	houseTileContainer: {
-		marginVertical:30,
+		marginVertical:10,
 		width:Dimensions.get("window").width,
-		height: "100%",
+		height: "90%",
 	},
 	footer: {
 		marginTop:120

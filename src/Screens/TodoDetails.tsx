@@ -1,17 +1,15 @@
-import {observer} from "mobx-react-lite";
+import React, {useCallback, useEffect, useRef, useState} from "react";
+import { StyleSheet, Pressable, FlatList, ViewToken} from "react-native";
+import { observer } from "mobx-react-lite";
 import Layout from "../Components/Layout";
-import Header from "../Components/Header";
-import {View, StyleSheet, Text, ScrollView, Pressable} from "react-native";
-import BackButton from "../Components/BackButton";
-import {RouteProp, useNavigation} from "@react-navigation/native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import React from "react";
-import {useAuthContext} from "../Contexts/AuthContext";
 import TrashButton from "../Components/TrashButton";
+import { useAuthContext } from "../Contexts/AuthContext";
 import { useAppContext } from "../Contexts/AppContext";
 import _ from "lodash";
-import {StackNavigationProp} from "@react-navigation/stack";
-
+import {RouteProp, useNavigation} from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import TodoInformation from "@src/Components/Todo/TodoDetails/TodoInformation";
 
 type TodoDetailsScreenRouteProp = RouteProp<RootStackParamList, "TodoDetails">;
 
@@ -19,52 +17,101 @@ interface Props {
 	route: TodoDetailsScreenRouteProp;
 }
 
-function TodoDetails({route}:Props){
-	const {todo} = route.params;
+function TodoDetails({ route }: Props) {
 	const authContext = useAuthContext();
 	const appContext = useAppContext();
+	const {selectedTodoIndex} = route.params;
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "TodoDetails">>();
-	const handleDeleteTodo = async () =>{
-		if (_.isNil(todo.id)) {
-			alert("todo id was empty");
+	const [recommendations, setRecommendations] = useState<GoogleMapsPlaceResponse[]>([]);
+	const [isLoading, setIsLoading] = useState(false);
+	const flatListRef = useRef<FlatList<Todo>>(null);
+
+	const onScrollToIndexFailed = useCallback((info: {
+		index: number;
+		highestMeasuredFrameIndex: number;
+		averageItemLength: number;
+	}) => {
+		flatListRef.current?.scrollToOffset({
+			offset: info.averageItemLength * info.index,
+			animated: true,
+		});
+
+		setTimeout(() => {
+			if (flatListRef.current) {
+				flatListRef.current.scrollToIndex({ index: info.index, animated: true });
+			}
+		}, 100);
+	}, [flatListRef]);
+
+
+
+	const onViewableItemsChanged = useCallback(({ viewableItems }: { viewableItems: ViewToken<Todo>[] }) => {
+		if (_.isEmpty(viewableItems)) return;
+		appContext.setSelectedPropertyTodo(viewableItems[0].item);
+	}, [appContext]);
+
+	const fetchRecommendations = useCallback(async () => {
+		setIsLoading(true);
+		if (_.isNil(appContext.SelectedTodo?.id)) return;
+		try {
+			const response = await appContext.getRecommendations(appContext.SelectedTodo.id);
+			const fetchedRecommendations = JSON.parse(response.toString()) as GoogleMapsPlaceResponse[];
+			setRecommendations(fetchedRecommendations);
+		} catch (error) {
+			console.error("Error fetching recommendations:", error);
+			setRecommendations([]);
+		}
+		setIsLoading(false);
+		/*eslint-disable-next-line react-hooks/exhaustive-deps*/
+	}, [appContext.SelectedTodo]);
+
+	useEffect(() => {
+		if (appContext.SelectedProperty?.isCurrentUserTenant) return;
+		void fetchRecommendations();
+	}, [appContext.SelectedProperty?.isCurrentUserTenant, fetchRecommendations]);
+
+	useEffect(() => {
+		if (!flatListRef.current ) return;
+		flatListRef.current.scrollToIndex({
+			index: selectedTodoIndex,
+			animated: true,
+		});
+	}, [selectedTodoIndex]);
+
+	const handleDeleteTodo = useCallback(async () => {
+		if (_.isNil(appContext.SelectedTodo?.id)) {
+			alert("Todo ID was empty");
 			return;
 		}
-		await appContext.deleteTodo(todo.id);
-		navigation.goBack();
-	};
 
-	return(
+		await appContext.deleteTodo(appContext.SelectedTodo.id);
+		navigation.goBack();
+	}, [appContext, navigation]);
+
+	return (
 		<Layout>
-			<View style={[styles.headerContainer, styles.header]}>
-				<View style={styles.header}>
-					<BackButton />
-					<Header title={todo.Title}/>
-				</View>
-				<View>
-					<View style={styles.buttonContainer}>
-						<TrashButton onPress={() => handleDeleteTodo()} />
-						{
-							(authContext.username !== todo.AddedBy) ? null : (
-								<Pressable>
-									<Ionicons name={"pencil-outline"} size={25} color="white"/>
-								</Pressable>
-							)
-						}
-					</View>
-				</View>
-			</View>
-			<ScrollView contentContainerStyle={styles.content}>
-				<Text style={styles.description}>{todo.Description}</Text>
-				<View style={styles.infoRow}>
-					<Text style={styles.label}>Status:</Text>
-					<Text style={styles.value}>{todo.Status}</Text>
-				</View>
-				<View style={styles.infoRow}>
-					<Text style={styles.label}>Priority:</Text>
-					<Text style={styles.value}>{todo.Priority}</Text>
-				</View>
-				<Text style={styles.addedBy}>Added by: {todo.AddedBy}</Text>
-			</ScrollView>
+			<FlatList
+				data={appContext.SelectedPropertyTodos}
+				horizontal={true}
+				showsHorizontalScrollIndicator={false}
+				pagingEnabled={true}
+				ref={flatListRef}
+				onViewableItemsChanged={onViewableItemsChanged}
+				renderItem={({ item }) => (
+					<TodoInformation
+						todo={item}
+						isLoading={isLoading}
+						recommendations={recommendations}
+					/>
+				)}
+				onScrollToIndexFailed={onScrollToIndexFailed}
+			/>
+			<TrashButton onPress={handleDeleteTodo} style={styles.deleteFab} />
+			{authContext.username === appContext.SelectedTodo?.AddedBy && (
+				<Pressable style={styles.editFab}>
+					<Ionicons name="pencil-outline" size={25} color="white" />
+				</Pressable>
+			)}
 		</Layout>
 	);
 }
@@ -72,51 +119,35 @@ function TodoDetails({route}:Props){
 export default observer(TodoDetails);
 
 const styles = StyleSheet.create({
-	headerContainer: {
-		justifyContent:"space-between"
-	},
-	header:{
+	header: {
 		flexDirection: "row",
 		alignItems: "center",
-	},
-	content: {
-		padding: 16,
+		position: "absolute",
+		top: 10,
+		left: 10,
+		zIndex: 1,
 	},
 	title: {
-		fontSize: 24,
+		marginLeft: 10,
+		fontSize: 20,
 		fontWeight: "bold",
-		color: "white",
-		marginBottom: 16,
 	},
-	description: {
-		fontSize: 16,
-		color: "#ccc",
-		marginBottom: 24,
+	deleteFab: {
+		position: "absolute",
+		bottom: 40,
+		right: 20,
+		backgroundColor: "black",
+		padding: 10,
+		borderRadius: 30,
+		elevation: 5,
 	},
-	infoRow: {
-		flexDirection: "row",
-		marginBottom: 8,
-	},
-	label: {
-		fontSize: 16,
-		fontWeight: "bold",
-		color: "white",
-		marginRight: 8,
-	},
-	value: {
-		fontSize: 16,
-		color: "#ccc",
-	},
-	addedBy: {
-		fontSize: 14,
-		color: "#aaa",
-		marginTop: 20,
-	},
-	buttonContainer: {
-		flexDirection: "row",
-		justifyContent: "space-between",
-		alignItems: "center",
+	editFab: {
+		position: "absolute",
+		bottom: 40,
+		left: 20,
+		backgroundColor: "black",
+		padding: 10,
+		borderRadius: 30,
+		elevation: 5,
 	},
 });
-
-

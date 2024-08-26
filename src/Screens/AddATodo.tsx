@@ -1,8 +1,8 @@
 import Layout from "../Components/Layout";
-import {Button, StyleSheet, TextInput, View} from "react-native";
+import {ActivityIndicator, Button, StyleSheet, TextInput, View} from "react-native";
 import {observer} from "mobx-react-lite";
 import Header from "../Components/Header";
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {useAuthContext} from "../Contexts/AuthContext";
 import DropdownPicker, {ItemType} from "react-native-dropdown-picker";
 import BackButton from "../Components/BackButton";
@@ -23,7 +23,7 @@ function AddATodo(){
 		{ label: "Emergency", value: "Emergency" },
 	];
 	const [selectedPriority, setSelectedPriority] = useState(priorities[0].value as string);
-
+	const [isLoading, setIsLoading] = useState(false);
 	const [todoDetails, setTodoDetails] = useState<Todo>({
 		PropertyId:appContext.SelectedProperty?.PropertyId,
 		Title:"",
@@ -39,27 +39,40 @@ function AddATodo(){
 	const handleInputChange = (field: keyof Todo, value: string | string[] | boolean | number) => {
 		setTodoDetails((prev) => ({ ...prev, [field]: value }));
 	};
-	const handleSubmit = async (): Promise<void> => {
+	const handleSubmit = useCallback(async (): Promise<void> => {
+		setIsLoading(true);
+
 		const isAddTodoSuccessful = await appContext.addTodo(todoDetails);
 
-		if (!isAddTodoSuccessful) return;
+		if (!isAddTodoSuccessful) {
+			setIsLoading(false);
+			return;
+		}
 
+		setIsLoading(false);
 		navigation.navigate("BottomNavBar");
+
 		setTodoDetails({
-			PropertyId:appContext.SelectedProperty?.PropertyId,
-			Title:"",
-			Description:"",
-			Priority:selectedPriority,
-			Status:"Not Seen",
+			PropertyId: appContext.SelectedProperty?.PropertyId,
+			Title: "",
+			Description: "",
+			Priority: selectedPriority,
+			Status: "Not Seen",
 			AddedBy: authContext.username,
 		});
-	};
+	}, [
+		appContext,
+		todoDetails,
+		navigation,
+		selectedPriority,
+		authContext.username
+	]);
 
 	return(
 		<Layout>
 			<View style={styles.header}>
 				<BackButton/>
-				<Header title={"Add a Todo"}/>
+				<Header title={"Add Todo"}/>
 			</View>
 			<TextInput
 				style={styles.input}
@@ -69,10 +82,11 @@ function AddATodo(){
 				onChangeText={(value) => handleInputChange("Title", value)}
 			/>
 			<TextInput
-				style={styles.input}
+				style={[styles.input, styles.multilineInput]}
 				placeholder="Descripton"
 				placeholderTextColor="white"
 				value={todoDetails.Description}
+				multiline={true}
 				onChangeText={(value) => handleInputChange("Description", value)}
 			/>
 			<DropdownPicker
@@ -84,8 +98,13 @@ function AddATodo(){
 				placeholder="Set a Priorty"
 				{...styles}
 			/>
-			<Button title="Add Todo" onPress={handleSubmit} />
-
+			{
+				(isLoading)?(
+					<ActivityIndicator size="small" color="white"/>
+				):(
+					<Button title="Add Todo" onPress={handleSubmit} />
+				)
+			}
 		</Layout>
 	);
 }

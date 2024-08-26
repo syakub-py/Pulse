@@ -5,8 +5,8 @@ import _ from "lodash";
 export default new class LeaseService {
 	private readonly serviceHeader = "/lease";
 
-	async addLease(propertyId: number, tenantEmail:string,leaseDetails: Lease): Promise<number | HTTPError> {
-		const response =  await http.post(`${this.serviceHeader}/addLease/${tenantEmail}/${propertyId}`, leaseDetails);
+	async addLease(propertyId: number, leaseDetails: Lease): Promise<number | HTTPError> {
+		const response =  await http.post(`${this.serviceHeader}/addLease/${propertyId}`, leaseDetails);
 		return response.data;
 	}
 

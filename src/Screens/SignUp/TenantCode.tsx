@@ -9,6 +9,8 @@ import Header from "../../Components/Header";
 import BackButton from "../../Components/BackButton";
 import {useAuthContext} from "@src/Contexts/AuthContext";
 import {useAppContext} from "@src/Contexts/AppContext";
+import isHTTPError from "@src/Utils/HttpError";
+
 
 function TenantCode() {
 	const [code, setCode] = useState("");
@@ -25,7 +27,7 @@ function TenantCode() {
 
 		const isCodeValidResponse = await TenantService.isCodeValid(code);
 
-		if (appContext.isHTTPError(isCodeValidResponse)) {
+		if (isHTTPError(isCodeValidResponse)) {
 			alert(isCodeValidResponse.message);
 			return;
 		}
@@ -34,10 +36,10 @@ function TenantCode() {
 			alert("Invalid code or code expired");
 			return;
 		}
+
 		authContext.setLeaseId(isCodeValidResponse.lease_id);
-		navigation.navigate("AddATenant");
-		/* eslint-disable react-hooks/exhaustive-deps */
-	}, [authContext, code, navigation]);
+		navigation.navigate("AddAUser");
+	}, [code, authContext, navigation]);
 
 	return (
 		<Layout>
@@ -55,7 +57,7 @@ function TenantCode() {
 					placeholderTextColor="white"
 					placeholder="Enter your 6-digit code"
 				/>
-				<Pressable onPress={()=>navigation.navigate("Login")}>
+				<Pressable onPress={()=>navigation.navigate("AddAUser")}>
 					<Text style={styles.text}>Not a Tenant? Click here to skip</Text>
 				</Pressable>
 				<Button

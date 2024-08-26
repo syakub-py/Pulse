@@ -12,19 +12,20 @@ import AllProperties from "./Screens/AllProperties";
 import Loading from "./Screens/Loading";
 import Leases from "./Screens/Leases";
 import AddALease from "./Screens/AddALease";
-import AddATenant from "./Screens/SignUp/AddATenant";
+import AddATenant from "./Screens/SignUp/AddAUser";
 import AllTenants from "./Screens/AllTenants";
 import { useAuthContext } from "./Contexts/AuthContext";
 import TenantCode from "./Screens/SignUp/TenantCode";
 import AddATodo from "./Screens/AddATodo";
 import TodoDetails from "./Screens/TodoDetails";
+import AddATransaction from "@src/Screens/AddATransaction";
 
 
 export default function Routes() {
 	const authContext = useAuthContext();
 	const { Screen } = createNativeStackNavigator<RootStackParamList>();
 
-	if (authContext.isLoading) {
+	if (authContext.isLoadingAuth) {
 		return [
 			<Screen key="Loading" name="Loading" component={Loading}/>
 		];
@@ -50,6 +51,8 @@ export default function Routes() {
 		<Screen key = "AddATodo" name="AddATodo" component={AddATodo} />,
 		<Screen key = "TodoDetails" name="TodoDetails" component={TodoDetails} />,
 		<Screen key = "EnterTenantCode" name = "EnterTenantCode" component = {TenantCode}/>,
-		<Screen key = "AddATenant" name="AddATenant" component={AddATenant} />,
+		<Screen key = "AddAUser" name="AddAUser" component={AddATenant} />,
+		<Screen key = "AddATransaction" name="AddATransaction" component={AddATransaction} />,
+
 	];
 }

@@ -1,10 +1,9 @@
-import {observer} from "mobx-react-lite";
 import {StyleSheet, Text, View} from "react-native";
 
 interface Props{
 	title:string
 }
-function SubHeader(props: Props) {
+export default function SubHeader(props: Props) {
 	const {title} = props;
 	return (
 		<View style={styles.container}>
@@ -13,7 +12,6 @@ function SubHeader(props: Props) {
 	);
 }
 
-export default observer(SubHeader);
 
 
 const styles = StyleSheet.create({

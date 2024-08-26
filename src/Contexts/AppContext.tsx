@@ -1,47 +1,49 @@
-import {createContext, useContext, useMemo} from "react";
-import {action, makeAutoObservable, runInAction} from "mobx";
-import {auth, storage} from "../Utils/Firebase";
-import {IMessage} from "react-native-gifted-chat";
+import { createContext, useContext, useMemo } from "react";
+import { action, makeAutoObservable, runInAction } from "mobx";
+import { auth, storage } from "../Utils/Firebase";
+import { IMessage } from "react-native-gifted-chat";
 import PropertyService from "../Utils/Services/PropertyService";
 import LeaseService from "../Utils/Services/LeaseService";
-import TenantService from "../Utils/Services/TenantService";
 import _, {toNumber} from "lodash";
 import TodoService from "../Utils/Services/TodoService";
+import UserService from "@src/Utils/Services/UserService";
+import isHTTPError from "@src/Utils/HttpError";
+import TransactionService from "@src/Utils/Services/TransactionService";
+
 
 class AppContextClass {
-	public Properties:Property[] = [];
-	public Messages:IMessage[] = [];
-	public SelectedProperty:Property | null = null;
+	public Properties: Property[] = [];
+	public Messages: IMessage[] = [];
 	public SelectedPropertyLeases: Lease[] = [];
-	public SelectedPropertyTodos:Todo[] = [];
-	public Tenants:Tenant[] = [];
+	public SelectedPropertyTodos: Todo[] = [];
+	public Tenants: User[] = [];
+	public ExpenseAnalyticData:ExpenseAnalytic[] = [];
+	public Transactions: PropertyTransaction[] = [];
+	public SelectedProperty: Property | null = null;
+	public SelectedTodo: Todo | null = null;
+
 
 	constructor() {
 		makeAutoObservable(this);
 	}
 
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	public isHTTPError(data: any): data is HTTPError {
-		return data && (data.status_code === 500 || data.status_code === 400 || data.status_code === 409);
-	}
-
-	public setSelectedProperty = action((SelectedProperty: Property) =>{
-		runInAction(()=>{
+	public setSelectedProperty = action((SelectedProperty: Property) => {
+		runInAction(() => {
 			this.SelectedProperty = SelectedProperty;
 		});
 	});
 
-	public setProperties = action((Properties: Property[]) =>{
-		runInAction(()=>{
+	public setProperties = action((Properties: Property[]) => {
+		runInAction(() => {
 			this.Properties = Properties;
 		});
 	});
 
 	public addProperty = action(async (property: Property) => {
-		try{
+		try {
 			if (!auth.currentUser?.uid) return false;
 			const response = await PropertyService.addProperty(auth.currentUser.uid, property);
-			if (this.isHTTPError(response)) {
+			if (isHTTPError(response)) {
 				alert(response.message);
 				return false;
 			}
@@ -50,17 +52,17 @@ class AppContextClass {
 				this.Properties.push(property);
 			});
 			return true;
-		}catch(e){
+		} catch (e) {
 			alert(e);
 			return false;
 		}
 
 	});
 
-	public deleteProperty = action(async (propertyId: number)=> {
-		try{
+	public deleteProperty = action(async (propertyId: number) => {
+		try {
 			const response = await PropertyService.deleteProperty(propertyId);
-			if (this.isHTTPError(response)) {
+			if (isHTTPError(response)) {
 				alert(response.message);
 				return false;
 			}
@@ -75,110 +77,116 @@ class AppContextClass {
 
 			});
 			return true;
-		}catch (e){
+		} catch (e) {
 			alert(e);
 			return false;
 		}
 	});
 
-	public setPropertyLeases = action((leases:Lease[])=>{
+	public setPropertyLeases = action((leases: Lease[]) => {
 		runInAction(() => {
-			this.SelectedPropertyLeases= leases;
+			this.SelectedPropertyLeases = leases;
 		});
 	});
 
-	public addLease = action(async (lease:Lease, tenantEmail:string) => {
-		try{
-			if (_.isNull(this.SelectedProperty)) return false;
-			const response = await LeaseService.addLease(this.SelectedProperty.PropertyId, tenantEmail ,lease);
-			if (this.isHTTPError(response)) {
+	public addLease = action(async (lease: Lease, tenantEmail: string) => {
+		try {
+			if (_.isNull(this.SelectedProperty) || _.isUndefined(this.SelectedProperty.PropertyId)) return false;
+			const response = await LeaseService.addLease(this.SelectedProperty.PropertyId, lease);
+			if (isHTTPError(response)) {
 				alert(response.message);
 				lease.LeaseId = 0;
 				return false;
 			}
 			lease.LeaseId = response;
+			const sendEmailResponse = await UserService.sendSignUpEmail(lease.LeaseId, tenantEmail);
+			if (isHTTPError(sendEmailResponse)) {
+				alert(sendEmailResponse.message);
+				return false;
+			}
 			runInAction(() => {
 				this.SelectedPropertyLeases.push(lease);
 			});
 			alert("Sent invite to " + tenantEmail.toLowerCase());
+			lease.LeaseId = 0;
 			return true;
-		}catch (e){
+		} catch (e) {
 			alert(e);
 			return false;
 		}
 
 	});
 
-	public deleteLease = action(async (leaseId:number) => {
-		try{
+	public deleteLease = action(async (leaseId: number) => {
+		try {
 			const response = await LeaseService.deleteLease(leaseId);
-			if (!_.isUndefined(response) && this.isHTTPError(response)) {
+			if (!_.isUndefined(response) && isHTTPError(response)) {
 				alert(response.message);
 				return;
 			}
 			runInAction(() => {
 				this.SelectedPropertyLeases = this.SelectedPropertyLeases.filter((l) => toNumber(l.LeaseId) !== leaseId);
-				this.Tenants = this.Tenants.filter((t)=>t.LeaseId !== leaseId);
+				this.Tenants = this.Tenants.filter((t) => t.LeaseId !== leaseId);
 			});
-		}catch(e){
+		} catch (e) {
 			alert(e);
-			console.error(e);
+			console.error("Error deleting lease: " + e);
 		}
 	});
 
-	public addTenant = action(async (tenant:Tenant) => {
-		try{
-			const response = await TenantService.addTenant(tenant);
-			if (this.isHTTPError(response)) {
+	public addUser = action(async (user: User) => {
+		try {
+			const response = await UserService.addUser(user);
+			if (isHTTPError(response)) {
 				alert(response.message);
 				return false;
 			}
-			tenant.TenantId = response;
+			user.id = response;
+			if (_.isNull(user.LeaseId)) return true;
 			runInAction(() => {
-				this.Tenants.push(tenant);
+				this.Tenants.push(user);
 			});
 			return true;
-		}catch (e){
+		} catch (e) {
 			alert(e);
 			return false;
 		}
 	});
 
-	public setTenants = action((tenants:Tenant[]) => {
-		runInAction(()=>{
+	public setTenants = action((tenants: User[]) => {
+		runInAction(() => {
 			this.Tenants = tenants;
 		});
 	});
 
-	public setSelectedPropertyTodos = action((todos:Todo[])=>{
+	public setSelectedPropertyTodos = action((todos: Todo[]) => {
 		runInAction(() => {
-			this.SelectedPropertyTodos= todos;
+			this.SelectedPropertyTodos = todos;
 		});
 	});
 
-	public addTodo = action(async (todo:Todo) => {
-		try{
+	public addTodo = action(async (todo: Todo) => {
+		try {
 			const response = await TodoService.addTodo(todo);
-			if (this.isHTTPError(response)) {
+			if (isHTTPError(response)) {
 				alert(response.message);
 				return false;
 			}
-			todo.RecommendedProfessional = response.recommendedProfessional;
-			todo.id = response.todoId;
+			todo.id = response;
 			runInAction(() => {
 				this.SelectedPropertyTodos.push(todo);
 			});
 			return true;
-		}catch (e){
+		} catch (e) {
 			alert(e);
 			return false;
 		}
 
 	});
 
-	public deleteTodo = action(async (todoId:number) => {
+	public deleteTodo = action(async (todoId: number) => {
 		const response = await TodoService.deleteTodo(todoId);
-		if (this.isHTTPError(response)) {
+		if (isHTTPError(response)) {
 			alert(response.message);
 			return;
 		}
@@ -188,10 +196,62 @@ class AppContextClass {
 		});
 	});
 
+	public setSelectedPropertyTodo = action((todo: Todo) => {
+		runInAction(() => {
+			this.SelectedTodo = todo;
+		});
+	});
+
+	public getRecommendations = action(async (todoId: number) => {
+		try {
+			if (_.isNil(this.SelectedProperty)) return [];
+			const response = await TodoService.getRecommendations(todoId, this.SelectedProperty.Address);
+			if (isHTTPError(response)) {
+				alert(response.message);
+				return [];
+			}
+			return response;
+		} catch (error) {
+			console.error("Error fetching recommendations:", error);
+			return [];
+		}
+	});
+
 	public setMessages = action((messages: IMessage[]) => {
-		runInAction(()=> {
+		runInAction(() => {
 			this.Messages = messages.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 		});
+	});
+
+	public setExpenseAnalyticData = action((expenseAnalytics: ExpenseAnalytic[]) => {
+		runInAction(()=>{
+			this.ExpenseAnalyticData = expenseAnalytics;
+		});
+	});
+
+	public setTransactions = action((transactions: PropertyTransaction[]) => {
+		runInAction(() => {
+			this.Transactions = transactions;
+		});
+	});
+
+	public addTransaction = action(async (transaction: PropertyTransaction) => {
+		try{
+			const addTransactionResponse = await TransactionService.addTransaction(transaction);
+			if (isHTTPError(addTransactionResponse)){
+				alert(addTransactionResponse.message);
+				return;
+			}
+			transaction.id = addTransactionResponse;
+			runInAction(() => {
+				this.Transactions.push(transaction);
+			});
+			return;
+		}catch (e){
+			console.error("Error adding transaction:", e);
+			return;
+		}
+
 	});
 
 	public logout() {
@@ -202,7 +262,7 @@ class AppContextClass {
 		this.Tenants = [];
 	}
 
-	public uploadPicture = async (profilePicturePath:string, username:string, path:string) => {
+	public uploadPicture = async (profilePicturePath: string, path: string) => {
 		if (_.isEmpty(profilePicturePath)) {
 			return "";
 		}
@@ -214,7 +274,7 @@ class AppContextClass {
 			await storageRef.put(blob);
 			return await storageRef.getDownloadURL();
 		} catch (error) {
-			console.error(error);
+			console.error("error uploading picture: " + error);
 			return "";
 		}
 	};
@@ -222,7 +282,7 @@ class AppContextClass {
 
 const AppContext = createContext(new AppContextClass());
 
-export default function AppContextProvider ({ children }: { children: React.ReactNode }) {
+export default function AppContextProvider({ children }: { children: React.ReactNode }) {
 	const appContext = useMemo(() => new AppContextClass(), []);
 
 	return (

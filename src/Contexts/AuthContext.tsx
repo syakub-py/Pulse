@@ -12,7 +12,7 @@ class AuthContextClass {
 	public profilePicture: string = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
 	public password: string = "";
 	public uid:string = "";
-	private isLoadingAuth: boolean = true;
+	private _isLoadingAuth: boolean = true;
 	public leaseId: number | null = null;
 
 	public setUsername = action((username: string) =>{
@@ -42,12 +42,12 @@ class AuthContextClass {
 		return !_.isEmpty(this.username) && !_.isEmpty(this.password);
 	}
 
-	get isLoading() {
-		return this.isLoadingAuth;
+	get isLoadingAuth() {
+		return this._isLoadingAuth;
 	}
 
-	set isLoading(isLoadingAuth: boolean) {
-		this.isLoadingAuth = isLoadingAuth;
+	set isLoadingAuth(isLoadingAuth: boolean) {
+		this._isLoadingAuth = isLoadingAuth;
 	}
 
 	public async getAuthDataFromStorage(): Promise<void> {
@@ -64,11 +64,12 @@ class AuthContextClass {
 			this.uid = "";
 			this.username = "";
 			this.password = "";
+			this.profilePicture = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
 		});
 		try{
 			await auth.signOut();
 			await AsyncStorageClass.clearAllAsyncStorageData();
-			this.isLoading = false;
+			this.isLoadingAuth = false;
 		}catch (e){
 			alert("Error logging out");
 			return;

@@ -84,7 +84,7 @@ function CreateUsernameAndPassword() {
 				const user = await auth.createUserWithEmailAndPassword(username, password);
 				if (!_.isEmpty(user.user) && !_.isNull(user.user)) {
 					if (!_.isEmpty(profilePicture)) {
-						const profilePictureUrl = await appContext.uploadPicture(profilePicture, username, `ProfilePictures/${username}/`);
+						const profilePictureUrl = await appContext.uploadPicture(profilePicture, `ProfilePictures/${username}/`);
 						authContext.setProfilePicture(profilePictureUrl);
 						await updateProfile(user.user, {photoURL: profilePictureUrl});
 					} else {

@@ -26,11 +26,11 @@ export default function useLogin() {
 			authContext.setUsername(username);
 			authContext.setPassword(password);
 			authContext.setUid(user.user.uid);
-			authContext.isLoading = false;
+			authContext.isLoadingAuth = false;
 			navigation.navigate("BottomNavBar");
 		} catch (e) {
 			alert("Incorrect email or password");
-			console.error(e);
+			console.error("error logging in: " + e);
 		}
 	},[authContext, navigation]);
 }

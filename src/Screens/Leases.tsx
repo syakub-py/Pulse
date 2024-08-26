@@ -1,52 +1,35 @@
 import {observer} from "mobx-react-lite";
 import Layout from "../Components/Layout";
 import Header from "../Components/Header";
-import {StyleSheet, View} from "react-native";
-import FloatingActionButton from "../Components/FloatingActionButton";
+import FloatingActionButton from "../Components/Buttons/FloatingActionButton";
 import AreLeases from "../Components/Leases/AreLeases";
 import _ from "lodash";
 import NoLeases from "../Components/Leases/NoLeases";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import { useAppContext } from "../Contexts/AppContext";
+import {useMemo} from "react";
 
 function Leases(){
 	const appContext = useAppContext();
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Leases">>();
-	const hasLeases = !_.isEmpty(appContext.SelectedPropertyLeases);
-
+	const hasLeases = useMemo(() => {
+		return !_.isEmpty(appContext.SelectedPropertyLeases);
+	}, [appContext.SelectedPropertyLeases]);
 	return (
 		<Layout>
-			<View>
-				<View style={styles.headerContainer}>
-					<Header title={`${appContext.SelectedProperty?.Name} lease(s)`} />
-					{(_.isEmpty(appContext.SelectedProperty) || !appContext.SelectedProperty.isRental)?null : (
-						<FloatingActionButton
-							icon={"add"}
-							styles={styles.fab}
-							onPress={() => navigation.navigate("AddALease")}
-						/>
-					)}
+			<Header title={`${appContext.SelectedProperty?.Name} lease(s)`} />
+			{hasLeases ? <AreLeases /> : <NoLeases />}
 
-				</View>
-				{hasLeases ? <AreLeases /> : <NoLeases />}
-			</View>
+			{(_.isEmpty(appContext.SelectedProperty) || !appContext.SelectedProperty.isRental)?null : (
+				<FloatingActionButton
+					icon={"add"}
+					onPress={() => navigation.navigate("AddALease")}
+					text={"Add Lease"}
+				/>
+			)}
 		</Layout>
 	);
 }
 
 export default observer(Leases);
-const styles = StyleSheet.create({
-	fab: {
-		position: "absolute",
-		bottom: 20,
-		right: 20,
-		padding: 10,
-		borderRadius: 30,
-		elevation: 5,
-	},
-	headerContainer:{
-		flexDirection:"row",
-		justifyContent:"space-between",
-	}
-});

@@ -1,34 +1,37 @@
 declare global {
     interface Property {
-        PropertyId: number,
+        PropertyId?: number,
         Name:string,
         Address: string;
         PropertyType: string;
         isRental:boolean;
-        isTenant?:boolean;
+        PurchasePrice:string,
+        Taxes:string,
+        MortgagePayment:string,
+        OperatingExpenses:string,
+        isCurrentUserTenant?:boolean;
     }
 
     interface Lease {
-        LeaseId: number;
+        LeaseId?: number;
         TenantName: string;
-        TenantUid?:string;
         StartDate: string;
         EndDate: string;
         MonthlyRent: number | null;
-        PropertyId: number;
         Terms:string;
         isLeaseExpired: boolean;
         isTenantCodeExpired?: boolean;
+        TenantUid?:string
     }
 
-    interface HTTPError {
+    interface HTTPError{
         message:string,
         status_code:number,
     }
 
-    interface Tenant{
-        TenantId?:number;
-        LeaseId?: number;
+    interface User {
+        id?:number;
+        LeaseId: number | null;
         UserId: string;
         Name:string;
         PhoneNumber:string;
@@ -68,9 +71,29 @@ declare global {
         lease_id: number;
     }
 
-    interface AddTodoResponse {
-        todoId:number;
-        recommendedProfessional:string;
+    interface GoogleMapsPlaceResponse{
+        name:string,
+        vicinity:string,
+        rating:number
+    }
+
+    interface ExpenseAnalytic {
+        name: string;
+        expenseAmount: number;
+        color: string;
+        legendFontColor: string;
+        legendFontSize: number;
+    }
+
+    interface PropertyTransaction {
+        id?:number
+        userId?:string
+        propertyId?:number;
+        amount: number
+        description: string
+        transactionType: string
+        incomeOrExpense:string
+        date:string
     }
 
     type RootStackParamList = {
@@ -88,9 +111,10 @@ declare global {
         "AllTenants": undefined,
         "AddATodo": undefined,
         "AddALease":undefined,
-        "AddATenant": undefined,
+        "AddAUser": undefined,
+        "AddATransaction": undefined,
         "EnterTenantCode": undefined,
-        "TodoDetails": { todo:Todo },
+        "TodoDetails": { selectedTodoIndex:number },
     }
 }
 

@@ -1,12 +1,11 @@
 import {Pressable, StyleSheet} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import {observer} from "mobx-react-lite";
 
 interface Props{
 	onclick:()=>void;
 }
 
-function UploadPictures(props:Props) {
+export default function UploadPictures(props:Props) {
 	const {onclick} = props;
 	return (
 		<Pressable style={styles.profilePicture} onPress={()=>onclick()}>
@@ -15,7 +14,6 @@ function UploadPictures(props:Props) {
 	);
 }
 
-export default observer(UploadPictures);
 
 const styles = StyleSheet.create({
 	profilePicture: {

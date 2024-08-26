@@ -9,52 +9,22 @@ import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import LeaseCard from "../Components/Leases/LeaseCard";
 import { useAppContext } from "../Contexts/AppContext";
-import TenantService from "../Utils/Services/TenantService";
-import LeaseService from "../Utils/Services/LeaseService";
+import ValidateLeaseInputs from "@src/Utils/ValidateInputs/ValidateLeaseInputs";
 
 function AddALease() {
 	const appContext = useAppContext();
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "AddALease">>();
 	const [leaseDetails, setLeaseDetails] = useState<Lease>({
-		LeaseId:0,
 		StartDate: "",
 		EndDate: "",
 		MonthlyRent: null,
 		isLeaseExpired: false,
 		TenantName: "",
 		Terms: "",
-		PropertyId: _.isNil(appContext.SelectedProperty) ? 0 :  appContext.SelectedProperty.PropertyId
 	});
 	const [newLeases, setNewLeases] = useState<Lease[]>([]);
 	const [tenantEmail, setTenantEmail] = useState("");
 
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	const areValidInputs = () => {
-		if (!leaseDetails.StartDate) {
-			alert("Start date is required");
-			return false;
-		} else if (!/^\d{4}-\d{2}-\d{2}$/.test(leaseDetails.StartDate)) {
-			alert("Invalid date format. Please use YYYY-MM-DD.");
-			return false;
-		}
-
-		if (!leaseDetails.EndDate) {
-			alert("End date is required");
-			return false;
-		} else if (!/^\d{4}-\d{2}-\d{2}$/.test(leaseDetails.EndDate)) {
-			alert("Invalid date format. Please use YYYY-MM-DD.");
-			return false;
-		}
-
-		if (!leaseDetails.MonthlyRent) {
-			alert("Monthly rent is required");
-			return false;
-		} else if (isNaN(Number(leaseDetails.MonthlyRent))) {
-			alert("Monthly rent must be a number");
-			return false;
-		}
-		return true;
-	};
 
 	const handleInputChange = useCallback((name:string, value:string | number) => {
 		setLeaseDetails({
@@ -63,46 +33,43 @@ function AddALease() {
 		});
 	}, [leaseDetails]);
 
-
 	const handleAddLease = useCallback(async () => {
-		try {
-			if (_.isNull(appContext.SelectedProperty?.PropertyId)){
-				alert("There is no property selected");
-				return;
-			}
+	    try {
+	        if (_.isNil(appContext.SelectedProperty?.PropertyId)) {
+	            alert("There is no property selected");
+	            return;
+	        }
 
-			if (!areValidInputs()) return;
-			leaseDetails.TenantName = "Wait for tenant information...";
+	        if (!ValidateLeaseInputs(leaseDetails)) return;
+	        leaseDetails.TenantName = "Wait for tenant information...";
 
-			const isAddLeaseSuccessful = await appContext.addLease(leaseDetails, tenantEmail.toLowerCase());
-			if (!isAddLeaseSuccessful) return;
+	        const isAddLeaseSuccessful = await appContext.addLease(leaseDetails, tenantEmail.toLowerCase());
+	        if (!isAddLeaseSuccessful) return;
 
-			setNewLeases([...newLeases, leaseDetails]);
-			setLeaseDetails({
-				isLeaseExpired: false,
-				TenantName: "",
-				Terms: "",
-				LeaseId: 0,
-				StartDate: "",
-				EndDate: "",
-				MonthlyRent: null,
-				PropertyId: appContext.SelectedProperty.PropertyId
-			});
-			setTenantEmail("");
-		} catch (error) {
-			console.error(error);
-		}
-	}, [appContext, areValidInputs, leaseDetails, newLeases, tenantEmail]);
+	        setNewLeases([...newLeases, leaseDetails]);
+	        setLeaseDetails({
+	            isLeaseExpired: false,
+	            TenantName: "",
+	            Terms: "",
+	            StartDate: "",
+	            EndDate: "",
+	            MonthlyRent: null,
+	        });
+	        setTenantEmail("");
+	    } catch (error) {
+	        console.error("error adding a lease" + error);
+	    }
+	}, [appContext, leaseDetails, tenantEmail, newLeases, setLeaseDetails]);
 
-	const handleSubmit = useCallback(() =>{
+	const handleSubmit = () =>{
 		navigation.navigate("BottomNavBar");
-	}, [navigation]);
+	};
 
 	return (
 		<Layout>
 			<View style={styles.headerContainer}>
 				<BackButton/>
-				<Header title={"Add A Lease"} />
+				<Header title={"Add Lease"} />
 			</View>
 			<View style={styles.container}>
 				<View style={styles.inputContainer}>

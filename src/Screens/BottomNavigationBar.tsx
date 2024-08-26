@@ -47,14 +47,19 @@ function BottomNavigationBar() {
 		>
 			<Tab.Screen name={"Home"} component={Home} />
 			{
-				(!appContext.SelectedProperty?.isTenant && !_.isNull(appContext.SelectedProperty) && appContext.SelectedProperty.isRental) ? (
+				(!appContext.SelectedProperty?.isCurrentUserTenant && !_.isNull(appContext.SelectedProperty) && appContext.SelectedProperty.isRental) ? (
 					<Tab.Screen name={"Lease"} component={Leases} />
-				) : (appContext.SelectedPropertyLeases.length > 0) ? (
+				) : (appContext.SelectedProperty?.isRental) ? (
 					<Tab.Screen name={"Your Lease"} component={YourLease} />
 				) : null
 			}
 			<Tab.Screen name={"AI"} component={PulseAI} />
-			<Tab.Screen name={"Analytics"} component={Analytics} />
+			{
+				(!appContext.SelectedProperty?.isCurrentUserTenant && !_.isNull(appContext.SelectedProperty) && appContext.SelectedProperty.isRental) ? (
+					<Tab.Screen name={"Analytics"} component={Analytics} />
+				):null
+			}
+
 			<Tab.Screen name={"Settings"} component={Settings} />
 		</Tab.Navigator>
 	);
