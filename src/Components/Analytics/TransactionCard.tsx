@@ -13,7 +13,6 @@ export default function TransactionCard(props: Props) {
 				<Text style={styles.title}>{transaction.transactionType}</Text>
 				<Text style={styles.text}>{transaction.incomeOrExpense}</Text>
 			</View>
-
 			<Text style={styles.text}>${transaction.amount.toLocaleString("en-US")}</Text>
 		</View>
 	);

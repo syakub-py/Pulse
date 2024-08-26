@@ -19,13 +19,15 @@ import TenantCode from "./Screens/SignUp/TenantCode";
 import AddATodo from "./Screens/AddATodo";
 import TodoDetails from "./Screens/TodoDetails";
 import AddATransaction from "@src/Screens/AddATransaction";
+import {useAppContext} from "@src/Contexts/AppContext";
 
 
 export default function Routes() {
 	const authContext = useAuthContext();
+	const appContext = useAppContext();
 	const { Screen } = createNativeStackNavigator<RootStackParamList>();
 
-	if (authContext.isLoadingAuth) {
+	if (authContext.isLoadingAuth || _.isEmpty(appContext.Properties)) {
 		return [
 			<Screen key="Loading" name="Loading" component={Loading}/>
 		];

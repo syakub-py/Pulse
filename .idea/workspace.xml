@@ -5,32 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="adding and getting transactions">
-      <change afterPath="$PROJECT_DIR$/src/Screens/AddATransaction.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/AllProperties/PropertyCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/AllProperties/PropertyCard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/AllTenants/TenantCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/AllTenants/TenantCard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Analytics/SubHeader.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Analytics/SubHeader.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/BackButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/BackButton.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Header.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Home/NoProperties.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Home/NoProperties.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Leases/LeaseCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Leases/LeaseCard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Leases/LeaseDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Leases/LeaseDetails.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Leases/NoLeases.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Leases/NoLeases.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/PulseAI/MessageInputBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/PulseAI/MessageInputBar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Settings/Setting.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Settings/Setting.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/SignUp/PasswordRequirementCheckBox.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/SignUp/PasswordRequirementCheckBox.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/SignUp/Requirement.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/SignUp/Requirement.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/UploadPictures.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/UploadPictures.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contexts/AppContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/AppContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hooks/useCreateChatIfDoesntExist.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useCreateChatIfDoesntExist.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hooks/useGetLeasesAndTenants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useGetLeasesAndTenants.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hooks/useLogin.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useLogin.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Analytics/TransactionCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Analytics/TransactionCard.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screens/AddALease.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/AddALease.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screens/Analytics.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/Analytics.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screens/SignUp/AddAUser.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/SignUp/AddAUser.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Types/Global.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Types/Global.d.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,7 +54,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "AIintegration",
+    "git-widget-placeholder": "main",
     "last_opened_file_path": "/Users/boss/Programming Projects/Pulse/assets/DefaultPictures",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -230,6 +207,7 @@
       <workItem from="1724508720931" duration="9312000" />
       <workItem from="1724540848103" duration="5821000" />
       <workItem from="1724558820031" duration="1772000" />
+      <workItem from="1724698237129" duration="2049000" />
     </task>
     <task id="LOCAL-00066" summary="add error handling">
       <option name="closed" value="true" />
@@ -642,7 +620,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="todo details working" />
     <MESSAGE value="delete todo working" />
     <MESSAGE value="work on todo" />
     <MESSAGE value="add try catch to every api call" />
@@ -667,6 +644,7 @@
     <MESSAGE value="finished fixing errors" />
     <MESSAGE value="started analytics" />
     <MESSAGE value="adding and getting transactions" />
-    <option name="LAST_COMMIT_MESSAGE" value="adding and getting transactions" />
+    <MESSAGE value="fix lint errors" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix lint errors" />
   </component>
 </project>
