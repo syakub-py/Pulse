@@ -4,7 +4,7 @@ import { auth, storage } from "../Utils/Firebase";
 import { IMessage } from "react-native-gifted-chat";
 import PropertyService from "../Utils/Services/PropertyService";
 import LeaseService from "../Utils/Services/LeaseService";
-import _, {toNumber} from "lodash";
+import _, {property, toNumber} from "lodash";
 import TodoService from "../Utils/Services/TodoService";
 import UserService from "@src/Utils/Services/UserService";
 import isHTTPError from "@src/Utils/HttpError";
@@ -285,6 +285,30 @@ class AppContextClass {
 			return "";
 		}
 	};
+
+	public handleDeleteAccount = async (username: string): Promise<void> => {
+		try {
+			const paths = [
+				`/DocumentPictures/${username}`,
+				`/ProfilePictures/${username}`
+			];
+			for (const path of paths) {
+				const folderRef = storage.ref(path);
+				const listResult = await folderRef.listAll();
+				const deletePromises = listResult.items.map(fileRef => fileRef.delete());
+				await Promise.all(deletePromises);
+			}
+			if (_.isEmpty(this.Properties)) return;
+			for (const property of this.Properties) {
+				if (_.isUndefined(property.PropertyId)) return;
+				await this.deleteProperty(property.PropertyId);
+			}
+			console.log("All files in both paths deleted successfully.");
+		} catch (error) {
+			console.error("Error deleting account folders:", error);
+		}
+	};
+
 }
 
 const AppContext = createContext(new AppContextClass());

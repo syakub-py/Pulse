@@ -4,14 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="fixed loading bug">
+    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="Validating date inputs">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Contexts/AppContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/AppContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hooks/useGenerateAnalytics.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useGenerateAnalytics.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Screens/Analytics.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/Analytics.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Types/Global.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Types/Global.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Utils/Services/AnalyticsService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/Services/AnalyticsService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/Settings.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/Settings.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utils/ValidateInputs/ValidateDateInput.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/ValidateInputs/ValidateDateInput.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,8 +19,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="TypeScript File" />
         <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -212,23 +210,10 @@
       <workItem from="1724540848103" duration="5821000" />
       <workItem from="1724558820031" duration="1772000" />
       <workItem from="1724698237129" duration="2133000" />
-      <workItem from="1724709987134" duration="7423000" />
-    </task>
-    <task id="LOCAL-00067" summary="start lease details">
-      <option name="closed" value="true" />
-      <created>1722971335801</created>
-      <option name="number" value="00067" />
-      <option name="presentableId" value="LOCAL-00067" />
-      <option name="project" value="LOCAL" />
-      <updated>1722971335801</updated>
-    </task>
-    <task id="LOCAL-00068" summary="start lease details">
-      <option name="closed" value="true" />
-      <created>1723230379357</created>
-      <option name="number" value="00068" />
-      <option name="presentableId" value="LOCAL-00068" />
-      <option name="project" value="LOCAL" />
-      <updated>1723230379357</updated>
+      <workItem from="1724709987134" duration="10861000" />
+      <workItem from="1724767822792" duration="929000" />
+      <workItem from="1724769528800" duration="1320000" />
+      <workItem from="1724775397128" duration="2426000" />
     </task>
     <task id="LOCAL-00069" summary="start tenant side integration">
       <option name="closed" value="true" />
@@ -606,7 +591,23 @@
       <option name="project" value="LOCAL" />
       <updated>1724700357634</updated>
     </task>
-    <option name="localTasksCounter" value="116" />
+    <task id="LOCAL-00116" summary="income bar chart working">
+      <option name="closed" value="true" />
+      <created>1724718006445</created>
+      <option name="number" value="00116" />
+      <option name="presentableId" value="LOCAL-00116" />
+      <option name="project" value="LOCAL" />
+      <updated>1724718006447</updated>
+    </task>
+    <task id="LOCAL-00117" summary="Validating date inputs">
+      <option name="closed" value="true" />
+      <created>1724768407870</created>
+      <option name="number" value="00117" />
+      <option name="presentableId" value="LOCAL-00117" />
+      <option name="project" value="LOCAL" />
+      <updated>1724768407870</updated>
+    </task>
+    <option name="localTasksCounter" value="118" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -625,8 +626,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="work on todo" />
-    <MESSAGE value="add try catch to every api call" />
     <MESSAGE value="fixed signIn error" />
     <MESSAGE value="added errors to all add/delete/and fetch functions" />
     <MESSAGE value="fixed tenant code bug" />
@@ -650,6 +649,8 @@
     <MESSAGE value="adding and getting transactions" />
     <MESSAGE value="fix lint errors" />
     <MESSAGE value="fixed loading bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed loading bug" />
+    <MESSAGE value="income bar chart working" />
+    <MESSAGE value="Validating date inputs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Validating date inputs" />
   </component>
 </project>

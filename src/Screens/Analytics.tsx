@@ -14,60 +14,47 @@ import TransactionCard from "@src/Components/Analytics/TransactionCard";
 import _ from "lodash";
 
 
-const chartConfig = {
-	backgroundColor: "#333",
-	labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-	decimalPlaces: 2,
-	color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-	propsForDots: {
-		r: "6",
-		strokeWidth: "2",
-		stroke: "#ffa726",
-	},
-};
-
-
 function Analytics(){
 	useGenerateAnalytics();
 	useFetchTransactions();
 	const appContext = useAppContext();
-	const navigation =useNavigation<StackNavigationProp<RootStackParamList, "Analytics">>();
+	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Analytics">>();
 	if (_.isNull(appContext.IncomeAnalyticData)) return;
-
-	const barChartData = {
-		labels: appContext.IncomeAnalyticData.labels,
-		datasets: [
-			{
-				data: appContext.IncomeAnalyticData.data,
-				color: (opacity = 1) => appContext.IncomeAnalyticData!.color,
-				strokeWidth: 4,
-			},
-		],
-	};
 
 	return (
 		<Layout>
-			<Header title={"Your Analytics"}/>
-			<SubHeader title={"Transactions"}/>
-			<FlatList data={appContext.Transactions}
-					  renderItem={({item, index})=>(
-						  <TransactionCard key={index} transaction={item}/>
-					  )}/>
+			<Header title={"Your Analytics"} />
+			<SubHeader title={"Transactions"} />
+			<FlatList
+				data={appContext.Transactions}
+				renderItem={({item, index}) => (
+					<TransactionCard key={index} transaction={item} />
+				)}
+			/>
 			<ScrollView>
-				<SubHeader title={"Income"}/>
+				<SubHeader title={"Income"} />
 				<BarChart
-					data={barChartData}
+					data={{
+						labels: appContext.IncomeAnalyticData.labels,
+						datasets: [
+							{
+								data: appContext.IncomeAnalyticData.data,
+								color: (opacity = 1) => `rgba(255, 165, 0, ${opacity})`,
+								strokeWidth: 4,
+							},
+						],
+					}}
 					width={Dimensions.get("window").width - 16}
 					height={300}
 					fromZero={true}
 					yAxisLabel="$"
 					yAxisSuffix="k"
 					chartConfig={{
-						backgroundGradientFrom: "white",
-						backgroundGradientTo: "white",
+						backgroundGradientFrom: "#1e1e1e",
+						backgroundGradientTo: "#1e1e1e",
 						decimalPlaces: 2,
-						color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-						labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+						color: (opacity = 1) => `rgba(255, 165, 0, ${opacity})`,
+						labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
 						style: {
 							borderRadius: 16,
 						},
@@ -80,22 +67,37 @@ function Analytics(){
 					verticalLabelRotation={30}
 				/>
 
-				<SubHeader title={"Expense Break down"}/>
+				<SubHeader title={"Expense Breakdown"} />
 				<PieChart
 					data={appContext.ExpenseAnalyticData}
 					width={Dimensions.get("window").width}
 					height={200}
-					chartConfig={chartConfig}
+					chartConfig={{
+						backgroundColor: "#1e1e1e",
+						backgroundGradientFrom: "#1e1e1e",
+						backgroundGradientTo: "#1e1e1e",
+						labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+						decimalPlaces: 2,
+						color: (opacity = 1) => `rgba(255, 165, 0, ${opacity})`,
+						propsForDots: {
+							r: "6",
+							strokeWidth: "2",
+							stroke: "#ffa726",
+						},
+					}}
 					accessor="expenseAmount"
 					backgroundColor="transparent"
 					paddingLeft="15"
 					absolute
 				/>
 			</ScrollView>
-			<FloatingActionButton onPress={()=>navigation.navigate("AddATransaction")} icon={"add"} text={"Add Transaction"} />
+			<FloatingActionButton
+				onPress={() => navigation.navigate("AddATransaction")}
+				icon={"add"}
+				text={"Add Transaction"}
+			/>
 		</Layout>
 	);
 }
 
 export default observer(Analytics);
-

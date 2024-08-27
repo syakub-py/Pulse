@@ -46,7 +46,7 @@ function Settings(){
 				<Setting title={"Your Tenants"} onClick={()=>navigation.navigate("AllTenants")}/>
 				<Setting title={"Your Properties"} onClick={()=>navigation.navigate("AllProperties")} />
 				<Setting title={"Change username or password"} onClick={()=>console.log("clicked")} />
-
+				<Setting title={"Delete Your account"} onClick={()=>console.log("clicked")} />
 			</ScrollView>
 		</Layout>
 	);
