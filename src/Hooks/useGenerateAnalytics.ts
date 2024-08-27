@@ -14,12 +14,12 @@ export default function useGenerateAnalytics(){
 			alert(expenseAnalyticResponse.message);
 			return;
 		}
+		appContext.setExpenseAnalyticData(expenseAnalyticResponse as ExpenseAnalytic[]);
 
 		if (isHTTPError(incomeAnalyticResponse)) {
 			alert(incomeAnalyticResponse.message);
 			return;
 		}
-		appContext.setExpenseAnalyticData(expenseAnalyticResponse as ExpenseAnalytic[]);
 		appContext.setIncomeAnalyticData(incomeAnalyticResponse as IncomeAnalytic);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	},[]);

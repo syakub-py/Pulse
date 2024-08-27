@@ -9,6 +9,7 @@ import {View, StyleSheet, TextInput, ActivityIndicator, Button, Dimensions} from
 import DropdownPicker, {ItemType} from "react-native-dropdown-picker";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
+import ValidateDateInput from "@src/Utils/ValidateInputs/ValidateDateInput";
 
 function AddATransaction() {
 	const appContext = useAppContext();
@@ -48,16 +49,20 @@ function AddATransaction() {
 	const handleSubmit = useCallback(async () => {
 		setIsLoading(true);
 		try {
+			if (!ValidateDateInput(transactionDetails.date)) {
+				alert("Invalid Date");
+				return;
+			}
 			transactionDetails.propertyId = appContext.SelectedProperty?.PropertyId;
 			transactionDetails.userId = authContext.uid;
 			transactionDetails.incomeOrExpense = incomeOrExpense;
 			transactionDetails.transactionType = transactionType;
 			await appContext.addTransaction(transactionDetails);
+			navigation.goBack();
 		} catch (error) {
 			console.error("Failed to add transaction:", error);
 		} finally {
 			setIsLoading(false);
-			navigation.goBack();
 		}
 	}, [transactionDetails, appContext, authContext.uid, incomeOrExpense, transactionType, navigation]);
 

@@ -10,6 +10,7 @@ import {StackNavigationProp} from "@react-navigation/stack";
 import LeaseCard from "../Components/Leases/LeaseCard";
 import { useAppContext } from "../Contexts/AppContext";
 import ValidateLeaseInputs from "@src/Utils/ValidateInputs/ValidateLeaseInputs";
+import ValidateDateInput from "@src/Utils/ValidateInputs/ValidateDateInput";
 
 function AddALease() {
 	const appContext = useAppContext();
@@ -41,6 +42,10 @@ function AddALease() {
 	        }
 
 	        if (!ValidateLeaseInputs(leaseDetails)) return;
+			if (!ValidateDateInput(leaseDetails.EndDate) || !ValidateDateInput(leaseDetails.StartDate)) {
+				alert("Dates have to be within a 10 year range of today");
+				return;
+			}
 	        leaseDetails.TenantName = "Wait for tenant information...";
 
 	        const isAddLeaseSuccessful = await appContext.addLease(leaseDetails, tenantEmail.toLowerCase());
