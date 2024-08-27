@@ -8,12 +8,19 @@ export default function useGenerateAnalytics(){
 	const appContext = useAppContext();
 	const fetchData = useCallback(async ()=> {
 		if (_.isNull(appContext.SelectedProperty) || _.isUndefined(appContext.SelectedProperty.PropertyId) || !appContext.SelectedProperty.isRental) return;
-		const response = await AnalyticsService.getExpenseAnalytics(appContext.SelectedProperty.PropertyId);
-		if (isHTTPError(response)){
-			alert(response.message);
+		const expenseAnalyticResponse = await AnalyticsService.getExpenseAnalytics(appContext.SelectedProperty.PropertyId);
+		const incomeAnalyticResponse = await AnalyticsService.getIncomeAnalytics(appContext.SelectedProperty.PropertyId);
+		if (isHTTPError(expenseAnalyticResponse)) {
+			alert(expenseAnalyticResponse.message);
 			return;
 		}
-		appContext.setExpenseAnalyticData(response as ExpenseAnalytic[]);
+
+		if (isHTTPError(incomeAnalyticResponse)) {
+			alert(incomeAnalyticResponse.message);
+			return;
+		}
+		appContext.setExpenseAnalyticData(expenseAnalyticResponse as ExpenseAnalytic[]);
+		appContext.setIncomeAnalyticData(incomeAnalyticResponse as IncomeAnalytic);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	},[]);
 

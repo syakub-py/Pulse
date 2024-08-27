@@ -8,7 +8,7 @@ export default new class AnalyticsService {
 		const response = await http.get(`${this.serviceHeader}/generateExpenseAnalytics/${propertyId}`);
 		return response.data;
 	}
-	async getIncomeAnalytics(propertyId: number): Promise<ExpenseAnalytic[] | HTTPError> {
+	async getIncomeAnalytics(propertyId: number): Promise<IncomeAnalytic | HTTPError> {
 		const response = await http.get(`${this.serviceHeader}/generateIncomeAnalytics/${propertyId}`);
 		return response.data;
 	}

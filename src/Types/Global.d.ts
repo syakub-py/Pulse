@@ -84,6 +84,11 @@ declare global {
         legendFontColor: string;
         legendFontSize: number;
     }
+    interface IncomeAnalytic {
+        labels: string[];
+        data: number[];
+        color: string;
+    }
 
     interface PropertyTransaction {
         id?:number

@@ -18,6 +18,7 @@ class AppContextClass {
 	public SelectedPropertyTodos: Todo[] = [];
 	public Tenants: User[] = [];
 	public ExpenseAnalyticData:ExpenseAnalytic[] = [];
+	public IncomeAnalyticData:IncomeAnalytic | null = null;
 	public Transactions: PropertyTransaction[] = [];
 	public SelectedProperty: Property | null = null;
 	public SelectedTodo: Todo | null = null;
@@ -226,6 +227,12 @@ class AppContextClass {
 	public setExpenseAnalyticData = action((expenseAnalytics: ExpenseAnalytic[]) => {
 		runInAction(()=>{
 			this.ExpenseAnalyticData = expenseAnalytics;
+		});
+	});
+
+	public setIncomeAnalyticData = action((incomeAnalytics: IncomeAnalytic) => {
+		runInAction(() => {
+			this.IncomeAnalyticData = incomeAnalytics;
 		});
 	});
 
