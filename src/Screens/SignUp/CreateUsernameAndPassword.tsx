@@ -15,6 +15,8 @@ import BackButton from "../../Components/BackButton";
 import { useAuthContext } from "@src/Contexts/AuthContext";
 import {useAppContext} from "@src/Contexts/AppContext";
 import { FirebaseError } from "firebase/app";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import PasswordInput from "@src/Components/PasswordInput";
 
 
 const validateForm = (username: string, password: string, requirements: PasswordRequirement[]): boolean => {
@@ -39,6 +41,7 @@ function CreateUsernameAndPassword() {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [profilePicture, setProfilePicture] = useState("");
+	const [isLoading, setIsLoading] = useState(false);
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "CreateUsernameAndPassword">>();
 	const authContext = useAuthContext();
 	const appContext = useAppContext();
@@ -80,6 +83,7 @@ function CreateUsernameAndPassword() {
 
 	const handleSignUp = async () => {
 		if (validateForm(username, password, requirements)) {
+			setIsLoading(true);
 			try {
 				const user = await auth.createUserWithEmailAndPassword(username, password);
 				if (!_.isEmpty(user.user) && !_.isNull(user.user)) {
@@ -99,11 +103,13 @@ function CreateUsernameAndPassword() {
 				if (error instanceof FirebaseError) {
 					console.error("Firebase Error:", error);
 					alert(error.message);
+				}else{
+					console.error("General Error:", error);
+					authContext.setProfilePicture("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
+					alert(error);
 				}
-				console.error("General Error:", error);
-				authContext.setProfilePicture("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-				alert(error);
 			}
+			setIsLoading(false);
 		}
 	};
 
@@ -121,9 +127,16 @@ function CreateUsernameAndPassword() {
 				)}
 			</View>
 			<TextInput onChangeText={(text) => setUsername(text)} placeholder={"Email"} style={styles.textInput}/>
-			<TextInput onChangeText={(text) => setPassword(text)} placeholder={"Password"} style={styles.textInput} secureTextEntry/>
+			<PasswordInput setPassword={setPassword}/>
+
 			<PasswordRequirementCheckBox requirements={requirements}/>
-			<Button title={"Next"} onPress={handleSignUp}/>
+			{
+				(!isLoading)?(
+					<Button title={"Next"} onPress={handleSignUp}/>
+				):(
+					<ActivityIndicator size={"small"} color={"white"}/>
+				)
+			}
 
 		</Layout>
 
@@ -165,10 +178,11 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 10,
 		backgroundColor: "whitesmoke",
 		borderRadius: 15,
+		width:"90%"
 	},
 	header:{
 		flexDirection: "row",
 		alignItems: "center",
-	}
+	},
 });
 

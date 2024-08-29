@@ -10,4 +10,8 @@ export default new class UserService {
 	async sendSignUpEmail(leaseId:number, email:string):Promise<void | HTTPError> {
 		await http.get(`/api/sendEmail/${leaseId}/${email.toLowerCase()}`);
 	}
+
+	async deleteUser(userId:string):Promise<void | HTTPError> {
+		await http.delete(`${this.serviceHeader}/deleteUser/${userId}`);
+	}
 };

@@ -38,6 +38,7 @@ export default function Routes() {
 			<Screen key = "BottomNavBar" name="BottomNavBar" component={BottomNavigationBar} />,
 		];
 	}
+
 	return [
 		<Screen key = "BottomNavBar" name="BottomNavBar" component={BottomNavigationBar} />,
 		<Screen key = "AddAProperty" name="AddAProperty" component={AddAProperty} />,

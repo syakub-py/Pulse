@@ -26,6 +26,12 @@ function Settings(){
 		navigation.navigate("Login");
 	}, [authContext, appContext, navigation]);
 
+	const handleDeleteAccount = useCallback(async () =>{
+		const isHandleDeleteSuccessful = await appContext.handleDeleteAccount(authContext.username, authContext.uid);
+		if (!isHandleDeleteSuccessful) return;
+		await logout();
+	}, [appContext, authContext.uid, authContext.username, logout]);
+
 	return (
 		<Layout>
 			<View style={styles.headerContainer}>
@@ -46,7 +52,7 @@ function Settings(){
 				<Setting title={"Your Tenants"} onClick={()=>navigation.navigate("AllTenants")}/>
 				<Setting title={"Your Properties"} onClick={()=>navigation.navigate("AllProperties")} />
 				<Setting title={"Change username or password"} onClick={()=>console.log("clicked")} />
-				<Setting title={"Delete Your account"} onClick={()=>console.log("clicked")} />
+				<Setting title={"Delete Your account"} onClick={handleDeleteAccount} />
 			</ScrollView>
 		</Layout>
 	);

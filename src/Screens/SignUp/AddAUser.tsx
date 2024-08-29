@@ -1,7 +1,7 @@
 import { observer } from "mobx-react-lite";
 import Layout from "../../Components/Layout";
 import Header from "../../Components/Header";
-import {Button, View, TextInput, StyleSheet, Image} from "react-native";
+import {Button, View, TextInput, StyleSheet, Image, ActivityIndicator} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, {useCallback, useEffect, useState} from "react";
@@ -30,6 +30,7 @@ function AddAUser() {
 		DateOfBirth: "",
 		DocumentType:"",
 	});
+	const [isLoading, setIsLoading] = useState(false);
 	const [open, setOpen] = useState(false);
 
 	const documentTypes: ItemType<string>[] = [
@@ -56,7 +57,7 @@ function AddAUser() {
 	const handleAddUser = useCallback(async () => {
 		try {
 			if (!ValidateAddUserInputs(userDetails, DocumentPicture)) return;
-
+			setIsLoading(true);
 			userDetails.DocumentProvidedUrl = await appContext.uploadPicture(DocumentPicture, `/DocumentPictures/${userDetails.Email}/`);
 
 			const isAddUserSuccessful = await appContext.addUser(userDetails);
@@ -66,9 +67,10 @@ function AddAUser() {
 			authContext.setLeaseId(null);
 			await authContext.logout();
 			navigation.navigate("Login");
-
+			setIsLoading(false);
 		} catch (error) {
 			alert("There was an issue on our end. Please try again later.");
+			setIsLoading(false);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [userDetails, DocumentPicture, appContext, authContext, LeaseId, navigation]);
@@ -154,7 +156,13 @@ function AddAUser() {
 					keyboardType="phone-pad"
 					placeholderTextColor="white"
 				/>
-				<Button title={"Done"} onPress={handleAddUser} />
+				{
+					(!isLoading)?(
+						<Button title={"Done"} onPress={handleAddUser} />
+					):(
+						<ActivityIndicator size={"small"} color={"white"}/>
+					)
+				}
 			</View>
 		</Layout>
 	);
