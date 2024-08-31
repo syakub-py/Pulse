@@ -3,7 +3,6 @@ import axios, { AxiosInstance } from "axios";
 
 export default class PulseHttpClient {
 	public readonly http: AxiosInstance;
-	private _accessToken: string | null = null;
 
 	constructor() {
 		this.http = axios.create({

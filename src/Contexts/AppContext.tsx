@@ -49,7 +49,6 @@ class AppContextClass {
 			alert(e);
 			return false;
 		}
-
 	});
 
 	public deleteProperty = action(async (propertyId: number) => {
