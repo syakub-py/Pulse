@@ -2,13 +2,13 @@ import {useCallback, useEffect} from "react";
 import {useAppContext} from "../Contexts/AppContext";
 import {useAuthContext} from "../Contexts/AuthContext";
 import _ from "lodash";
-import LeaseService from "../Utils/Services/LeaseService";
-import TenantService from "../Utils/Services/TenantService";
 import isHTTPError from "@src/Utils/HttpError";
+import { useApiClientContext } from "../Contexts/PulseApiClientContext";
 
 export default function useGetLeasesAndTenants() {
 	const appContext = useAppContext();
 	const authContext = useAuthContext();
+	const apiClientContext = useApiClientContext();
 
 	const fetchLeasesAndTenants = useCallback(async () => {
 		try {
@@ -18,14 +18,14 @@ export default function useGetLeasesAndTenants() {
 				!appContext.SelectedProperty.isRental
 			) return;
 
-			const leaseResponse = await LeaseService.getLeases(appContext.SelectedProperty.PropertyId);
+			const leaseResponse = await apiClientContext.leaseService.getLeases(appContext.SelectedProperty.PropertyId);
 			if (isHTTPError(leaseResponse)) {
 				alert(leaseResponse.message);
 				return;
 			}
 
 			if (_.isEmpty(appContext.Tenants)){
-				const tenantResponse= await TenantService.getTenants(authContext.uid);
+				const tenantResponse= await apiClientContext.tenantService.getTenants(authContext.uid);
 				if (isHTTPError(tenantResponse)){
 					alert(tenantResponse.message);
 					return;

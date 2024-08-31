@@ -1,11 +1,11 @@
 import {useState, useCallback} from "react";
 import {SafeAreaView, StyleSheet, View, Text,  LogBox} from "react-native";
 import {GiftedChat, IMessage} from "react-native-gifted-chat";
-import PulseAiChatService from "../../Utils/Services/PulseAiChatService";
 import MessageInputBar from "@src/Components/Chat/MessageInputBar";
 import {observer} from "mobx-react-lite";
 import { useAuthContext } from "@src/Contexts/AuthContext";
 import { useAppContext } from "@src/Contexts/AppContext";
+import { useApiClientContext } from "../../Contexts/PulseApiClientContext";
 
 //temp solution
 LogBox.ignoreLogs(["Warning: Avatar: Support for defaultProps"]);
@@ -13,6 +13,7 @@ LogBox.ignoreLogs(["Warning: Avatar: Support for defaultProps"]);
 function PulseAI() {
 	const authContext = useAuthContext();
 	const appContext = useAppContext();
+	const apiClientContext = useApiClientContext();
 	const [messages, setMessages] = useState<IMessage[]>([]);
 	const [isTyping, setIsTyping] = useState(false);
 
@@ -22,7 +23,7 @@ function PulseAI() {
 		);
 		const userMessage = newMessages[0].text;
 		setIsTyping(true);
-		const responseText = await PulseAiChatService.generateChatResponse(userMessage);
+		const responseText = await apiClientContext.pulseAiChatService.generateChatResponse(userMessage);
 		const responseMessage = {
 			_id: Math.floor(Math.random() * 1000000),
 			text: responseText,
@@ -34,7 +35,7 @@ function PulseAI() {
 		};
 		setIsTyping(false);
 		setMessages(previousMessages => GiftedChat.append(previousMessages, [responseMessage]));
-	}, []);
+	}, [apiClientContext.pulseAiChatService]);
 
 	return (
 		<SafeAreaView style={styles.container}>

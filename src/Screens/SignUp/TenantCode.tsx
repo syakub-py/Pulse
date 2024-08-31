@@ -4,20 +4,18 @@ import {Button, TextInput, View, StyleSheet, Pressable, Text} from "react-native
 import {useCallback, useEffect, useState} from "react";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
-import TenantService from "../../Utils/Services/TenantService";
 import Header from "../../Components/Header";
 import BackButton from "../../Components/BackButton";
 import {useAuthContext} from "@src/Contexts/AuthContext";
-import {useAppContext} from "@src/Contexts/AppContext";
 import isHTTPError from "@src/Utils/HttpError";
+import { useApiClientContext } from "../../Contexts/PulseApiClientContext";
 
 
 function TenantCode() {
 	const [code, setCode] = useState("");
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "EnterTenantCode">>();
 	const authContext = useAuthContext();
-	const appContext = useAppContext();
-
+	const apiClientContext = useApiClientContext();
 
 	const handleCodeSubmit = useCallback(async () => {
 		if (code.length !== 6) {
@@ -25,7 +23,7 @@ function TenantCode() {
 			return;
 		}
 
-		const isCodeValidResponse = await TenantService.isCodeValid(code);
+		const isCodeValidResponse = await apiClientContext.tenantService.isCodeValid(code);
 
 		if (isHTTPError(isCodeValidResponse)) {
 			alert(isCodeValidResponse.message);
@@ -39,7 +37,7 @@ function TenantCode() {
 
 		authContext.setLeaseId(isCodeValidResponse.lease_id);
 		navigation.navigate("AddAUser");
-	}, [code, authContext, navigation]);
+	}, [code, apiClientContext.tenantService, authContext, navigation]);
 
 	return (
 		<Layout>

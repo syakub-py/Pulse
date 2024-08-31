@@ -1,14 +1,8 @@
 import { createContext, useContext, useMemo } from "react";
 import { action, makeAutoObservable, runInAction } from "mobx";
 import { auth, storage } from "../Utils/Firebase";
-import PropertyService from "../Utils/Services/PropertyService";
-import LeaseService from "../Utils/Services/LeaseService";
 import _, {toNumber} from "lodash";
-import TodoService from "../Utils/Services/TodoService";
-import UserService from "@src/Utils/Services/UserService";
 import isHTTPError from "@src/Utils/HttpError";
-import TransactionService from "@src/Utils/Services/TransactionService";
-
 
 class AppContextClass {
 	public Properties: Property[] = [];
@@ -21,7 +15,6 @@ class AppContextClass {
 	public Transactions: PropertyTransaction[] = [];
 	public SelectedProperty: Property | null = null;
 	public SelectedTodo: Todo | null = null;
-
 
 	constructor() {
 		makeAutoObservable(this);

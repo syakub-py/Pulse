@@ -1,15 +1,17 @@
 import {useCallback, useEffect} from "react";
 import {useAppContext} from "../Contexts/AppContext";
 import _ from "lodash";
-import AnalyticsService from "@src/Utils/Services/AnalyticsService";
 import isHTTPError from "@src/Utils/HttpError";
+import { useApiClientContext } from "../Contexts/PulseApiClientContext";
 
 export default function useGenerateAnalytics(){
 	const appContext = useAppContext();
+	const apiClientContext = useApiClientContext();
+
 	const fetchData = useCallback(async ()=> {
 		if (_.isNull(appContext.SelectedProperty) || _.isUndefined(appContext.SelectedProperty.PropertyId) || !appContext.SelectedProperty.isRental) return;
-		const expenseAnalyticResponse = await AnalyticsService.getExpenseAnalytics(appContext.SelectedProperty.PropertyId);
-		const incomeAnalyticResponse = await AnalyticsService.getIncomeAnalytics(appContext.SelectedProperty.PropertyId);
+		const expenseAnalyticResponse = await apiClientContext.analyticsDataService.getExpenseAnalytics(appContext.SelectedProperty.PropertyId);
+		const incomeAnalyticResponse = await apiClientContext.analyticsDataService.getIncomeAnalytics(appContext.SelectedProperty.PropertyId);
 		if (isHTTPError(expenseAnalyticResponse)) {
 			alert(expenseAnalyticResponse.message);
 			return;

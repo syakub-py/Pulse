@@ -1,8 +1,7 @@
 import { StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import Setup from "./src/Setup";
-import AppContextProvider from "./src/Contexts/AppContext";
-import AuthContextProvider from "./src/Contexts/AuthContext";
+import ContextLevelComponent from "./src/ContextLevelComponent";
 
 export default function App() {
 	return (
@@ -13,13 +12,11 @@ export default function App() {
 				translucent={true}
 				barStyle="dark-content"
 			/>
-			<AuthContextProvider>
-				<AppContextProvider>
-					<NavigationContainer>
-						<Setup/>
-					</NavigationContainer>
-				</AppContextProvider>
-			</AuthContextProvider>
+			<ContextLevelComponent>
+				<NavigationContainer>
+					<Setup/>
+				</NavigationContainer>
+			</ContextLevelComponent>
 		</>
 	);
 }

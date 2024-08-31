@@ -8,6 +8,7 @@ import _ from "lodash";
 export default function useGetAllDataFromStorage() {
 	const authContext = useAuthContext();
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+
 	useEffect(() => {
 		const determineInitialRoute = async () => {
 			try {
