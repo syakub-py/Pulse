@@ -1,4 +1,3 @@
-import AsyncStorageClass from "@src/Classes/AsyncStorage";
 import http from "@src/Utils/HttpCommon";
 import {IMessage} from "react-native-gifted-chat";
 import {AxiosResponse} from "axios";
@@ -23,15 +22,8 @@ export default new class ChatService {
 
 	}
 
-
-	async createChat(userId: string): Promise<number | HTTPError> {
-		const response = await http.get(`${this.serviceHeader}/createChat/${userId}`);
-		return response.data;
-	}
-
 	async getChats(userId: string): Promise<Chat[]> {
-		const response = await http.get(`${this.serviceHeader}/createChat/${userId}`);
+		const response = await http.get(`${this.serviceHeader}/getChats/${userId}`);
 		return response.data;
 	}
-
 }();

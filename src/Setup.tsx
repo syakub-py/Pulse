@@ -10,9 +10,8 @@ import useFetchChats from "@src/Hooks/useFetchChats";
 
 function Setup() {
 	useGetAllDataFromStorage();
-	usePulseCreateChatIfDoesntExist();
 	useFetchProperties();
-	useFetchChats();
+	// useFetchChats();
 	useFetchTodos();
 	useGetLeasesAndTenants();
 	return <MainStack />;

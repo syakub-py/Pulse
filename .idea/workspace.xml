@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="add password input component">
+    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="start chat integration">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Setup.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Setup.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utils/Services/ChatService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/Services/ChatService.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,8 +17,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="TypeScript File" />
         <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -71,11 +72,11 @@
       <recent name="$PROJECT_DIR$/assets" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/Utils/Services" />
+      <recent name="$PROJECT_DIR$/src/Components/Chat" />
       <recent name="$PROJECT_DIR$/src/Components/Buttons" />
       <recent name="$PROJECT_DIR$/src/Screens" />
       <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/src/Types" />
-      <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
   <component name="RunManager">
@@ -217,22 +218,7 @@
       <workItem from="1724939479843" duration="100000" />
       <workItem from="1724945837641" duration="5698000" />
       <workItem from="1724959922510" duration="3478000" />
-    </task>
-    <task id="LOCAL-00071" summary="tenant codes working">
-      <option name="closed" value="true" />
-      <created>1723399416750</created>
-      <option name="number" value="00071" />
-      <option name="presentableId" value="LOCAL-00071" />
-      <option name="project" value="LOCAL" />
-      <updated>1723399416751</updated>
-    </task>
-    <task id="LOCAL-00072" summary="properties showing for tenants">
-      <option name="closed" value="true" />
-      <created>1723402204182</created>
-      <option name="number" value="00072" />
-      <option name="presentableId" value="LOCAL-00072" />
-      <option name="project" value="LOCAL" />
-      <updated>1723402204182</updated>
+      <workItem from="1724976203528" duration="10156000" />
     </task>
     <task id="LOCAL-00073" summary="final touches">
       <option name="closed" value="true" />
@@ -610,7 +596,23 @@
       <option name="project" value="LOCAL" />
       <updated>1724963188201</updated>
     </task>
-    <option name="localTasksCounter" value="120" />
+    <task id="LOCAL-00120" summary="renaming components and for chat">
+      <option name="closed" value="true" />
+      <created>1725128984816</created>
+      <option name="number" value="00120" />
+      <option name="presentableId" value="LOCAL-00120" />
+      <option name="project" value="LOCAL" />
+      <updated>1725128984817</updated>
+    </task>
+    <task id="LOCAL-00121" summary="start chat integration">
+      <option name="closed" value="true" />
+      <created>1725131384625</created>
+      <option name="number" value="00121" />
+      <option name="presentableId" value="LOCAL-00121" />
+      <option name="project" value="LOCAL" />
+      <updated>1725131384625</updated>
+    </task>
+    <option name="localTasksCounter" value="122" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -629,8 +631,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added errors to all add/delete/and fetch functions" />
-    <MESSAGE value="fixed tenant code bug" />
     <MESSAGE value="final touches" />
     <MESSAGE value="init commit" />
     <MESSAGE value="working on recommendations" />
@@ -654,6 +654,8 @@
     <MESSAGE value="income bar chart working" />
     <MESSAGE value="Validating date inputs" />
     <MESSAGE value="add password input component" />
-    <option name="LAST_COMMIT_MESSAGE" value="add password input component" />
+    <MESSAGE value="renaming components and for chat" />
+    <MESSAGE value="start chat integration" />
+    <option name="LAST_COMMIT_MESSAGE" value="start chat integration" />
   </component>
 </project>
