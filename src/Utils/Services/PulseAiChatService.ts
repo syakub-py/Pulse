@@ -4,8 +4,8 @@ import {IMessage} from "react-native-gifted-chat";
 import {AxiosResponse} from "axios";
 import {auth} from "../Firebase";
 
-export default new class ChatService {
-	private readonly serviceHeader = "/chat";
+export default new class PulseAiChatService {
+	private readonly serviceHeader = "/pulseChat";
 
 	async generateChatResponse(prompt: string): Promise<string> {
 		const chatId = await AsyncStorageClass.getDataFromStorage("chatId");

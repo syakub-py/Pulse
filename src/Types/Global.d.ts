@@ -1,3 +1,5 @@
+import {IMessage} from "react-native-gifted-chat";
+
 declare global {
     interface Property {
         PropertyId?: number,
@@ -59,6 +61,10 @@ declare global {
         fulfilled:boolean
     }
 
+    interface Chat{
+        messages:IMessage[]
+    }
+
     interface ChatMessage {
         _id:number;
         text: string;
@@ -84,6 +90,7 @@ declare global {
         legendFontColor: string;
         legendFontSize: number;
     }
+
     interface IncomeAnalytic {
         labels: string[];
         data: number[];
@@ -120,6 +127,7 @@ declare global {
         "AddATransaction": undefined,
         "EnterTenantCode": undefined,
         "TodoDetails": { selectedTodoIndex:number },
+        "LandLordChats":undefined
     }
 }
 

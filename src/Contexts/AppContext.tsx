@@ -13,7 +13,8 @@ import TransactionService from "@src/Utils/Services/TransactionService";
 
 class AppContextClass {
 	public Properties: Property[] = [];
-	public Messages: IMessage[] = [];
+	public Chats:string[] = [];
+	public PulseAiMessages: IMessage[] = [];
 	public SelectedPropertyLeases: Lease[] = [];
 	public SelectedPropertyTodos: Todo[] = [];
 	public Tenants: User[] = [];
@@ -218,9 +219,9 @@ class AppContextClass {
 		}
 	});
 
-	public setMessages = action((messages: IMessage[]) => {
+	public setPulseAiMessages = action((messages: IMessage[]) => {
 		runInAction(() => {
-			this.Messages = messages.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+			this.PulseAiMessages = messages.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 		});
 	});
 
@@ -290,7 +291,7 @@ class AppContextClass {
 
 	public logout() {
 		this.Properties = [];
-		this.Messages = [];
+		this.PulseAiMessages = [];
 		this.SelectedProperty = null;
 		this.SelectedPropertyLeases = [];
 		this.Tenants = [];

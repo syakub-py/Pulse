@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Home from "./Home";
 import Settings from "./Settings";
-import PulseAI from "./PulseAI";
+import PulseAI from "../Components/Chat/PulseAI";
 import { StyleSheet } from "react-native";
 import { observer } from "mobx-react-lite";
 import Analytics from "./Analytics";
@@ -10,6 +10,7 @@ import Leases from "./Leases";
 import {useAppContext} from "../Contexts/AppContext";
 import YourLease from "./YourLease";
 import _ from "lodash";
+import LandlordChats from "@src/Screens/LandlordChats";
 
 function BottomNavigationBar() {
 	const Tab = createBottomTabNavigator();
@@ -32,8 +33,8 @@ function BottomNavigationBar() {
 						iconName = focused ? "settings" : "settings-outline";
 					} else if (rn === "Analytics") {
 						iconName = focused ? "stats-chart" : "stats-chart-outline";
-					} else if (rn === "AI") {
-						iconName = focused ? "sparkles" : "sparkles-outline";
+					} else if (rn === "Chat") {
+						iconName = focused ? "chatbox-ellipses" : "chatbox-ellipses-outline";
 					}else if (rn === "Lease") {
 						iconName = focused ? "albums" : "albums-outline";
 					} else if (rn === "Your Lease") {
@@ -53,7 +54,7 @@ function BottomNavigationBar() {
 					<Tab.Screen name={"Your Lease"} component={YourLease} />
 				) : null
 			}
-			<Tab.Screen name={"AI"} component={PulseAI} />
+			<Tab.Screen name={"Chat"} component={!appContext.SelectedProperty?.isCurrentUserTenant?LandlordChats:PulseAI} />
 			{
 				(!appContext.SelectedProperty?.isCurrentUserTenant && !_.isNull(appContext.SelectedProperty) && appContext.SelectedProperty.isRental) ? (
 					<Tab.Screen name={"Analytics"} component={Analytics} />

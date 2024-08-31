@@ -1,11 +1,11 @@
 import {useEffect, useCallback} from "react";
 import AsyncStorageClass from "../Classes/AsyncStorage";
-import ChatService from "../Utils/Services/ChatService";
+import PulseAiChatService from "../Utils/Services/PulseAiChatService";
 import {useAppContext} from "../Contexts/AppContext";
 import _ from "lodash";
 import {useAuthContext} from "../Contexts/AuthContext";
 
-export default function useFetchChatMessages() {
+export default function useFetchPulseAiChatMessages() {
 	const appContext = useAppContext();
 	const authContext = useAuthContext();
 
@@ -13,10 +13,10 @@ export default function useFetchChatMessages() {
 		const chatId = await AsyncStorageClass.getDataFromStorage("chatId");
 		if (_.isUndefined(chatId)) return;
 
-		const messages = await ChatService.getMessages(chatId);
+		const messages = await PulseAiChatService.getMessages(chatId);
 
 		if (_.isUndefined(messages)) return;
-		appContext.setMessages(messages);
+		appContext.setPulseAiMessages(messages);
 		/* eslint-disable react-hooks/exhaustive-deps */
 	}, [authContext.isLoggedIn]);
 
