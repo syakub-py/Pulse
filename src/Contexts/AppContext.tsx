@@ -1,7 +1,6 @@
 import { createContext, useContext, useMemo } from "react";
 import { action, makeAutoObservable, runInAction } from "mobx";
 import { auth, storage } from "../Utils/Firebase";
-import { IMessage } from "react-native-gifted-chat";
 import PropertyService from "../Utils/Services/PropertyService";
 import LeaseService from "../Utils/Services/LeaseService";
 import _, {toNumber} from "lodash";
@@ -13,8 +12,7 @@ import TransactionService from "@src/Utils/Services/TransactionService";
 
 class AppContextClass {
 	public Properties: Property[] = [];
-	public Chats:string[] = [];
-	public PulseAiMessages: IMessage[] = [];
+	public Chats:Chat[] = [];
 	public SelectedPropertyLeases: Lease[] = [];
 	public SelectedPropertyTodos: Todo[] = [];
 	public Tenants: User[] = [];
@@ -155,6 +153,10 @@ class AppContextClass {
 		}
 	});
 
+	public setChats = action(async (chats: Chat[]) => {
+		this.Chats = chats;
+	});
+
 	public setTenants = action((tenants: User[]) => {
 		runInAction(() => {
 			this.Tenants = tenants;
@@ -217,12 +219,6 @@ class AppContextClass {
 			console.error("Error fetching recommendations:", error);
 			return [];
 		}
-	});
-
-	public setPulseAiMessages = action((messages: IMessage[]) => {
-		runInAction(() => {
-			this.PulseAiMessages = messages.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-		});
 	});
 
 	public setExpenseAnalyticData = action((expenseAnalytics: ExpenseAnalytic[]) => {
@@ -291,10 +287,10 @@ class AppContextClass {
 
 	public logout() {
 		this.Properties = [];
-		this.PulseAiMessages = [];
 		this.SelectedProperty = null;
 		this.SelectedPropertyLeases = [];
 		this.Tenants = [];
+		this.Chats = [];
 	}
 
 	public uploadPicture = async (profilePicturePath: string, path: string) => {
@@ -313,7 +309,6 @@ class AppContextClass {
 			return "";
 		}
 	};
-
 
 }
 

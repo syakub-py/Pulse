@@ -13,7 +13,7 @@ LogBox.ignoreLogs(["Warning: Avatar: Support for defaultProps"]);
 function PulseAI() {
 	const authContext = useAuthContext();
 	const appContext = useAppContext();
-	const [messages, setMessages] = useState<IMessage[]>(appContext.PulseAiMessages);
+	const [messages, setMessages] = useState<IMessage[]>([]);
 	const [isTyping, setIsTyping] = useState(false);
 
 	const onSend = useCallback(async (newMessages:IMessage[]) => {

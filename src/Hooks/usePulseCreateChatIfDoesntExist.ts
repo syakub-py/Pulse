@@ -1,17 +1,17 @@
 import {useCallback, useEffect} from "react";
 import AsyncStorageClass from "../Classes/AsyncStorage";
-import PulseAiChatService from "../Utils/Services/PulseAiChatService";
 import _ from "lodash";
 import {useAuthContext} from "../Contexts/AuthContext";
+import PulseAiChatService from "@src/Utils/Services/PulseAiChatService";
 
-export default function useCreateChatIfDoesntExist() {
+export default function usePulseCreateChatIfDoesntExist() {
 	const authContext = useAuthContext();
 
 	const initializeChat = useCallback(async () => {
 		try {
 			const chatId = await AsyncStorageClass.getDataFromStorage("chatId");
 			if (_.isUndefined(chatId) || _.isEmpty(authContext.uid)) return;
-			await PulseAiChatService.createChat(authContext.uid);
+			await PulseAiChatService.createPulseChat(authContext.uid);
 		}catch(e){
 			console.error("error creating chat: " + e);
 		}

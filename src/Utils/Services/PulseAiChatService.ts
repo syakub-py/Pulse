@@ -1,8 +1,6 @@
 import AsyncStorageClass from "../../Classes/AsyncStorage";
 import http from "../HttpCommon";
-import {IMessage} from "react-native-gifted-chat";
-import {AxiosResponse} from "axios";
-import {auth} from "../Firebase";
+
 
 export default new class PulseAiChatService {
 	private readonly serviceHeader = "/pulseChat";
@@ -14,24 +12,9 @@ export default new class PulseAiChatService {
 
 	}
 
-	async getMessages(chatId: number): Promise<IMessage[]> {
-		const response: AxiosResponse<ChatMessage[]> = await http.get<ChatMessage[]>(`${this.serviceHeader}/getMessages/${chatId}`);
-		const data: ChatMessage[] = response.data;
-		return data.map(msg => ({
-			_id: msg._id,
-			text: msg.text,
-			createdAt: new Date(msg.createdAt),
-			user: {
-				_id: msg.user === "user" ? 1 : 2,
-				name: msg.user,
-				avatar: msg.user === "user" ? auth.currentUser?.photoURL : require("../../../assets/icon.png")
-			}
-		}));
-
-	}
-
-	async createChat(userId: string): Promise<void> {
-		const response = await http.get(`${this.serviceHeader}/createChat/${userId}`);
+	async createPulseChat(userId: string): Promise<void> {
+		const response = await http.get(`chat/createChat/${userId}/PulseAI`);
 		await AsyncStorageClass.saveDataToStorage("chatId", response.data.chat_id);
 	}
+
 }();

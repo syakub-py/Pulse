@@ -62,7 +62,9 @@ declare global {
     }
 
     interface Chat{
-        messages:IMessage[]
+        id?: number
+        chatName: string
+        lastMessage: string
     }
 
     interface ChatMessage {
