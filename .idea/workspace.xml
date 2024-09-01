@@ -4,17 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="start chat integration">
-      <change afterPath="$PROJECT_DIR$/src/Contexts/AnalyticContext.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Contexts/ChatContext.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Contexts/LeaseContext.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Contexts/PropertyContext.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Contexts/TodoContext.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Contexts/UserContext.tsx" afterDir="false" />
+    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="split up appContext">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contexts/AppContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/AppContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contexts/AuthContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/AuthContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contexts/PulseApiClientContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/PulseApiClientContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ContextLevelComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ContextLevelComponent.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -226,15 +218,7 @@
       <workItem from="1724945837641" duration="5698000" />
       <workItem from="1724959922510" duration="3478000" />
       <workItem from="1724976203528" duration="14174000" />
-      <workItem from="1725202601219" duration="4159000" />
-    </task>
-    <task id="LOCAL-00074" summary="fix lint errors">
-      <option name="closed" value="true" />
-      <created>1723407602238</created>
-      <option name="number" value="00074" />
-      <option name="presentableId" value="LOCAL-00074" />
-      <option name="project" value="LOCAL" />
-      <updated>1723407602238</updated>
+      <workItem from="1725202601219" duration="4738000" />
     </task>
     <task id="LOCAL-00075" summary="adding nice to haves">
       <option name="closed" value="true" />
@@ -620,7 +604,15 @@
       <option name="project" value="LOCAL" />
       <updated>1725142455520</updated>
     </task>
-    <option name="localTasksCounter" value="123" />
+    <task id="LOCAL-00123" summary="split up appContext">
+      <option name="closed" value="true" />
+      <created>1725211109060</created>
+      <option name="number" value="00123" />
+      <option name="presentableId" value="LOCAL-00123" />
+      <option name="project" value="LOCAL" />
+      <updated>1725211109061</updated>
+    </task>
+    <option name="localTasksCounter" value="124" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -639,7 +631,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="final touches" />
     <MESSAGE value="init commit" />
     <MESSAGE value="working on recommendations" />
     <MESSAGE value="recommendations working" />
@@ -664,6 +655,7 @@
     <MESSAGE value="add password input component" />
     <MESSAGE value="renaming components and for chat" />
     <MESSAGE value="start chat integration" />
-    <option name="LAST_COMMIT_MESSAGE" value="start chat integration" />
+    <MESSAGE value="split up appContext" />
+    <option name="LAST_COMMIT_MESSAGE" value="split up appContext" />
   </component>
 </project>

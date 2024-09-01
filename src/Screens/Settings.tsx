@@ -18,7 +18,7 @@ function Settings(){
 	const logout = useCallback(async () => {
 		try {
 			await authContext.logout();
-			appContext.logout();
+			// appContext.logout();
 		} catch (e) {
 			alert("There was an error logging out");
 			return;

@@ -13,9 +13,9 @@ class AppContextClass {
 		this.pulseApiClient = pulseApiClient;
 	}
 
-	public handleDeleteAccount = action(async (username: string, uid:string) => {
+	public handleDeleteAccount = action(async (username: string, uid:string, Properties:Property[]) => {
 		try {
-			const response = await UserService.deleteUser(uid);
+			const response = await this.pulseApiClient.userService.deleteUser(uid);
 			if (isHTTPError(response)) return false;
 			const paths = [
 				`/DocumentPictures/${username}`,
@@ -27,10 +27,10 @@ class AppContextClass {
 				const deletePromises = listResult.items.map(fileRef => fileRef.delete());
 				await Promise.all(deletePromises);
 			}
-			if (_.isEmpty(this.Properties)) return;
-			for (const property of this.Properties) {
+			if (_.isEmpty(Properties)) return;
+			for (const property of Properties) {
 				if (_.isUndefined(property.PropertyId)) return;
-				await this.deleteProperty(property.PropertyId);
+				await this.pulseApiClient.propertyService.deleteProperty(property.PropertyId);
 			}
 			if (_.isNull(auth.currentUser)) return false;
 			await auth.currentUser.delete();
@@ -40,13 +40,13 @@ class AppContextClass {
 		}
 	});
 
-	public logout() {
-		this.Properties = [];
-		this.SelectedProperty = null;
-		this.SelectedPropertyLeases = [];
-		this.Tenants = [];
-		this.Chats = [];
-	}
+	// public logout() {
+	// 	this.Properties = [];
+	// 	this.SelectedProperty = null;
+	// 	this.SelectedPropertyLeases = [];
+	// 	this.Tenants = [];
+	// 	this.Chats = [];
+	// }
 
 	public uploadPicture = async (profilePicturePath: string, path: string) => {
 		if (_.isEmpty(profilePicturePath)) {
