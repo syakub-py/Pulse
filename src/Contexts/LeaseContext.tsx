@@ -1,7 +1,7 @@
 import {action, makeAutoObservable, runInAction} from "mobx";
 import _, {toNumber} from "lodash";
 import isHTTPError from "@src/Utils/HttpError";
-import {PulseApiClient, useApiClientContext} from "@src/Contexts/PulseApiClientContext";
+import {PulseApiClient} from "@src/Contexts/PulseApiClientContext";
 import {createContext, useContext, useMemo} from "react";
 
 
@@ -67,8 +67,7 @@ class LeaseContextClass {
 
 const LeaseContext = createContext<LeaseContextClass | null>(null);
 
-export default function LeaseContextProvider({ children }: { children: React.ReactNode }) {
-	const pulseApiClient = useApiClientContext();
+export default function LeaseContextProvider({ children, pulseApiClient }: { children: React.ReactNode, pulseApiClient: PulseApiClient }) {
 
 	const context = useMemo(() => new LeaseContextClass(pulseApiClient), [pulseApiClient]);
 

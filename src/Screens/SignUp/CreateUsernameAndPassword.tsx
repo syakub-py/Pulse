@@ -17,6 +17,7 @@ import {useAppContext} from "@src/Contexts/AppContext";
 import { FirebaseError } from "firebase/app";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import PasswordInput from "@src/Components/PasswordInput";
+import {useUserContext} from "@src/Contexts/UserContext";
 
 
 const validateForm = (username: string, password: string, requirements: PasswordRequirement[]): boolean => {
@@ -44,7 +45,7 @@ function CreateUsernameAndPassword() {
 	const [isLoading, setIsLoading] = useState(false);
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "CreateUsernameAndPassword">>();
 	const authContext = useAuthContext();
-	const appContext = useAppContext();
+	const userContext = useUserContext();
 	const requirements:PasswordRequirement[] = [
 		{
 			label: "At least 8 characters and less than 50 characters",
@@ -86,19 +87,19 @@ function CreateUsernameAndPassword() {
 			setIsLoading(true);
 			try {
 				const user = await auth.createUserWithEmailAndPassword(username, password);
-				if (!_.isEmpty(user.user) && !_.isNull(user.user)) {
-					if (!_.isEmpty(profilePicture)) {
-						const profilePictureUrl = await appContext.uploadPicture(profilePicture, `ProfilePictures/${username}/`);
-						authContext.setProfilePicture(profilePictureUrl);
-						await updateProfile(user.user, {photoURL: profilePictureUrl});
-					} else {
-						authContext.setProfilePicture("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-					}
-					authContext.setUid(user.user.uid);
-					authContext.setUsername(username);
-					authContext.setPassword(password);
-					navigation.navigate("EnterTenantCode");
+				if (_.isEmpty(user.user) && _.isNull(user.user) || _.isNull(userContext)) return;
+				if (!_.isEmpty(profilePicture)) {
+					const profilePictureUrl = await userContext.uploadPicture(profilePicture, `ProfilePictures/${username}/`);
+					authContext.setProfilePicture(profilePictureUrl);
+					await updateProfile(user.user, {photoURL: profilePictureUrl});
+				} else {
+					authContext.setProfilePicture("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
 				}
+				authContext.setUid(user.user.uid);
+				authContext.setUsername(username);
+				authContext.setPassword(password);
+				navigation.navigate("EnterTenantCode");
+
 			}catch (error) {
 				if (error instanceof FirebaseError) {
 					console.error("Firebase Error:", error);

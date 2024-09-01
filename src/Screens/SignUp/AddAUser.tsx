@@ -6,15 +6,17 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, {useCallback, useEffect, useState} from "react";
 import BackButton from "../../Components/BackButton";
-import { useAppContext } from "@src/Contexts/AppContext";
 import UploadPictures from "../../Components/UploadPictures";
 import * as ImagePicker from "expo-image-picker";
 import {useAuthContext} from "@src/Contexts/AuthContext";
 import DropdownPicker, {ItemType} from "react-native-dropdown-picker";
 import ValidateAddUserInputs from "@src/Utils/ValidateInputs/ValidateAddUserInputs";
+import {useUserContext} from "@src/Contexts/UserContext";
+import _ from "lodash";
+
 function AddAUser() {
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "AddAUser">>();
-	const appContext = useAppContext();
+	const userContext = useUserContext();
 	const authContext = useAuthContext();
 	const LeaseId = authContext.leaseId;
 	const [DocumentPicture, setDocumentPicture] = useState("");
@@ -56,11 +58,11 @@ function AddAUser() {
 
 	const handleAddUser = useCallback(async () => {
 		try {
-			if (!ValidateAddUserInputs(userDetails, DocumentPicture)) return;
+			if (!ValidateAddUserInputs(userDetails, DocumentPicture) || _.isNull(userContext)) return;
 			setIsLoading(true);
-			userDetails.DocumentProvidedUrl = await appContext.uploadPicture(DocumentPicture, `/DocumentPictures/${userDetails.Email}/`);
+			userDetails.DocumentProvidedUrl = await userContext.uploadPicture(DocumentPicture, `/DocumentPictures/${userDetails.Email}/`);
 
-			const isAddUserSuccessful = await appContext.addUser(userDetails);
+			const isAddUserSuccessful = await userContext.addUser(userDetails);
 
 			if (!isAddUserSuccessful) return;
 
@@ -73,7 +75,7 @@ function AddAUser() {
 			setIsLoading(false);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [userDetails, DocumentPicture, appContext, authContext, LeaseId, navigation]);
+	}, [userDetails, DocumentPicture, userContext, authContext, LeaseId, navigation]);
 
 	const selectPicture = async () => {
 		const result = await ImagePicker.launchImageLibraryAsync({

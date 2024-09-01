@@ -6,7 +6,43 @@
   <component name="ChangeListManager">
     <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="split up appContext">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Chat/PulseAI.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Chat/PulseAI.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Home/HomeLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Home/HomeLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Home/HomesCarousel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Home/HomesCarousel.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Home/Properties.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Home/Properties.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Home/SelectedProperty.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Home/SelectedProperty.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Leases/AreLeases.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Leases/AreLeases.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Leases/LeaseCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Leases/LeaseCard.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ContextLevelComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ContextLevelComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contexts/AnalyticContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/AnalyticContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contexts/AppContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/AppContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contexts/ChatContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/ChatContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contexts/LeaseContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/LeaseContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contexts/PropertyContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/PropertyContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contexts/TodoContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/TodoContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contexts/UserContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/UserContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hooks/useFetchChats.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useFetchChats.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hooks/useFetchProperties.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useFetchProperties.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hooks/useFetchTodos.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useFetchTodos.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hooks/useFetchTransactions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useFetchTransactions.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hooks/useGenerateAnalytics.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useGenerateAnalytics.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hooks/useGetLeasesAndTenants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useGetLeasesAndTenants.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/AddALease.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/AddALease.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/AddAProperty.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/AddAProperty.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/AddATodo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/AddATodo.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/AddATransaction.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/AddATransaction.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/AllProperties.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/AllProperties.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/AllTenants.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/AllTenants.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/Analytics.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/Analytics.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/BottomNavigationBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/BottomNavigationBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/Home.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/Leases.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/Leases.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/Settings.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/Settings.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/SignUp/AddAUser.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/SignUp/AddAUser.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/SignUp/CreateUsernameAndPassword.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/SignUp/CreateUsernameAndPassword.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/TodoDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/TodoDetails.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/YourLease.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/YourLease.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ChatService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ChatService.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -218,15 +254,7 @@
       <workItem from="1724945837641" duration="5698000" />
       <workItem from="1724959922510" duration="3478000" />
       <workItem from="1724976203528" duration="14174000" />
-      <workItem from="1725202601219" duration="4738000" />
-    </task>
-    <task id="LOCAL-00075" summary="adding nice to haves">
-      <option name="closed" value="true" />
-      <created>1723409796802</created>
-      <option name="number" value="00075" />
-      <option name="presentableId" value="LOCAL-00075" />
-      <option name="project" value="LOCAL" />
-      <updated>1723409796802</updated>
+      <workItem from="1725202601219" duration="14540000" />
     </task>
     <task id="LOCAL-00076" summary="add lease details for tenant">
       <option name="closed" value="true" />
@@ -612,7 +640,15 @@
       <option name="project" value="LOCAL" />
       <updated>1725211109061</updated>
     </task>
-    <option name="localTasksCounter" value="124" />
+    <task id="LOCAL-00124" summary="split up appContext">
+      <option name="closed" value="true" />
+      <created>1725212405956</created>
+      <option name="number" value="00124" />
+      <option name="presentableId" value="LOCAL-00124" />
+      <option name="project" value="LOCAL" />
+      <updated>1725212405956</updated>
+    </task>
+    <option name="localTasksCounter" value="125" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

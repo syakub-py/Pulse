@@ -1,26 +1,29 @@
 import _ from "lodash";
-import {useCallback, useEffect} from "react";
+import {useCallback, useContext, useEffect} from "react";
 import {useAppContext} from "../Contexts/AppContext";
 import {useAuthContext} from "../Contexts/AuthContext";
 import isHTTPError from "@src/Utils/HttpError";
 import { useApiClientContext } from "../Contexts/PulseApiClientContext";
+import {usePropertyContext} from "@src/Contexts/PropertyContext";
+import {useAnalyticContext} from "@src/Contexts/AnalyticContext";
 
 export default function useFetchTransactions(){
-	const appContext = useAppContext();
+	const propertyContext = usePropertyContext();
+	const transactionContext = useAnalyticContext();
 	const authContext = useAuthContext();
 	const apiClientContext = useApiClientContext();
 
 	const fetchTransactions = useCallback(async () => {
 		try {
-			if (_.isEmpty(authContext.uid) || _.isUndefined(appContext.SelectedProperty?.PropertyId)) return;
+			if (_.isEmpty(authContext.uid) || _.isNull(propertyContext)|| _.isNull(transactionContext) || _.isUndefined(propertyContext.SelectedProperty?.PropertyId)) return;
 
-			const response = await apiClientContext.transactionService.getTransaction(appContext.SelectedProperty.PropertyId);
+			const response = await apiClientContext.transactionService.getTransaction(propertyContext.SelectedProperty.PropertyId);
 			if (isHTTPError(response)) {
 				alert(response.message);
 				return;
 			}
 
-			appContext.setTransactions(response as PropertyTransaction[]);
+			transactionContext.setTransactions(response as PropertyTransaction[]);
 		} catch (error) {
 			console.error("error fetching Transactions: " + error);
 		}
@@ -29,5 +32,5 @@ export default function useFetchTransactions(){
 
 	useEffect(() => {
 		void fetchTransactions();
-	}, [appContext.SelectedProperty, fetchTransactions]);
+	}, [propertyContext?.SelectedProperty, fetchTransactions]);
 }

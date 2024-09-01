@@ -1,5 +1,5 @@
 import {createContext, useContext, useMemo} from "react";
-import {PulseApiClient, useApiClientContext} from "@src/Contexts/PulseApiClientContext";
+import {PulseApiClient} from "@src/Contexts/PulseApiClientContext";
 import {action, makeAutoObservable, runInAction} from "mobx";
 import isHTTPError from "@src/Utils/HttpError";
 
@@ -53,8 +53,7 @@ class AnalyticContextClass {
 
 const AnalyticContext = createContext<null | AnalyticContextClass>(null);
 
-export default function AnalyticContextProvider({ children }: { children: React.ReactNode }) {
-	const pulseApiClient = useApiClientContext();
+export default function AnalyticContextProvider({ children, pulseApiClient }: { children: React.ReactNode, pulseApiClient: PulseApiClient }) {
 
 	const context = useMemo(() => new AnalyticContextClass(pulseApiClient), [pulseApiClient]);
 

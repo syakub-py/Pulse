@@ -15,12 +15,12 @@ export default function ContextLevelComponent ({ children } : { children: React.
 		<AuthContextProvider>
 			<PulseApiClientProvider>
 				<PropertyContextProvider pulseApiClient = {pulseApiClient}>
-					<UserContextProvider>
-						<LeaseContextProvider>
-							<TodoContextProvider>
-								<AnalyticContextProvider>
-									<ChatContextProvider>
-										<AppContextProvider>
+					<UserContextProvider pulseApiClient = {pulseApiClient}>
+						<LeaseContextProvider pulseApiClient = {pulseApiClient}>
+							<TodoContextProvider pulseApiClient = {pulseApiClient}>
+								<AnalyticContextProvider pulseApiClient = {pulseApiClient}>
+									<ChatContextProvider pulseApiClient = {pulseApiClient}>
+										<AppContextProvider pulseApiClient = {pulseApiClient}>
 											{children}
 										</AppContextProvider>
 									</ChatContextProvider>

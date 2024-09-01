@@ -1,8 +1,8 @@
-import { Pressable, FlatList, Text, StyleSheet } from "react-native";
-import { useAppContext } from "@src/Contexts/AppContext";
+import { FlatList, StyleSheet } from "react-native";
 import { observer } from "mobx-react-lite";
 import {useEffect, useRef} from "react";
 import CarouselItem from "@src/Components/Home/CarouselItem";
+import {usePropertyContext} from "@src/Contexts/PropertyContext";
 
 interface Props{
 	selectedIndex: number;
@@ -11,7 +11,7 @@ interface Props{
 
 function HomesCarousel(props:Props) {
 	const {selectedIndex, scrollToActiveIndex} = props;
-	const appContext = useAppContext();
+	const propertyContext = usePropertyContext();
 	const flatListRef = useRef<FlatList<Property>>(null);
 
 	useEffect(()=>{
@@ -24,7 +24,7 @@ function HomesCarousel(props:Props) {
 
 	return (
 		<FlatList
-			data={appContext.Properties}
+			data={propertyContext?.Properties}
 			horizontal={true}
 			style = {styles.container}
 			contentContainerStyle={styles.contentContainer}

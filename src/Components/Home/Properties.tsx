@@ -1,21 +1,21 @@
 import { observer } from "mobx-react-lite";
 import {FlatList, ViewToken, View, Animated, NativeSyntheticEvent, NativeScrollEvent} from "react-native";
 import {useCallback, useRef, useState} from "react";
-import { useAppContext } from "@src/Contexts/AppContext";
 import _ from "lodash";
 import SelectedProperty from "@src/Components/Home/SelectedProperty";
 import HomesCarousel from "@src/Components/Home/HomesCarousel";
+import {usePropertyContext} from "@src/Contexts/PropertyContext";
 
 function Properties() {
-	const appContext = useAppContext();
+	const propertyContext = usePropertyContext();
 	const [selectedIndex, setSelectedIndex] = useState(0);
 	const propertiesFlatList = useRef<FlatList<Property>>(null);
 	const scrollX = useRef(new Animated.Value(0)).current;
 
 	const onViewableItemsChanged = useCallback(({ viewableItems }: { viewableItems: ViewToken<Property>[], changed: ViewToken<Property>[] }) => {
-		if (_.isEmpty(viewableItems)) return;
-		appContext.setSelectedProperty(viewableItems[0].item);
-	}, [appContext]);
+		if (_.isEmpty(viewableItems) || _.isNull(propertyContext)) return;
+		propertyContext.setSelectedProperty(viewableItems[0].item);
+	}, [propertyContext]);
 
 
 	const changeIndex = useCallback(
@@ -39,12 +39,12 @@ function Properties() {
 	return (
 		<View>
 			{
-				(appContext.Properties.length>1)?(
+				( !_.isNull(propertyContext) && propertyContext.Properties.length>1)?(
 					<HomesCarousel selectedIndex={selectedIndex} scrollToActiveIndex={scrollToActiveIndex}/>
 				):null
 			}
 			<Animated.FlatList
-				data={appContext.Properties}
+				data={propertyContext?.Properties}
 				horizontal={true}
 				showsHorizontalScrollIndicator={false}
 				ref = {propertiesFlatList}

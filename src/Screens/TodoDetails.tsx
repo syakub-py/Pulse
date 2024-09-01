@@ -5,11 +5,12 @@ import Layout from "../Components/Layout";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import TrashButton from "../Components/TrashButton";
 import { useAuthContext } from "../Contexts/AuthContext";
-import { useAppContext } from "../Contexts/AppContext";
 import _ from "lodash";
 import {RouteProp, useNavigation} from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import TodoInformation from "@src/Components/Todo/TodoDetails/TodoInformation";
+import {useTodoContext} from "@src/Contexts/TodoContext";
+import {usePropertyContext} from "@src/Contexts/PropertyContext";
 
 type TodoDetailsScreenRouteProp = RouteProp<RootStackParamList, "TodoDetails">;
 
@@ -19,7 +20,8 @@ interface Props {
 
 function TodoDetails({ route }: Props) {
 	const authContext = useAuthContext();
-	const appContext = useAppContext();
+	const todoContext = useTodoContext();
+	const propertyContext = usePropertyContext();
 	const {selectedTodoIndex} = route.params;
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "TodoDetails">>();
 	const [recommendations, setRecommendations] = useState<GoogleMapsPlaceResponse[]>([]);
@@ -46,15 +48,15 @@ function TodoDetails({ route }: Props) {
 
 
 	const onViewableItemsChanged = useCallback(({ viewableItems }: { viewableItems: ViewToken<Todo>[] }) => {
-		if (_.isEmpty(viewableItems)) return;
-		appContext.setSelectedPropertyTodo(viewableItems[0].item);
-	}, [appContext]);
+		if (_.isEmpty(viewableItems) || _.isNull(todoContext)) return;
+		todoContext.setSelectedPropertyTodo(viewableItems[0].item);
+	}, [todoContext]);
 
 	const fetchRecommendations = useCallback(async () => {
 		setIsLoading(true);
-		if (_.isNil(appContext.SelectedTodo?.id)) return;
+		if ( _.isNull(propertyContext) || _.isNull(todoContext) || _.isNil(todoContext.SelectedTodo?.id) || _.isNull(propertyContext.SelectedProperty)) return;
 		try {
-			const response = await appContext.getRecommendations(appContext.SelectedTodo.id);
+			const response = await todoContext.getRecommendations(todoContext.SelectedTodo.id, propertyContext.SelectedProperty);
 			const fetchedRecommendations = JSON.parse(response.toString()) as GoogleMapsPlaceResponse[];
 			setRecommendations(fetchedRecommendations);
 		} catch (error) {
@@ -63,15 +65,15 @@ function TodoDetails({ route }: Props) {
 		}
 		setIsLoading(false);
 		/*eslint-disable-next-line react-hooks/exhaustive-deps*/
-	}, [appContext.SelectedTodo]);
+	}, [todoContext?.SelectedTodo]);
 
 	useEffect(() => {
-		if (appContext.SelectedProperty?.isCurrentUserTenant) return;
+		if (propertyContext?.SelectedProperty?.isCurrentUserTenant) return;
 		void fetchRecommendations();
-	}, [appContext.SelectedProperty?.isCurrentUserTenant, fetchRecommendations]);
+	}, [propertyContext?.SelectedProperty?.isCurrentUserTenant, fetchRecommendations]);
 
 	useEffect(() => {
-		if (!flatListRef.current ) return;
+		if (!flatListRef.current) return;
 		flatListRef.current.scrollToIndex({
 			index: selectedTodoIndex,
 			animated: true,
@@ -79,25 +81,26 @@ function TodoDetails({ route }: Props) {
 	}, [selectedTodoIndex]);
 
 	const handleDeleteTodo = useCallback(async () => {
-		if (_.isNil(appContext.SelectedTodo?.id)) {
+		if (_.isNull(todoContext)) return;
+		if ( _.isNil(todoContext.SelectedTodo?.id) ) {
 			alert("Todo ID was empty");
 			return;
 		}
 
-		await appContext.deleteTodo(appContext.SelectedTodo.id);
+		await todoContext.deleteTodo(todoContext.SelectedTodo.id);
 		navigation.goBack();
-	}, [appContext, navigation]);
+	}, [todoContext, navigation]);
 
 	return (
 		<Layout>
 			<FlatList
-				data={appContext.SelectedPropertyTodos}
+				data={todoContext?.SelectedPropertyTodos}
 				horizontal={true}
 				showsHorizontalScrollIndicator={false}
 				pagingEnabled={true}
 				ref={flatListRef}
 				onViewableItemsChanged={onViewableItemsChanged}
-				renderItem={({ item }) => (
+				renderItem={({item}) => (
 					<TodoInformation
 						todo={item}
 						isLoading={isLoading}
@@ -107,7 +110,7 @@ function TodoDetails({ route }: Props) {
 				onScrollToIndexFailed={onScrollToIndexFailed}
 			/>
 			<TrashButton onPress={handleDeleteTodo} style={styles.deleteFab} />
-			{authContext.username === appContext.SelectedTodo?.AddedBy && (
+			{authContext.username === todoContext?.SelectedTodo?.AddedBy && (
 				<Pressable style={styles.editFab}>
 					<Ionicons name="pencil-outline" size={25} color="white" />
 				</Pressable>

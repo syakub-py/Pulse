@@ -2,6 +2,7 @@ import {observer} from "mobx-react-lite";
 import {StyleSheet, Text, View} from "react-native";
 import {useAppContext} from "@src/Contexts/AppContext";
 import _ from "lodash";
+import {usePropertyContext} from "@src/Contexts/PropertyContext";
 
 interface Props{
 	lease:Lease,
@@ -10,7 +11,7 @@ interface Props{
 
 function LeaseCard(props: Props) {
 	const { lease } = props;
-	const appContext = useAppContext();
+	const propertyContext = usePropertyContext();
 	return (
 		<View style={styles.card}>
 			<Text style={[styles.text, styles.header]}>
@@ -19,7 +20,7 @@ function LeaseCard(props: Props) {
 			<Text style={styles.text}>
 				Monthly Rent: ${lease.MonthlyRent?.toLocaleString("en-US", { style: "currency", currency: "USD" })}
 			</Text>
-			<Text style={styles.text}>Address: {appContext.SelectedProperty?.Address}</Text>
+			<Text style={styles.text}>Address: {propertyContext?.SelectedProperty?.Address}</Text>
 		</View>
 	);
 }

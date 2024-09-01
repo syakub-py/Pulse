@@ -6,12 +6,12 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import FloatingActionButton from "../Buttons/FloatingActionButton";
-import { useAppContext } from "@src/Contexts/AppContext";
 import _ from "lodash";
+import {usePropertyContext} from "@src/Contexts/PropertyContext";
 
 function HomeLayout({ children }: { children: React.ReactNode }) {
 	const authContext = useAuthContext();
-	const appContext = useAppContext();
+	const propertyContext = usePropertyContext();
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Home">>();
 	const [imageSource, setImageSource] = useState(undefined);
 	/* eslint-disable react-hooks/exhaustive-deps */
@@ -30,12 +30,12 @@ function HomeLayout({ children }: { children: React.ReactNode }) {
 			"Multi-Family":require("../../../assets/DefaultPictures/multiFamilyWallpaper.jpg"),
 			"Commercial Building": require("../../../assets/DefaultPictures/commercialBuildingWallpaper.jpg"),
 		};
-		if (!_.isNil(appContext.SelectedProperty) && !_.isEmpty(appContext.Properties)) {
-			setImageSource(propertyTypeImages[appContext.SelectedProperty.PropertyType]);
+		if ( !_.isNull(propertyContext)&& !_.isNil(propertyContext.SelectedProperty) && !_.isEmpty(propertyContext.Properties)) {
+			setImageSource(propertyTypeImages[propertyContext?.SelectedProperty.PropertyType]);
 		}else{
 			setImageSource(propertyTypeImages["Home"]);
 		}
-	}, [appContext.Properties, appContext.SelectedProperty]);
+	}, [propertyContext?.Properties, propertyContext?.SelectedProperty]);
 
 	useEffect(() => {
 		updateImageSource();
@@ -79,7 +79,7 @@ function HomeLayout({ children }: { children: React.ReactNode }) {
 					<View>
 						{children}
 					</View>
-					{_.isEmpty(appContext.Properties)? null: (
+					{_.isEmpty(propertyContext?.Properties)? null: (
 						<FloatingActionButton
 							onPress={handlePressActionButton}
 							icon={"add"}

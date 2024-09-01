@@ -6,7 +6,8 @@ import DropdownPicker, { ItemType } from "react-native-dropdown-picker";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import BackButton from "../Components/BackButton";
-import { useAppContext } from "../Contexts/AppContext";
+import {usePropertyContext} from "@src/Contexts/PropertyContext";
+import _ from "lodash";
 
 function AddAProperty() {
 	const [propertyDetails, setPropertyDetails] = useState<Property>({
@@ -30,7 +31,7 @@ function AddAProperty() {
 
 	const [open, setOpen] = useState(false);
 	const [selectedPropertyType, setSelectedPropertyType] = useState(propertyTypes[0].value as string);
-	const appContext = useAppContext();
+	const propertyContext = usePropertyContext();
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "AddAProperty">>();
 
 	const handleInputChange = (field: keyof Property, value: string | string[] | boolean | number) => {
@@ -38,19 +39,21 @@ function AddAProperty() {
 	};
 
 	const handleSubmit = useCallback(async (): Promise<void> => {
+		if (_.isNull(propertyContext)) return;
+
 	    propertyDetails.PropertyType = selectedPropertyType;
 
-	    const isAddPropertySuccessful = await appContext.addProperty(propertyDetails);
+	    const isAddPropertySuccessful = await propertyContext.addProperty(propertyDetails);
 
 	    if (!isAddPropertySuccessful) return;
 
 	    if (propertyDetails.isRental) {
-	        appContext.setSelectedProperty(propertyDetails);
+	        propertyContext.setSelectedProperty(propertyDetails);
 	        navigation.navigate("AddALease");
 	    } else {
 	        navigation.navigate("BottomNavBar");
 	    }
-	}, [selectedPropertyType, appContext, propertyDetails, navigation]);
+	}, [selectedPropertyType, propertyContext, propertyDetails, navigation]);
 
 	return (
 		<SafeAreaView style={styles.container}>

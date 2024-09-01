@@ -3,7 +3,7 @@ import {auth} from "@src/Utils/Firebase";
 import isHTTPError from "@src/Utils/HttpError";
 import _, {toNumber} from "lodash";
 import {createContext, useContext, useMemo} from "react";
-import {PulseApiClient, useApiClientContext} from "@src/Contexts/PulseApiClientContext";
+import {PulseApiClient} from "@src/Contexts/PulseApiClientContext";
 
 
 class PropertyContextClass {
@@ -77,7 +77,6 @@ const PropertyContext = createContext<PropertyContextClass | null>(null);
 
 export default function PropertyContextProvider({ children, pulseApiClient }: { children: React.ReactNode, pulseApiClient: PulseApiClient }) {
 	const context = useMemo(() => new PropertyContextClass(pulseApiClient), [pulseApiClient]);
-
 	return (
 		<PropertyContext.Provider value={context}>
 			{children}

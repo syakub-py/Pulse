@@ -4,39 +4,46 @@ import {useAuthContext} from "../Contexts/AuthContext";
 import _ from "lodash";
 import isHTTPError from "@src/Utils/HttpError";
 import { useApiClientContext } from "../Contexts/PulseApiClientContext";
+import {useLeaseContext} from "@src/Contexts/LeaseContext";
+import {usePropertyContext} from "@src/Contexts/PropertyContext";
+import {useUserContext} from "@src/Contexts/UserContext";
 
 export default function useGetLeasesAndTenants() {
-	const appContext = useAppContext();
+	const leaseContext = useLeaseContext();
+	const propertyContext = usePropertyContext();
+	const userContext = useUserContext();
 	const authContext = useAuthContext();
 	const apiClientContext = useApiClientContext();
 
 	const fetchLeasesAndTenants = useCallback(async () => {
+		if (_.isNull(propertyContext) || _.isNull(leaseContext) || _.isNull(userContext)) return;
+
 		try {
 			if (
 				_.isEmpty(authContext.uid) ||
-				_.isUndefined(appContext.SelectedProperty?.PropertyId) ||
-				!appContext.SelectedProperty.isRental
+				_.isUndefined(propertyContext.SelectedProperty?.PropertyId) ||
+				!propertyContext.SelectedProperty.isRental
 			) return;
 
-			const leaseResponse = await apiClientContext.leaseService.getLeases(appContext.SelectedProperty.PropertyId);
+			const leaseResponse = await apiClientContext.leaseService.getLeases(propertyContext.SelectedProperty.PropertyId);
 			if (isHTTPError(leaseResponse)) {
 				alert(leaseResponse.message);
 				return;
 			}
 
-			if (_.isEmpty(appContext.Tenants)){
+			if (_.isEmpty(userContext.Tenants)){
 				const tenantResponse= await apiClientContext.tenantService.getTenants(authContext.uid);
 				if (isHTTPError(tenantResponse)){
 					alert(tenantResponse.message);
 					return;
 				}
-				appContext.setTenants(tenantResponse as User[]);
+				userContext.setTenants(tenantResponse as User[]);
 			}
 
 			if (!_.isNil(leaseResponse)){
 				const leases = JSON.parse(leaseResponse.toString()) as Lease[];
-				appContext.setPropertyLeases(leases.map(lease => {
-					const matchingTenant = appContext.Tenants.find(tenant => tenant.LeaseId === lease.LeaseId);
+				leaseContext.setPropertyLeases(leases.map(lease => {
+					const matchingTenant = userContext.Tenants.find(tenant => tenant.LeaseId === lease.LeaseId);
 					return !_.isUndefined(matchingTenant) ? { ...lease, TenantName: matchingTenant.Name } : lease;
 				}));
 			}
@@ -50,6 +57,7 @@ export default function useGetLeasesAndTenants() {
 
 	useEffect(() => {
 		void fetchLeasesAndTenants();
-	}, [authContext.uid, appContext.SelectedProperty, fetchLeasesAndTenants]);
+	}, [authContext.uid, propertyContext?.SelectedProperty, fetchLeasesAndTenants]);
+
 	return fetchLeasesAndTenants;
 }

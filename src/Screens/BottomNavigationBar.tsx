@@ -7,14 +7,15 @@ import { StyleSheet } from "react-native";
 import { observer } from "mobx-react-lite";
 import Analytics from "./Analytics";
 import Leases from "./Leases";
-import {useAppContext} from "../Contexts/AppContext";
 import YourLease from "./YourLease";
 import _ from "lodash";
 import LandlordChats from "@src/Screens/LandlordChats";
+import {usePropertyContext} from "@src/Contexts/PropertyContext";
 
 function BottomNavigationBar() {
 	const Tab = createBottomTabNavigator();
-	const appContext = useAppContext();
+	const propertyContext = usePropertyContext();
+	if (_.isNull(propertyContext)) return null;
 	return (
 		<Tab.Navigator
 			initialRouteName={"Home"}
@@ -48,15 +49,15 @@ function BottomNavigationBar() {
 		>
 			<Tab.Screen name={"Home"} component={Home} />
 			{
-				(!appContext.SelectedProperty?.isCurrentUserTenant && !_.isNull(appContext.SelectedProperty) && appContext.SelectedProperty.isRental) ? (
+				(!propertyContext.SelectedProperty?.isCurrentUserTenant && !_.isNull(propertyContext.SelectedProperty) && propertyContext.SelectedProperty.isRental) ? (
 					<Tab.Screen name={"Lease"} component={Leases} />
-				) : (appContext.SelectedProperty?.isRental) ? (
+				) : (propertyContext.SelectedProperty?.isRental) ? (
 					<Tab.Screen name={"Your Lease"} component={YourLease} />
 				) : null
 			}
-			<Tab.Screen name={"Chat"} component={!appContext.SelectedProperty?.isCurrentUserTenant?LandlordChats:PulseAI} />
+			<Tab.Screen name={"Chat"} component={!propertyContext.SelectedProperty?.isCurrentUserTenant?LandlordChats:PulseAI} />
 			{
-				(!appContext.SelectedProperty?.isCurrentUserTenant && !_.isNull(appContext.SelectedProperty) && appContext.SelectedProperty.isRental) ? (
+				(!propertyContext.SelectedProperty?.isCurrentUserTenant && !_.isNull(propertyContext.SelectedProperty) && propertyContext.SelectedProperty.isRental) ? (
 					<Tab.Screen name={"Analytics"} component={Analytics} />
 				):null
 			}

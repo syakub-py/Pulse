@@ -26,11 +26,11 @@ function Settings(){
 		navigation.navigate("Login");
 	}, [authContext, appContext, navigation]);
 
-	const handleDeleteAccount = useCallback(async () =>{
-		const isHandleDeleteSuccessful = await appContext.handleDeleteAccount(authContext.username, authContext.uid);
-		if (!isHandleDeleteSuccessful) return;
-		await logout();
-	}, [appContext, authContext.uid, authContext.username, logout]);
+	// const handleDeleteAccount = useCallback(async () =>{
+	// 	const isHandleDeleteSuccessful = await appContext.handleDeleteAccount(authContext.username, authContext.uid);
+	// 	if (!isHandleDeleteSuccessful) return;
+	// 	await logout();
+	// }, [appContext, authContext.uid, authContext.username, logout]);
 
 	return (
 		<Layout>
@@ -45,14 +45,14 @@ function Settings(){
 					<Image style={styles.profileImage} source={{uri:authContext.profilePicture}}/>
 					<View style={{flexDirection:"column"}}>
 						<Text style={styles.usernameText}>{authContext.username}</Text>
-						<Text style={styles.propertiesText}>Properties: {appContext.Properties.length}</Text>
+						{/*<Text style={styles.propertiesText}>Properties: {appContext.Properties.length}</Text>*/}
 					</View>
 				</View>
 				<Setting title={"Finished Todos"}/>
 				<Setting title={"Your Tenants"} onClick={()=>navigation.navigate("AllTenants")}/>
 				<Setting title={"Your Properties"} onClick={()=>navigation.navigate("AllProperties")} />
 				<Setting title={"Change username or password"} onClick={()=>console.log("clicked")} />
-				<Setting title={"Delete Your account"} onClick={handleDeleteAccount} />
+				{/*<Setting title={"Delete Your account"} onClick={handleDeleteAccount} />*/}
 			</ScrollView>
 		</Layout>
 	);

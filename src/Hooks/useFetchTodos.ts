@@ -1,26 +1,28 @@
 import _ from "lodash";
 import {useCallback, useEffect} from "react";
-import {useAppContext} from "../Contexts/AppContext";
 import {useAuthContext} from "../Contexts/AuthContext";
 import isHTTPError from "@src/Utils/HttpError";
 import { useApiClientContext } from "../Contexts/PulseApiClientContext";
+import {usePropertyContext} from "@src/Contexts/PropertyContext";
+import {useTodoContext} from "@src/Contexts/TodoContext";
 
 export default function useFetchTodos(){
-	const appContext = useAppContext();
+	const propertyContext = usePropertyContext();
+	const todoContext = useTodoContext();
 	const authContext = useAuthContext();
 	const apiClientContext = useApiClientContext();
 
 	const fetchTodos = useCallback(async () => {
 		try {
-			if (_.isEmpty(authContext.uid) || _.isUndefined(appContext.SelectedProperty?.PropertyId)) return;
+			if (_.isEmpty(authContext.uid) || _.isNull(propertyContext)  || _.isNull(todoContext)|| _.isUndefined(propertyContext.SelectedProperty?.PropertyId)) return;
 
-			const response = await apiClientContext.todoService.getTodos(appContext.SelectedProperty.PropertyId);
+			const response = await apiClientContext.todoService.getTodos(propertyContext.SelectedProperty.PropertyId);
 			if (isHTTPError(response)) {
 				alert(response.message);
 				return;
 			}
 
-			appContext.setSelectedPropertyTodos(response as Todo[]);
+			todoContext.setSelectedPropertyTodos(response as Todo[]);
 		} catch (error) {
 			console.error("error fetching todos: " + error);
 		}
@@ -29,7 +31,7 @@ export default function useFetchTodos(){
 
 	useEffect(() => {
 		void fetchTodos();
-	}, [authContext.uid, appContext.SelectedProperty, fetchTodos]);
+	}, [authContext.uid, propertyContext?.SelectedProperty, fetchTodos]);
 
 	return fetchTodos;
 }

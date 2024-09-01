@@ -75,9 +75,7 @@ class TodoContextClass {
 
 const TodoContext = createContext<null | TodoContextClass>(null);
 
-export default function TodoContextProvider({ children }: { children: React.ReactNode }) {
-	const pulseApiClient = useApiClientContext();
-
+export default function TodoContextProvider({ children, pulseApiClient }: { children: React.ReactNode, pulseApiClient: PulseApiClient }) {
 	const context = useMemo(() => new TodoContextClass(pulseApiClient), [pulseApiClient]);
 
 	return (

@@ -5,14 +5,15 @@ import Properties from "../Components/Home/Properties";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import NoProperties from "../Components/Home/NoProperties";
-import { useAppContext } from "../Contexts/AppContext";
+import {usePropertyContext} from "@src/Contexts/PropertyContext";
 
 function Home() {
-	const appContext = useAppContext();
+	const propertyContext = usePropertyContext();
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Home">>();
+	if (_.isNull(propertyContext)) return null;
 	return (
 		<HomeLayout>
-			{!_.isEmpty(appContext.Properties) ? (
+			{!_.isEmpty(propertyContext.Properties) ? (
 				<Properties />
 			) : (
 				<NoProperties onClick={()=>navigation.navigate("AddAProperty")}/>

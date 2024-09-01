@@ -7,21 +7,23 @@ import _ from "lodash";
 import NoLeases from "../Components/Leases/NoLeases";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
-import { useAppContext } from "../Contexts/AppContext";
 import {useMemo} from "react";
+import {usePropertyContext} from "@src/Contexts/PropertyContext";
+import {useLeaseContext} from "@src/Contexts/LeaseContext";
 
 function Leases(){
-	const appContext = useAppContext();
+	const propertyContext = usePropertyContext();
+	const leaseContext = useLeaseContext();
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Leases">>();
 	const hasLeases = useMemo(() => {
-		return !_.isEmpty(appContext.SelectedPropertyLeases);
-	}, [appContext.SelectedPropertyLeases]);
+		return !_.isEmpty(leaseContext?.SelectedPropertyLeases);
+	}, [leaseContext?.SelectedPropertyLeases]);
 	return (
 		<Layout>
-			<Header title={`${appContext.SelectedProperty?.Name} lease(s)`} />
+			<Header title={`${propertyContext?.SelectedProperty?.Name} lease(s)`} />
 			{hasLeases ? <AreLeases /> : <NoLeases />}
 
-			{(_.isEmpty(appContext.SelectedProperty) || !appContext.SelectedProperty.isRental)?null : (
+			{(_.isEmpty(propertyContext?.SelectedProperty) || !propertyContext.SelectedProperty.isRental)?null : (
 				<FloatingActionButton
 					icon={"add"}
 					onPress={() => navigation.navigate("AddALease")}

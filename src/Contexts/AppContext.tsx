@@ -1,9 +1,9 @@
 import { createContext, useContext, useMemo } from "react";
-import { action, makeAutoObservable, runInAction } from "mobx";
+import { action, makeAutoObservable } from "mobx";
 import { auth, storage } from "../Utils/Firebase";
 import _ from "lodash";
 import isHTTPError from "@src/Utils/HttpError";
-import {PulseApiClient, useApiClientContext} from "@src/Contexts/PulseApiClientContext";
+import {PulseApiClient} from "@src/Contexts/PulseApiClientContext";
 
 class AppContextClass {
 	private pulseApiClient: PulseApiClient;
@@ -48,30 +48,13 @@ class AppContextClass {
 	// 	this.Chats = [];
 	// }
 
-	public uploadPicture = async (profilePicturePath: string, path: string) => {
-		if (_.isEmpty(profilePicturePath)) {
-			return "";
-		}
-		try {
-			const filename = profilePicturePath.split("/").pop();
-			const response = await fetch(profilePicturePath);
-			const blob = await response.blob();
-			const storageRef = storage.ref().child(path + `${filename}`);
-			await storageRef.put(blob);
-			return await storageRef.getDownloadURL();
-		} catch (error) {
-			console.error("error uploading picture: " + error);
-			return "";
-		}
-	};
+
 
 }
 
 const AppContext = createContext<null | AppContextClass>(null);
 
-export default function AppContextProvider({ children }: { children: React.ReactNode }) {
-	const pulseApiClient = useApiClientContext();
-
+export default function AppContextProvider({ children, pulseApiClient }: { children: React.ReactNode, pulseApiClient: PulseApiClient }) {
 	const appContext = useMemo(() => new AppContextClass(pulseApiClient), [pulseApiClient]);
 
 	return (

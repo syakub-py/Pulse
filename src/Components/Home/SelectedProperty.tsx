@@ -2,11 +2,11 @@ import {Dimensions, FlatList, StyleSheet, Text, View, Pressable, RefreshControl}
 import Button from "../Buttons/Button";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
-import { useAppContext } from "@src/Contexts/AppContext";
 import {observer} from "mobx-react-lite";
 import TodoCard from "../Todo/TodoCard";
 import useFetchTodos from "@src/Hooks/useFetchTodos";
 import {useCallback, useState} from "react";
+import {useTodoContext} from "@src/Contexts/TodoContext";
 
 interface Props {
 	property: Property
@@ -15,7 +15,7 @@ interface Props {
 function SelectedProperty(props: Props) {
 	const { property } = props;
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Home">>();
-	const appContext = useAppContext();
+	const todoContext = useTodoContext();
 	const [refreshing, setRefreshing] = useState(false);
 
 	const fetchTodos = useFetchTodos();
@@ -40,7 +40,7 @@ function SelectedProperty(props: Props) {
 				/>
 			</View>
 			<FlatList
-				data={appContext.SelectedPropertyTodos}
+				data={todoContext?.SelectedPropertyTodos}
 				showsVerticalScrollIndicator={false}
 				renderItem={({item, index})=>(
 					<Pressable onPress={()=>navigation.navigate("TodoDetails", {selectedTodoIndex:index})}>

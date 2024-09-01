@@ -4,7 +4,6 @@ import {GiftedChat, IMessage} from "react-native-gifted-chat";
 import MessageInputBar from "@src/Components/Chat/MessageInputBar";
 import {observer} from "mobx-react-lite";
 import { useAuthContext } from "@src/Contexts/AuthContext";
-import { useAppContext } from "@src/Contexts/AppContext";
 import { useApiClientContext } from "../../Contexts/PulseApiClientContext";
 
 //temp solution
@@ -12,7 +11,6 @@ LogBox.ignoreLogs(["Warning: Avatar: Support for defaultProps"]);
 
 function PulseAI() {
 	const authContext = useAuthContext();
-	const appContext = useAppContext();
 	const apiClientContext = useApiClientContext();
 	const [messages, setMessages] = useState<IMessage[]>([]);
 	const [isTyping, setIsTyping] = useState(false);

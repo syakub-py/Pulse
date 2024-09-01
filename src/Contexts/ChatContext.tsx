@@ -1,4 +1,4 @@
-import {PulseApiClient, useApiClientContext} from "@src/Contexts/PulseApiClientContext";
+import {PulseApiClient} from "@src/Contexts/PulseApiClientContext";
 import {action, makeAutoObservable} from "mobx";
 import {createContext, useContext, useMemo} from "react";
 
@@ -18,8 +18,7 @@ class ChatContextClass {
 
 const ChatContext = createContext<ChatContextClass | null>(null);
 
-export default function ChatContextProvider({ children }: { children: React.ReactNode }) {
-	const pulseApiClient = useApiClientContext();
+export default function ChatContextProvider({ children, pulseApiClient }: { children: React.ReactNode, pulseApiClient: PulseApiClient }) {
 
 	const context = useMemo(() => new ChatContextClass(pulseApiClient), [pulseApiClient]);
 

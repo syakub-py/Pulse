@@ -3,31 +3,35 @@ import {useAppContext} from "../Contexts/AppContext";
 import _ from "lodash";
 import isHTTPError from "@src/Utils/HttpError";
 import { useApiClientContext } from "../Contexts/PulseApiClientContext";
+import {usePropertyContext} from "@src/Contexts/PropertyContext";
+import {useAnalyticContext} from "@src/Contexts/AnalyticContext";
 
 export default function useGenerateAnalytics(){
-	const appContext = useAppContext();
+	const propertyContext = usePropertyContext();
 	const apiClientContext = useApiClientContext();
+	const analyticContext = useAnalyticContext();
 
 	const fetchData = useCallback(async ()=> {
-		if (_.isNull(appContext.SelectedProperty) || _.isUndefined(appContext.SelectedProperty.PropertyId) || !appContext.SelectedProperty.isRental) return;
-		const expenseAnalyticResponse = await apiClientContext.analyticsDataService.getExpenseAnalytics(appContext.SelectedProperty.PropertyId);
-		const incomeAnalyticResponse = await apiClientContext.analyticsDataService.getIncomeAnalytics(appContext.SelectedProperty.PropertyId);
+		if (_.isNull(propertyContext?.SelectedProperty) || _.isNull(propertyContext) || _.isNull(analyticContext) || _.isUndefined(propertyContext.SelectedProperty.PropertyId) || !propertyContext.SelectedProperty.isRental) return;
+
+		const expenseAnalyticResponse = await apiClientContext.analyticsDataService.getExpenseAnalytics(propertyContext.SelectedProperty.PropertyId);
+		const incomeAnalyticResponse = await apiClientContext.analyticsDataService.getIncomeAnalytics(propertyContext.SelectedProperty.PropertyId);
 		if (isHTTPError(expenseAnalyticResponse)) {
 			alert(expenseAnalyticResponse.message);
 			return;
 		}
-		appContext.setExpenseAnalyticData(expenseAnalyticResponse as ExpenseAnalytic[]);
+		analyticContext.setExpenseAnalyticData(expenseAnalyticResponse as ExpenseAnalytic[]);
 
 		if (isHTTPError(incomeAnalyticResponse)) {
 			alert(incomeAnalyticResponse.message);
 			return;
 		}
-		appContext.setIncomeAnalyticData(incomeAnalyticResponse as IncomeAnalytic);
+		analyticContext.setIncomeAnalyticData(incomeAnalyticResponse as IncomeAnalytic);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	},[]);
 
 	useEffect(() => {
 		void fetchData();
-	}, [fetchData, appContext.SelectedProperty, appContext.Transactions]);
+	}, [fetchData, propertyContext?.SelectedProperty, analyticContext?.Transactions]);
 }
 

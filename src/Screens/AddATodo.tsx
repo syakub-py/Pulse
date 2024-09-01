@@ -6,14 +6,17 @@ import React, {useCallback, useEffect, useState} from "react";
 import {useAuthContext} from "../Contexts/AuthContext";
 import DropdownPicker, {ItemType} from "react-native-dropdown-picker";
 import BackButton from "../Components/BackButton";
-import { useAppContext } from "../Contexts/AppContext";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
+import {usePropertyContext} from "@src/Contexts/PropertyContext";
+import {useTodoContext} from "@src/Contexts/TodoContext";
+import _ from "lodash";
 
 
 function AddATodo(){
 	const authContext = useAuthContext();
-	const appContext = useAppContext();
+	const propertyContext = usePropertyContext();
+	const todoContext = useTodoContext();
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "AddATodo">>();
 	const [open, setOpen] = useState(false);
 	const priorities: ItemType<string>[] = [
@@ -25,7 +28,7 @@ function AddATodo(){
 	const [selectedPriority, setSelectedPriority] = useState(priorities[0].value as string);
 	const [isLoading, setIsLoading] = useState(false);
 	const [todoDetails, setTodoDetails] = useState<Todo>({
-		PropertyId:appContext.SelectedProperty?.PropertyId,
+		PropertyId:propertyContext?.SelectedProperty?.PropertyId,
 		Title:"",
 		Description:"",
 		Priority:selectedPriority,
@@ -42,7 +45,9 @@ function AddATodo(){
 	const handleSubmit = useCallback(async (): Promise<void> => {
 		setIsLoading(true);
 
-		const isAddTodoSuccessful = await appContext.addTodo(todoDetails);
+		if (_.isNull(propertyContext) || _.isNull(todoContext)) return;
+
+		const isAddTodoSuccessful = await todoContext.addTodo(todoDetails);
 
 		if (!isAddTodoSuccessful) {
 			setIsLoading(false);
@@ -53,7 +58,7 @@ function AddATodo(){
 		navigation.navigate("BottomNavBar");
 
 		setTodoDetails({
-			PropertyId: appContext.SelectedProperty?.PropertyId,
+			PropertyId: propertyContext.SelectedProperty?.PropertyId,
 			Title: "",
 			Description: "",
 			Priority: selectedPriority,
@@ -61,7 +66,7 @@ function AddATodo(){
 			AddedBy: authContext.username,
 		});
 	}, [
-		appContext,
+		propertyContext,
 		todoDetails,
 		navigation,
 		selectedPriority,

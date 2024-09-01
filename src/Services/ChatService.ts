@@ -19,7 +19,7 @@ export default class ChatService {
 			user: {
 				_id: msg.user === "user" ? 1 : 2,
 				name: msg.user,
-				avatar: msg.user === "user" ? auth.currentUser?.photoURL : require("../../../assets/icon.png")
+				avatar: msg.user === "user" ? auth.currentUser?.photoURL : require("../../assets/icon.png")
 			}
 		}));
 

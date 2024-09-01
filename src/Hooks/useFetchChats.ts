@@ -1,21 +1,21 @@
 import {useAuthContext} from "@src/Contexts/AuthContext";
 import {useCallback, useEffect} from "react";
 import _ from "lodash";
-import {useAppContext} from "@src/Contexts/AppContext";
 import { useApiClientContext } from "../Contexts/PulseApiClientContext";
+import {useChatContext} from "@src/Contexts/ChatContext";
 
 export default function useFetchChats() {
 	const authContext = useAuthContext();
-	const appContext = useAppContext();
+	const chatContext = useChatContext();
 	const apiClientContext = useApiClientContext();
 
 	const fetchChats = useCallback(async () => {
-		if (_.isUndefined(authContext.uid)) return;
+		if (_.isUndefined(authContext.uid) || _.isNull(chatContext)) return;
 
 		const chats = await apiClientContext.chatService.getChats(authContext.uid);
 
 		if (_.isUndefined(chats)) return;
-		await appContext.setChats(chats);
+		await chatContext.setChats(chats);
 		/* eslint-disable react-hooks/exhaustive-deps */
 	}, [authContext.isLoggedIn]);
 
