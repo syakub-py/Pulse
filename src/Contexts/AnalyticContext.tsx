@@ -5,14 +5,12 @@ import isHTTPError from "@src/Utils/HttpError";
 
 
 class AnalyticContextClass {
-	private pulseApiClient: PulseApiClient;
 	public ExpenseAnalyticData:ExpenseAnalytic[] = [];
 	public IncomeAnalyticData:IncomeAnalytic | null = null;
 	public Transactions: PropertyTransaction[] = [];
 
-	constructor(pulseApiClient: PulseApiClient) {
+	constructor(private readonly pulseApiClient: PulseApiClient) {
 		makeAutoObservable(this);
-		this.pulseApiClient = pulseApiClient;
 	}
 
 	public setExpenseAnalyticData = action((expenseAnalytics: ExpenseAnalytic[]) => {
