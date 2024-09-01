@@ -75,9 +75,7 @@ class PropertyContextClass {
 
 const PropertyContext = createContext<PropertyContextClass | null>(null);
 
-export default function PropertyContextProvider({ children }: { children: React.ReactNode }) {
-	const pulseApiClient = useApiClientContext();
-
+export default function PropertyContextProvider({ children, pulseApiClient }: { children: React.ReactNode, pulseApiClient: PulseApiClient }) {
 	const context = useMemo(() => new PropertyContextClass(pulseApiClient), [pulseApiClient]);
 
 	return (
