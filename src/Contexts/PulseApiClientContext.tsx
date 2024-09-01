@@ -10,7 +10,7 @@ import TransactionService from "../Services/TransactionService";
 import UserService from "../Services/UserService";
 import PropertyService from "../Services/PropertyService";
 
-class PulseApiClient {
+export class PulseApiClient {
 	public httpClient: PulseHttpClient = new PulseHttpClient();
 	public analyticsDataService: AnalyticsService = new AnalyticsService(this.httpClient);
 	public chatService: ChatService = new ChatService(this.httpClient);
@@ -22,8 +22,7 @@ class PulseApiClient {
 	public transactionService: TransactionService = new TransactionService(this.httpClient);
 	public userService: UserService = new UserService(this.httpClient);
 
-	constructor() {
-	}
+	constructor() {}
 
 	private initializeServices() {
 		this.httpClient = new PulseHttpClient();
@@ -47,7 +46,6 @@ const PulseApiClientContext = createContext(new PulseApiClient());
 
 export default function PulseApiClientProvider ({ children }: { children: React.ReactNode }) {
 	const apiClientClass = useMemo(() => new PulseApiClient(), []);
-
 	return (
 		<PulseApiClientContext.Provider value={apiClientClass}>
 			{children}

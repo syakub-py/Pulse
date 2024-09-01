@@ -59,6 +59,7 @@ class AuthContextClass {
 		});
 	}
 
+
 	public async logout() {
 		runInAction(() => {
 			this.uid = "";

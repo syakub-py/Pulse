@@ -1,254 +1,17 @@
 import { createContext, useContext, useMemo } from "react";
 import { action, makeAutoObservable, runInAction } from "mobx";
 import { auth, storage } from "../Utils/Firebase";
-import _, {toNumber} from "lodash";
+import _ from "lodash";
 import isHTTPError from "@src/Utils/HttpError";
+import {PulseApiClient, useApiClientContext} from "@src/Contexts/PulseApiClientContext";
 
 class AppContextClass {
-	public Properties: Property[] = [];
-	public Chats:Chat[] = [];
-	public SelectedPropertyLeases: Lease[] = [];
-	public SelectedPropertyTodos: Todo[] = [];
-	public Tenants: User[] = [];
-	public ExpenseAnalyticData:ExpenseAnalytic[] = [];
-	public IncomeAnalyticData:IncomeAnalytic | null = null;
-	public Transactions: PropertyTransaction[] = [];
-	public SelectedProperty: Property | null = null;
-	public SelectedTodo: Todo | null = null;
+	private pulseApiClient: PulseApiClient;
 
-	constructor() {
+	constructor(pulseApiClient: PulseApiClient) {
 		makeAutoObservable(this);
+		this.pulseApiClient = pulseApiClient;
 	}
-
-	public setSelectedProperty = action((SelectedProperty: Property) => {
-		runInAction(() => {
-			this.SelectedProperty = SelectedProperty;
-		});
-	});
-
-	public setProperties = action((Properties: Property[]) => {
-		runInAction(() => {
-			this.Properties = Properties;
-		});
-	});
-
-	public addProperty = action(async (property: Property) => {
-		try {
-			if (!auth.currentUser?.uid) return false;
-			const response = await PropertyService.addProperty(auth.currentUser.uid, property);
-			if (isHTTPError(response)) {
-				alert(response.message);
-				return false;
-			}
-			property.PropertyId = response;
-			runInAction(() => {
-				this.Properties.push(property);
-			});
-			return true;
-		} catch (e) {
-			alert(e);
-			return false;
-		}
-	});
-
-	public deleteProperty = action(async (propertyId: number) => {
-		try {
-			const response = await PropertyService.deleteProperty(propertyId);
-			if (isHTTPError(response)) {
-				alert(response.message);
-				return false;
-			}
-			runInAction(() => {
-				this.SelectedPropertyLeases = [];
-				this.Properties = this.Properties.filter((h) => toNumber(h.PropertyId) !== propertyId);
-				if (!_.isEmpty(this.Properties)) {
-					this.SelectedProperty = this.Properties[this.Properties.length - 1];
-					return true;
-				}
-				this.SelectedProperty = null;
-
-			});
-			return true;
-		} catch (e) {
-			alert(e);
-			return false;
-		}
-	});
-
-	public setPropertyLeases = action((leases: Lease[]) => {
-		runInAction(() => {
-			this.SelectedPropertyLeases = leases;
-		});
-	});
-
-	public addLease = action(async (lease: Lease, tenantEmail: string) => {
-		try {
-			if (_.isNull(this.SelectedProperty) || _.isUndefined(this.SelectedProperty.PropertyId)) return false;
-			const response = await LeaseService.addLease(this.SelectedProperty.PropertyId, lease);
-			if (isHTTPError(response)) {
-				alert(response.message);
-				lease.LeaseId = 0;
-				return false;
-			}
-			lease.LeaseId = response;
-			const sendEmailResponse = await UserService.sendSignUpEmail(lease.LeaseId, tenantEmail);
-			if (isHTTPError(sendEmailResponse)) {
-				alert(sendEmailResponse.message);
-				return false;
-			}
-			runInAction(() => {
-				this.SelectedPropertyLeases.push(lease);
-			});
-			alert("Sent invite to " + tenantEmail.toLowerCase());
-			lease.LeaseId = 0;
-			return true;
-		} catch (e) {
-			alert(e);
-			return false;
-		}
-
-	});
-
-	public deleteLease = action(async (leaseId: number) => {
-		try {
-			const response = await LeaseService.deleteLease(leaseId);
-			if (!_.isUndefined(response) && isHTTPError(response)) {
-				alert(response.message);
-				return;
-			}
-			runInAction(() => {
-				this.SelectedPropertyLeases = this.SelectedPropertyLeases.filter((l) => toNumber(l.LeaseId) !== leaseId);
-				this.Tenants = this.Tenants.filter((t) => t.LeaseId !== leaseId);
-			});
-		} catch (e) {
-			alert(e);
-			console.error("Error deleting lease: " + e);
-		}
-	});
-
-	public addUser = action(async (user: User) => {
-		try {
-			const response = await UserService.addUser(user);
-			if (isHTTPError(response)) {
-				alert(response.message);
-				return false;
-			}
-			user.id = response;
-			if (_.isNull(user.LeaseId)) return true;
-			runInAction(() => {
-				this.Tenants.push(user);
-			});
-			return true;
-		} catch (e) {
-			alert(e);
-			return false;
-		}
-	});
-
-	public setChats = action(async (chats: Chat[]) => {
-		this.Chats = chats;
-	});
-
-	public setTenants = action((tenants: User[]) => {
-		runInAction(() => {
-			this.Tenants = tenants;
-		});
-	});
-
-	public setSelectedPropertyTodos = action((todos: Todo[]) => {
-		runInAction(() => {
-			this.SelectedPropertyTodos = todos;
-		});
-	});
-
-	public addTodo = action(async (todo: Todo) => {
-		try {
-			const response = await TodoService.addTodo(todo);
-			if (isHTTPError(response)) {
-				alert(response.message);
-				return false;
-			}
-			todo.id = response;
-			runInAction(() => {
-				this.SelectedPropertyTodos.push(todo);
-			});
-			return true;
-		} catch (e) {
-			alert(e);
-			return false;
-		}
-
-	});
-
-	public deleteTodo = action(async (todoId: number) => {
-		const response = await TodoService.deleteTodo(todoId);
-		if (isHTTPError(response)) {
-			alert(response.message);
-			return;
-		}
-
-		runInAction(() => {
-			this.SelectedPropertyTodos = this.SelectedPropertyTodos.filter((todo) => todo.id !== todoId);
-		});
-	});
-
-	public setSelectedPropertyTodo = action((todo: Todo) => {
-		runInAction(() => {
-			this.SelectedTodo = todo;
-		});
-	});
-
-	public getRecommendations = action(async (todoId: number) => {
-		try {
-			if (_.isNil(this.SelectedProperty)) return [];
-			const response = await TodoService.getRecommendations(todoId, this.SelectedProperty.Address);
-			if (isHTTPError(response)) {
-				alert(response.message);
-				return [];
-			}
-			return response;
-		} catch (error) {
-			console.error("Error fetching recommendations:", error);
-			return [];
-		}
-	});
-
-	public setExpenseAnalyticData = action((expenseAnalytics: ExpenseAnalytic[]) => {
-		runInAction(()=>{
-			this.ExpenseAnalyticData = expenseAnalytics;
-		});
-	});
-
-	public setIncomeAnalyticData = action((incomeAnalytics: IncomeAnalytic) => {
-		runInAction(() => {
-			this.IncomeAnalyticData = incomeAnalytics;
-		});
-	});
-
-	public setTransactions = action((transactions: PropertyTransaction[]) => {
-		runInAction(() => {
-			this.Transactions = transactions;
-		});
-	});
-
-	public addTransaction = action(async (transaction: PropertyTransaction) => {
-		try{
-			const addTransactionResponse = await TransactionService.addTransaction(transaction);
-			if (isHTTPError(addTransactionResponse)){
-				alert(addTransactionResponse.message);
-				return;
-			}
-			transaction.id = addTransactionResponse;
-			runInAction(() => {
-				this.Transactions.push(transaction);
-			});
-			return;
-		}catch (e){
-			console.error("Error adding transaction:", e);
-			return;
-		}
-
-	});
 
 	public handleDeleteAccount = action(async (username: string, uid:string) => {
 		try {
@@ -304,10 +67,12 @@ class AppContextClass {
 
 }
 
-const AppContext = createContext(new AppContextClass());
+const AppContext = createContext<null | AppContextClass>(null);
 
 export default function AppContextProvider({ children }: { children: React.ReactNode }) {
-	const appContext = useMemo(() => new AppContextClass(), []);
+	const pulseApiClient = useApiClientContext();
+
+	const appContext = useMemo(() => new AppContextClass(pulseApiClient), [pulseApiClient]);
 
 	return (
 		<AppContext.Provider value={appContext}>
