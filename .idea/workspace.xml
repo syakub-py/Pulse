@@ -4,20 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="fixing errors">
-      <change afterPath="$PROJECT_DIR$/src/Classes/Chat.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Hooks/useWebSocketSetup.ts" afterDir="false" />
+    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="websockets working">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Contexts/AuthContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/AuthContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contexts/ChatContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/ChatContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hooks/useFetchChatMessages.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useFetchChatMessages.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Hooks/useFetchChats.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useFetchChats.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screens/BottomNavigationBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/BottomNavigationBar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screens/LandlordChats.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/Chats.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/ChatService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ChatService.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Setup.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Setup.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Types/Global.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Types/Global.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hooks/useFetchProperties.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useFetchProperties.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hooks/useFetchTodos.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useFetchTodos.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hooks/useFetchTransactions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useFetchTransactions.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hooks/useGetAllDataFromStorage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useGetAllDataFromStorage.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hooks/useGetLeasesAndTenants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useGetLeasesAndTenants.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hooks/useLogin.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useLogin.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hooks/usePulseCreateChatIfDoesntExist.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/usePulseCreateChatIfDoesntExist.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hooks/useWebSocketSetup.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useWebSocketSetup.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/AddATransaction.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/AddATransaction.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/SignUp/AddAUser.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/SignUp/AddAUser.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/SignUp/CreateUsernameAndPassword.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/SignUp/CreateUsernameAndPassword.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/YourLease.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/YourLease.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/UserService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/UserService.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -230,15 +233,8 @@
       <workItem from="1724959922510" duration="3478000" />
       <workItem from="1724976203528" duration="14174000" />
       <workItem from="1725202601219" duration="17527000" />
-      <workItem from="1725290602693" duration="9579000" />
-    </task>
-    <task id="LOCAL-00077" summary="fixed lease details for tenant">
-      <option name="closed" value="true" />
-      <created>1723472743191</created>
-      <option name="number" value="00077" />
-      <option name="presentableId" value="LOCAL-00077" />
-      <option name="project" value="LOCAL" />
-      <updated>1723472743192</updated>
+      <workItem from="1725290602693" duration="9954000" />
+      <workItem from="1725302940616" duration="4669000" />
     </task>
     <task id="LOCAL-00078" summary="final touches">
       <option name="closed" value="true" />
@@ -624,7 +620,15 @@
       <option name="project" value="LOCAL" />
       <updated>1725230350450</updated>
     </task>
-    <option name="localTasksCounter" value="126" />
+    <task id="LOCAL-00126" summary="websockets working">
+      <option name="closed" value="true" />
+      <created>1725301122189</created>
+      <option name="number" value="00126" />
+      <option name="presentableId" value="LOCAL-00126" />
+      <option name="project" value="LOCAL" />
+      <updated>1725301122189</updated>
+    </task>
+    <option name="localTasksCounter" value="127" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -643,7 +647,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="working on recommendations" />
     <MESSAGE value="recommendations working" />
     <MESSAGE value="able to scroll through todos" />
     <MESSAGE value="Todo scrolls to selected index" />
@@ -668,6 +671,7 @@
     <MESSAGE value="start chat integration" />
     <MESSAGE value="split up appContext" />
     <MESSAGE value="fixing errors" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixing errors" />
+    <MESSAGE value="websockets working" />
+    <option name="LAST_COMMIT_MESSAGE" value="websockets working" />
   </component>
 </project>

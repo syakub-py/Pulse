@@ -20,7 +20,7 @@ export default function useGetLeasesAndTenants() {
 
 		try {
 			if (
-				_.isEmpty(authContext.uid) ||
+				_.isEmpty(authContext.firebase_uid) ||
 				_.isUndefined(propertyContext.SelectedProperty?.PropertyId) ||
 				!propertyContext.SelectedProperty.isRental
 			) return;
@@ -32,7 +32,7 @@ export default function useGetLeasesAndTenants() {
 			}
 
 			if (_.isEmpty(userContext.Tenants)){
-				const tenantResponse= await apiClientContext.tenantService.getTenants(authContext.uid);
+				const tenantResponse= await apiClientContext.tenantService.getTenants(authContext.firebase_uid);
 				if (isHTTPError(tenantResponse)){
 					alert(tenantResponse.message);
 					return;
@@ -57,7 +57,7 @@ export default function useGetLeasesAndTenants() {
 
 	useEffect(() => {
 		void fetchLeasesAndTenants();
-	}, [authContext.uid, propertyContext?.SelectedProperty, fetchLeasesAndTenants]);
+	}, [authContext.firebase_uid, propertyContext?.SelectedProperty, fetchLeasesAndTenants]);
 
 	return fetchLeasesAndTenants;
 }

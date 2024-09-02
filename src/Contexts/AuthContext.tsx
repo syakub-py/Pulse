@@ -11,10 +11,11 @@ class AuthContextClass {
 	public username: string = "";
 	public profilePicture: string = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
 	public password: string = "";
-	public uid: string = "";
+	public firebase_uid: string = "";
+	public postgres_uid: number = 0;
 	private _isLoadingAuth: boolean = true;
 	public leaseId: number | null = null;
-	public socket: WebSocket | null = null
+	public socket: WebSocket | null = null;
 
 	public setUsername = action((username: string) =>{
 		this.username = username;
@@ -31,8 +32,13 @@ class AuthContextClass {
 		this.profilePicture = profilePicture;
 	});
 
-	public setUid = action((uid: string) =>{
-		this.uid = uid;
+	public setFirebaseUid = action((uid: string) =>{
+		this.firebase_uid = uid;
+	});
+
+	public setPostgresUid = action((uid: number) =>{
+		this.postgres_uid = uid;
+		void AsyncStorageClass.saveDataToStorage("uid", uid);
 	});
 
 	public setLeaseId = action((LeaseId: number | null) =>{
@@ -41,12 +47,12 @@ class AuthContextClass {
 
 	public setSocket = action((): WebSocket | undefined => {
 		if (!this.isLoggedIn) return undefined;
-		this.socket = new WebSocket(`ws://127.0.0.1:8000/ws/?token=${this.uid}`);
+		this.socket = new WebSocket(`ws://127.0.0.1:8000/ws/?token=${this.postgres_uid}`);
 		return this.socket;
 	});
 
 	get isLoggedIn() {
-		return !_.isEmpty(this.username) && !_.isEmpty(this.password);
+		return !_.isEmpty(this.username) && !_.isEmpty(this.password) && this.postgres_uid !== 0;
 	}
 
 	get isLoadingAuth() {
@@ -60,19 +66,22 @@ class AuthContextClass {
 	public async getAuthDataFromStorage(): Promise<void> {
 		const retrievedUsername = await AsyncStorageClass.getDataFromStorage("username");
 		const retrievedPassword = await AsyncStorageClass.getDataFromStorage("password");
+		const retrievedUid = await AsyncStorageClass.getDataFromStorage("uid");
 		runInAction(() => {
 			if (!_.isUndefined(retrievedUsername)) this.username = retrievedUsername;
 			if (!_.isUndefined(retrievedPassword)) this.password = retrievedPassword;
+			if (!_.isUndefined(retrievedUid)) this.postgres_uid = retrievedUid;
 		});
 	}
 
 
 	public async logout() {
 		runInAction(() => {
-			this.uid = "";
+			this.firebase_uid = "";
 			this.username = "";
 			this.password = "";
 			this.profilePicture = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
+			this.postgres_uid = 0;
 		});
 		try{
 			this.socket?.close();

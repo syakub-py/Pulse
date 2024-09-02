@@ -2,7 +2,6 @@ import {observer} from "mobx-react-lite";
 import Layout from "@src/Components/Layout";
 import Header from "@src/Components/Header";
 import BackButton from "@src/Components/BackButton";
-import {useAppContext} from "@src/Contexts/AppContext";
 import React, {useCallback, useState} from "react";
 import {useAuthContext} from "@src/Contexts/AuthContext";
 import {View, StyleSheet, TextInput, ActivityIndicator, Button, Dimensions} from "react-native";
@@ -11,7 +10,6 @@ import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import ValidateDateInput from "@src/Utils/ValidateInputs/ValidateDateInput";
 import {usePropertyContext} from "@src/Contexts/PropertyContext";
-import {useTodoContext} from "@src/Contexts/TodoContext";
 import {useAnalyticContext} from "@src/Contexts/AnalyticContext";
 import _ from "lodash";
 
@@ -60,7 +58,7 @@ function AddATransaction() {
 				return;
 			}
 			transactionDetails.propertyId = propertyContext.SelectedProperty?.PropertyId;
-			transactionDetails.userId = authContext.uid;
+			transactionDetails.userId = authContext.firebase_uid;
 			transactionDetails.incomeOrExpense = incomeOrExpense;
 			transactionDetails.transactionType = transactionType;
 			await analyticsContext.addTransaction(transactionDetails);
@@ -70,7 +68,7 @@ function AddATransaction() {
 		} finally {
 			setIsLoading(false);
 		}
-	}, [transactionDetails, propertyContext, authContext.uid, incomeOrExpense, transactionType, navigation]);
+	}, [propertyContext, analyticsContext, transactionDetails, authContext.firebase_uid, incomeOrExpense, transactionType, navigation]);
 
 	const handleInputChange = (field: keyof PropertyTransaction, value: string | number) => {
 		setTransactionDetails((prev) => ({ ...prev, [field]: value }));

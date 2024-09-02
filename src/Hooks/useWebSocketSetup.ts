@@ -5,7 +5,6 @@ import {useChatContext} from "@src/Contexts/ChatContext";
 
 export default function useWebSocketSetup(): void  {
 	const authContext = useAuthContext();
-	const chatContext = useChatContext();
 	useEffect(() => {
 		const socket = authContext.setSocket();
 		if (_.isUndefined(socket)) return;

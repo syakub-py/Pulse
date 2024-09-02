@@ -12,9 +12,9 @@ export default function useFetchChats() {
 	const apiClientContext = useApiClientContext();
 
 	const fetchChats = useCallback(async () => {
-		if (_.isNull(authContext.uid) || _.isNull(chatContext) || _.isEmpty(authContext.uid)) return;
+		if (_.isNull(authContext.firebase_uid) || _.isNull(chatContext) || _.isEmpty(authContext.firebase_uid)) return;
 
-		const chatsData = await apiClientContext.chatService.getChats(authContext.uid);
+		const chatsData = await apiClientContext.chatService.getChats(authContext.firebase_uid);
 
 		if (_.isUndefined(chatsData)) return;
 
@@ -32,11 +32,10 @@ export default function useFetchChats() {
 		});
 
 		chatContext.setChats(chats);
-
 		/* eslint-disable react-hooks/exhaustive-deps */
 	}, [authContext.isLoggedIn]);
 
 	useEffect(() => {
 		void fetchChats();
-	}, [fetchChats, authContext.uid]);
+	}, [fetchChats, authContext.firebase_uid]);
 }

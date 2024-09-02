@@ -13,9 +13,7 @@ import Layout from "../../Components/Layout";
 import Header from "../../Components/Header";
 import BackButton from "../../Components/BackButton";
 import { useAuthContext } from "@src/Contexts/AuthContext";
-import {useAppContext} from "@src/Contexts/AppContext";
 import { FirebaseError } from "firebase/app";
-import Ionicons from "react-native-vector-icons/Ionicons";
 import PasswordInput from "@src/Components/PasswordInput";
 import {useUserContext} from "@src/Contexts/UserContext";
 
@@ -95,11 +93,10 @@ function CreateUsernameAndPassword() {
 				} else {
 					authContext.setProfilePicture("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
 				}
-				authContext.setUid(user.user.uid);
+				authContext.setFirebaseUid(user.user.uid);
 				authContext.setUsername(username);
 				authContext.setPassword(password);
 				navigation.navigate("EnterTenantCode");
-
 			}catch (error) {
 				if (error instanceof FirebaseError) {
 					console.error("Firebase Error:", error);

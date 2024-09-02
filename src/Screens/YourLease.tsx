@@ -11,7 +11,7 @@ function YourLease() {
 	const leaseContext = useLeaseContext();
 	const authContext = useAuthContext();
 
-	const lease = leaseContext?.SelectedPropertyLeases.find((lease)=>lease.TenantUid === authContext.uid);
+	const lease = leaseContext?.SelectedPropertyLeases.find((lease)=>lease.TenantUid === authContext.firebase_uid);
 
 	return(
 		<Layout>

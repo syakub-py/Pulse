@@ -11,6 +11,11 @@ export default class UserService {
 		return response.data;
 	}
 
+	async getUid(username:string): Promise<number | HTTPError> {
+		const response = await this.httpClient.http.get(`${this.serviceHeader}/getUid/${username}`);
+		return response.data;
+	}
+
 	async sendSignUpEmail(leaseId:number, email:string):Promise<void | HTTPError> {
 		await this.httpClient.http.get(`/api/sendEmail/${leaseId}/${email.toLowerCase()}`);
 	}

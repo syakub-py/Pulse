@@ -4,9 +4,12 @@ import { useAuthContext } from "../Contexts/AuthContext";
 import _ from "lodash";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
+import {useApiClientContext} from "@src/Contexts/PulseApiClientContext";
+import isHTTPError from "@src/Utils/HttpError";
 
 export default function useLogin() {
 	const authContext = useAuthContext();
+	const apiClientContext = useApiClientContext();
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Login">>();
 
 	return useCallback(async (username: string, password: string) => {
@@ -19,18 +22,21 @@ export default function useLogin() {
 			alert("Invalid email address: " + username);
 			return;
 		}
+
 		try {
 			const user = await auth.signInWithEmailAndPassword(username, password);
-			if (_.isNull(user.user)) return;
+			const uid = await apiClientContext.userService.getUid(username);
+			if (_.isNull(user.user) || isHTTPError(uid)) return;
 			authContext.setProfilePicture(user.user.photoURL || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
 			authContext.setUsername(username);
 			authContext.setPassword(password);
-			authContext.setUid(user.user.uid);
+			authContext.setFirebaseUid(user.user.uid);
+			authContext.setPostgresUid(uid);
 			authContext.isLoadingAuth = false;
 			navigation.navigate("BottomNavBar");
 		} catch (e) {
 			alert("Incorrect email or password");
 			console.error("error logging in: " + e);
 		}
-	},[authContext, navigation]);
+	},[apiClientContext.userService, authContext, navigation]);
 }
