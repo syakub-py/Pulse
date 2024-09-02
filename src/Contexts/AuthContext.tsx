@@ -14,6 +14,7 @@ class AuthContextClass {
 	public uid: string = "";
 	private _isLoadingAuth: boolean = true;
 	public leaseId: number | null = null;
+	public socket: WebSocket | null = null
 
 	public setUsername = action((username: string) =>{
 		this.username = username;
@@ -36,6 +37,12 @@ class AuthContextClass {
 
 	public setLeaseId = action((LeaseId: number | null) =>{
 		this.leaseId = LeaseId;
+	});
+
+	public setSocket = action((): WebSocket | undefined => {
+		if (!this.isLoggedIn) return undefined;
+		this.socket = new WebSocket(`ws://127.0.0.1:8000/ws/?token=${this.uid}`);
+		return this.socket;
 	});
 
 	get isLoggedIn() {
@@ -68,6 +75,8 @@ class AuthContextClass {
 			this.profilePicture = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
 		});
 		try{
+			this.socket?.close();
+			this.socket = null;
 			await auth.signOut();
 			await AsyncStorageClass.clearAllAsyncStorageData();
 			this.isLoadingAuth = false;

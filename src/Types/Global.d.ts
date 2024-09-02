@@ -1,5 +1,3 @@
-import {IMessage} from "react-native-gifted-chat";
-
 declare global {
     interface Property {
         PropertyId?: number,
@@ -61,17 +59,11 @@ declare global {
         fulfilled:boolean
     }
 
-    interface Chat{
-        id?: number
-        chatName: string
-        lastMessage: string
-    }
-
     interface ChatMessage {
         _id:number;
         text: string;
         createdAt: string;
-        user:string;
+        username:string;
     }
 
     interface CodeValidationResponse {

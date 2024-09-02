@@ -2,6 +2,7 @@ import {IMessage} from "react-native-gifted-chat";
 import {AxiosResponse} from "axios";
 import {auth} from "@src/Utils/Firebase";
 import PulseHttpClient from "../Classes/PulseHTTPClient";
+import Chat from "@src/Classes/Chat";
 
 export default class ChatService {
 	private readonly serviceHeader = "/chat";
@@ -17,12 +18,11 @@ export default class ChatService {
 			text: msg.text,
 			createdAt: new Date(msg.createdAt),
 			user: {
-				_id: msg.user === "user" ? 1 : 2,
-				name: msg.user,
-				avatar: msg.user === "user" ? auth.currentUser?.photoURL : require("../../assets/icon.png")
+				_id: msg.username === "user" ? 1 : 2,
+				name: msg.username,
+				avatar: msg.username === "user" ? auth.currentUser?.photoURL : require("../../assets/icon.png")
 			}
 		}));
-
 	}
 
 	async getChats(userId: string): Promise<Chat[]> {

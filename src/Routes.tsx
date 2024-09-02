@@ -19,7 +19,7 @@ import TenantCode from "./Screens/SignUp/TenantCode";
 import AddATodo from "./Screens/AddATodo";
 import TodoDetails from "./Screens/TodoDetails";
 import AddATransaction from "@src/Screens/AddATransaction";
-import LandlordChats from "@src/Screens/LandlordChats";
+import LandlordChats from "@src/Screens/Chats";
 
 
 export default function Routes() {

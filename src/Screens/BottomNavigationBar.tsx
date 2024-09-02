@@ -9,7 +9,7 @@ import Analytics from "./Analytics";
 import Leases from "./Leases";
 import YourLease from "./YourLease";
 import _ from "lodash";
-import LandlordChats from "@src/Screens/LandlordChats";
+import LandlordChats from "@src/Screens/Chats";
 import {usePropertyContext} from "@src/Contexts/PropertyContext";
 
 function BottomNavigationBar() {
