@@ -13,7 +13,7 @@ class AppContextClass {
 		this.pulseApiClient = pulseApiClient;
 	}
 
-	public handleDeleteAccount = action(async (username: string, uid:string, Properties:Property[]) => {
+	public handleDeleteAccount = action(async (username: string, uid:number, Properties:Property[]) => {
 		try {
 			const response = await this.pulseApiClient.userService.deleteUser(uid);
 			if (isHTTPError(response)) return false;

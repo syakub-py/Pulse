@@ -12,7 +12,7 @@ export default class PropertyService {
 		return response.data;
 	}
 
-	async getProperty(userId:string):Promise<Property[] | HTTPError> {
+	async getProperty(userId:number):Promise<Property[] | HTTPError> {
 		const response = await this.httpClient.http.get(`${this.serviceHeader}/getProperty/${userId}`);
 		return JSON.parse(response.data);
 	}

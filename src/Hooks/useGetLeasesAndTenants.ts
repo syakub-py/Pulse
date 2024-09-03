@@ -32,7 +32,7 @@ export default function useGetLeasesAndTenants() {
 			}
 
 			if (_.isEmpty(userContext.Tenants)){
-				const tenantResponse= await apiClientContext.tenantService.getTenants(authContext.firebase_uid);
+				const tenantResponse= await apiClientContext.tenantService.getTenants(authContext.postgres_uid);
 				if (isHTTPError(tenantResponse)){
 					alert(tenantResponse.message);
 					return;

@@ -46,13 +46,13 @@ class AuthContextClass {
 	});
 
 	public setSocket = action((): WebSocket | undefined => {
-		if (!this.isLoggedIn) return undefined;
+		if (!this.isLoggedIn || this.postgres_uid === 0) return undefined;
 		this.socket = new WebSocket(`ws://127.0.0.1:8000/ws/?token=${this.postgres_uid}`);
 		return this.socket;
 	});
 
 	get isLoggedIn() {
-		return !_.isEmpty(this.username) && !_.isEmpty(this.password) && this.postgres_uid !== 0;
+		return !_.isEmpty(this.username) && !_.isEmpty(this.password);
 	}
 
 	get isLoadingAuth() {

@@ -7,15 +7,8 @@ export default class PulseAiChatService {
 	constructor(private readonly httpClient: PulseHttpClient) {
 	}
 
-	async generateChatResponse(prompt: string): Promise<string> {
-		const chatId = await AsyncStorageClass.getDataFromStorage("chatId");
-		const response = await this.httpClient.http.get(`${this.serviceHeader}/generateResponse/${chatId.toString()}/${prompt}`);
+	async generateChatResponse(prompt: string, chatId:number): Promise<string> {
+		const response = await this.httpClient.http.get(`${this.serviceHeader}/generateResponse/${chatId}/${prompt}`);
 		return response.data.text;
-
-	}
-
-	async createPulseChat(userId: string): Promise<void> {
-		const response = await this.httpClient.http.get(`chat/createChat/${userId}/PulseAI`);
-		await AsyncStorageClass.saveDataToStorage("chatId", response.data.chat_id);
 	}
 };

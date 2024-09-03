@@ -5,6 +5,7 @@ import {useApiClientContext} from "../Contexts/PulseApiClientContext";
 import {useChatContext} from "@src/Contexts/ChatContext";
 import {IMessage} from "react-native-gifted-chat";
 import Chat from "@src/Classes/Chat";
+import isHTTPError from "@src/Utils/HttpError";
 
 export default function useFetchChats() {
 	const authContext = useAuthContext();
@@ -12,11 +13,18 @@ export default function useFetchChats() {
 	const apiClientContext = useApiClientContext();
 
 	const fetchChats = useCallback(async () => {
-		if (_.isNull(authContext.firebase_uid) || _.isNull(chatContext) || _.isEmpty(authContext.firebase_uid)) return;
+		if (_.isNull(authContext.firebase_uid) ||
+			_.isNull(chatContext) ||
+			_.isEmpty(authContext.firebase_uid) ||
+			authContext.postgres_uid === 0
+		) return;
 
-		const chatsData = await apiClientContext.chatService.getChats(authContext.firebase_uid);
+		const chatsData = await apiClientContext.chatService.getChats(authContext.postgres_uid);
+		if (isHTTPError(chatsData)) {
+			alert(chatsData.message);
+			return;
+		}
 
-		if (_.isUndefined(chatsData)) return;
 
 		const chats = chatsData.map((chatData: Chat) => {
 			const chat = new Chat();

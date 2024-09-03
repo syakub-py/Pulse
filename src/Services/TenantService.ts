@@ -6,7 +6,7 @@ export default class TenantService {
 	constructor(private readonly httpClient: PulseHttpClient) {
 	}
 
-	async getTenants(userId: string): Promise<User[] | HTTPError> {
+	async getTenants(userId: number): Promise<User[] | HTTPError> {
 		const response = await this.httpClient.http.get(`${this.serviceHeader}/getTenants/${userId}`);
 		return JSON.parse(response.data);
 	}

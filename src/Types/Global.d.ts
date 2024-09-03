@@ -103,15 +103,16 @@ declare global {
     }
 
     type RootStackParamList = {
-        "BottomNavBar": undefined
-        "Home": undefined
-        "Login": undefined
-        "Settings":undefined
+        "BottomNavBar": undefined,
+        "Home": undefined,
+        "Login": undefined,
+        "Settings":undefined,
         "Loading": undefined,
         "Leases": undefined,
-        "ChatBot": undefined
-        "CreateUsernameAndPassword": undefined
-        "AddAProperty": undefined
+        "ChatBot": undefined,
+        "Chats":undefined,
+        "CreateUsernameAndPassword": undefined,
+        "AddAProperty": undefined,
         "Analytics": undefined,
         "AllProperties": undefined,
         "AllTenants": undefined,
@@ -120,8 +121,7 @@ declare global {
         "AddAUser": undefined,
         "AddATransaction": undefined,
         "EnterTenantCode": undefined,
-        "TodoDetails": { selectedTodoIndex:number },
-        "LandLordChats":undefined
+        "TodoDetails": { selectedTodoIndex:number }
     }
 }
 

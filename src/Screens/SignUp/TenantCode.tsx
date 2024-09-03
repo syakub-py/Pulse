@@ -8,7 +8,7 @@ import Header from "../../Components/Header";
 import BackButton from "../../Components/BackButton";
 import {useAuthContext} from "@src/Contexts/AuthContext";
 import isHTTPError from "@src/Utils/HttpError";
-import { useApiClientContext } from "../../Contexts/PulseApiClientContext";
+import { useApiClientContext } from "@src/Contexts/PulseApiClientContext";
 
 
 function TenantCode() {

@@ -25,8 +25,12 @@ export default function useLogin() {
 
 		try {
 			const user = await auth.signInWithEmailAndPassword(username, password);
-			const uid = await apiClientContext.userService.getUid(username);
-			if (_.isNull(user.user) || isHTTPError(uid)) return;
+			if (_.isNull(user.user)) return;
+			const uid = await apiClientContext.userService.getUid(username, user.user.uid);
+			if (isHTTPError(uid)) {
+				alert(uid.message);
+				return;
+			}
 			authContext.setProfilePicture(user.user.photoURL || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
 			authContext.setUsername(username);
 			authContext.setPassword(password);

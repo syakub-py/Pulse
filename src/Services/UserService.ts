@@ -11,8 +11,8 @@ export default class UserService {
 		return response.data;
 	}
 
-	async getUid(username:string): Promise<number | HTTPError> {
-		const response = await this.httpClient.http.get(`${this.serviceHeader}/getUid/${username}`);
+	async getUid(username:string, firebase_uid:string): Promise<number | HTTPError> {
+		const response = await this.httpClient.http.get(`${this.serviceHeader}/getUid/${firebase_uid}/${username}`);
 		return response.data;
 	}
 
@@ -20,7 +20,7 @@ export default class UserService {
 		await this.httpClient.http.get(`/api/sendEmail/${leaseId}/${email.toLowerCase()}`);
 	}
 
-	async deleteUser(userId:string):Promise<void | HTTPError> {
+	async deleteUser(userId:number):Promise<void | HTTPError> {
 		await this.httpClient.http.delete(`${this.serviceHeader}/deleteUser/${userId}`);
 	}
 };

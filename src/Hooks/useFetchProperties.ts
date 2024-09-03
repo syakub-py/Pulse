@@ -13,7 +13,7 @@ export default function useFetchProperties() {
 
 	const fetchProperties = useCallback(async () => {
 		if (_.isEmpty(authContext.firebase_uid) || _.isNull(propertyContext)) return;
-		const properties = await apiClientContext.propertyService.getProperty(authContext.firebase_uid);
+		const properties = await apiClientContext.propertyService.getProperty(authContext.postgres_uid);
 		if (isHTTPError(properties)) {
 			alert(properties.message);
 			return;

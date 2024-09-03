@@ -28,6 +28,10 @@ class ChatsClass {
 		return undefined;
 	});
 
+	public addChat = action((chat: Chat) => {
+		this.chats.push(chat);
+	});
+
 	public setChats = action((chats: Chat[]): void => {
 		this.chats = chats;
 	});

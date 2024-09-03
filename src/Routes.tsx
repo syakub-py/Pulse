@@ -19,7 +19,7 @@ import TenantCode from "./Screens/SignUp/TenantCode";
 import AddATodo from "./Screens/AddATodo";
 import TodoDetails from "./Screens/TodoDetails";
 import AddATransaction from "@src/Screens/AddATransaction";
-import LandlordChats from "@src/Screens/Chats";
+import Chats from "@src/Screens/Chats";
 
 
 export default function Routes() {
@@ -55,7 +55,6 @@ export default function Routes() {
 		<Screen key = "EnterTenantCode" name = "EnterTenantCode" component = {TenantCode}/>,
 		<Screen key = "AddAUser" name="AddAUser" component={AddATenant} />,
 		<Screen key = "AddATransaction" name="AddATransaction" component={AddATransaction} />,
-		<Screen key = "LandLordChats" name="LandLordChats" component={LandlordChats} />,
-
+		<Screen key = "Chats" name="Chats" component={Chats} />,
 	];
 }
