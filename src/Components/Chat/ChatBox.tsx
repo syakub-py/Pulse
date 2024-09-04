@@ -4,12 +4,13 @@ import {GiftedChat, IMessage} from "react-native-gifted-chat";
 import MessageInputBar from "@src/Components/Chat/MessageInputBar";
 import {observer} from "mobx-react-lite";
 import { useAuthContext } from "@src/Contexts/AuthContext";
-import { useApiClientContext } from "../../Contexts/PulseApiClientContext";
+import { useApiClientContext } from "@src/Contexts/PulseApiClientContext";
+import BackButton from "@src/Components/BackButton";
 
 //temp solution
 LogBox.ignoreLogs(["Warning: Avatar: Support for defaultProps"]);
 
-function PulseAI() {
+function ChatBox() {
 	const authContext = useAuthContext();
 	const apiClientContext = useApiClientContext();
 	const [messages, setMessages] = useState<IMessage[]>([]);
@@ -20,24 +21,26 @@ function PulseAI() {
 			GiftedChat.append(previousMessages, newMessages),
 		);
 		const userMessage = newMessages[0].text;
-		setIsTyping(true);
-		const responseText = await apiClientContext.pulseAiChatService.generateChatResponse(userMessage);
-		const responseMessage = {
-			_id: Math.floor(Math.random() * 1000000),
-			text: responseText,
-			createdAt: new Date(),
-			user: {
-				_id: 2,
-				name: "Assistant",
-			},
-		};
-		setIsTyping(false);
-		setMessages(previousMessages => GiftedChat.append(previousMessages, [responseMessage]));
+
+		// setIsTyping(true);
+		// const responseText = await apiClientContext.pulseAiChatService.generateChatResponse(userMessage);
+		// const responseMessage = {
+		// 	_id: Math.floor(Math.random() * 1000000),
+		// 	text: responseText,
+		// 	createdAt: new Date(),
+		// 	user: {
+		// 		_id: 2,
+		// 		name: "Assistant",
+		// 	},
+		// };
+		// setIsTyping(false);
+		// setMessages(previousMessages => GiftedChat.append(previousMessages, [responseMessage]));
 	}, [apiClientContext.pulseAiChatService]);
 
 	return (
 		<SafeAreaView style={styles.container}>
 			<View style = {styles.headerContainer}>
+				<BackButton/>
 				<View style={styles.textContainer}>
 					<Text style = {styles.pulseText}>Pulse AI</Text>
 					<Text style={styles.llamaText}>Powered by Llama3</Text>
@@ -66,7 +69,7 @@ function PulseAI() {
 }
 
 
-export default observer(PulseAI);
+export default observer(ChatBox);
 
 const styles = StyleSheet.create({
 	container: {

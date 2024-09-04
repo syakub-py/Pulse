@@ -2,7 +2,7 @@ import {action, makeObservable} from "mobx";
 import {IMessage} from "react-native-gifted-chat";
 
 
-export default class Chat{
+class Chat{
 	public messages:IMessage[] = [];
 	public lastMessage:IMessage | null = null;
 	public otherUserDetails:User | null = null;

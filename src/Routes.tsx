@@ -2,7 +2,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "./Screens/Login";
 import CreateUsernameAndPassword from "./Screens/SignUp/CreateUsernameAndPassword";
 import Home from "./Screens/Home";
-import PulseAI from "./Components/Chat/PulseAI";
+import PulseAI from "./Components/Chat/ChatBox";
 import BottomNavigationBar from "./Screens/BottomNavigationBar";
 import AddAProperty from "./Screens/AddAProperty";
 import {auth} from "./Utils/Firebase";
@@ -44,7 +44,7 @@ export default function Routes() {
 		<Screen key = "BottomNavBar" name="BottomNavBar" component={BottomNavigationBar} />,
 		<Screen key = "AddAProperty" name="AddAProperty" component={AddAProperty} />,
 		<Screen key = "Home" name="Home" component={Home} />,
-		<Screen key = "ChatBot" name="ChatBot" component={PulseAI} />,
+		<Screen key = "ChatBox" name="ChatBox" component={PulseAI} />,
 		<Screen key = "Analytics" name="Analytics" component={Analytics} />,
 		<Screen key = "AllProperties" name="AllProperties" component={AllProperties} />,
 		<Screen key = "Leases" name="Leases" component={Leases} />,

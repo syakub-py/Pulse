@@ -2,7 +2,6 @@ import {IMessage} from "react-native-gifted-chat";
 import {AxiosResponse} from "axios";
 import {auth} from "@src/Utils/Firebase";
 import PulseHttpClient from "../Classes/PulseHTTPClient";
-import Chat from "@src/Classes/Chat";
 
 export default class ChatService {
 	private readonly serviceHeader = "/chat";

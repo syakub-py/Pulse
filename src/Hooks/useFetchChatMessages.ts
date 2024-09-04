@@ -9,16 +9,12 @@ export default function useFetchChatMessages() {
 	const chatContext = useChatContext();
 	const apiClientContext = useApiClientContext();
 
-	const fetchMessages = useCallback(async (chatId:number) => {
-		const chat = chatContext.findChat(chatId);
-		if (_.isUndefined(chat)) return;
+	const fetchMessages = useCallback(async (chat:Chat) => {
+		if (_.isNull(chatContext)) return;
 
-
-		const messages = await apiClientContext.chatService.getMessages(chatId);
+		const messages = await apiClientContext.chatService.getMessages(chat.chatId);
 		if (_.isUndefined(messages)) return;
-
-		chat.messages = messages;
-
+		chat.Messages = messages;
 		/* eslint-disable react-hooks/exhaustive-deps */
 	}, [authContext.isLoggedIn]);
 }

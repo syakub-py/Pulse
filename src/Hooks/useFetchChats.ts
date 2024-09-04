@@ -1,10 +1,8 @@
-import {useAuthContext} from "@src/Contexts/AuthContext";
-import {useCallback, useEffect} from "react";
+import { useAuthContext } from "@src/Contexts/AuthContext";
+import { useCallback, useEffect } from "react";
 import _ from "lodash";
-import {useApiClientContext} from "../Contexts/PulseApiClientContext";
-import {useChatContext} from "@src/Contexts/ChatContext";
-import {IMessage} from "react-native-gifted-chat";
-import Chat from "@src/Classes/Chat";
+import { useApiClientContext } from "../Contexts/PulseApiClientContext";
+import { useChatContext } from "@src/Contexts/ChatContext";
 import isHTTPError from "@src/Utils/HttpError";
 
 export default function useFetchChats() {
@@ -13,11 +11,13 @@ export default function useFetchChats() {
 	const apiClientContext = useApiClientContext();
 
 	const fetchChats = useCallback(async () => {
-		if (_.isNull(authContext.firebase_uid) ||
+		if (
+			_.isNull(authContext.firebase_uid) ||
 			_.isNull(chatContext) ||
 			_.isEmpty(authContext.firebase_uid) ||
 			authContext.postgres_uid === 0
-		) return;
+		)
+			return;
 
 		const chatsData = await apiClientContext.chatService.getChats(authContext.postgres_uid);
 		if (isHTTPError(chatsData)) {
@@ -25,21 +25,10 @@ export default function useFetchChats() {
 			return;
 		}
 
+		if (_.isUndefined(chatsData)) return;
 
-		const chats = chatsData.map((chatData: Chat) => {
-			const chat = new Chat();
-			chat.chatId = chatData.chatId;
-			chat.otherUserDetails = chatData.otherUserDetails;
-			chat.lastMessage = chatData.lastMessage;
-			chat.messages = chatData.messages.map((msg: IMessage) => ({
-				...msg,
-				createdAt: new Date(msg.createdAt),
-			}));
 
-			return chat;
-		});
-
-		chatContext.setChats(chats);
+		chatContext.setChats(chatsData);
 		/* eslint-disable react-hooks/exhaustive-deps */
 	}, [authContext.isLoggedIn]);
 

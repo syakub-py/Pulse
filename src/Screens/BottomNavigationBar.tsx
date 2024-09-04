@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Home from "./Home";
 import Settings from "./Settings";
-import PulseAI from "../Components/Chat/PulseAI";
+import PulseAI from "../Components/Chat/ChatBox";
 import { StyleSheet } from "react-native";
 import { observer } from "mobx-react-lite";
 import Analytics from "./Analytics";

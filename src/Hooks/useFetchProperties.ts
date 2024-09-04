@@ -12,14 +12,15 @@ export default function useFetchProperties() {
 	const apiClientContext = useApiClientContext();
 
 	const fetchProperties = useCallback(async () => {
-		if (_.isEmpty(authContext.firebase_uid) || _.isNull(propertyContext)) return;
+		if (_.isEmpty(authContext.postgres_uid) || _.isNull(propertyContext)) return;
 		const properties = await apiClientContext.propertyService.getProperty(authContext.postgres_uid);
 		if (isHTTPError(properties)) {
 			alert(properties.message);
 			return;
 		}
+		if (_.isNull(properties)) propertyContext.setProperties([]);
 		propertyContext.setProperties(properties as Property[]);
-	}, [authContext.firebase_uid]);
+	}, [authContext.postgres_uid]);
 
 	useEffect(() => {
 		void fetchProperties();

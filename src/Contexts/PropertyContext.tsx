@@ -37,6 +37,7 @@ class PropertyContextClass {
 				return false;
 			}
 			property.PropertyId = response;
+
 			runInAction(() => {
 				this.Properties.push(property);
 			});

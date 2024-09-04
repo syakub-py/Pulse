@@ -54,7 +54,6 @@ class AnalyticContextClass {
 const AnalyticContext = createContext<null | AnalyticContextClass>(null);
 
 export default function AnalyticContextProvider({ children, pulseApiClient }: { children: React.ReactNode, pulseApiClient: PulseApiClient }) {
-
 	const context = useMemo(() => new AnalyticContextClass(pulseApiClient), [pulseApiClient]);
 
 	return (

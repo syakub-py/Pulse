@@ -20,7 +20,7 @@ export default function ValidateLeaseInputs(leaseDetails:Lease) {
 	}
 
 	if (!ValidateDateInput(leaseDetails.EndDate) || !ValidateDateInput(leaseDetails.StartDate)) {
-		alert("invalid date");
+		alert("invalid date: ");
 		return false;
 	}
 	return true;

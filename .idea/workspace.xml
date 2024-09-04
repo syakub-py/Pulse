@@ -4,26 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="storing postgres uid">
+    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="migrating to postgres id">
+      <change afterPath="$PROJECT_DIR$/src/Components/Chat/ChatTile.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contexts/AppContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/AppContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contexts/AuthContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/AuthContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Classes/Chat.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Classes/Chat.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Chat/PulseAI.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Chat/ChatBox.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contexts/AnalyticContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/AnalyticContext.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Contexts/ChatContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/ChatContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contexts/PropertyContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/PropertyContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hooks/useFetchChatMessages.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useFetchChatMessages.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Hooks/useFetchChats.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useFetchChats.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Hooks/useFetchProperties.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useFetchProperties.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hooks/useGetLeasesAndTenants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useGetLeasesAndTenants.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hooks/useLogin.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useLogin.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hooks/usePulseCreateChatIfDoesntExist.ts" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/BottomNavigationBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/BottomNavigationBar.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Screens/Chats.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/Chats.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screens/SignUp/TenantCode.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/SignUp/TenantCode.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Services/ChatService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ChatService.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/PropertyService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/PropertyService.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/PulseAiChatService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/PulseAiChatService.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/TenantService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/TenantService.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/UserService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/UserService.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Setup.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Setup.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Types/Global.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Types/Global.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utils/ValidateInputs/ValidateLeaseInputs.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/ValidateInputs/ValidateLeaseInputs.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,8 +30,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="TypeScript JSX File" />
         <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
       </list>
     </option>
   </component>
@@ -240,15 +237,10 @@
       <workItem from="1725302940616" duration="5167000" />
       <workItem from="1725327187391" duration="4017000" />
       <workItem from="1725370435341" duration="2064000" />
-      <workItem from="1725385170471" duration="1861000" />
-    </task>
-    <task id="LOCAL-00079" summary="fixed some small bugs">
-      <option name="closed" value="true" />
-      <created>1723506307185</created>
-      <option name="number" value="00079" />
-      <option name="presentableId" value="LOCAL-00079" />
-      <option name="project" value="LOCAL" />
-      <updated>1723506307185</updated>
+      <workItem from="1725385170471" duration="2044000" />
+      <workItem from="1725388710002" duration="2912000" />
+      <workItem from="1725397684026" duration="3463000" />
+      <workItem from="1725409704028" duration="2004000" />
     </task>
     <task id="LOCAL-00080" summary="removed comment">
       <option name="closed" value="true" />
@@ -634,7 +626,15 @@
       <option name="project" value="LOCAL" />
       <updated>1725316250071</updated>
     </task>
-    <option name="localTasksCounter" value="128" />
+    <task id="LOCAL-00128" summary="migrating to postgres id">
+      <option name="closed" value="true" />
+      <created>1725387213016</created>
+      <option name="number" value="00128" />
+      <option name="presentableId" value="LOCAL-00128" />
+      <option name="project" value="LOCAL" />
+      <updated>1725387213016</updated>
+    </task>
+    <option name="localTasksCounter" value="129" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -653,7 +653,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="able to scroll through todos" />
     <MESSAGE value="Todo scrolls to selected index" />
     <MESSAGE value="Add Homes carousel" />
     <MESSAGE value="add UserService.ts" />
@@ -678,6 +677,7 @@
     <MESSAGE value="fixing errors" />
     <MESSAGE value="websockets working" />
     <MESSAGE value="storing postgres uid" />
-    <option name="LAST_COMMIT_MESSAGE" value="storing postgres uid" />
+    <MESSAGE value="migrating to postgres id" />
+    <option name="LAST_COMMIT_MESSAGE" value="migrating to postgres id" />
   </component>
 </project>

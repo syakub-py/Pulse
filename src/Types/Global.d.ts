@@ -1,3 +1,5 @@
+import {IMessage} from "react-native-gifted-chat";
+
 declare global {
     interface Property {
         PropertyId?: number,
@@ -54,6 +56,12 @@ declare global {
         RecommendedProfessional?:string,
     }
 
+    interface Chat{
+        LastMessage:string,
+        Messages:IMessage[],
+        OtherUserDetails:User,
+        chatId:number,
+    }
     interface PasswordRequirement{
         label:string,
         fulfilled:boolean
@@ -109,7 +117,7 @@ declare global {
         "Settings":undefined,
         "Loading": undefined,
         "Leases": undefined,
-        "ChatBot": undefined,
+        "ChatBox": undefined,
         "Chats":undefined,
         "CreateUsernameAndPassword": undefined,
         "AddAProperty": undefined,
