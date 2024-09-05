@@ -26,7 +26,7 @@ export default function useLogin() {
 		try {
 			const user = await auth.signInWithEmailAndPassword(username, password);
 			if (_.isNull(user.user)) return;
-			const uid = await apiClientContext.userService.getUid(username, user.user.uid);
+			const uid = await apiClientContext.userService.getUid( user.user.uid);
 			if (isHTTPError(uid)) {
 				alert(uid.message);
 				return;

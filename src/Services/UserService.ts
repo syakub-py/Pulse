@@ -11,9 +11,9 @@ export default class UserService {
 		return response.data;
 	}
 
-	async getUid(username:string, firebase_uid:string): Promise<number | HTTPError> {
-		const response = await this.httpClient.http.get(`${this.serviceHeader}/getUid/${firebase_uid}/${username}`);
-		return response.data;
+	async getUid(firebase_uid:string): Promise<number | HTTPError> {
+		const response = await this.httpClient.http.get(`${this.serviceHeader}/getUid/${firebase_uid}`);
+		return response.data.user_id;
 	}
 
 	async sendSignUpEmail(leaseId:number, email:string):Promise<void | HTTPError> {

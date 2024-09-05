@@ -8,6 +8,7 @@ import {StackNavigationProp} from "@react-navigation/stack";
 import BackButton from "../Components/BackButton";
 import {usePropertyContext} from "@src/Contexts/PropertyContext";
 import _ from "lodash";
+import {useAuthContext} from "@src/Contexts/AuthContext";
 
 function AddAProperty() {
 	const [propertyDetails, setPropertyDetails] = useState<Property>({
@@ -33,7 +34,7 @@ function AddAProperty() {
 	const [selectedPropertyType, setSelectedPropertyType] = useState(propertyTypes[0].value as string);
 	const propertyContext = usePropertyContext();
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "AddAProperty">>();
-
+	const authContext = useAuthContext();
 	const handleInputChange = (field: keyof Property, value: string | string[] | boolean | number) => {
 		setPropertyDetails((prev) => ({ ...prev, [field]: value }));
 	};
@@ -43,7 +44,7 @@ function AddAProperty() {
 
 	    propertyDetails.PropertyType = selectedPropertyType;
 
-	    const isAddPropertySuccessful = await propertyContext.addProperty(propertyDetails);
+	    const isAddPropertySuccessful = await propertyContext.addProperty(authContext.postgres_uid, propertyDetails);
 
 	    if (!isAddPropertySuccessful) return;
 

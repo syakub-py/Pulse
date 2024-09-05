@@ -28,10 +28,10 @@ class PropertyContextClass {
 		});
 	});
 
-	public addProperty = action(async (property: Property) => {
+	public addProperty = action(async (postgresUserId:number, property: Property) => {
 		try {
 			if (!auth.currentUser?.uid) return false;
-			const response = await this.pulseApiClient.propertyService.addProperty(auth.currentUser.uid, property);
+			const response = await this.pulseApiClient.propertyService.addProperty(postgresUserId, auth.currentUser.uid, property);
 			if (isHTTPError(response)) {
 				alert(response.message);
 				return false;

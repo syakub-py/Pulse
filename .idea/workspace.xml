@@ -4,23 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="migrating to postgres id">
-      <change afterPath="$PROJECT_DIR$/src/Components/Chat/ChatTile.tsx" afterDir="false" />
+    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="working on chat">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Classes/Chat.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Classes/Chat.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Chat/PulseAI.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Chat/ChatBox.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contexts/AnalyticContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/AnalyticContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contexts/ChatContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/ChatContext.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Contexts/PropertyContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/PropertyContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hooks/useFetchChatMessages.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useFetchChatMessages.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hooks/useFetchChats.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useFetchChats.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hooks/useFetchProperties.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useFetchProperties.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screens/BottomNavigationBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/BottomNavigationBar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screens/Chats.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/Chats.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hooks/useFetchTodos.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useFetchTodos.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hooks/useLogin.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useLogin.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/AddAProperty.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/AddAProperty.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Services/ChatService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ChatService.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Types/Global.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Types/Global.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Utils/ValidateInputs/ValidateLeaseInputs.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/ValidateInputs/ValidateLeaseInputs.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/PropertyService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/PropertyService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/UserService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/UserService.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -240,15 +232,11 @@
       <workItem from="1725385170471" duration="2044000" />
       <workItem from="1725388710002" duration="2912000" />
       <workItem from="1725397684026" duration="3463000" />
-      <workItem from="1725409704028" duration="2004000" />
-    </task>
-    <task id="LOCAL-00080" summary="removed comment">
-      <option name="closed" value="true" />
-      <created>1723506646358</created>
-      <option name="number" value="00080" />
-      <option name="presentableId" value="LOCAL-00080" />
-      <option name="project" value="LOCAL" />
-      <updated>1723506646358</updated>
+      <workItem from="1725409704028" duration="2505000" />
+      <workItem from="1725463146103" duration="50000" />
+      <workItem from="1725544354313" duration="507000" />
+      <workItem from="1725547646079" duration="1104000" />
+      <workItem from="1725553061671" duration="1969000" />
     </task>
     <task id="LOCAL-00081" summary="fix lint errors">
       <option name="closed" value="true" />
@@ -634,7 +622,15 @@
       <option name="project" value="LOCAL" />
       <updated>1725387213016</updated>
     </task>
-    <option name="localTasksCounter" value="129" />
+    <task id="LOCAL-00129" summary="working on chat">
+      <option name="closed" value="true" />
+      <created>1725412616076</created>
+      <option name="number" value="00129" />
+      <option name="presentableId" value="LOCAL-00129" />
+      <option name="project" value="LOCAL" />
+      <updated>1725412616076</updated>
+    </task>
+    <option name="localTasksCounter" value="130" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -653,7 +649,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Todo scrolls to selected index" />
     <MESSAGE value="Add Homes carousel" />
     <MESSAGE value="add UserService.ts" />
     <MESSAGE value="ui work" />
@@ -678,6 +673,7 @@
     <MESSAGE value="websockets working" />
     <MESSAGE value="storing postgres uid" />
     <MESSAGE value="migrating to postgres id" />
-    <option name="LAST_COMMIT_MESSAGE" value="migrating to postgres id" />
+    <MESSAGE value="working on chat" />
+    <option name="LAST_COMMIT_MESSAGE" value="working on chat" />
   </component>
 </project>

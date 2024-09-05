@@ -26,6 +26,6 @@ export default class ChatService {
 
 	async getChats(userId: number): Promise<Chat[] | HTTPError> {
 		const response = await this.httpClient.http.get(`${this.serviceHeader}/getChats/${userId}`);
-		return response.data;
+		return response.data.chats;
 	}
 };
