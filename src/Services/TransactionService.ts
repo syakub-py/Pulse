@@ -8,11 +8,11 @@ export default class TransactionService {
 
 	async addTransaction(transaction: PropertyTransaction): Promise<number | HTTPError> {
 		const response = await this.httpClient.http.post(`${this.serviceHeader}/addTransaction/`, transaction);
-		return response.data;
+		return response.data.transaction_id;
 	}
 
 	async getTransaction(propertyId:number):Promise<PropertyTransaction[] | HTTPError> {
 		const response = await this.httpClient.http.get(`${this.serviceHeader}/getTransaction/${propertyId}`);
-		return JSON.parse(response.data);
+		return JSON.parse(response.data.data);
 	}
 };

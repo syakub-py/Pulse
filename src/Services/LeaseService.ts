@@ -9,12 +9,12 @@ export default class LeaseService {
 
 	async addLease(propertyId: number, leaseDetails: Lease): Promise<number | HTTPError> {
 		const response =  await this.httpClient.http.post(`${this.serviceHeader}/addLease/${propertyId}`, leaseDetails);
-		return response.data;
+		return response.data.lease_id;
 	}
 
 	async getLeases(propertyId: number): Promise<Lease[] | HTTPError> {
 		const response= await this.httpClient.http.get(`${this.serviceHeader}/getLeases/${propertyId}`);
-		return response.data;
+		return response.data.data;
 	}
 
 	async deleteLease(leaseId: number): Promise<void | HTTPError> {

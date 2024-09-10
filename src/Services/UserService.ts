@@ -8,7 +8,7 @@ export default class UserService {
 
 	async addUser(userDetails: User): Promise<number | HTTPError> {
 		const response = await this.httpClient.http.post(`${this.serviceHeader}/addUser/`, userDetails);
-		return response.data;
+		return response.data.user_id;
 	}
 
 	async getUid(firebase_uid:string): Promise<number | HTTPError> {

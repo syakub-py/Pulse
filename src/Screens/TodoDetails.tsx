@@ -57,7 +57,7 @@ function TodoDetails({ route }: Props) {
 		if ( _.isNull(propertyContext) || _.isNull(todoContext) || _.isNil(todoContext.SelectedTodo?.id) || _.isNull(propertyContext.SelectedProperty)) return;
 		try {
 			const response = await todoContext.getRecommendations(todoContext.SelectedTodo.id, propertyContext.SelectedProperty);
-			const fetchedRecommendations = JSON.parse(response.toString()) as GoogleMapsPlaceResponse[];
+			const fetchedRecommendations = response as GoogleMapsPlaceResponse[];
 			setRecommendations(fetchedRecommendations);
 		} catch (error) {
 			console.error("Error fetching recommendations:", error);

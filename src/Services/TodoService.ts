@@ -9,12 +9,12 @@ export default class TodoService {
 
 	async addTodo(todoDetails: Todo): Promise<number | HTTPError> {
 		const response = await this.httpClient.http.post(`${this.serviceHeader}/addTodo/`, todoDetails);
-		return response.data;
+		return response.data.todo_id;
 	}
 
 	async getTodos(propertyId: number): Promise<Todo[] | HTTPError> {
 		const response = await this.httpClient.http.get(`${this.serviceHeader}/getTodos/${propertyId}`);
-		return JSON.parse(response.data);
+		return response.data.data;
 	}
 
 	async deleteTodo(todoId: number): Promise<void | HTTPError> {
@@ -24,6 +24,6 @@ export default class TodoService {
 
 	async getRecommendations(todoId: number, propertyAddress:string): Promise<GoogleMapsPlaceResponse[]> {
 		const response = await this.httpClient.http.get(`${this.serviceHeader}/getRecommendations/${todoId}/${propertyAddress}`);
-		return response.data;
+		return response.data.data;
 	}
 };

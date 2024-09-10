@@ -9,13 +9,12 @@ export default class PropertyService {
 
 	async addProperty(postgresUserId:number,firebaseUserId:string, propertyDetails:Property):Promise<number | HTTPError> {
 		const response = await this.httpClient.http.post(`${this.serviceHeader}/addProperty/${postgresUserId}/${firebaseUserId}`, propertyDetails);
-		console.log(response.data.property_id);
 		return response.data.property_id;
 	}
 
 	async getProperty(userId:number):Promise<Property[] | HTTPError> {
 		const response = await this.httpClient.http.get(`${this.serviceHeader}/getProperty/${userId}`);
-		return JSON.parse(response.data);
+		return response.data.data;
 	}
 
 	async deleteProperty(propertyId: number): Promise<void | HTTPError> {
