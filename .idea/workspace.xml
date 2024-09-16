@@ -4,16 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="fixing new backend errors">
+    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="editing for new backend">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hooks/useFetchProperties.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useFetchProperties.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screens/TodoDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/TodoDetails.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/LeaseService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/LeaseService.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/PropertyService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/PropertyService.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/TenantService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/TenantService.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/TodoService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/TodoService.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/TransactionService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/TransactionService.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/UserService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/UserService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Chat/ChatBox.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/ChatBox.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hooks/useFetchChatMessages.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useFetchChatMessages.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/BottomNavigationBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/BottomNavigationBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/Chats.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/Chats.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ChatService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ChatService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/PulseAiChatService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/PulseAiChatService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Types/Global.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Types/Global.d.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,10 +78,10 @@
       <recent name="$PROJECT_DIR$/assets" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/Screens" />
       <recent name="$PROJECT_DIR$/src/Utils/Services" />
       <recent name="$PROJECT_DIR$/src/Components/Chat" />
       <recent name="$PROJECT_DIR$/src/Components/Buttons" />
-      <recent name="$PROJECT_DIR$/src/Screens" />
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
@@ -239,15 +239,12 @@
       <workItem from="1725547646079" duration="1104000" />
       <workItem from="1725553061671" duration="2037000" />
       <workItem from="1725924276685" duration="814000" />
-      <workItem from="1725930207338" duration="1414000" />
-    </task>
-    <task id="LOCAL-00082" summary="fix env errors">
-      <option name="closed" value="true" />
-      <created>1723563803372</created>
-      <option name="number" value="00082" />
-      <option name="presentableId" value="LOCAL-00082" />
-      <option name="project" value="LOCAL" />
-      <updated>1723563803372</updated>
+      <workItem from="1725930207338" duration="1555000" />
+      <workItem from="1725932058915" duration="612000" />
+      <workItem from="1725987349206" duration="104000" />
+      <workItem from="1726170969197" duration="2172000" />
+      <workItem from="1726421055100" duration="1348000" />
+      <workItem from="1726450512447" duration="2401000" />
     </task>
     <task id="LOCAL-00083" summary="add todo working">
       <option name="closed" value="true" />
@@ -633,7 +630,15 @@
       <option name="project" value="LOCAL" />
       <updated>1725555095992</updated>
     </task>
-    <option name="localTasksCounter" value="131" />
+    <task id="LOCAL-00131" summary="editing for new backend">
+      <option name="closed" value="true" />
+      <created>1725931740783</created>
+      <option name="number" value="00131" />
+      <option name="presentableId" value="LOCAL-00131" />
+      <option name="project" value="LOCAL" />
+      <updated>1725931740783</updated>
+    </task>
+    <option name="localTasksCounter" value="132" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -652,7 +657,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add UserService.ts" />
     <MESSAGE value="ui work" />
     <MESSAGE value="add refresh functionality to todos and tenants as leases" />
     <MESSAGE value="add search on tenants name to lease" />
@@ -677,6 +681,7 @@
     <MESSAGE value="migrating to postgres id" />
     <MESSAGE value="working on chat" />
     <MESSAGE value="fixing new backend errors" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixing new backend errors" />
+    <MESSAGE value="editing for new backend" />
+    <option name="LAST_COMMIT_MESSAGE" value="editing for new backend" />
   </component>
 </project>

@@ -2,7 +2,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "./Screens/Login";
 import CreateUsernameAndPassword from "./Screens/SignUp/CreateUsernameAndPassword";
 import Home from "./Screens/Home";
-import PulseAI from "./Components/Chat/ChatBox";
+import PulseAI from "./Screens/ChatBox";
 import BottomNavigationBar from "./Screens/BottomNavigationBar";
 import AddAProperty from "./Screens/AddAProperty";
 import {auth} from "./Utils/Firebase";

@@ -10,8 +10,8 @@ export default class ChatService {
 	}
 
 	async getMessages(chatId: number): Promise<IMessage[]> {
-		const response: AxiosResponse<ChatMessage[]> = await this.httpClient.http.get<ChatMessage[]>(`${this.serviceHeader}/getMessages/${chatId}`);
-		const data: ChatMessage[] = response.data;
+		const response: AxiosResponse<GetChatResponse> = await this.httpClient.http.get<GetChatResponse>(`${this.serviceHeader}/getMessages/${chatId}`);
+		const data= response.data.data;
 		return data.map(msg => ({
 			_id: msg._id,
 			text: msg.text,

@@ -2,14 +2,14 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Home from "./Home";
 import Settings from "./Settings";
-import PulseAI from "../Components/Chat/ChatBox";
+import PulseAI from "./ChatBox";
 import { StyleSheet } from "react-native";
 import { observer } from "mobx-react-lite";
 import Analytics from "./Analytics";
 import Leases from "./Leases";
 import YourLease from "./YourLease";
 import _ from "lodash";
-import LandlordChats from "@src/Screens/Chats";
+import Chats from "@src/Screens/Chats";
 import {usePropertyContext} from "@src/Contexts/PropertyContext";
 
 function BottomNavigationBar() {
@@ -55,7 +55,7 @@ function BottomNavigationBar() {
 					<Tab.Screen name={"Your Lease"} component={YourLease} />
 				) : null
 			}
-			<Tab.Screen name={"Chat"} component={!propertyContext.SelectedProperty?.isCurrentUserTenant?LandlordChats:PulseAI} />
+			<Tab.Screen name={"Chat"} component={Chats} />
 			{
 				(!propertyContext.SelectedProperty?.isCurrentUserTenant && !_.isNull(propertyContext.SelectedProperty) && propertyContext.SelectedProperty.isRental) ? (
 					<Tab.Screen name={"Analytics"} component={Analytics} />

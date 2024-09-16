@@ -17,7 +17,7 @@ function Chats(){
 			<Header title={"Chats"}/>
 			<FlatList data={chatContext.chats}
 					  renderItem={({item, index}) => (
-						  <ChatTile chat={item} onPress={()=>console.log(item.chatId)}/>
+						  <ChatTile chat={item} onPress={()=>navigation.navigate("ChatBox", {selectedChat:item})}/>
 					  )}/>
 		</Layout>
 	);

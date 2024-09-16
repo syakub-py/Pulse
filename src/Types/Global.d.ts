@@ -67,6 +67,11 @@ declare global {
         fulfilled:boolean
     }
 
+    interface GetChatResponse{
+        data:ChatMessage[],
+        status_code:number,
+    }
+
     interface ChatMessage {
         _id:number;
         text: string;
@@ -117,7 +122,7 @@ declare global {
         "Settings":undefined,
         "Loading": undefined,
         "Leases": undefined,
-        "ChatBox": undefined,
+        "ChatBox": { selectedChat:Chat },
         "Chats":undefined,
         "CreateUsernameAndPassword": undefined,
         "AddAProperty": undefined,
