@@ -1,5 +1,7 @@
 import PulseHttpClient from "../Classes/PulseHTTPClient";
 import AsyncStorageClass from "../Classes/AsyncStorage";
+import {IMessage} from "react-native-gifted-chat";
+import {AxiosResponse} from "axios";
 
 export default class PulseAiChatService {
 	private readonly serviceHeader = "/pulseChat";

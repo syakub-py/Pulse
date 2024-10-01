@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="editing for new backend">
+    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="get messages working">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Chat/ChatBox.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/ChatBox.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hooks/useFetchChatMessages.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useFetchChatMessages.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screens/BottomNavigationBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/BottomNavigationBar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screens/Chats.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/Chats.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/ChatBox.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/ChatBox.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Services/ChatService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ChatService.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Services/PulseAiChatService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/PulseAiChatService.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Types/Global.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Types/Global.d.ts" afterDir="false" />
@@ -244,15 +240,16 @@
       <workItem from="1725987349206" duration="104000" />
       <workItem from="1726170969197" duration="2172000" />
       <workItem from="1726421055100" duration="1348000" />
-      <workItem from="1726450512447" duration="2401000" />
-    </task>
-    <task id="LOCAL-00083" summary="add todo working">
-      <option name="closed" value="true" />
-      <created>1723570845637</created>
-      <option name="number" value="00083" />
-      <option name="presentableId" value="LOCAL-00083" />
-      <option name="project" value="LOCAL" />
-      <updated>1723570845637</updated>
+      <workItem from="1726450512447" duration="2445000" />
+      <workItem from="1726498706283" duration="3865000" />
+      <workItem from="1726775159307" duration="46000" />
+      <workItem from="1726775220921" duration="1972000" />
+      <workItem from="1727111949739" duration="693000" />
+      <workItem from="1727112705209" duration="791000" />
+      <workItem from="1727711546649" duration="1606000" />
+      <workItem from="1727724092363" duration="3048000" />
+      <workItem from="1727737529574" duration="2463000" />
+      <workItem from="1727805212278" duration="1948000" />
     </task>
     <task id="LOCAL-00084" summary="getTodos working">
       <option name="closed" value="true" />
@@ -638,7 +635,15 @@
       <option name="project" value="LOCAL" />
       <updated>1725931740783</updated>
     </task>
-    <option name="localTasksCounter" value="132" />
+    <task id="LOCAL-00132" summary="get messages working">
+      <option name="closed" value="true" />
+      <created>1726454267298</created>
+      <option name="number" value="00132" />
+      <option name="presentableId" value="LOCAL-00132" />
+      <option name="project" value="LOCAL" />
+      <updated>1726454267298</updated>
+    </task>
+    <option name="localTasksCounter" value="133" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -657,7 +662,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="ui work" />
     <MESSAGE value="add refresh functionality to todos and tenants as leases" />
     <MESSAGE value="add search on tenants name to lease" />
     <MESSAGE value="Todo card ui work" />
@@ -682,6 +686,7 @@
     <MESSAGE value="working on chat" />
     <MESSAGE value="fixing new backend errors" />
     <MESSAGE value="editing for new backend" />
-    <option name="LAST_COMMIT_MESSAGE" value="editing for new backend" />
+    <MESSAGE value="get messages working" />
+    <option name="LAST_COMMIT_MESSAGE" value="get messages working" />
   </component>
 </project>

@@ -27,28 +27,32 @@ function ChatBox(props: Props) {
 
 	const [messages, setMessages] = useState<IMessage[]>([]);
 	const [isTyping, setIsTyping] = useState(false);
-	const [loading, setLoading] = useState(true); // Add loading state
+	const [loading, setLoading] = useState(true);
 
 	const fetchMessages = useCallback(async (chat: Chat) => {
 		if (_.isNull(chatContext)) return;
-
 		try {
 			const fetchedMessages = await apiClientContext.chatService.getMessages(chat.chatId);
 			if (_.isUndefined(fetchedMessages)) return;
 
-			chat.Messages = fetchedMessages;
-			setMessages(fetchedMessages); // Set the fetched messages
+			fetchedMessages.forEach(item => {
+				item.user._id = item.user.name === authContext.username ? 1 : 0;
+			});
+			const sortedMessages = fetchedMessages.sort((a, b) =>
+				new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+			);
+			console.log(sortedMessages);
+			chat.Messages = sortedMessages;
+			setMessages(sortedMessages);
 		} catch (error) {
 			console.error("Error fetching messages:", error);
 		} finally {
-			setLoading(false); // Stop loading after fetch completes
+			setLoading(false);
 		}
 	}, [apiClientContext.chatService, chatContext]);
 
 	useEffect(() => {
-		if (selectedChat) {
-			fetchMessages(selectedChat);
-		}
+		fetchMessages(selectedChat);
 	}, [selectedChat, fetchMessages]);
 
 	const onSend = useCallback(async (newMessages: IMessage[]) => {
@@ -73,7 +77,6 @@ function ChatBox(props: Props) {
 		}
 	}, [apiClientContext.pulseAiChatService]);
 
-	// Render loading state if messages are still being fetched
 	if (loading) {
 		return (
 			<SafeAreaView style={styles.container}>

@@ -62,21 +62,15 @@ declare global {
         OtherUserDetails:User,
         chatId:number,
     }
+
     interface PasswordRequirement{
         label:string,
         fulfilled:boolean
     }
 
     interface GetChatResponse{
-        data:ChatMessage[],
+        data:IMessage[],
         status_code:number,
-    }
-
-    interface ChatMessage {
-        _id:number;
-        text: string;
-        createdAt: string;
-        username:string;
     }
 
     interface CodeValidationResponse {
