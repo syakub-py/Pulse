@@ -41,7 +41,6 @@ function ChatBox(props: Props) {
 			const sortedMessages = fetchedMessages.sort((a, b) =>
 				new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
 			);
-			console.log(sortedMessages);
 			chat.Messages = sortedMessages;
 			setMessages(sortedMessages);
 		} catch (error) {
@@ -54,6 +53,25 @@ function ChatBox(props: Props) {
 	useEffect(() => {
 		fetchMessages(selectedChat);
 	}, [selectedChat, fetchMessages]);
+
+	const onReceive = useCallback(() => {
+		if (authContext.socket) {
+			authContext.socket.onmessage = (event) => {
+				console.log(event.data);
+				const messageData = JSON.parse(event.data);
+				setMessages(previousMessages => GiftedChat.append(previousMessages, [messageData]));
+			};
+		}
+	}, [authContext.socket]);
+
+	useEffect(() => {
+		onReceive();
+		return () => {
+			if (authContext.socket) {
+				authContext.socket.onmessage = null;
+			}
+		};
+	}, [onReceive]);
 
 	const onSend = useCallback(async (newMessages: IMessage[]) => {
 		setMessages(previousMessages =>
@@ -74,6 +92,17 @@ function ChatBox(props: Props) {
 			};
 			setIsTyping(false);
 			setMessages(previousMessages => GiftedChat.append(previousMessages, [responseMessage]));
+		}else{
+			authContext.socket?.send(JSON.stringify({
+				_id: Math.floor(Math.random() * 1000000),
+				text: userMessage,
+				createdAt: new Date(),
+				user: {
+					_id: 1,
+					name: authContext.username,
+					avatar: authContext.profilePicture
+				},
+			}));
 		}
 	}, [apiClientContext.pulseAiChatService]);
 

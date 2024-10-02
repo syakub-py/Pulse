@@ -39,6 +39,9 @@ class PropertyContextClass {
 			property.PropertyId = response;
 
 			runInAction(() => {
+				if (_.isUndefined(this.Properties)) {
+					this.Properties = [];
+				}
 				this.Properties.push(property);
 			});
 			return true;

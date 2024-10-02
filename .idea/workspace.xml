@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="get messages working">
+    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="pulse chat working">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contexts/PropertyContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/PropertyContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/AddAProperty.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/AddAProperty.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Screens/ChatBox.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/ChatBox.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/ChatService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ChatService.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/PulseAiChatService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/PulseAiChatService.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Types/Global.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Types/Global.d.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -249,15 +248,10 @@
       <workItem from="1727711546649" duration="1606000" />
       <workItem from="1727724092363" duration="3048000" />
       <workItem from="1727737529574" duration="2463000" />
-      <workItem from="1727805212278" duration="1948000" />
-    </task>
-    <task id="LOCAL-00084" summary="getTodos working">
-      <option name="closed" value="true" />
-      <created>1723572845549</created>
-      <option name="number" value="00084" />
-      <option name="presentableId" value="LOCAL-00084" />
-      <option name="project" value="LOCAL" />
-      <updated>1723572845549</updated>
+      <workItem from="1727805212278" duration="2082000" />
+      <workItem from="1727811915347" duration="4089000" />
+      <workItem from="1727833973133" duration="3138000" />
+      <workItem from="1727887646218" duration="950000" />
     </task>
     <task id="LOCAL-00085" summary="getTodos bug fixed">
       <option name="closed" value="true" />
@@ -643,7 +637,15 @@
       <option name="project" value="LOCAL" />
       <updated>1726454267298</updated>
     </task>
-    <option name="localTasksCounter" value="133" />
+    <task id="LOCAL-00133" summary="pulse chat working">
+      <option name="closed" value="true" />
+      <created>1727808190635</created>
+      <option name="number" value="00133" />
+      <option name="presentableId" value="LOCAL-00133" />
+      <option name="project" value="LOCAL" />
+      <updated>1727808190635</updated>
+    </task>
+    <option name="localTasksCounter" value="134" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -662,7 +664,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add refresh functionality to todos and tenants as leases" />
     <MESSAGE value="add search on tenants name to lease" />
     <MESSAGE value="Todo card ui work" />
     <MESSAGE value="fixed lint errors" />
@@ -687,6 +688,7 @@
     <MESSAGE value="fixing new backend errors" />
     <MESSAGE value="editing for new backend" />
     <MESSAGE value="get messages working" />
-    <option name="LAST_COMMIT_MESSAGE" value="get messages working" />
+    <MESSAGE value="pulse chat working" />
+    <option name="LAST_COMMIT_MESSAGE" value="pulse chat working" />
   </component>
 </project>

@@ -43,7 +43,6 @@ function AddAProperty() {
 		if (_.isNull(propertyContext)) return;
 
 	    propertyDetails.PropertyType = selectedPropertyType;
-
 	    const isAddPropertySuccessful = await propertyContext.addProperty(authContext.postgres_uid, propertyDetails);
 
 	    if (!isAddPropertySuccessful) return;
