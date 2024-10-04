@@ -7,7 +7,7 @@ interface Props {
 }
 
 function ChatTile({ chat, onPress }: Props) {
-	const { chatId, LastMessage, OtherUserDetails } = chat;
+	const { LastMessage, OtherUserDetails } = chat;
 	return (
 		<TouchableOpacity style={styles.container} onPress={() => onPress()}>
 			<Image
@@ -34,7 +34,8 @@ const styles = StyleSheet.create({
 		backgroundColor: "#333",
 		borderBottomWidth: 1,
 		marginHorizontal: 10,
-		borderRadius:10
+		borderRadius:10,
+		marginBottom:10
 	},
 	avatar: {
 		width: 50,

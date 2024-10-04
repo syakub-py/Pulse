@@ -1,7 +1,7 @@
 import {observer} from "mobx-react-lite";
-import Layout from "@src/Components/Layout";
-import Header from "@src/Components/Header";
-import BackButton from "@src/Components/BackButton";
+import Layout from "@src/Components/GlobalComponents/Layout";
+import Header from "@src/Components/GlobalComponents/Header";
+import BackButton from "@src/Components/GlobalComponents/BackButton";
 import React, {useCallback, useState} from "react";
 import {useAuthContext} from "@src/Contexts/AuthContext";
 import {View, StyleSheet, TextInput, ActivityIndicator, Button, Dimensions} from "react-native";

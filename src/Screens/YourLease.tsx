@@ -1,6 +1,6 @@
 import {observer} from "mobx-react-lite";
-import Layout from "../Components/Layout";
-import Header from "../Components/Header";
+import Layout from "../Components/GlobalComponents/Layout";
+import Header from "../Components/GlobalComponents/Header";
 import SubHeader from "../Components/Analytics/SubHeader";
 import {StyleSheet, Text} from "react-native";
 import {useAuthContext} from "../Contexts/AuthContext";

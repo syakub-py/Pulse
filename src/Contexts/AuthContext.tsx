@@ -47,7 +47,7 @@ class AuthContextClass {
 
 	public setSocket = action((): WebSocket | undefined => {
 		if (!this.isLoggedIn || this.postgres_uid === 0) return undefined;
-		this.socket = new WebSocket(`ws://127.0.0.1:8000/ws/?token=${this.postgres_uid}`);
+		this.socket = new WebSocket(`ws://127.0.0.1:8000/ws/?token=${this.postgres_uid}&otherUserToken=3`);
 		return this.socket;
 	});
 

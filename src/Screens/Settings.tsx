@@ -1,10 +1,10 @@
-import Layout from "../Components/Layout";
+import Layout from "../Components/GlobalComponents/Layout";
 import {StyleSheet, ScrollView, View, Image, Text, Pressable} from "react-native";
 import Setting from "../Components/Settings/Setting";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {observer} from "mobx-react-lite";
-import Header from "../Components/Header";
+import Header from "../Components/GlobalComponents/Header";
 import { useAuthContext } from "../Contexts/AuthContext";
 import { useAppContext } from "../Contexts/AppContext";
 import Ionicons from "react-native-vector-icons/Ionicons";

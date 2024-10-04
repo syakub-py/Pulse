@@ -5,7 +5,7 @@ import {observer} from "mobx-react-lite";
 import {LinearGradient} from "expo-linear-gradient";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
-import PasswordInput from "@src/Components/PasswordInput";
+import PasswordInput from "@src/Components/GlobalComponents/PasswordInput";
 
 function Login() {
 	const [username, setUsername] = useState("");

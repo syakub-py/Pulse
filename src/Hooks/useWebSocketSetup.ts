@@ -1,16 +1,19 @@
 import {useAuthContext} from "@src/Contexts/AuthContext";
 import {useEffect} from "react";
 import _ from "lodash";
-import {useChatContext} from "@src/Contexts/ChatContext";
+import useAddMessageToSelectedChat from "@src/Hooks/useAddMessageToSelectedChat";
 
 export default function useWebSocketSetup(): void  {
 	const authContext = useAuthContext();
+	const addMessageToSelectedChat = useAddMessageToSelectedChat();
 	useEffect(() => {
 		const socket = authContext.setSocket();
 		if (_.isUndefined(socket)) return;
 
 		socket.onmessage = (event: MessageEvent<string>): void => {
-			console.log("Received message", event.data);
+			const messageData = event.data;
+			console.log("Received message", messageData);
+			addMessageToSelectedChat(messageData);
 		};
 
 		socket.onclose = (): void => {

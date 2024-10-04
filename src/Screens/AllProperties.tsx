@@ -1,12 +1,12 @@
 import {observer} from "mobx-react-lite";
 import {useCallback} from "react";
-import Layout from "../Components/Layout";
-import Header from "../Components/Header";
+import Layout from "../Components/GlobalComponents/Layout";
+import Header from "../Components/GlobalComponents/Header";
 import PropertyCard from "../Components/AllProperties/PropertyCard";
 import {SwipeListView} from "react-native-swipe-list-view";
 import { View, StyleSheet} from "react-native";
-import BackButton from "../Components/BackButton";
-import TrashButton from "../Components/TrashButton";
+import BackButton from "../Components/GlobalComponents/BackButton";
+import TrashButton from "../Components/GlobalComponents/TrashButton";
 import _ from "lodash";
 import {usePropertyContext} from "@src/Contexts/PropertyContext";
 import {useLeaseContext} from "@src/Contexts/LeaseContext";

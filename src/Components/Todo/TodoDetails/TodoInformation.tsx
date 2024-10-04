@@ -1,9 +1,9 @@
 import {ActivityIndicator, Dimensions, ScrollView, StyleSheet, Text, View} from "react-native";
-import Header from "@src/Components/Header";
+import Header from "@src/Components/GlobalComponents/Header";
 import SubHeader from "@src/Components/Analytics/SubHeader";
 import RecommendationsCard from "@src/Components/Todo/RecommendationsCard";
 import React from "react";
-import BackButton from "@src/Components/BackButton";
+import BackButton from "@src/Components/GlobalComponents/BackButton";
 import _ from "lodash";
 
 interface Props {

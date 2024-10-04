@@ -1,9 +1,9 @@
 import {observer} from "mobx-react-lite";
-import Layout from "../Components/Layout";
+import Layout from "../Components/GlobalComponents/Layout";
 import {FlatList, View, StyleSheet} from "react-native";
 import TenantCard from "../Components/AllTenants/TenantCard";
-import BackButton from "../Components/BackButton";
-import Header from "../Components/Header";
+import BackButton from "../Components/GlobalComponents/BackButton";
+import Header from "../Components/GlobalComponents/Header";
 import {useUserContext} from "@src/Contexts/UserContext";
 import _ from "lodash";
 

@@ -1,13 +1,13 @@
 import {observer} from "mobx-react-lite";
 import {Pressable, View, StyleSheet, RefreshControl} from "react-native";
 import LeaseCard from "./LeaseCard";
-import TrashButton from "../TrashButton";
+import TrashButton from "../GlobalComponents/TrashButton";
 import {SwipeListView} from "react-native-swipe-list-view";
 import {useCallback, useMemo, useState} from "react";
 import _ from "lodash";
 import LeaseDetails from "./LeaseDetails";
 import useGetLeasesAndTenants from "@src/Hooks/useGetLeasesAndTenants";
-import Search from "@src/Components/Search";
+import Search from "@src/Components/GlobalComponents/Search";
 import Fuse from "fuse.js";
 import {useLeaseContext} from "@src/Contexts/LeaseContext";
 import {useUserContext} from "@src/Contexts/UserContext";

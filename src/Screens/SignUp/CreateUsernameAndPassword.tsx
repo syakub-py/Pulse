@@ -8,13 +8,13 @@ import {auth} from "@src/Utils/Firebase";
 import {StackNavigationProp} from "@react-navigation/stack";
 import { updateProfile } from "firebase/auth";
 import {observer} from "mobx-react-lite";
-import UploadPictures from "../../Components/UploadPictures";
-import Layout from "../../Components/Layout";
-import Header from "../../Components/Header";
-import BackButton from "../../Components/BackButton";
+import UploadPictures from "../../Components/GlobalComponents/UploadPictures";
+import Layout from "../../Components/GlobalComponents/Layout";
+import Header from "../../Components/GlobalComponents/Header";
+import BackButton from "../../Components/GlobalComponents/BackButton";
 import { useAuthContext } from "@src/Contexts/AuthContext";
 import { FirebaseError } from "firebase/app";
-import PasswordInput from "@src/Components/PasswordInput";
+import PasswordInput from "@src/Components/GlobalComponents/PasswordInput";
 import {useUserContext} from "@src/Contexts/UserContext";
 
 

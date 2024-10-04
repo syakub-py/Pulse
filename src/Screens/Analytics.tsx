@@ -1,6 +1,6 @@
 import {observer} from "mobx-react-lite";
-import Layout from "../Components/Layout";
-import Header from "../Components/Header";
+import Layout from "../Components/GlobalComponents/Layout";
+import Header from "../Components/GlobalComponents/Header";
 import {PieChart, BarChart} from "react-native-chart-kit";
 import {Dimensions, FlatList, ScrollView} from "react-native";
 import SubHeader from "../Components/Analytics/SubHeader";

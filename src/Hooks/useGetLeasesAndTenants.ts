@@ -16,7 +16,7 @@ export default function useGetLeasesAndTenants() {
 	const apiClientContext = useApiClientContext();
 
 	const fetchLeasesAndTenants = useCallback(async () => {
-		if (_.isNull(propertyContext) || _.isNull(leaseContext) || _.isNull(userContext)) return;
+		if (_.isNull(propertyContext) || _.isNull(leaseContext) || _.isNull(userContext) || authContext.postgres_uid === 0) return;
 
 		try {
 			if (

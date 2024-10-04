@@ -1,11 +1,11 @@
 import {observer} from "mobx-react-lite";
-import Layout from "../../Components/Layout";
+import Layout from "../../Components/GlobalComponents/Layout";
 import {Button, TextInput, View, StyleSheet, Pressable, Text} from "react-native";
 import {useCallback, useEffect, useState} from "react";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
-import Header from "../../Components/Header";
-import BackButton from "../../Components/BackButton";
+import Header from "../../Components/GlobalComponents/Header";
+import BackButton from "../../Components/GlobalComponents/BackButton";
 import {useAuthContext} from "@src/Contexts/AuthContext";
 import isHTTPError from "@src/Utils/HttpError";
 import { useApiClientContext } from "@src/Contexts/PulseApiClientContext";

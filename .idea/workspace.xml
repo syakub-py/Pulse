@@ -4,11 +4,44 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="pulse chat working">
+    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="working on user to user chat">
+      <change afterPath="$PROJECT_DIR$/src/Hooks/useAddMessageToSelectedChat.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contexts/PropertyContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/PropertyContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Classes/Chat.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/BackButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/GlobalComponents/BackButton.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Chat/ChatTile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Chat/ChatTile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/GlobalComponents/Header.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/GlobalComponents/Layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Leases/AreLeases.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Leases/AreLeases.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/PasswordInput.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/GlobalComponents/PasswordInput.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Search.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/GlobalComponents/Search.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Todo/TodoDetails/TodoInformation.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Todo/TodoDetails/TodoInformation.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/TrashButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/GlobalComponents/TrashButton.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/UploadPictures.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/GlobalComponents/UploadPictures.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contexts/AuthContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/AuthContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contexts/ChatContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/ChatContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hooks/useFetchProperties.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useFetchProperties.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hooks/useFetchTodos.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useFetchTodos.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hooks/useGetLeasesAndTenants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useGetLeasesAndTenants.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hooks/useWebSocketSetup.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useWebSocketSetup.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/AddALease.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/AddALease.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Screens/AddAProperty.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/AddAProperty.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/AddATodo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/AddATodo.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/AddATransaction.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/AddATransaction.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/AllProperties.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/AllProperties.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/AllTenants.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/AllTenants.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/Analytics.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/Analytics.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Screens/ChatBox.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/ChatBox.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/Chats.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/Chats.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/Leases.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/Leases.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/Loading.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/Loading.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/Login.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/Settings.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/Settings.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/SignUp/AddAUser.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/SignUp/AddAUser.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/SignUp/CreateUsernameAndPassword.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/SignUp/CreateUsernameAndPassword.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/SignUp/TenantCode.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/SignUp/TenantCode.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/TodoDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/TodoDetails.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/YourLease.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/YourLease.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,8 +51,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="TypeScript File" />
         <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -73,11 +106,11 @@
       <recent name="$PROJECT_DIR$/assets" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/Components/GlobalComponents" />
       <recent name="$PROJECT_DIR$/src/Screens" />
       <recent name="$PROJECT_DIR$/src/Utils/Services" />
       <recent name="$PROJECT_DIR$/src/Components/Chat" />
       <recent name="$PROJECT_DIR$/src/Components/Buttons" />
-      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="RunManager">
@@ -251,15 +284,9 @@
       <workItem from="1727805212278" duration="2082000" />
       <workItem from="1727811915347" duration="4089000" />
       <workItem from="1727833973133" duration="3138000" />
-      <workItem from="1727887646218" duration="950000" />
-    </task>
-    <task id="LOCAL-00085" summary="getTodos bug fixed">
-      <option name="closed" value="true" />
-      <created>1723577776478</created>
-      <option name="number" value="00085" />
-      <option name="presentableId" value="LOCAL-00085" />
-      <option name="project" value="LOCAL" />
-      <updated>1723577776478</updated>
+      <workItem from="1727887646218" duration="1127000" />
+      <workItem from="1727976112208" duration="5003000" />
+      <workItem from="1728049609980" duration="7077000" />
     </task>
     <task id="LOCAL-00086" summary="todo details working">
       <option name="closed" value="true" />
@@ -645,7 +672,15 @@
       <option name="project" value="LOCAL" />
       <updated>1727808190635</updated>
     </task>
-    <option name="localTasksCounter" value="134" />
+    <task id="LOCAL-00134" summary="working on user to user chat">
+      <option name="closed" value="true" />
+      <created>1727889895095</created>
+      <option name="number" value="00134" />
+      <option name="presentableId" value="LOCAL-00134" />
+      <option name="project" value="LOCAL" />
+      <updated>1727889895096</updated>
+    </task>
+    <option name="localTasksCounter" value="135" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -664,7 +699,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add search on tenants name to lease" />
     <MESSAGE value="Todo card ui work" />
     <MESSAGE value="fixed lint errors" />
     <MESSAGE value="made most recommended changes" />
@@ -689,6 +723,7 @@
     <MESSAGE value="editing for new backend" />
     <MESSAGE value="get messages working" />
     <MESSAGE value="pulse chat working" />
-    <option name="LAST_COMMIT_MESSAGE" value="pulse chat working" />
+    <MESSAGE value="working on user to user chat" />
+    <option name="LAST_COMMIT_MESSAGE" value="working on user to user chat" />
   </component>
 </project>

@@ -1,9 +1,9 @@
 import React, {useCallback, useEffect, useRef, useState} from "react";
 import { StyleSheet, Pressable, FlatList, ViewToken} from "react-native";
 import { observer } from "mobx-react-lite";
-import Layout from "../Components/Layout";
+import Layout from "../Components/GlobalComponents/Layout";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import TrashButton from "../Components/TrashButton";
+import TrashButton from "../Components/GlobalComponents/TrashButton";
 import { useAuthContext } from "../Contexts/AuthContext";
 import _ from "lodash";
 import {RouteProp, useNavigation} from "@react-navigation/native";

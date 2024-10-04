@@ -1,9 +1,9 @@
 import {useCallback, useState} from "react";
 import { observer } from "mobx-react-lite";
 import {View, TextInput, Button, StyleSheet, Text, FlatList} from "react-native";
-import Layout from "../Components/Layout";
-import Header from "../Components/Header";
-import BackButton from "../Components/BackButton";
+import Layout from "../Components/GlobalComponents/Layout";
+import Header from "../Components/GlobalComponents/Header";
+import BackButton from "../Components/GlobalComponents/BackButton";
 import _ from "lodash";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";

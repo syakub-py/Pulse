@@ -14,7 +14,7 @@ export default function useFetchTodos(){
 
 	const fetchTodos = useCallback(async () => {
 		try {
-			if (_.isEmpty(authContext.firebase_uid) || _.isNull(propertyContext)  || _.isNull(todoContext)|| _.isUndefined(propertyContext.SelectedProperty?.PropertyId)) return;
+			if (_.isEmpty(authContext.firebase_uid) || authContext.postgres_uid === 0 || _.isNull(propertyContext)  || _.isNull(todoContext)|| _.isUndefined(propertyContext.SelectedProperty?.PropertyId)) return;
 			const response = await apiClientContext.todoService.getTodos(propertyContext.SelectedProperty.PropertyId);
 			if (isHTTPError(response)) {
 				alert(response.message);

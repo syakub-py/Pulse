@@ -12,7 +12,7 @@ export default function useFetchProperties() {
 	const apiClientContext = useApiClientContext();
 
 	const fetchProperties = useCallback(async () => {
-		if (_.isNull(authContext.postgres_uid) || _.isNull(propertyContext)) return;
+		if (_.isNull(authContext.postgres_uid) || _.isNull(propertyContext) || authContext.postgres_uid === 0) return;
 		const properties = await apiClientContext.propertyService.getProperty(authContext.postgres_uid);
 		if (isHTTPError(properties)) {
 			alert(properties.message);

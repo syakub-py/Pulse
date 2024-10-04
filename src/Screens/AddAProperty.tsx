@@ -1,11 +1,11 @@
 import { observer } from "mobx-react-lite";
 import {TextInput, StyleSheet, Button, SafeAreaView, View} from "react-native";
 import {useCallback, useState} from "react";
-import Header from "../Components/Header";
+import Header from "../Components/GlobalComponents/Header";
 import DropdownPicker, { ItemType } from "react-native-dropdown-picker";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
-import BackButton from "../Components/BackButton";
+import BackButton from "../Components/GlobalComponents/BackButton";
 import {usePropertyContext} from "@src/Contexts/PropertyContext";
 import _ from "lodash";
 import {useAuthContext} from "@src/Contexts/AuthContext";
