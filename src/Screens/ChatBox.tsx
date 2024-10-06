@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
-import { SafeAreaView, StyleSheet, View, Text, LogBox, ActivityIndicator } from "react-native"; // Add ActivityIndicator for loading
+import { SafeAreaView, StyleSheet, View, Text, LogBox, ActivityIndicator } from "react-native";
 import { GiftedChat, IMessage } from "react-native-gifted-chat";
 import MessageInputBar from "@src/Components/Chat/MessageInputBar";
 import { observer } from "mobx-react-lite";
@@ -24,10 +24,10 @@ function ChatBox(props: Props) {
 	const authContext = useAuthContext();
 	const chatContext = useChatContext();
 	const apiClientContext = useApiClientContext();
-
 	const [messages, setMessages] = useState<IMessage[]>([]);
 	const [isTyping, setIsTyping] = useState(false);
 	const [loading, setLoading] = useState(true);
+	const [webSocket, setWebSocket] = useState<WebSocket | null>(null); // Store WebSocket in state
 
 	const fetchMessages = useCallback(async (chat: Chat) => {
 		if (_.isNull(chatContext)) return;
@@ -42,8 +42,6 @@ function ChatBox(props: Props) {
 				new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
 			);
 			chat.Messages = sortedMessages;
-			chatContext.setSelectedChat(chat);
-			console.log(selectedChat);
 			setMessages(sortedMessages);
 		} catch (error) {
 			console.error("Error fetching messages:", error);
@@ -54,13 +52,39 @@ function ChatBox(props: Props) {
 
 	useEffect(() => {
 		fetchMessages(selectedChat);
-	}, [selectedChat, fetchMessages]);
+		if (_.isNull(chatContext) || _.isUndefined(selectedChat.OtherUserDetails.id)) return;
+
+		const ws = new WebSocket(`ws://127.0.0.1:8000/ws/?senderUserToken=${authContext.postgres_uid}&receiverUserToken=${selectedChat.OtherUserDetails.id}`);
+
+		ws.onopen = () => {
+			console.info("WebSocket connection established.");
+		};
+
+		ws.onmessage = (event) => {
+			const messageData = event.data;
+			console.log(messageData["user"]);
+			// setMessages((prevMessages) => GiftedChat.append(prevMessages, [messageData]));
+		};
+
+		ws.onclose = () => {
+			console.info("WebSocket connection closed");
+		};
+
+		ws.onerror = (error) => {
+			console.error("WebSocket error:", error);
+		};
+
+		setWebSocket(ws);
+
+		return () => {
+			ws.close();
+		};
+	}, [selectedChat, fetchMessages, chatContext, authContext]);
 
 	const onSend = useCallback(async (newMessages: IMessage[]) => {
-		setMessages(previousMessages =>
-			GiftedChat.append(previousMessages, newMessages),
-		);
+		setMessages(previousMessages => GiftedChat.append(previousMessages, newMessages));
 		const userMessage = newMessages[0];
+
 		if (selectedChat.OtherUserDetails.Name === "Pulse AI") {
 			setIsTyping(true);
 			const responseText = await apiClientContext.pulseAiChatService.generateChatResponse(userMessage.text, selectedChat.chatId, authContext.postgres_uid);
@@ -75,14 +99,18 @@ function ChatBox(props: Props) {
 			};
 			setIsTyping(false);
 			setMessages(previousMessages => GiftedChat.append(previousMessages, [responseMessage]));
-		}else{
-			console.log("sending...");
-			authContext.socket?.send(JSON.stringify({
-				chat_id: selectedChat.chatId,
-				details: userMessage
-			}));
+		} else {
+			// Send message through WebSocket if connection is available
+			if (webSocket && webSocket.readyState === WebSocket.OPEN) {
+				webSocket.send(JSON.stringify({
+					chat_id: selectedChat.chatId,
+					details: userMessage,
+				}));
+			} else {
+				console.error("WebSocket connection not established.");
+			}
 		}
-	}, [apiClientContext.pulseAiChatService]);
+	}, [apiClientContext.pulseAiChatService, authContext, selectedChat, webSocket]);
 
 	if (loading) {
 		return (
@@ -139,21 +167,11 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		margin: 10,
 	},
-	pulseImage: {
-		height: 45,
-		width: 45,
-		borderRadius: 15,
-	},
 	pulseText: {
 		fontWeight: "bold",
 		marginHorizontal: 10,
 		fontSize: 30,
 		color: "white",
-	},
-	llamaText: {
-		marginHorizontal: 10,
-		fontSize: 12,
-		color: "lightgray",
 	},
 	textContainer: {
 		flexDirection: "column",

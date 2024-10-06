@@ -5,7 +5,6 @@ import {PulseApiClient} from "@src/Contexts/PulseApiClientContext";
 
 class ChatsClass {
 	public chats: Chat[] = [];
-	public selectedChat:Chat | null = null;
 
 	constructor(private readonly pulseApiClient: PulseApiClient) {
 		makeObservable(this, {
@@ -29,11 +28,6 @@ class ChatsClass {
 		return undefined;
 	});
 
-	public setSelectedChat = action((selectedChat: Chat | null): void => {
-		this.selectedChat = selectedChat;
-	});
-
-
 	public setChats = action((chats: Chat[]): void => {
 		this.chats = chats;
 	});
@@ -44,7 +38,6 @@ class ChatsClass {
 
 	public logout() {
 		this.clearChatsArray();
-		this.setSelectedChat(null);
 	}
 }
 

@@ -13,12 +13,6 @@ function Chats(){
 	const chatContext = useChatContext();
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Chats">>();
 
-	useEffect(() => {
-		if (!chatContext) return;
-
-		chatContext.setSelectedChat(null);
-	}, [chatContext]);
-
 	if (!chatContext) return null;
 
 	return(

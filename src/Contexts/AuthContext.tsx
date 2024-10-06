@@ -15,7 +15,6 @@ class AuthContextClass {
 	public postgres_uid: number = 0;
 	private _isLoadingAuth: boolean = true;
 	public leaseId: number | null = null;
-	public socket: WebSocket | null = null;
 
 	public setUsername = action((username: string) =>{
 		this.username = username;
@@ -43,12 +42,6 @@ class AuthContextClass {
 
 	public setLeaseId = action((LeaseId: number | null) =>{
 		this.leaseId = LeaseId;
-	});
-
-	public setSocket = action((): WebSocket | undefined => {
-		if (!this.isLoggedIn || this.postgres_uid === 0) return undefined;
-		this.socket = new WebSocket(`ws://127.0.0.1:8000/ws/?token=${this.postgres_uid}&otherUserToken=3`);
-		return this.socket;
 	});
 
 	get isLoggedIn() {
@@ -84,8 +77,6 @@ class AuthContextClass {
 			this.postgres_uid = 0;
 		});
 		try{
-			this.socket?.close();
-			this.socket = null;
 			await auth.signOut();
 			await AsyncStorageClass.clearAllAsyncStorageData();
 			this.isLoadingAuth = false;
