@@ -38,6 +38,7 @@ function ChatBox(props: Props) {
 			fetchedMessages.forEach(item => {
 				item.user._id = item.user.name === authContext.username ? 1 : 0;
 			});
+
 			const sortedMessages = fetchedMessages.sort((a, b) =>
 				new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
 			);
@@ -52,18 +53,16 @@ function ChatBox(props: Props) {
 
 	useEffect(() => {
 		fetchMessages(selectedChat);
-		if (_.isNull(chatContext) || _.isUndefined(selectedChat.OtherUserDetails.id)) return;
+		if (_.isNull(chatContext) || _.isUndefined(selectedChat.OtherUserDetails.id) || selectedChat.OtherUserDetails.Name === "Pulse AI") return;
 
 		const ws = new WebSocket(`ws://127.0.0.1:8000/ws/?senderUserToken=${authContext.postgres_uid}&receiverUserToken=${selectedChat.OtherUserDetails.id}`);
 
 		ws.onopen = () => {
 			console.info("WebSocket connection established.");
 		};
-
 		ws.onmessage = (event) => {
-			const messageData = event.data;
-			console.log(messageData["user"]);
-			// setMessages((prevMessages) => GiftedChat.append(prevMessages, [messageData]));
+			const messageData = JSON.parse(event.data) as IMessage;
+			setMessages((prevMessages) => GiftedChat.append(prevMessages, [messageData]));
 		};
 
 		ws.onclose = () => {
@@ -75,7 +74,6 @@ function ChatBox(props: Props) {
 		};
 
 		setWebSocket(ws);
-
 		return () => {
 			ws.close();
 		};
@@ -100,8 +98,8 @@ function ChatBox(props: Props) {
 			setIsTyping(false);
 			setMessages(previousMessages => GiftedChat.append(previousMessages, [responseMessage]));
 		} else {
-			// Send message through WebSocket if connection is available
 			if (webSocket && webSocket.readyState === WebSocket.OPEN) {
+				userMessage.createdAt = new Date();
 				webSocket.send(JSON.stringify({
 					chat_id: selectedChat.chatId,
 					details: userMessage,

@@ -4,15 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="working on user to user chat">
+    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="working on parsing message">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contexts/AuthContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/AuthContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contexts/ChatContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/ChatContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hooks/useAddMessageToSelectedChat.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hooks/useWebSocketSetup.ts" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Screens/ChatBox.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/ChatBox.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screens/Chats.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/Chats.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Setup.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Setup.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -260,15 +254,8 @@
       <workItem from="1728049609980" duration="7302000" />
       <workItem from="1728062539925" duration="3092000" />
       <workItem from="1728161147355" duration="844000" />
-      <workItem from="1728249151079" duration="5110000" />
-    </task>
-    <task id="LOCAL-00087" summary="delete todo working">
-      <option name="closed" value="true" />
-      <created>1723591209308</created>
-      <option name="number" value="00087" />
-      <option name="presentableId" value="LOCAL-00087" />
-      <option name="project" value="LOCAL" />
-      <updated>1723591209308</updated>
+      <workItem from="1728249151079" duration="5178000" />
+      <workItem from="1728259739906" duration="2011000" />
     </task>
     <task id="LOCAL-00088" summary="work on todo">
       <option name="closed" value="true" />
@@ -654,7 +641,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728060255453</updated>
     </task>
-    <option name="localTasksCounter" value="136" />
+    <task id="LOCAL-00136" summary="working on parsing message">
+      <option name="closed" value="true" />
+      <created>1728254333380</created>
+      <option name="number" value="00136" />
+      <option name="presentableId" value="LOCAL-00136" />
+      <option name="project" value="LOCAL" />
+      <updated>1728254333380</updated>
+    </task>
+    <option name="localTasksCounter" value="137" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -673,7 +668,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Todo card ui work" />
     <MESSAGE value="fixed lint errors" />
     <MESSAGE value="made most recommended changes" />
     <MESSAGE value="fixing issues" />
@@ -698,6 +692,7 @@
     <MESSAGE value="get messages working" />
     <MESSAGE value="pulse chat working" />
     <MESSAGE value="working on user to user chat" />
-    <option name="LAST_COMMIT_MESSAGE" value="working on user to user chat" />
+    <MESSAGE value="working on parsing message" />
+    <option name="LAST_COMMIT_MESSAGE" value="working on parsing message" />
   </component>
 </project>
