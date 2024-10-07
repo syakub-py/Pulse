@@ -8,12 +8,12 @@ export default function useGenerateAnalytics(){
 	const analyticContext = useAnalyticContext();
 
 	const fetchData = useCallback(async ()=> {
-		if (_.isNull(propertyContext?.SelectedProperty) || _.isNull(propertyContext) || _.isNull(analyticContext) || _.isUndefined(propertyContext.SelectedProperty.PropertyId) || !propertyContext.SelectedProperty.isRental) return;
-		await analyticContext.getAnalytics(propertyContext.SelectedProperty.PropertyId);
+		if (_.isNull(propertyContext?.selectedProperty) || _.isNull(propertyContext) || _.isNull(analyticContext) || _.isUndefined(propertyContext.selectedProperty.PropertyId) || !propertyContext.selectedProperty.isRental) return;
+		await analyticContext.getAnalytics(propertyContext.selectedProperty.PropertyId);
 	},[analyticContext, propertyContext]);
 
 	useEffect(() => {
 		void fetchData();
-	}, [fetchData, propertyContext?.SelectedProperty, analyticContext?.Transactions]);
+	}, [fetchData, propertyContext?.selectedProperty, analyticContext?.Transactions]);
 }
 

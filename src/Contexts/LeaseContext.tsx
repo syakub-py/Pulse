@@ -27,7 +27,7 @@ class LeaseContextClass {
 		}
 		const leases = JSON.parse(leaseResponse.toString()) as Lease[];
 		this.setPropertyLeases(leases.map(lease => {
-			const matchingTenant = tenantArray.find(tenant => tenant.LeaseId === lease.LeaseId);
+			const matchingTenant = tenantArray.find(tenant => tenant.leaseId === lease.LeaseId);
 			return !_.isUndefined(matchingTenant) ? { ...lease, TenantName: matchingTenant.Name } : lease;
 		}));
 	});
@@ -69,12 +69,18 @@ class LeaseContextClass {
 			}
 			runInAction(() => {
 				this.selectedPropertyLeases = this.selectedPropertyLeases.filter((l) => toNumber(l.LeaseId) !== leaseId);
-				Tenants = Tenants.filter((t) => t.LeaseId !== leaseId);
+				Tenants = Tenants.filter((t) => t.leaseId !== leaseId);
 			});
 		} catch (e) {
 			alert(e);
 			console.error("Error deleting lease: " + e);
 		}
+	});
+
+	public clearContext = action(()=>{
+		runInAction(()=>{
+			this.selectedPropertyLeases = [];
+		});
 	});
 }
 

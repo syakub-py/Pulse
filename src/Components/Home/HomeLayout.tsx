@@ -30,12 +30,12 @@ function HomeLayout({ children }: { children: React.ReactNode }) {
 			"Multi-Family":require("../../../assets/DefaultPictures/multiFamilyWallpaper.jpg"),
 			"Commercial Building": require("../../../assets/DefaultPictures/commercialBuildingWallpaper.jpg"),
 		};
-		if ( !_.isNull(propertyContext)&& !_.isNil(propertyContext.SelectedProperty) && !_.isEmpty(propertyContext.Properties)) {
-			setImageSource(propertyTypeImages[propertyContext.SelectedProperty.PropertyType]);
+		if ( !_.isNull(propertyContext)&& !_.isNil(propertyContext.selectedProperty) && !_.isEmpty(propertyContext.properties)) {
+			setImageSource(propertyTypeImages[propertyContext.selectedProperty.PropertyType]);
 		}else{
 			setImageSource(propertyTypeImages["Home"]);
 		}
-	}, [propertyContext?.Properties, propertyContext?.SelectedProperty]);
+	}, [propertyContext?.properties, propertyContext?.selectedProperty]);
 
 	useEffect(() => {
 		updateImageSource();
@@ -79,7 +79,7 @@ function HomeLayout({ children }: { children: React.ReactNode }) {
 					<View>
 						{children}
 					</View>
-					{_.isEmpty(propertyContext?.Properties)? null: (
+					{_.isEmpty(propertyContext?.properties)? null: (
 						<FloatingActionButton
 							onPress={handlePressActionButton}
 							icon={"add"}

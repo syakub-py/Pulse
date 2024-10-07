@@ -6,8 +6,8 @@ import {createContext, useContext, useMemo} from "react";
 
 
 class TodoContextClass {
-	public SelectedTodo: Todo | null = null;
-	public SelectedPropertyTodos: Todo[] = [];
+	public selectedTodo: Todo | null = null;
+	public selectedPropertyTodos: Todo[] = [];
 	private pulseApiClient: PulseApiClient;
 
 	constructor(pulseApiClient: PulseApiClient) {
@@ -17,7 +17,7 @@ class TodoContextClass {
 
 	public setSelectedPropertyTodos = action((todos: Todo[]) => {
 		runInAction(() => {
-			this.SelectedPropertyTodos = todos;
+			this.selectedPropertyTodos = todos;
 		});
 	});
 
@@ -32,8 +32,8 @@ class TodoContextClass {
 
 	public addTodo = action(async (todo: Todo) => {
 		try {
-			if (_.isUndefined(this.SelectedPropertyTodos)) {
-				this.SelectedPropertyTodos = [];
+			if (_.isUndefined(this.selectedPropertyTodos)) {
+				this.selectedPropertyTodos = [];
 			}
 			const response = await this.pulseApiClient.todoService.addTodo(todo);
 			if (isHTTPError(response)) {
@@ -42,7 +42,7 @@ class TodoContextClass {
 			}
 			todo.id = response;
 			runInAction(() => {
-				this.SelectedPropertyTodos.push(todo);
+				this.selectedPropertyTodos.push(todo);
 			});
 			return true;
 		} catch (e) {
@@ -60,13 +60,13 @@ class TodoContextClass {
 		}
 
 		runInAction(() => {
-			this.SelectedPropertyTodos = this.SelectedPropertyTodos.filter((todo) => todo.id !== todoId);
+			this.selectedPropertyTodos = this.selectedPropertyTodos.filter((todo) => todo.id !== todoId);
 		});
 	});
 
 	public setSelectedPropertyTodo = action((todo: Todo) => {
 		runInAction(() => {
-			this.SelectedTodo = todo;
+			this.selectedTodo = todo;
 		});
 	});
 
@@ -83,6 +83,13 @@ class TodoContextClass {
 			console.error("Error fetching recommendations:", error);
 			return [];
 		}
+	});
+
+	public clearContext = action( () => {
+		runInAction(()=>{
+			this.setSelectedPropertyTodos([]);
+			this.selectedTodo = null;
+		});
 	});
 }
 

@@ -29,10 +29,10 @@ function AllProperties() {
 				<Header title={"Your Properties"} />
 			</View>
 			<SwipeListView
-				data={propertyContext?.Properties}
+				data={propertyContext?.properties}
 				rightOpenValue={-50}
 				renderHiddenItem={({ item, index }) => {
-					if (propertyContext?.Properties[index].isCurrentUserTenant) return null;
+					if (propertyContext?.properties[index].isCurrentUserTenant) return null;
 					return (
 						<TrashButton onPress={() => handleDeleteProperty(item.PropertyId)} />
 					);

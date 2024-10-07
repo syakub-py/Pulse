@@ -13,7 +13,7 @@ function Home() {
 	if (_.isNull(propertyContext)) return null;
 	return (
 		<HomeLayout>
-			{!_.isEmpty(propertyContext.Properties) ? (
+			{!_.isEmpty(propertyContext.properties) ? (
 				<Properties />
 			) : (
 				<NoProperties onClick={()=>navigation.navigate("AddAProperty")}/>

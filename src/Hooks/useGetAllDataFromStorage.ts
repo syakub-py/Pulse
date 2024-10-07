@@ -22,7 +22,7 @@ export default function useGetAllDataFromStorage() {
 				authContext.setFirebaseUid(user.user.uid);
 				authContext.setProfilePicture(auth.currentUser?.photoURL);
 			} catch (FirebaseError) {
-				await authContext.logout();
+				await authContext.clearContextAndFirebaseLogout();
 				navigation.navigate("Login");
 			}
 		};

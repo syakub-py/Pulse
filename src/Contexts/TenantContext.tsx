@@ -8,7 +8,7 @@ import {storage} from "@src/Utils/Firebase";
 
 class TenantContextClass {
 	private pulseApiClient: PulseApiClient;
-	public Tenants: User[] = [];
+	public tenants: User[] = [];
 
 	constructor(pulseApiClient: PulseApiClient) {
 		makeAutoObservable(this);
@@ -23,9 +23,9 @@ class TenantContextClass {
 				return false;
 			}
 			user.id = response;
-			if (_.isNull(user.LeaseId)) return true;
+			if (_.isNull(user.leaseId)) return true;
 			runInAction(() => {
-				this.Tenants.push(user);
+				this.tenants.push(user);
 			});
 			return true;
 		} catch (e) {
@@ -45,7 +45,7 @@ class TenantContextClass {
 
 	public setTenants = action((tenants: User[]) => {
 		runInAction(() => {
-			this.Tenants = tenants;
+			this.tenants = tenants;
 		});
 	});
 
@@ -80,6 +80,12 @@ class TenantContextClass {
 			return "";
 		}
 	};
+
+	public clearContext = action( () => {
+		runInAction(() => {
+			this.tenants = [];
+		});
+	});
 
 }
 const TenantContext = createContext<TenantContextClass | null>(null);

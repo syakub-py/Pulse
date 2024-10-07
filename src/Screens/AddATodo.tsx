@@ -28,7 +28,7 @@ function AddATodo(){
 	const [selectedPriority, setSelectedPriority] = useState(priorities[0].value as string);
 	const [isLoading, setIsLoading] = useState(false);
 	const [todoDetails, setTodoDetails] = useState<Todo>({
-		PropertyId:propertyContext?.SelectedProperty?.PropertyId,
+		PropertyId:propertyContext?.selectedProperty?.PropertyId,
 		Title:"",
 		Description:"",
 		Priority:selectedPriority,
@@ -58,7 +58,7 @@ function AddATodo(){
 		navigation.navigate("BottomNavBar");
 
 		setTodoDetails({
-			PropertyId: propertyContext.SelectedProperty?.PropertyId,
+			PropertyId: propertyContext.selectedProperty?.PropertyId,
 			Title: "",
 			Description: "",
 			Priority: selectedPriority,

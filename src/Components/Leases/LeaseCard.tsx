@@ -22,7 +22,7 @@ function LeaseCard(props: Props) {
 			<Text style={styles.text}>
 				Monthly Rent: ${lease.MonthlyRent?.toLocaleString("en-US", { style: "currency", currency: "USD" })}
 			</Text>
-			<Text style={styles.text}>Address: {propertyContext.SelectedProperty?.Address}</Text>
+			<Text style={styles.text}>Address: {propertyContext.selectedProperty?.Address}</Text>
 		</View>
 	);
 }

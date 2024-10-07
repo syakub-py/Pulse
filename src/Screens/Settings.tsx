@@ -9,28 +9,43 @@ import { useAuthContext } from "../Contexts/AuthContext";
 import { useAppContext } from "../Contexts/AppContext";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {useCallback} from "react";
+import {useAnalyticContext} from "@src/Contexts/AnalyticContext";
+import {useChatContext} from "@src/Contexts/ChatContext";
+import {useLeaseContext} from "@src/Contexts/LeaseContext";
+import {usePropertyContext} from "@src/Contexts/PropertyContext";
+import {useTenantContext} from "@src/Contexts/TenantContext";
+import {useTodoContext} from "@src/Contexts/TodoContext";
+import _ from "lodash";
 
 function Settings(){
 	const authContext = useAuthContext();
-	const appContext = useAppContext();
+	const analyticContext = useAnalyticContext();
+	const chatContext = useChatContext();
+	const leaseContext = useLeaseContext();
+	const propertyContext = usePropertyContext();
+	const tenantContext = useTenantContext();
+	const todoContext = useTodoContext();
+
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Settings">>();
 
 	const logout = useCallback(async () => {
 		try {
-			await authContext.logout();
-			// appContext.logout();
+			if(_.isNull(analyticContext) || _.isNull(tenantContext) || _.isNull(chatContext) || _.isNull(leaseContext) || _.isNull(propertyContext) || _.isNull(todoContext)) {
+				return;
+			}
+			tenantContext.clearContext();
+			chatContext.clearContext();
+			analyticContext.clearContext();
+			propertyContext.clearContext();
+			leaseContext.clearContext();
+			todoContext.clearContext();
+			await authContext.clearContextAndFirebaseLogout();
 		} catch (e) {
 			alert("There was an error logging out");
 			return;
 		}
 		navigation.navigate("Login");
-	}, [authContext, appContext, navigation]);
-
-	// const handleDeleteAccount = useCallback(async () =>{
-	// 	const isHandleDeleteSuccessful = await appContext.handleDeleteAccount(authContext.username, authContext.uid);
-	// 	if (!isHandleDeleteSuccessful) return;
-	// 	await logout();
-	// }, [appContext, authContext.uid, authContext.username, logout]);
+	}, [analyticContext, authContext, chatContext, leaseContext, navigation, propertyContext, tenantContext, todoContext]);
 
 	return (
 		<Layout>

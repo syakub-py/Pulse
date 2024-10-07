@@ -1,5 +1,5 @@
 import _ from "lodash";
-import {action, makeObservable, observable} from "mobx";
+import {action, makeObservable, observable, runInAction} from "mobx";
 import { createContext, useContext, useMemo } from "react";
 import {PulseApiClient} from "@src/Contexts/PulseApiClientContext";
 import isHTTPError from "@src/Utils/HttpError";
@@ -30,8 +30,10 @@ class ChatsClass {
 		this.setChats(chatsData);
 	});
 
-	private clearChatsArray = action(() => {
-		this.chats = [];
+	public clearContext = action(() => {
+		runInAction(()=>{
+			this.chats = [];
+		});
 	});
 
 }

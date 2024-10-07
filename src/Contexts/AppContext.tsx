@@ -40,16 +40,6 @@ class AppContextClass {
 		}
 	});
 
-	// public logout() {
-	// 	this.Properties = [];
-	// 	this.SelectedProperty = null;
-	// 	this.SelectedPropertyLeases = [];
-	// 	this.Tenants = [];
-	// 	this.Chats = [];
-	// }
-
-
-
 }
 
 const AppContext = createContext<null | AppContextClass>(null);

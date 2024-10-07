@@ -7,8 +7,8 @@ import {PulseApiClient} from "@src/Contexts/PulseApiClientContext";
 
 
 class PropertyContextClass {
-	public Properties: Property[] = [];
-	public SelectedProperty: Property | null = null;
+	public properties: Property[] = [];
+	public selectedProperty: Property | null = null;
 	private pulseApiClient: PulseApiClient;
 
 	constructor(pulseApiClient: PulseApiClient) {
@@ -18,13 +18,13 @@ class PropertyContextClass {
 
 	public setSelectedProperty = action((SelectedProperty: Property) => {
 		runInAction(() => {
-			this.SelectedProperty = SelectedProperty;
+			this.selectedProperty = SelectedProperty;
 		});
 	});
 
 	public setProperties = action((Properties: Property[]) => {
 		runInAction(() => {
-			this.Properties = Properties;
+			this.properties = Properties;
 		});
 	});
 
@@ -49,10 +49,10 @@ class PropertyContextClass {
 			property.PropertyId = response;
 
 			runInAction(() => {
-				if (_.isUndefined(this.Properties)) {
-					this.Properties = [];
+				if (_.isUndefined(this.properties)) {
+					this.properties = [];
 				}
-				this.Properties.push(property);
+				this.properties.push(property);
 			});
 			return true;
 		} catch (e) {
@@ -70,12 +70,12 @@ class PropertyContextClass {
 			}
 			runInAction(() => {
 				SelectedPropertyLeases = [];
-				this.Properties = this.Properties.filter((h) => toNumber(h.PropertyId) !== propertyId);
-				if (!_.isEmpty(this.Properties)) {
-					this.SelectedProperty = this.Properties[this.Properties.length - 1];
+				this.properties = this.properties.filter((h) => toNumber(h.PropertyId) !== propertyId);
+				if (!_.isEmpty(this.properties)) {
+					this.selectedProperty = this.properties[this.properties.length - 1];
 					return true;
 				}
-				this.SelectedProperty = null;
+				this.selectedProperty = null;
 
 			});
 			return true;
@@ -84,6 +84,14 @@ class PropertyContextClass {
 			return false;
 		}
 	});
+
+	public clearContext = action( () => {
+		runInAction(() => {
+			this.properties = [];
+			this.selectedProperty = null;
+		});
+	});
+
 }
 
 

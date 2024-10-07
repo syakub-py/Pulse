@@ -40,7 +40,7 @@ function AddALease() {
 	const handleAddLease = useCallback(async () => {
 	    try {
 			if (_.isNull(propertyContext) || _.isNull(leaseContext)) return;
-	        if (_.isNil(propertyContext.SelectedProperty?.PropertyId)) {
+	        if (_.isNil(propertyContext.selectedProperty?.PropertyId)) {
 	            alert("There is no property selected");
 	            return;
 	        }
@@ -52,7 +52,7 @@ function AddALease() {
 			}
 	        leaseDetails.TenantName = "Wait for tenant information...";
 
-	        const isAddLeaseSuccessful = await leaseContext.addLease(leaseDetails, tenantEmail.toLowerCase(), propertyContext.SelectedProperty);
+	        const isAddLeaseSuccessful = await leaseContext.addLease(leaseDetails, tenantEmail.toLowerCase(), propertyContext.selectedProperty);
 	        if (!isAddLeaseSuccessful) return;
 
 	        setNewLeases([...newLeases, leaseDetails]);

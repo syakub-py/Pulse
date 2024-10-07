@@ -49,15 +49,15 @@ function BottomNavigationBar() {
 		>
 			<Tab.Screen name={"Home"} component={Home} />
 			{
-				(!propertyContext.SelectedProperty?.isCurrentUserTenant && !_.isNull(propertyContext.SelectedProperty) && propertyContext.SelectedProperty.isRental) ? (
+				(!propertyContext.selectedProperty?.isCurrentUserTenant && !_.isNull(propertyContext.selectedProperty) && propertyContext.selectedProperty.isRental) ? (
 					<Tab.Screen name={"Lease"} component={Leases} />
-				) : (propertyContext.SelectedProperty?.isRental) ? (
+				) : (propertyContext.selectedProperty?.isRental) ? (
 					<Tab.Screen name={"Your Lease"} component={YourLease} />
 				) : null
 			}
 			<Tab.Screen name={"Chat"} component={Chats} />
 			{
-				(!propertyContext.SelectedProperty?.isCurrentUserTenant && !_.isNull(propertyContext.SelectedProperty) && propertyContext.SelectedProperty.isRental) ? (
+				(!propertyContext.selectedProperty?.isCurrentUserTenant && !_.isNull(propertyContext.selectedProperty) && propertyContext.selectedProperty.isRental) ? (
 					<Tab.Screen name={"Analytics"} component={Analytics} />
 				):null
 			}

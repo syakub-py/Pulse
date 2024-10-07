@@ -57,7 +57,7 @@ function AddATransaction() {
 				alert("Invalid Date");
 				return;
 			}
-			transactionDetails.propertyId = propertyContext.SelectedProperty?.PropertyId;
+			transactionDetails.propertyId = propertyContext.selectedProperty?.PropertyId;
 			transactionDetails.userId = authContext.firebase_uid;
 			transactionDetails.incomeOrExpense = incomeOrExpense;
 			transactionDetails.transactionType = transactionType;

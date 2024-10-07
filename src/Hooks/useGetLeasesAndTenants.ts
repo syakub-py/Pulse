@@ -21,11 +21,11 @@ export default function useGetLeasesAndTenants() {
 		try {
 			if (
 				_.isEmpty(authContext.firebase_uid) ||
-				_.isUndefined(propertyContext.SelectedProperty?.PropertyId) ||
-				!propertyContext.SelectedProperty.isRental
+				_.isUndefined(propertyContext.selectedProperty?.PropertyId) ||
+				!propertyContext.selectedProperty.isRental
 			) return;
 
-			await leaseContext.getLeases(propertyContext.SelectedProperty.PropertyId, tenantContext.Tenants);
+			await leaseContext.getLeases(propertyContext.selectedProperty.PropertyId, tenantContext.tenants);
 			await tenantContext.getTenants(authContext.postgres_uid);
 
 		} catch (error) {
@@ -37,7 +37,7 @@ export default function useGetLeasesAndTenants() {
 
 	useEffect(() => {
 		void fetchLeasesAndTenants();
-	}, [authContext.firebase_uid, propertyContext?.SelectedProperty, fetchLeasesAndTenants]);
+	}, [authContext.firebase_uid, propertyContext?.selectedProperty, fetchLeasesAndTenants]);
 
 	return fetchLeasesAndTenants;
 }

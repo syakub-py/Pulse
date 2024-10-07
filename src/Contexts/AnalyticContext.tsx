@@ -65,6 +65,14 @@ class AnalyticContextClass {
 		}
 
 	});
+
+	public clearContext = action(()=>{
+		runInAction(() => {
+			this.ExpenseAnalyticData = [];
+			this.IncomeAnalyticData = null;
+			this.Transactions = [];
+		});
+	});
 }
 
 const AnalyticContext = createContext<null | AnalyticContextClass>(null);

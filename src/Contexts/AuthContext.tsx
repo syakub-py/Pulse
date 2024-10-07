@@ -68,7 +68,7 @@ class AuthContextClass {
 	}
 
 
-	public async logout() {
+	public async clearContextAndFirebaseLogout() {
 		runInAction(() => {
 			this.firebase_uid = "";
 			this.username = "";

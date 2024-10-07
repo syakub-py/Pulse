@@ -24,7 +24,7 @@ function HomesCarousel(props:Props) {
 
 	return (
 		<FlatList
-			data={propertyContext?.Properties}
+			data={propertyContext?.properties}
 			horizontal={true}
 			style = {styles.container}
 			contentContainerStyle={styles.contentContainer}

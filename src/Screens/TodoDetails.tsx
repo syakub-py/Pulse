@@ -54,9 +54,9 @@ function TodoDetails({ route }: Props) {
 
 	const fetchRecommendations = useCallback(async () => {
 		setIsLoading(true);
-		if ( _.isNull(propertyContext) || _.isNull(todoContext) || _.isNil(todoContext.SelectedTodo?.id) || _.isNull(propertyContext.SelectedProperty)) return;
+		if ( _.isNull(propertyContext) || _.isNull(todoContext) || _.isNil(todoContext.selectedTodo?.id) || _.isNull(propertyContext.selectedProperty)) return;
 		try {
-			const response = await todoContext.getRecommendations(todoContext.SelectedTodo.id, propertyContext.SelectedProperty);
+			const response = await todoContext.getRecommendations(todoContext.selectedTodo.id, propertyContext.selectedProperty);
 			const fetchedRecommendations = response as GoogleMapsPlaceResponse[];
 			setRecommendations(fetchedRecommendations);
 		} catch (error) {
@@ -65,12 +65,12 @@ function TodoDetails({ route }: Props) {
 		}
 		setIsLoading(false);
 		/*eslint-disable-next-line react-hooks/exhaustive-deps*/
-	}, [todoContext?.SelectedTodo]);
+	}, [todoContext?.selectedTodo]);
 
 	useEffect(() => {
-		if (propertyContext?.SelectedProperty?.isCurrentUserTenant) return;
+		if (propertyContext?.selectedProperty?.isCurrentUserTenant) return;
 		void fetchRecommendations();
-	}, [propertyContext?.SelectedProperty?.isCurrentUserTenant, fetchRecommendations]);
+	}, [propertyContext?.selectedProperty?.isCurrentUserTenant, fetchRecommendations]);
 
 	useEffect(() => {
 		if (!flatListRef.current) return;
@@ -82,19 +82,19 @@ function TodoDetails({ route }: Props) {
 
 	const handleDeleteTodo = useCallback(async () => {
 		if (_.isNull(todoContext)) return;
-		if ( _.isNil(todoContext.SelectedTodo?.id) ) {
+		if ( _.isNil(todoContext.selectedTodo?.id) ) {
 			alert("Todo ID was empty");
 			return;
 		}
 
-		await todoContext.deleteTodo(todoContext.SelectedTodo.id);
+		await todoContext.deleteTodo(todoContext.selectedTodo.id);
 		navigation.goBack();
 	}, [todoContext, navigation]);
 
 	return (
 		<Layout>
 			<FlatList
-				data={todoContext?.SelectedPropertyTodos}
+				data={todoContext?.selectedPropertyTodos}
 				horizontal={true}
 				showsHorizontalScrollIndicator={false}
 				pagingEnabled={true}
@@ -110,7 +110,7 @@ function TodoDetails({ route }: Props) {
 				onScrollToIndexFailed={onScrollToIndexFailed}
 			/>
 			<TrashButton onPress={handleDeleteTodo} style={styles.deleteFab} />
-			{authContext.username === todoContext?.SelectedTodo?.AddedBy && (
+			{authContext.username === todoContext?.selectedTodo?.AddedBy && (
 				<Pressable style={styles.editFab}>
 					<Ionicons name="pencil-outline" size={25} color="white" />
 				</Pressable>

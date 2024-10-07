@@ -43,7 +43,7 @@ function Properties() {
 		<View>
 			<HomesCarousel selectedIndex={selectedIndex} scrollToActiveIndex={scrollToActiveIndex}/>
 			<Animated.FlatList
-				data={propertyContext.Properties}
+				data={propertyContext.properties}
 				horizontal={true}
 				showsHorizontalScrollIndicator={false}
 				ref={propertiesFlatList}

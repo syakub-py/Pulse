@@ -21,10 +21,10 @@ function AddAUser() {
 	const LeaseId = authContext.leaseId;
 	const [DocumentPicture, setDocumentPicture] = useState("");
 	const [userDetails, setUserDetails] = useState<User>({
-		LeaseId: LeaseId,
+		leaseId: LeaseId,
 		AnnualIncome: 0,
 		DocumentProvidedUrl: "",
-		UserId:authContext.firebase_uid,
+		firebaseUserId:authContext.firebase_uid,
 		Email: authContext.username,
 		SocialSecurity: "",
 		Name: "",
@@ -67,7 +67,7 @@ function AddAUser() {
 			if (!isAddUserSuccessful) return;
 
 			authContext.setLeaseId(null);
-			await authContext.logout();
+			await authContext.clearContextAndFirebaseLogout();
 			navigation.navigate("Login");
 			setIsLoading(false);
 		} catch (error) {

@@ -2,8 +2,8 @@
 declare global {
 	interface User {
 		id?:number;
-		LeaseId: number | null;
-		UserId: string;
+		leaseId: number | null;
+		firebaseUserId: string;
 		Name:string;
 		PhoneNumber:string;
 		Email:string;

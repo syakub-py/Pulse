@@ -16,7 +16,7 @@ function AllTenants() {
 				<BackButton/>
 				<Header title={"Your Tenants"} />
 			</View>
-			<FlatList data={userContext.Tenants}
+			<FlatList data={userContext.tenants}
 				renderItem={({item})=>(
 					<TenantCard tenant={item} key={item.UserId}/>
 				)}/>

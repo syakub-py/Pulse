@@ -14,9 +14,9 @@ export default function useFetchTransactions(){
 
 	const fetchTransactions = useCallback(async () => {
 		try {
-			if (_.isEmpty(authContext.firebase_uid) || _.isNull(propertyContext)|| _.isNull(transactionContext) || _.isUndefined(propertyContext.SelectedProperty?.PropertyId)) return;
+			if (_.isEmpty(authContext.firebase_uid) || _.isNull(propertyContext)|| _.isNull(transactionContext) || _.isUndefined(propertyContext.selectedProperty?.PropertyId)) return;
 
-			const response = await apiClientContext.transactionService.getTransaction(propertyContext.SelectedProperty.PropertyId);
+			const response = await apiClientContext.transactionService.getTransaction(propertyContext.selectedProperty.PropertyId);
 			if (isHTTPError(response)) {
 				alert(response.message);
 				return;
@@ -30,5 +30,5 @@ export default function useFetchTransactions(){
 
 	useEffect(() => {
 		void fetchTransactions();
-	}, [propertyContext?.SelectedProperty, fetchTransactions]);
+	}, [propertyContext?.selectedProperty, fetchTransactions]);
 }
