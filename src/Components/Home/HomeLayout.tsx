@@ -31,7 +31,7 @@ function HomeLayout({ children }: { children: React.ReactNode }) {
 			"Commercial Building": require("../../../assets/DefaultPictures/commercialBuildingWallpaper.jpg"),
 		};
 		if ( !_.isNull(propertyContext)&& !_.isNil(propertyContext.SelectedProperty) && !_.isEmpty(propertyContext.Properties)) {
-			setImageSource(propertyTypeImages[propertyContext?.SelectedProperty.PropertyType]);
+			setImageSource(propertyTypeImages[propertyContext.SelectedProperty.PropertyType]);
 		}else{
 			setImageSource(propertyTypeImages["Home"]);
 		}

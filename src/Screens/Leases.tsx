@@ -16,8 +16,8 @@ function Leases(){
 	const leaseContext = useLeaseContext();
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Leases">>();
 	const hasLeases = useMemo(() => {
-		return !_.isEmpty(leaseContext?.SelectedPropertyLeases);
-	}, [leaseContext?.SelectedPropertyLeases]);
+		return !_.isEmpty(leaseContext?.selectedPropertyLeases);
+	}, [leaseContext?.selectedPropertyLeases]);
 	return (
 		<Layout>
 			<Header title={`${propertyContext?.SelectedProperty?.Name} lease(s)`} />

@@ -7,6 +7,7 @@ import TodoCard from "../Todo/TodoCard";
 import useFetchTodos from "@src/Hooks/useFetchTodos";
 import {useCallback, useState} from "react";
 import {useTodoContext} from "@src/Contexts/TodoContext";
+import _ from "lodash";
 
 interface Props {
 	property: Property
@@ -25,6 +26,11 @@ function SelectedProperty(props: Props) {
 		await fetchTodos();
 		setRefreshing(false);
 	}, [fetchTodos]);
+
+	if (_.isNull(todoContext)){
+		return null;
+	}
+
 	return (
 		<View style={styles.houseTileContainer}>
 			<Text style={styles.homeName}>{property.Name}</Text>
@@ -40,7 +46,7 @@ function SelectedProperty(props: Props) {
 				/>
 			</View>
 			<FlatList
-				data={todoContext?.SelectedPropertyTodos}
+				data={todoContext.SelectedPropertyTodos}
 				showsVerticalScrollIndicator={false}
 				renderItem={({item, index})=>(
 					<Pressable onPress={()=>navigation.navigate("TodoDetails", {selectedTodoIndex:index})}>

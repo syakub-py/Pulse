@@ -28,6 +28,16 @@ class PropertyContextClass {
 		});
 	});
 
+	public getProperty = action(async (postgresUserId:number) => {
+		const properties = await this.pulseApiClient.propertyService.getProperty(postgresUserId);
+		if (isHTTPError(properties)) {
+			alert(properties.message);
+			return;
+		}
+		if (_.isNull(properties)) this.setProperties([]);
+		this.setProperties(properties as Property[]);
+	});
+
 	public addProperty = action(async (postgresUserId:number, property: Property) => {
 		try {
 			if (!auth.currentUser?.uid) return false;

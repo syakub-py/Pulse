@@ -6,7 +6,7 @@ import {createContext, useContext, useMemo} from "react";
 import {storage} from "@src/Utils/Firebase";
 
 
-class UserContextClass {
+class TenantContextClass {
 	private pulseApiClient: PulseApiClient;
 	public Tenants: User[] = [];
 
@@ -14,6 +14,7 @@ class UserContextClass {
 		makeAutoObservable(this);
 		this.pulseApiClient = pulseApiClient;
 	}
+
 	public addUser = action(async (user: User) => {
 		try {
 			const response = await this.pulseApiClient.userService.addUser(user);
@@ -33,10 +34,34 @@ class UserContextClass {
 		}
 	});
 
+	public getTenants = action(async (postgresUserId:number) => {
+		const tenantResponse= await this.pulseApiClient.tenantService.getTenants(postgresUserId);
+		if (isHTTPError(tenantResponse)){
+			alert(tenantResponse.message);
+			return;
+		}
+		this.setTenants(tenantResponse as User[]);
+	});
+
 	public setTenants = action((tenants: User[]) => {
 		runInAction(() => {
 			this.Tenants = tenants;
 		});
+	});
+
+	public checkTenantCode = action(async (tenantCode: string) => {
+		const isCodeValidResponse = await this.pulseApiClient.tenantService.isCodeValid(tenantCode);
+
+		if (isHTTPError(isCodeValidResponse)) {
+			alert(isCodeValidResponse.message);
+			return;
+		}
+
+		if (!isCodeValidResponse.isValid) {
+			alert("Invalid code or code expired");
+			return;
+		}
+		return isCodeValidResponse;
 	});
 
 	public uploadPicture = async (profilePicturePath: string, path: string) => {
@@ -57,16 +82,16 @@ class UserContextClass {
 	};
 
 }
-const UserContext = createContext<UserContextClass | null>(null);
+const TenantContext = createContext<TenantContextClass | null>(null);
 
 export default function UserContextProvider({ children, pulseApiClient }: { children: React.ReactNode, pulseApiClient: PulseApiClient }) {
-	const context = useMemo(() => new UserContextClass(pulseApiClient), [pulseApiClient]);
+	const context = useMemo(() => new TenantContextClass(pulseApiClient), [pulseApiClient]);
 
 	return (
-		<UserContext.Provider value={context}>
+		<TenantContext.Provider value={context}>
 			{children}
-		</UserContext.Provider>
+		</TenantContext.Provider>
 	);
 }
 
-export const useUserContext = () => useContext(UserContext);
+export const useTenantContext = () => useContext(TenantContext);

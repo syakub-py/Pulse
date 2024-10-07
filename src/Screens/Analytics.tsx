@@ -16,11 +16,10 @@ import {useAnalyticContext} from "@src/Contexts/AnalyticContext";
 
 function Analytics(){
 	useGenerateAnalytics();
-	useFetchTransactions();
+	// useFetchTransactions();
 	const analyticContext = useAnalyticContext();
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Analytics">>();
 	if (_.isNull(analyticContext) || _.isNull(analyticContext.IncomeAnalyticData)) return;
-
 	return (
 		<Layout>
 			<Header title={"Your Analytics"} />

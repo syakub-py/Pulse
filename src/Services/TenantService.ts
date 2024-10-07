@@ -8,7 +8,7 @@ export default class TenantService {
 
 	async getTenants(userId: number): Promise<User[] | HTTPError> {
 		const response = await this.httpClient.http.get(`${this.serviceHeader}/getTenants/${userId}`);
-		return JSON.parse(response.data.data);
+		return response.data.data;
 	}
 
 	async isCodeValid(code: string): Promise<CodeValidationResponse | HTTPError> {

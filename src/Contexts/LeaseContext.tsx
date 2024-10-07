@@ -7,7 +7,7 @@ import {createContext, useContext, useMemo} from "react";
 
 class LeaseContextClass {
 	private pulseApiClient: PulseApiClient;
-	public SelectedPropertyLeases: Lease[] = [];
+	public selectedPropertyLeases: Lease[] = [];
 
 	constructor(pulseApiClient: PulseApiClient) {
 		makeAutoObservable(this);
@@ -15,8 +15,21 @@ class LeaseContextClass {
 	}
 	public setPropertyLeases = action((leases: Lease[]) => {
 		runInAction(() => {
-			this.SelectedPropertyLeases = leases;
+			this.selectedPropertyLeases = leases;
 		});
+	});
+
+	public getLeases = action(async (propertyId:number, tenantArray:User[]) => {
+		const leaseResponse = await this.pulseApiClient.leaseService.getLeases(propertyId);
+		if (isHTTPError(leaseResponse)) {
+			alert(leaseResponse.message);
+			return;
+		}
+		const leases = JSON.parse(leaseResponse.toString()) as Lease[];
+		this.setPropertyLeases(leases.map(lease => {
+			const matchingTenant = tenantArray.find(tenant => tenant.LeaseId === lease.LeaseId);
+			return !_.isUndefined(matchingTenant) ? { ...lease, TenantName: matchingTenant.Name } : lease;
+		}));
 	});
 
 	public addLease = action(async (lease: Lease, tenantEmail: string, SelectedProperty:Property) => {
@@ -35,7 +48,7 @@ class LeaseContextClass {
 				return false;
 			}
 			runInAction(() => {
-				this.SelectedPropertyLeases.push(lease);
+				this.selectedPropertyLeases.push(lease);
 			});
 			alert("Sent invite to " + tenantEmail.toLowerCase());
 			lease.LeaseId = 0;
@@ -55,7 +68,7 @@ class LeaseContextClass {
 				return;
 			}
 			runInAction(() => {
-				this.SelectedPropertyLeases = this.SelectedPropertyLeases.filter((l) => toNumber(l.LeaseId) !== leaseId);
+				this.selectedPropertyLeases = this.selectedPropertyLeases.filter((l) => toNumber(l.LeaseId) !== leaseId);
 				Tenants = Tenants.filter((t) => t.LeaseId !== leaseId);
 			});
 		} catch (e) {

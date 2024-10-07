@@ -15,26 +15,8 @@ import BackButton from "../../Components/GlobalComponents/BackButton";
 import { useAuthContext } from "@src/Contexts/AuthContext";
 import { FirebaseError } from "firebase/app";
 import PasswordInput from "@src/Components/GlobalComponents/PasswordInput";
-import {useUserContext} from "@src/Contexts/UserContext";
-
-
-const validateForm = (username: string, password: string, requirements: PasswordRequirement[]): boolean => {
-	const emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-
-	if (!username || !password) {
-		alert("Please fill out all fields.");
-		return false;
-	}
-	if (!emailRegex.test(username)) {
-		alert("Please enter a valid email address.");
-		return false;
-	}
-	if (!requirements.every(requirement => requirement.fulfilled)) {
-		alert("Make sure the password meets all requirements.");
-		return false;
-	}
-	return true;
-};
+import {useTenantContext} from "@src/Contexts/TenantContext";
+import validateEmailAndPassword from "@src/Utils/ValidateInputs/ValidateEmailAndPassword";
 
 function CreateUsernameAndPassword() {
 	const [username, setUsername] = useState("");
@@ -43,7 +25,7 @@ function CreateUsernameAndPassword() {
 	const [isLoading, setIsLoading] = useState(false);
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "CreateUsernameAndPassword">>();
 	const authContext = useAuthContext();
-	const userContext = useUserContext();
+	const userContext = useTenantContext();
 	const requirements:PasswordRequirement[] = [
 		{
 			label: "At least 8 characters and less than 50 characters",
@@ -81,7 +63,7 @@ function CreateUsernameAndPassword() {
 	};
 
 	const handleSignUp = async () => {
-		if (validateForm(username, password, requirements)) {
+		if (validateEmailAndPassword(username, password, requirements)) {
 			setIsLoading(true);
 			try {
 				const user = await auth.createUserWithEmailAndPassword(username, password);

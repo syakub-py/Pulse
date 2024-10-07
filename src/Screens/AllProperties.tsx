@@ -17,8 +17,10 @@ function AllProperties() {
 
 	const handleDeleteProperty = useCallback(async (propertyId?:number) => {
 		if (_.isUndefined(propertyId) || _.isNull(propertyContext) || _.isNull(leaseContext)) return;
-		await propertyContext.deleteProperty(propertyId, leaseContext.SelectedPropertyLeases);
-	}, [propertyContext]);
+		await propertyContext.deleteProperty(propertyId, leaseContext.selectedPropertyLeases);
+	}, [leaseContext, propertyContext]);
+
+	if (_.isNull(propertyContext)) return null;
 
 	return(
 		<Layout>

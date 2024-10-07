@@ -1,7 +1,8 @@
 import _ from "lodash";
-import {action, makeAutoObservable, makeObservable, observable} from "mobx";
+import {action, makeObservable, observable} from "mobx";
 import { createContext, useContext, useMemo } from "react";
 import {PulseApiClient} from "@src/Contexts/PulseApiClientContext";
+import isHTTPError from "@src/Utils/HttpError";
 
 class ChatsClass {
 	public chats: Chat[] = [];
@@ -12,33 +13,27 @@ class ChatsClass {
 		});
 	}
 
-	get areChatsEmpty(): boolean {
-		return _.isEmpty(this.chats);
-	}
-
-	public findChat = action((chatId: number): Chat | undefined => {
-		return this.chats.find(chat => chat.chatId === chatId);
-	});
-
-	public findChatByUsername = action((username: string | undefined): Chat | undefined => {
-		if (_.isUndefined(username)) return undefined;
-		for (const chat of this.chats) {
-			if (chat.OtherUserDetails.Email === username) return chat;
-		}
-		return undefined;
-	});
-
 	public setChats = action((chats: Chat[]): void => {
 		this.chats = chats;
+	});
+
+	public getChats = action(async (postgresUserId: number) => {
+		const chatsData = await this.pulseApiClient.chatService.getChats(postgresUserId);
+		if (isHTTPError(chatsData)) {
+			alert(chatsData.message);
+			return;
+		}
+
+		if (_.isUndefined(chatsData)) return;
+
+
+		this.setChats(chatsData);
 	});
 
 	private clearChatsArray = action(() => {
 		this.chats = [];
 	});
 
-	public logout() {
-		this.clearChatsArray();
-	}
 }
 
 const ChatsContext = createContext<null| ChatsClass>(null);

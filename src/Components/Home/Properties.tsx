@@ -18,13 +18,12 @@ function Properties() {
 	}, [propertyContext]);
 
 
-	const changeIndex = useCallback(
-		({ nativeEvent }: NativeSyntheticEvent<NativeScrollEvent>) => {
-			const slide = Math.floor(nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width);
-			if (slide >= 0) {
-				setSelectedIndex(slide);
-			}
-		}, []);
+	const changeIndex = useCallback(({ nativeEvent }: NativeSyntheticEvent<NativeScrollEvent>) => {
+		const slide = Math.floor(nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width);
+		if (slide >= 0) {
+			setSelectedIndex(slide);
+		}
+	}, []);
 
 	const scrollToActiveIndex = useCallback(
 		(index: number) => {
@@ -36,18 +35,18 @@ function Properties() {
 			setSelectedIndex(index);
 		}, []);
 
+	if (_.isNull(propertyContext)) {
+		return null;
+	}
+
 	return (
 		<View>
-			{
-				( !_.isNull(propertyContext) && propertyContext.Properties.length>1)?(
-					<HomesCarousel selectedIndex={selectedIndex} scrollToActiveIndex={scrollToActiveIndex}/>
-				):null
-			}
+			<HomesCarousel selectedIndex={selectedIndex} scrollToActiveIndex={scrollToActiveIndex}/>
 			<Animated.FlatList
-				data={propertyContext?.Properties}
+				data={propertyContext.Properties}
 				horizontal={true}
 				showsHorizontalScrollIndicator={false}
-				ref = {propertiesFlatList}
+				ref={propertiesFlatList}
 				pagingEnabled={true}
 				onViewableItemsChanged={onViewableItemsChanged}
 				onScroll={Animated.event([{nativeEvent: {contentOffset: {x: scrollX}}}], {
@@ -59,8 +58,8 @@ function Properties() {
 				viewabilityConfig={{
 					itemVisiblePercentThreshold: 50,
 				}}
-				renderItem={({ item }) => (
-					<SelectedProperty property={item} />
+				renderItem={({item}) => (
+					<SelectedProperty property={item}/>
 				)}
 			/>
 		</View>

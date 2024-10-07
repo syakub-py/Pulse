@@ -11,12 +11,12 @@ import * as ImagePicker from "expo-image-picker";
 import {useAuthContext} from "@src/Contexts/AuthContext";
 import DropdownPicker, {ItemType} from "react-native-dropdown-picker";
 import ValidateAddUserInputs from "@src/Utils/ValidateInputs/ValidateAddUserInputs";
-import {useUserContext} from "@src/Contexts/UserContext";
+import {useTenantContext} from "@src/Contexts/TenantContext";
 import _ from "lodash";
 
 function AddAUser() {
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "AddAUser">>();
-	const userContext = useUserContext();
+	const userContext = useTenantContext();
 	const authContext = useAuthContext();
 	const LeaseId = authContext.leaseId;
 	const [DocumentPicture, setDocumentPicture] = useState("");

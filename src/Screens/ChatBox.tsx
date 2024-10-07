@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
-import { SafeAreaView, StyleSheet, View, Text, LogBox, ActivityIndicator } from "react-native";
+import { SafeAreaView, StyleSheet, View, Text, LogBox } from "react-native";
 import { GiftedChat, IMessage } from "react-native-gifted-chat";
 import MessageInputBar from "@src/Components/Chat/MessageInputBar";
 import { observer } from "mobx-react-lite";
@@ -9,6 +9,8 @@ import BackButton from "@src/Components/GlobalComponents/BackButton";
 import { RouteProp } from "@react-navigation/native";
 import _ from "lodash";
 import { useChatContext } from "@src/Contexts/ChatContext";
+import useFetchChatMessages from "@src/Hooks/useFetchChatMessages";
+import MessagesLoading from "@src/Components/Chat/MessagesLoading";
 
 // Temp solution to ignore logs
 LogBox.ignoreLogs(["Warning: Avatar: Support for defaultProps"]);
@@ -24,60 +26,50 @@ function ChatBox(props: Props) {
 	const authContext = useAuthContext();
 	const chatContext = useChatContext();
 	const apiClientContext = useApiClientContext();
+	const fetchChatMessages = useFetchChatMessages();
 	const [messages, setMessages] = useState<IMessage[]>([]);
 	const [isTyping, setIsTyping] = useState(false);
 	const [loading, setLoading] = useState(true);
 	const [webSocket, setWebSocket] = useState<WebSocket | null>(null); // Store WebSocket in state
 
-	const fetchMessages = useCallback(async (chat: Chat) => {
-		if (_.isNull(chatContext)) return;
-		try {
-			const fetchedMessages = await apiClientContext.chatService.getMessages(chat.chatId);
-			if (_.isUndefined(fetchedMessages)) return;
-
-			fetchedMessages.forEach(item => {
-				item.user._id = item.user.name === authContext.username ? 1 : 0;
-			});
-
-			const sortedMessages = fetchedMessages.sort((a, b) =>
-				new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-			);
-			chat.Messages = sortedMessages;
-			setMessages(sortedMessages);
-		} catch (error) {
-			console.error("Error fetching messages:", error);
-		} finally {
-			setLoading(false);
-		}
-	}, [apiClientContext.chatService, authContext.username, chatContext]);
-
 	useEffect(() => {
-		fetchMessages(selectedChat);
-		if (_.isNull(chatContext) || _.isUndefined(selectedChat.OtherUserDetails.id) || selectedChat.OtherUserDetails.Name === "Pulse AI") return;
+		const initChat = async () => {
+			setLoading(true);
 
-		const ws = new WebSocket(`ws://127.0.0.1:8000/ws/?senderUserToken=${authContext.postgres_uid}&receiverUserToken=${selectedChat.OtherUserDetails.id}`);
+			await fetchChatMessages(selectedChat);
 
-		ws.onopen = () => {
-			console.info("WebSocket connection established.");
-		};
-		ws.onmessage = (event) => {
-			const messageData = JSON.parse(event.data) as IMessage;
-			setMessages((prevMessages) => GiftedChat.append(prevMessages, [messageData]));
-		};
+			setMessages(selectedChat.Messages);
+			setLoading(false);
 
-		ws.onclose = () => {
-			console.info("WebSocket connection closed");
-		};
+			if (_.isNull(chatContext) || _.isUndefined(selectedChat.OtherUserDetails.id) || selectedChat.OtherUserDetails.Name === "Pulse AI") return;
 
-		ws.onerror = (error) => {
-			console.error("WebSocket error:", error);
-		};
+			const ws = new WebSocket(`ws://127.0.0.1:8000/ws/?senderUserToken=${authContext.postgres_uid}&receiverUserToken=${selectedChat.OtherUserDetails.id}`);
 
-		setWebSocket(ws);
-		return () => {
-			ws.close();
+			ws.onopen = () => {
+				console.info("WebSocket connection established.");
+			};
+
+			ws.onmessage = (event) => {
+				const messageData = JSON.parse(event.data) as IMessage;
+				setMessages((prevMessages) => GiftedChat.append(prevMessages, [messageData])); // Append new message to chat
+			};
+
+			ws.onclose = () => {
+				console.info("WebSocket connection closed");
+			};
+
+			ws.onerror = (error) => {
+				console.error("WebSocket error:", error);
+			};
+
+			setWebSocket(ws);
+
+			return () => {
+				ws.close();
+			};
 		};
-	}, [selectedChat, fetchMessages, chatContext, authContext]);
+		initChat();
+	}, [selectedChat, chatContext, authContext, fetchChatMessages]);
 
 	const onSend = useCallback(async (newMessages: IMessage[]) => {
 		setMessages(previousMessages => GiftedChat.append(previousMessages, newMessages));
@@ -111,14 +103,7 @@ function ChatBox(props: Props) {
 	}, [apiClientContext.pulseAiChatService, authContext, selectedChat, webSocket]);
 
 	if (loading) {
-		return (
-			<SafeAreaView style={styles.container}>
-				<View style={styles.loadingContainer}>
-					<ActivityIndicator size="large" color="white" />
-					<Text style={styles.loadingText}>Loading messages...</Text>
-				</View>
-			</SafeAreaView>
-		);
+		return <MessagesLoading/>;
 	}
 
 	return (

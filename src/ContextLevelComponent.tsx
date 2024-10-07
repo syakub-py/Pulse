@@ -2,7 +2,7 @@ import AppContextProvider from "./Contexts/AppContext";
 import AuthContextProvider from "./Contexts/AuthContext";
 import PulseApiClientProvider, { useApiClientContext } from "./Contexts/PulseApiClientContext";
 import PropertyContextProvider from "@src/Contexts/PropertyContext";
-import UserContextProvider from "@src/Contexts/UserContext";
+import UserContextProvider from "@src/Contexts/TenantContext";
 import LeaseContextProvider from "@src/Contexts/LeaseContext";
 import TodoContextProvider from "@src/Contexts/TodoContext";
 import AnalyticContextProvider from "@src/Contexts/AnalyticContext";

@@ -1,7 +1,7 @@
 import {action, makeAutoObservable, runInAction} from "mobx";
 import isHTTPError from "@src/Utils/HttpError";
 import _ from "lodash";
-import {PulseApiClient, useApiClientContext} from "@src/Contexts/PulseApiClientContext";
+import {PulseApiClient} from "@src/Contexts/PulseApiClientContext";
 import {createContext, useContext, useMemo} from "react";
 
 
@@ -14,14 +14,27 @@ class TodoContextClass {
 		makeAutoObservable(this);
 		this.pulseApiClient = pulseApiClient;
 	}
+
 	public setSelectedPropertyTodos = action((todos: Todo[]) => {
 		runInAction(() => {
 			this.SelectedPropertyTodos = todos;
 		});
 	});
 
+	public getSelectedPropertyTodos = action(async (propertyId:number) => {
+		const response = await this.pulseApiClient.todoService.getTodos(propertyId);
+		if (isHTTPError(response)) {
+			alert(response.message);
+			return;
+		}
+		this.setSelectedPropertyTodos(response as Todo[]);
+	});
+
 	public addTodo = action(async (todo: Todo) => {
 		try {
+			if (_.isUndefined(this.SelectedPropertyTodos)) {
+				this.SelectedPropertyTodos = [];
+			}
 			const response = await this.pulseApiClient.todoService.addTodo(todo);
 			if (isHTTPError(response)) {
 				alert(response.message);

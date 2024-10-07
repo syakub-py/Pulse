@@ -13,6 +13,22 @@ class AnalyticContextClass {
 		makeAutoObservable(this);
 	}
 
+	public getAnalytics = action(async (propertyId:number) => {
+		const expenseAnalyticResponse = await this.pulseApiClient.analyticsDataService.getExpenseAnalytics(propertyId);
+		const incomeAnalyticResponse = await this.pulseApiClient.analyticsDataService.getIncomeAnalytics(propertyId);
+		if (isHTTPError(expenseAnalyticResponse)) {
+			alert(expenseAnalyticResponse.message);
+			return;
+		}
+		this.setExpenseAnalyticData(expenseAnalyticResponse as ExpenseAnalytic[]);
+
+		if (isHTTPError(incomeAnalyticResponse)) {
+			alert(incomeAnalyticResponse.message);
+			return;
+		}
+		this.setIncomeAnalyticData(incomeAnalyticResponse as IncomeAnalytic);
+	});
+
 	public setExpenseAnalyticData = action((expenseAnalytics: ExpenseAnalytic[]) => {
 		runInAction(()=>{
 			this.ExpenseAnalyticData = expenseAnalytics;

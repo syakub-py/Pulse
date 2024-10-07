@@ -1,6 +1,5 @@
 import _ from "lodash";
-import {useCallback, useContext, useEffect} from "react";
-import {useAppContext} from "../Contexts/AppContext";
+import {useCallback, useEffect} from "react";
 import {useAuthContext} from "../Contexts/AuthContext";
 import isHTTPError from "@src/Utils/HttpError";
 import { useApiClientContext } from "../Contexts/PulseApiClientContext";
@@ -27,8 +26,7 @@ export default function useFetchTransactions(){
 		} catch (error) {
 			console.error("error fetching Transactions: " + error);
 		}
-		/* eslint-disable react-hooks/exhaustive-deps */
-	}, []);
+	}, [apiClientContext.transactionService, authContext.firebase_uid, propertyContext, transactionContext]);
 
 	useEffect(() => {
 		void fetchTransactions();
