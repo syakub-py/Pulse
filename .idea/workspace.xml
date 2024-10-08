@@ -4,40 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="added all suggestions">
+    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="added clearing contexts">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Home/HomeLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Home/HomeLayout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Home/HomesCarousel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Home/HomesCarousel.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Home/Properties.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Home/Properties.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Home/SelectedProperty.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Home/SelectedProperty.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Leases/AreLeases.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Leases/AreLeases.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Leases/LeaseCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Leases/LeaseCard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contexts/AnalyticContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/AnalyticContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contexts/AppContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/AppContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contexts/AuthContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/AuthContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contexts/ChatContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/ChatContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contexts/LeaseContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/LeaseContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contexts/PropertyContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/PropertyContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contexts/TenantContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/TenantContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contexts/TodoContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/TodoContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hooks/useFetchTodos.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useFetchTodos.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hooks/useFetchTransactions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useFetchTransactions.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hooks/useGenerateAnalytics.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useGenerateAnalytics.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hooks/useGetAllDataFromStorage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useGetAllDataFromStorage.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hooks/useGetLeasesAndTenants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useGetLeasesAndTenants.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screens/AddALease.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/AddALease.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screens/AddATodo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/AddATodo.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screens/AddATransaction.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/AddATransaction.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screens/AllProperties.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/AllProperties.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Screens/AllTenants.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/AllTenants.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screens/Analytics.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/Analytics.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screens/BottomNavigationBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/BottomNavigationBar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screens/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/Home.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/ChatBox.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/ChatBox.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Screens/Leases.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/Leases.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screens/Settings.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/Settings.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screens/SignUp/AddAUser.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/SignUp/AddAUser.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screens/TodoDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/TodoDetails.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Types/User.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Types/User.d.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -288,15 +260,9 @@
       <workItem from="1728249151079" duration="5178000" />
       <workItem from="1728259739906" duration="2255000" />
       <workItem from="1728300640760" duration="11044000" />
-      <workItem from="1728332248263" duration="2961000" />
-    </task>
-    <task id="LOCAL-00090" summary="add try catch to every api call">
-      <option name="closed" value="true" />
-      <created>1723911676864</created>
-      <option name="number" value="00090" />
-      <option name="presentableId" value="LOCAL-00090" />
-      <option name="project" value="LOCAL" />
-      <updated>1723911676864</updated>
+      <workItem from="1728332248263" duration="3065000" />
+      <workItem from="1728351620425" duration="659000" />
+      <workItem from="1728394519275" duration="868000" />
     </task>
     <task id="LOCAL-00091" summary="fixed signIn error">
       <option name="closed" value="true" />
@@ -682,7 +648,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728333193682</updated>
     </task>
-    <option name="localTasksCounter" value="139" />
+    <task id="LOCAL-00139" summary="added clearing contexts">
+      <option name="closed" value="true" />
+      <created>1728335306838</created>
+      <option name="number" value="00139" />
+      <option name="presentableId" value="LOCAL-00139" />
+      <option name="project" value="LOCAL" />
+      <updated>1728335306838</updated>
+    </task>
+    <option name="localTasksCounter" value="140" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -701,7 +675,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fixing issues" />
     <MESSAGE value="finished fixing errors" />
     <MESSAGE value="started analytics" />
     <MESSAGE value="adding and getting transactions" />
@@ -726,6 +699,7 @@
     <MESSAGE value="working on parsing message" />
     <MESSAGE value="fixed parsing error" />
     <MESSAGE value="added all suggestions" />
-    <option name="LAST_COMMIT_MESSAGE" value="added all suggestions" />
+    <MESSAGE value="added clearing contexts" />
+    <option name="LAST_COMMIT_MESSAGE" value="added clearing contexts" />
   </component>
 </project>

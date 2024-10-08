@@ -68,7 +68,7 @@ function AreLeases(){
 							<LeaseDetails
 								toggleModal={toggleModal}
 								lease={item}
-								tenant={tenantContext.Tenants.find((tenant)=>tenant.LeaseId === item.LeaseId)}
+								tenant={tenantContext.tenants.find((tenant)=>tenant.leaseId === item.LeaseId)}
 							/>
 						)}
 					</View>

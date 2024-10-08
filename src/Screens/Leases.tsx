@@ -23,7 +23,7 @@ function Leases(){
 			<Header title={`${propertyContext?.selectedProperty?.Name} lease(s)`} />
 			{hasLeases ? <AreLeases /> : <NoLeases />}
 
-			{(_.isEmpty(propertyContext?.selectedProperty) || !propertyContext.SelectedProperty.isRental)?null : (
+			{(_.isEmpty(propertyContext?.selectedProperty) || !propertyContext.selectedProperty.isRental)?null : (
 				<FloatingActionButton
 					icon={"add"}
 					onPress={() => navigation.navigate("AddALease")}

@@ -51,7 +51,10 @@ function ChatBox(props: Props) {
 
 			ws.onmessage = (event) => {
 				const messageData = JSON.parse(event.data) as IMessage;
-				setMessages((prevMessages) => GiftedChat.append(prevMessages, [messageData])); // Append new message to chat
+				setMessages((prevMessages) => GiftedChat.append(prevMessages, [messageData]));
+				const selectedChatInContext = chatContext.chats.find((chat)=>selectedChat.chatId = chat.chatId);
+				if (_.isUndefined(selectedChatInContext)) return;
+				selectedChatInContext.LastMessage = messageData.text;
 			};
 
 			ws.onclose = () => {
