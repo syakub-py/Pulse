@@ -17,11 +17,11 @@ function AllProperties() {
 
 	const handleDeleteProperty = useCallback(async (propertyId?:number) => {
 		if (_.isUndefined(propertyId) || _.isNull(propertyContext) || _.isNull(leaseContext)) return;
-		await propertyContext.deleteProperty(propertyId, leaseContext.selectedPropertyLeases);
+		await propertyContext.deleteProperty(propertyId);
+		leaseContext.setPropertyLeases([]);
 	}, [leaseContext, propertyContext]);
 
 	if (_.isNull(propertyContext)) return null;
-
 	return(
 		<Layout>
 			<View style={styles.header}>
@@ -29,10 +29,10 @@ function AllProperties() {
 				<Header title={"Your Properties"} />
 			</View>
 			<SwipeListView
-				data={propertyContext?.properties}
+				data={propertyContext.properties}
 				rightOpenValue={-50}
 				renderHiddenItem={({ item, index }) => {
-					if (propertyContext?.properties[index].isCurrentUserTenant) return null;
+					if (propertyContext.properties[index].isCurrentUserTenant) return null;
 					return (
 						<TrashButton onPress={() => handleDeleteProperty(item.PropertyId)} />
 					);

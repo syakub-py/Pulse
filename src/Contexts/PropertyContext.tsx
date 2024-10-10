@@ -61,7 +61,7 @@ class PropertyContextClass {
 		}
 	});
 
-	public deleteProperty = action(async (propertyId: number, SelectedPropertyLeases:Lease[]) => {
+	public deleteProperty = action(async (propertyId: number) => {
 		try {
 			const response = await this.pulseApiClient.propertyService.deleteProperty(propertyId);
 			if (isHTTPError(response)) {
@@ -69,14 +69,12 @@ class PropertyContextClass {
 				return false;
 			}
 			runInAction(() => {
-				SelectedPropertyLeases = [];
 				this.properties = this.properties.filter((h) => toNumber(h.PropertyId) !== propertyId);
 				if (!_.isEmpty(this.properties)) {
 					this.selectedProperty = this.properties[this.properties.length - 1];
 					return true;
 				}
 				this.selectedProperty = null;
-
 			});
 			return true;
 		} catch (e) {

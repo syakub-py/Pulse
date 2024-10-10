@@ -2,7 +2,6 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Home from "./Home";
 import Settings from "./Settings";
-import PulseAI from "./ChatBox";
 import { StyleSheet } from "react-native";
 import { observer } from "mobx-react-lite";
 import Analytics from "./Analytics";
@@ -45,8 +44,7 @@ function BottomNavigationBar() {
 						return <Ionicons name={iconName} size={32} color={color}/>;
 					}
 				},
-			})}
-		>
+			})}>
 			<Tab.Screen name={"Home"} component={Home} />
 			{
 				(!propertyContext.selectedProperty?.isCurrentUserTenant && !_.isNull(propertyContext.selectedProperty) && propertyContext.selectedProperty.isRental) ? (
@@ -61,7 +59,6 @@ function BottomNavigationBar() {
 					<Tab.Screen name={"Analytics"} component={Analytics} />
 				):null
 			}
-
 			<Tab.Screen name={"Settings"} component={Settings} />
 		</Tab.Navigator>
 	);

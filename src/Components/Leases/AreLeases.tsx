@@ -35,6 +35,7 @@ function AreLeases(){
 	const deleteLease = useCallback(async (leaseId: number | undefined) => {
 		if (_.isUndefined(leaseId) || _.isNull(leaseContext) || _.isNull(tenantContext)) return;
 		await leaseContext.deleteLease(leaseId, tenantContext.tenants);
+
 	}, [leaseContext, tenantContext]);
 
 	const searchOptions = {
