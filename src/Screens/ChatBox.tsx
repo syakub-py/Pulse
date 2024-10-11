@@ -126,6 +126,7 @@ function ChatBox(props: Props) {
 					_id: 1,
 					name: authContext.username,
 				}}
+				inverted={false}
 				showUserAvatar={false}
 				isTyping={isTyping}
 				renderInputToolbar={(props) => <MessageInputBar {...props} />}

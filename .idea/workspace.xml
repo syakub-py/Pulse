@@ -4,16 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="working out bugs">
-      <change afterPath="$PROJECT_DIR$/src/Components/Analytics/ExpensePieChart.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Components/Analytics/IncomeBarGraph.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Components/Analytics/TransactionList.tsx" afterDir="false" />
+    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="add split up analytics into components and handle empty analytics array">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Leases/AreLeases.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Leases/AreLeases.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contexts/PropertyContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/PropertyContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screens/AllProperties.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/AllProperties.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screens/Analytics.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/Analytics.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screens/BottomNavigationBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/BottomNavigationBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/ChatBox.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/ChatBox.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -269,15 +262,8 @@
       <workItem from="1728394519275" duration="1597000" />
       <workItem from="1728481943507" duration="438000" />
       <workItem from="1728484995783" duration="2589000" />
-      <workItem from="1728581173414" duration="3381000" />
-    </task>
-    <task id="LOCAL-00092" summary="added errors to all add/delete/and fetch functions">
-      <option name="closed" value="true" />
-      <created>1724019093545</created>
-      <option name="number" value="00092" />
-      <option name="presentableId" value="LOCAL-00092" />
-      <option name="project" value="LOCAL" />
-      <updated>1724019093546</updated>
+      <workItem from="1728581173414" duration="4462000" />
+      <workItem from="1728652980565" duration="128000" />
     </task>
     <task id="LOCAL-00093" summary="fixed tenant code bug">
       <option name="closed" value="true" />
@@ -663,7 +649,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728395645133</updated>
     </task>
-    <option name="localTasksCounter" value="141" />
+    <task id="LOCAL-00141" summary="add split up analytics into components and handle empty analytics array">
+      <option name="closed" value="true" />
+      <created>1728585227575</created>
+      <option name="number" value="00141" />
+      <option name="presentableId" value="LOCAL-00141" />
+      <option name="project" value="LOCAL" />
+      <updated>1728585227575</updated>
+    </task>
+    <option name="localTasksCounter" value="142" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -682,7 +676,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="started analytics" />
     <MESSAGE value="adding and getting transactions" />
     <MESSAGE value="fix lint errors" />
     <MESSAGE value="fixed loading bug" />
@@ -707,6 +700,7 @@
     <MESSAGE value="added all suggestions" />
     <MESSAGE value="added clearing contexts" />
     <MESSAGE value="working out bugs" />
-    <option name="LAST_COMMIT_MESSAGE" value="working out bugs" />
+    <MESSAGE value="add split up analytics into components and handle empty analytics array" />
+    <option name="LAST_COMMIT_MESSAGE" value="add split up analytics into components and handle empty analytics array" />
   </component>
 </project>
