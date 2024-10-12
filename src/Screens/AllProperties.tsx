@@ -1,23 +1,27 @@
 import {observer} from "mobx-react-lite";
 import {useCallback} from "react";
-import {useAppContext} from "../Contexts/AppContext";
-import Layout from "../Components/Layout";
-import Header from "../Components/Header";
+import Layout from "../Components/GlobalComponents/Layout";
+import Header from "../Components/GlobalComponents/Header";
 import PropertyCard from "../Components/AllProperties/PropertyCard";
 import {SwipeListView} from "react-native-swipe-list-view";
 import { View, StyleSheet} from "react-native";
-import BackButton from "../Components/BackButton";
-import TrashButton from "../Components/TrashButton";
+import BackButton from "../Components/GlobalComponents/BackButton";
+import TrashButton from "../Components/GlobalComponents/TrashButton";
 import _ from "lodash";
+import {usePropertyContext} from "@src/Contexts/PropertyContext";
+import {useLeaseContext} from "@src/Contexts/LeaseContext";
 
 function AllProperties() {
-	const appContext = useAppContext();
+	const propertyContext = usePropertyContext();
+	const leaseContext = useLeaseContext();
 
 	const handleDeleteProperty = useCallback(async (propertyId?:number) => {
-		if (_.isUndefined(propertyId)) return;
-		await appContext.deleteProperty(propertyId);
-	}, [appContext]);
+		if (_.isUndefined(propertyId) || _.isNull(propertyContext) || _.isNull(leaseContext)) return;
+		await propertyContext.deleteProperty(propertyId);
+		leaseContext.setPropertyLeases([]);
+	}, [leaseContext, propertyContext]);
 
+	if (_.isNull(propertyContext)) return null;
 	return(
 		<Layout>
 			<View style={styles.header}>
@@ -25,10 +29,10 @@ function AllProperties() {
 				<Header title={"Your Properties"} />
 			</View>
 			<SwipeListView
-				data={appContext.Properties}
+				data={propertyContext.properties}
 				rightOpenValue={-50}
 				renderHiddenItem={({ item, index }) => {
-					if (appContext.Properties[index].isCurrentUserTenant) return null;
+					if (propertyContext.properties[index].isCurrentUserTenant) return null;
 					return (
 						<TrashButton onPress={() => handleDeleteProperty(item.PropertyId)} />
 					);

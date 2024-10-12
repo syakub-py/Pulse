@@ -1,30 +1,29 @@
 import { observer } from "mobx-react-lite";
 import {FlatList, ViewToken, View, Animated, NativeSyntheticEvent, NativeScrollEvent} from "react-native";
 import {useCallback, useRef, useState} from "react";
-import { useAppContext } from "@src/Contexts/AppContext";
 import _ from "lodash";
 import SelectedProperty from "@src/Components/Home/SelectedProperty";
 import HomesCarousel from "@src/Components/Home/HomesCarousel";
+import {usePropertyContext} from "@src/Contexts/PropertyContext";
 
 function Properties() {
-	const appContext = useAppContext();
+	const propertyContext = usePropertyContext();
 	const [selectedIndex, setSelectedIndex] = useState(0);
 	const propertiesFlatList = useRef<FlatList<Property>>(null);
 	const scrollX = useRef(new Animated.Value(0)).current;
 
 	const onViewableItemsChanged = useCallback(({ viewableItems }: { viewableItems: ViewToken<Property>[], changed: ViewToken<Property>[] }) => {
-		if (_.isEmpty(viewableItems)) return;
-		appContext.setSelectedProperty(viewableItems[0].item);
-	}, [appContext]);
+		if (_.isEmpty(viewableItems) || _.isNull(propertyContext)) return;
+		propertyContext.setSelectedProperty(viewableItems[0].item);
+	}, [propertyContext]);
 
 
-	const changeIndex = useCallback(
-		({ nativeEvent }: NativeSyntheticEvent<NativeScrollEvent>) => {
-			const slide = Math.floor(nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width);
-			if (slide >= 0) {
-				setSelectedIndex(slide);
-			}
-		}, []);
+	const changeIndex = useCallback(({ nativeEvent }: NativeSyntheticEvent<NativeScrollEvent>) => {
+		const slide = Math.floor(nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width);
+		if (slide >= 0) {
+			setSelectedIndex(slide);
+		}
+	}, []);
 
 	const scrollToActiveIndex = useCallback(
 		(index: number) => {
@@ -36,18 +35,22 @@ function Properties() {
 			setSelectedIndex(index);
 		}, []);
 
+	if (_.isNull(propertyContext)) {
+		return null;
+	}
+
 	return (
 		<View>
 			{
-				(appContext.Properties.length>1)?(
+				(propertyContext.properties.length > 1)? (
 					<HomesCarousel selectedIndex={selectedIndex} scrollToActiveIndex={scrollToActiveIndex}/>
 				):null
 			}
 			<Animated.FlatList
-				data={appContext.Properties}
+				data={propertyContext.properties}
 				horizontal={true}
 				showsHorizontalScrollIndicator={false}
-				ref = {propertiesFlatList}
+				ref={propertiesFlatList}
 				pagingEnabled={true}
 				onViewableItemsChanged={onViewableItemsChanged}
 				onScroll={Animated.event([{nativeEvent: {contentOffset: {x: scrollX}}}], {
@@ -59,8 +62,8 @@ function Properties() {
 				viewabilityConfig={{
 					itemVisiblePercentThreshold: 50,
 				}}
-				renderItem={({ item }) => (
-					<SelectedProperty property={item} />
+				renderItem={({item}) => (
+					<SelectedProperty property={item}/>
 				)}
 			/>
 		</View>

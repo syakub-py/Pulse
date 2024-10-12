@@ -6,6 +6,8 @@ interface Config {
 	MESSAGING_SENDER_ID: string;
 	APP_ID: string;
 	MEASUREMENT_ID: string;
+	DEFAULT_PROFILE_PICTURE:string;
+	BASE_URL: string;
 }
 
 const config: Config = {
@@ -15,7 +17,9 @@ const config: Config = {
 	STORAGE_BUCKET: "nyle-bd594.appspot.com",
 	MESSAGING_SENDER_ID: "616674242131",
 	APP_ID: "1:616674242131:web:7788508192e82a84b660a6",
-	MEASUREMENT_ID: "G-70E5N2DBMC"
+	MEASUREMENT_ID: "G-70E5N2DBMC",
+	DEFAULT_PROFILE_PICTURE: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+	BASE_URL:"http://127.0.0.1:8000"
 };
 
 export default config;

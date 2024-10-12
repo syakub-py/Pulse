@@ -1,18 +1,22 @@
-import {useCallback, useMemo, useState} from "react";
+import {useCallback, useState} from "react";
 import { observer } from "mobx-react-lite";
 import {View, TextInput, Button, StyleSheet, Text, FlatList} from "react-native";
-import Layout from "../Components/Layout";
-import Header from "../Components/Header";
-import BackButton from "../Components/BackButton";
+import Layout from "../Components/GlobalComponents/Layout";
+import Header from "../Components/GlobalComponents/Header";
+import BackButton from "../Components/GlobalComponents/BackButton";
 import _ from "lodash";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import LeaseCard from "../Components/Leases/LeaseCard";
-import { useAppContext } from "../Contexts/AppContext";
 import ValidateLeaseInputs from "@src/Utils/ValidateInputs/ValidateLeaseInputs";
+import ValidateDateInput from "@src/Utils/ValidateInputs/ValidateDateInput";
+import {useLeaseContext} from "@src/Contexts/LeaseContext";
+import {usePropertyContext} from "@src/Contexts/PropertyContext";
 
 function AddALease() {
-	const appContext = useAppContext();
+	const leaseContext = useLeaseContext();
+	const propertyContext = usePropertyContext();
+
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "AddALease">>();
 	const [leaseDetails, setLeaseDetails] = useState<Lease>({
 		StartDate: "",
@@ -35,15 +39,20 @@ function AddALease() {
 
 	const handleAddLease = useCallback(async () => {
 	    try {
-	        if (_.isNil(appContext.SelectedProperty?.PropertyId)) {
+			if (_.isNull(propertyContext) || _.isNull(leaseContext)) return;
+	        if (_.isNil(propertyContext.selectedProperty?.PropertyId)) {
 	            alert("There is no property selected");
 	            return;
 	        }
 
 	        if (!ValidateLeaseInputs(leaseDetails)) return;
+			if (!ValidateDateInput(leaseDetails.EndDate) || !ValidateDateInput(leaseDetails.StartDate)) {
+				alert("Dates have to be within a 10 year range of today");
+				return;
+			}
 	        leaseDetails.TenantName = "Wait for tenant information...";
 
-	        const isAddLeaseSuccessful = await appContext.addLease(leaseDetails, tenantEmail.toLowerCase());
+	        const isAddLeaseSuccessful = await leaseContext.addLease(leaseDetails, tenantEmail.toLowerCase(), propertyContext.selectedProperty);
 	        if (!isAddLeaseSuccessful) return;
 
 	        setNewLeases([...newLeases, leaseDetails]);
@@ -59,7 +68,7 @@ function AddALease() {
 	    } catch (error) {
 	        console.error("error adding a lease" + error);
 	    }
-	}, [appContext, leaseDetails, tenantEmail, newLeases, setLeaseDetails]);
+	}, [propertyContext, leaseContext, leaseDetails, tenantEmail, newLeases]);
 
 	const handleSubmit = () =>{
 		navigation.navigate("BottomNavBar");

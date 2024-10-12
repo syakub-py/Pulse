@@ -3,15 +3,17 @@ import { action, makeAutoObservable, runInAction} from "mobx";
 import _ from "lodash";
 import AsyncStorageClass from "../Classes/AsyncStorage";
 import {auth} from "../Utils/Firebase";
+import config from "../../env";
 
 class AuthContextClass {
 	constructor() {
 		makeAutoObservable(this);
 	}
 	public username: string = "";
-	public profilePicture: string = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
+	public profilePicture: string = config.DEFAULT_PROFILE_PICTURE;
 	public password: string = "";
-	public uid:string = "";
+	public firebase_uid: string = "";
+	public postgres_uid: number = 0;
 	private _isLoadingAuth: boolean = true;
 	public leaseId: number | null = null;
 
@@ -30,8 +32,13 @@ class AuthContextClass {
 		this.profilePicture = profilePicture;
 	});
 
-	public setUid = action((uid: string) =>{
-		this.uid = uid;
+	public setFirebaseUid = action((uid: string) =>{
+		this.firebase_uid = uid;
+	});
+
+	public setPostgresUid = action((uid: number) =>{
+		this.postgres_uid = uid;
+		void AsyncStorageClass.saveDataToStorage("uid", uid);
 	});
 
 	public setLeaseId = action((LeaseId: number | null) =>{
@@ -53,18 +60,22 @@ class AuthContextClass {
 	public async getAuthDataFromStorage(): Promise<void> {
 		const retrievedUsername = await AsyncStorageClass.getDataFromStorage("username");
 		const retrievedPassword = await AsyncStorageClass.getDataFromStorage("password");
+		const retrievedUid = await AsyncStorageClass.getDataFromStorage("uid");
 		runInAction(() => {
 			if (!_.isUndefined(retrievedUsername)) this.username = retrievedUsername;
 			if (!_.isUndefined(retrievedPassword)) this.password = retrievedPassword;
+			if (!_.isUndefined(retrievedUid)) this.postgres_uid = retrievedUid;
 		});
 	}
 
-	public async logout() {
+
+	public async clearContextAndFirebaseLogout() {
 		runInAction(() => {
-			this.uid = "";
+			this.firebase_uid = "";
 			this.username = "";
 			this.password = "";
 			this.profilePicture = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
+			this.postgres_uid = 0;
 		});
 		try{
 			await auth.signOut();

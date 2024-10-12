@@ -1,12 +1,14 @@
 import { observer } from "mobx-react-lite";
 import {TextInput, StyleSheet, Button, SafeAreaView, View} from "react-native";
 import {useCallback, useState} from "react";
-import Header from "../Components/Header";
+import Header from "../Components/GlobalComponents/Header";
 import DropdownPicker, { ItemType } from "react-native-dropdown-picker";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
-import BackButton from "../Components/BackButton";
-import { useAppContext } from "../Contexts/AppContext";
+import BackButton from "../Components/GlobalComponents/BackButton";
+import {usePropertyContext} from "@src/Contexts/PropertyContext";
+import _ from "lodash";
+import {useAuthContext} from "@src/Contexts/AuthContext";
 
 function AddAProperty() {
 	const [propertyDetails, setPropertyDetails] = useState<Property>({
@@ -30,27 +32,28 @@ function AddAProperty() {
 
 	const [open, setOpen] = useState(false);
 	const [selectedPropertyType, setSelectedPropertyType] = useState(propertyTypes[0].value as string);
-	const appContext = useAppContext();
+	const propertyContext = usePropertyContext();
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "AddAProperty">>();
-
+	const authContext = useAuthContext();
 	const handleInputChange = (field: keyof Property, value: string | string[] | boolean | number) => {
 		setPropertyDetails((prev) => ({ ...prev, [field]: value }));
 	};
 
 	const handleSubmit = useCallback(async (): Promise<void> => {
-	    propertyDetails.PropertyType = selectedPropertyType;
+		if (_.isNull(propertyContext)) return;
 
-	    const isAddPropertySuccessful = await appContext.addProperty(propertyDetails);
+	    propertyDetails.PropertyType = selectedPropertyType;
+	    const isAddPropertySuccessful = await propertyContext.addProperty(authContext.postgres_uid, propertyDetails);
 
 	    if (!isAddPropertySuccessful) return;
 
 	    if (propertyDetails.isRental) {
-	        appContext.setSelectedProperty(propertyDetails);
+	        propertyContext.setSelectedProperty(propertyDetails);
 	        navigation.navigate("AddALease");
 	    } else {
 	        navigation.navigate("BottomNavBar");
 	    }
-	}, [selectedPropertyType, appContext, propertyDetails, navigation]);
+	}, [propertyContext, propertyDetails, selectedPropertyType, authContext.postgres_uid, navigation]);
 
 	return (
 		<SafeAreaView style={styles.container}>

@@ -1,5 +1,5 @@
 import {observer} from "mobx-react-lite";
-import Layout from "../Components/Layout";
+import Layout from "../Components/GlobalComponents/Layout";
 import {ActivityIndicator} from "react-native";
 
 function Loading(){

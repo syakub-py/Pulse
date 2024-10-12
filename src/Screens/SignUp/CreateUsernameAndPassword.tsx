@@ -8,40 +8,24 @@ import {auth} from "@src/Utils/Firebase";
 import {StackNavigationProp} from "@react-navigation/stack";
 import { updateProfile } from "firebase/auth";
 import {observer} from "mobx-react-lite";
-import UploadPictures from "../../Components/UploadPictures";
-import Layout from "../../Components/Layout";
-import Header from "../../Components/Header";
-import BackButton from "../../Components/BackButton";
+import UploadPictures from "../../Components/GlobalComponents/UploadPictures";
+import Layout from "../../Components/GlobalComponents/Layout";
+import Header from "../../Components/GlobalComponents/Header";
+import BackButton from "../../Components/GlobalComponents/BackButton";
 import { useAuthContext } from "@src/Contexts/AuthContext";
-import {useAppContext} from "@src/Contexts/AppContext";
 import { FirebaseError } from "firebase/app";
-
-
-const validateForm = (username: string, password: string, requirements: PasswordRequirement[]): boolean => {
-	const emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-
-	if (!username || !password) {
-		alert("Please fill out all fields.");
-		return false;
-	}
-	if (!emailRegex.test(username)) {
-		alert("Please enter a valid email address.");
-		return false;
-	}
-	if (!requirements.every(requirement => requirement.fulfilled)) {
-		alert("Make sure the password meets all requirements.");
-		return false;
-	}
-	return true;
-};
+import PasswordInput from "@src/Components/GlobalComponents/PasswordInput";
+import {useTenantContext} from "@src/Contexts/TenantContext";
+import validateEmailAndPassword from "@src/Utils/ValidateInputs/ValidateEmailAndPassword";
 
 function CreateUsernameAndPassword() {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [profilePicture, setProfilePicture] = useState("");
+	const [isLoading, setIsLoading] = useState(false);
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "CreateUsernameAndPassword">>();
 	const authContext = useAuthContext();
-	const appContext = useAppContext();
+	const userContext = useTenantContext();
 	const requirements:PasswordRequirement[] = [
 		{
 			label: "At least 8 characters and less than 50 characters",
@@ -79,31 +63,33 @@ function CreateUsernameAndPassword() {
 	};
 
 	const handleSignUp = async () => {
-		if (validateForm(username, password, requirements)) {
+		if (validateEmailAndPassword(username, password, requirements)) {
+			setIsLoading(true);
 			try {
 				const user = await auth.createUserWithEmailAndPassword(username, password);
-				if (!_.isEmpty(user.user) && !_.isNull(user.user)) {
-					if (!_.isEmpty(profilePicture)) {
-						const profilePictureUrl = await appContext.uploadPicture(profilePicture, `ProfilePictures/${username}/`);
-						authContext.setProfilePicture(profilePictureUrl);
-						await updateProfile(user.user, {photoURL: profilePictureUrl});
-					} else {
-						authContext.setProfilePicture("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-					}
-					authContext.setUid(user.user.uid);
-					authContext.setUsername(username);
-					authContext.setPassword(password);
-					navigation.navigate("EnterTenantCode");
+				if (_.isEmpty(user.user) && _.isNull(user.user) || _.isNull(userContext)) return;
+				if (!_.isEmpty(profilePicture)) {
+					const profilePictureUrl = await userContext.uploadPicture(profilePicture, `ProfilePictures/${username}/`);
+					authContext.setProfilePicture(profilePictureUrl);
+					await updateProfile(user.user, {photoURL: profilePictureUrl});
+				} else {
+					authContext.setProfilePicture("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
 				}
+				authContext.setFirebaseUid(user.user.uid);
+				authContext.setUsername(username);
+				authContext.setPassword(password);
+				navigation.navigate("EnterTenantCode");
 			}catch (error) {
 				if (error instanceof FirebaseError) {
 					console.error("Firebase Error:", error);
 					alert(error.message);
+				}else{
+					console.error("General Error:", error);
+					authContext.setProfilePicture("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
+					alert(error);
 				}
-				console.error("General Error:", error);
-				authContext.setProfilePicture("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-				alert(error);
 			}
+			setIsLoading(false);
 		}
 	};
 
@@ -121,9 +107,16 @@ function CreateUsernameAndPassword() {
 				)}
 			</View>
 			<TextInput onChangeText={(text) => setUsername(text)} placeholder={"Email"} style={styles.textInput}/>
-			<TextInput onChangeText={(text) => setPassword(text)} placeholder={"Password"} style={styles.textInput} secureTextEntry/>
+			<PasswordInput setPassword={setPassword}/>
+
 			<PasswordRequirementCheckBox requirements={requirements}/>
-			<Button title={"Next"} onPress={handleSignUp}/>
+			{
+				(!isLoading)?(
+					<Button title={"Next"} onPress={handleSignUp}/>
+				):(
+					<ActivityIndicator size={"small"} color={"white"}/>
+				)
+			}
 
 		</Layout>
 
@@ -165,10 +158,11 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 10,
 		backgroundColor: "whitesmoke",
 		borderRadius: 15,
+		width:"90%"
 	},
 	header:{
 		flexDirection: "row",
 		alignItems: "center",
-	}
+	},
 });
 

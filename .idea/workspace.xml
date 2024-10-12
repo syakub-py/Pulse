@@ -4,33 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="adding and getting transactions">
-      <change afterPath="$PROJECT_DIR$/src/Screens/AddATransaction.tsx" afterDir="false" />
+    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="fixed inverted chat bug">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/AllProperties/PropertyCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/AllProperties/PropertyCard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/AllTenants/TenantCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/AllTenants/TenantCard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Analytics/SubHeader.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Analytics/SubHeader.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/BackButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/BackButton.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Header.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Home/NoProperties.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Home/NoProperties.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Leases/LeaseCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Leases/LeaseCard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Leases/LeaseDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Leases/LeaseDetails.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Leases/NoLeases.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Leases/NoLeases.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/PulseAI/MessageInputBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/PulseAI/MessageInputBar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Settings/Setting.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Settings/Setting.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/SignUp/PasswordRequirementCheckBox.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/SignUp/PasswordRequirementCheckBox.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/SignUp/Requirement.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/SignUp/Requirement.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/UploadPictures.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/UploadPictures.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contexts/AppContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/AppContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hooks/useCreateChatIfDoesntExist.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useCreateChatIfDoesntExist.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/env.ts" beforeDir="false" afterPath="$PROJECT_DIR$/env.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Classes/PulseHTTPClient.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Classes/PulseHTTPClient.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Analytics/IncomeBarGraph.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Analytics/IncomeBarGraph.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Home/Properties.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Home/Properties.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contexts/AuthContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/AuthContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contexts/LeaseContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/LeaseContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hooks/useFetchTodos.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useFetchTodos.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Hooks/useGetLeasesAndTenants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useGetLeasesAndTenants.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hooks/useLogin.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useLogin.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Screens/AddALease.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/AddALease.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screens/Analytics.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/Analytics.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screens/SignUp/AddAUser.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/SignUp/AddAUser.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Types/Global.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Types/Global.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/AddAProperty.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/AddAProperty.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/AddATodo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/AddATodo.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/ChatBox.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/ChatBox.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,32 +61,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "AIintegration",
-    "last_opened_file_path": "/Users/boss/Programming Projects/Pulse/assets/DefaultPictures",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "npm.start.executor": "Run",
-    "ts.external.directory.path": "/Users/boss/Programming Projects/Pulse/node_modules/typescript/lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;#20 on Development&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/boss/Programming Projects/Pulse/assets/DefaultPictures&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.start.executor&quot;: &quot;Run&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/boss/Programming Projects/Pulse/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/assets/DefaultPictures" />
       <recent name="$PROJECT_DIR$/assets" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/Components/Buttons" />
+      <recent name="$PROJECT_DIR$/src/Components/Chat" />
+      <recent name="$PROJECT_DIR$/src/Components/GlobalComponents" />
       <recent name="$PROJECT_DIR$/src/Screens" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/src/Types" />
-      <recent name="$PROJECT_DIR$/src" />
+      <recent name="$PROJECT_DIR$/src/Utils/Services" />
+      <recent name="$PROJECT_DIR$/src/Components/Buttons" />
     </key>
   </component>
   <component name="RunManager">
@@ -230,230 +217,65 @@
       <workItem from="1724508720931" duration="9312000" />
       <workItem from="1724540848103" duration="5821000" />
       <workItem from="1724558820031" duration="1772000" />
-    </task>
-    <task id="LOCAL-00066" summary="add error handling">
-      <option name="closed" value="true" />
-      <created>1722967894566</created>
-      <option name="number" value="00066" />
-      <option name="presentableId" value="LOCAL-00066" />
-      <option name="project" value="LOCAL" />
-      <updated>1722967894566</updated>
-    </task>
-    <task id="LOCAL-00067" summary="start lease details">
-      <option name="closed" value="true" />
-      <created>1722971335801</created>
-      <option name="number" value="00067" />
-      <option name="presentableId" value="LOCAL-00067" />
-      <option name="project" value="LOCAL" />
-      <updated>1722971335801</updated>
-    </task>
-    <task id="LOCAL-00068" summary="start lease details">
-      <option name="closed" value="true" />
-      <created>1723230379357</created>
-      <option name="number" value="00068" />
-      <option name="presentableId" value="LOCAL-00068" />
-      <option name="project" value="LOCAL" />
-      <updated>1723230379357</updated>
-    </task>
-    <task id="LOCAL-00069" summary="start tenant side integration">
-      <option name="closed" value="true" />
-      <created>1723240388100</created>
-      <option name="number" value="00069" />
-      <option name="presentableId" value="LOCAL-00069" />
-      <option name="project" value="LOCAL" />
-      <updated>1723240388100</updated>
-    </task>
-    <task id="LOCAL-00070" summary="working on tenant side integration">
-      <option name="closed" value="true" />
-      <created>1723303864961</created>
-      <option name="number" value="00070" />
-      <option name="presentableId" value="LOCAL-00070" />
-      <option name="project" value="LOCAL" />
-      <updated>1723303864961</updated>
-    </task>
-    <task id="LOCAL-00071" summary="tenant codes working">
-      <option name="closed" value="true" />
-      <created>1723399416750</created>
-      <option name="number" value="00071" />
-      <option name="presentableId" value="LOCAL-00071" />
-      <option name="project" value="LOCAL" />
-      <updated>1723399416751</updated>
-    </task>
-    <task id="LOCAL-00072" summary="properties showing for tenants">
-      <option name="closed" value="true" />
-      <created>1723402204182</created>
-      <option name="number" value="00072" />
-      <option name="presentableId" value="LOCAL-00072" />
-      <option name="project" value="LOCAL" />
-      <updated>1723402204182</updated>
-    </task>
-    <task id="LOCAL-00073" summary="final touches">
-      <option name="closed" value="true" />
-      <created>1723406434005</created>
-      <option name="number" value="00073" />
-      <option name="presentableId" value="LOCAL-00073" />
-      <option name="project" value="LOCAL" />
-      <updated>1723406434005</updated>
-    </task>
-    <task id="LOCAL-00074" summary="fix lint errors">
-      <option name="closed" value="true" />
-      <created>1723407602238</created>
-      <option name="number" value="00074" />
-      <option name="presentableId" value="LOCAL-00074" />
-      <option name="project" value="LOCAL" />
-      <updated>1723407602238</updated>
-    </task>
-    <task id="LOCAL-00075" summary="adding nice to haves">
-      <option name="closed" value="true" />
-      <created>1723409796802</created>
-      <option name="number" value="00075" />
-      <option name="presentableId" value="LOCAL-00075" />
-      <option name="project" value="LOCAL" />
-      <updated>1723409796802</updated>
-    </task>
-    <task id="LOCAL-00076" summary="add lease details for tenant">
-      <option name="closed" value="true" />
-      <created>1723429762076</created>
-      <option name="number" value="00076" />
-      <option name="presentableId" value="LOCAL-00076" />
-      <option name="project" value="LOCAL" />
-      <updated>1723429762076</updated>
-    </task>
-    <task id="LOCAL-00077" summary="fixed lease details for tenant">
-      <option name="closed" value="true" />
-      <created>1723472743191</created>
-      <option name="number" value="00077" />
-      <option name="presentableId" value="LOCAL-00077" />
-      <option name="project" value="LOCAL" />
-      <updated>1723472743192</updated>
-    </task>
-    <task id="LOCAL-00078" summary="final touches">
-      <option name="closed" value="true" />
-      <created>1723477283487</created>
-      <option name="number" value="00078" />
-      <option name="presentableId" value="LOCAL-00078" />
-      <option name="project" value="LOCAL" />
-      <updated>1723477283488</updated>
-    </task>
-    <task id="LOCAL-00079" summary="fixed some small bugs">
-      <option name="closed" value="true" />
-      <created>1723506307185</created>
-      <option name="number" value="00079" />
-      <option name="presentableId" value="LOCAL-00079" />
-      <option name="project" value="LOCAL" />
-      <updated>1723506307185</updated>
-    </task>
-    <task id="LOCAL-00080" summary="removed comment">
-      <option name="closed" value="true" />
-      <created>1723506646358</created>
-      <option name="number" value="00080" />
-      <option name="presentableId" value="LOCAL-00080" />
-      <option name="project" value="LOCAL" />
-      <updated>1723506646358</updated>
-    </task>
-    <task id="LOCAL-00081" summary="fix lint errors">
-      <option name="closed" value="true" />
-      <created>1723510777343</created>
-      <option name="number" value="00081" />
-      <option name="presentableId" value="LOCAL-00081" />
-      <option name="project" value="LOCAL" />
-      <updated>1723510777343</updated>
-    </task>
-    <task id="LOCAL-00082" summary="fix env errors">
-      <option name="closed" value="true" />
-      <created>1723563803372</created>
-      <option name="number" value="00082" />
-      <option name="presentableId" value="LOCAL-00082" />
-      <option name="project" value="LOCAL" />
-      <updated>1723563803372</updated>
-    </task>
-    <task id="LOCAL-00083" summary="add todo working">
-      <option name="closed" value="true" />
-      <created>1723570845637</created>
-      <option name="number" value="00083" />
-      <option name="presentableId" value="LOCAL-00083" />
-      <option name="project" value="LOCAL" />
-      <updated>1723570845637</updated>
-    </task>
-    <task id="LOCAL-00084" summary="getTodos working">
-      <option name="closed" value="true" />
-      <created>1723572845549</created>
-      <option name="number" value="00084" />
-      <option name="presentableId" value="LOCAL-00084" />
-      <option name="project" value="LOCAL" />
-      <updated>1723572845549</updated>
-    </task>
-    <task id="LOCAL-00085" summary="getTodos bug fixed">
-      <option name="closed" value="true" />
-      <created>1723577776478</created>
-      <option name="number" value="00085" />
-      <option name="presentableId" value="LOCAL-00085" />
-      <option name="project" value="LOCAL" />
-      <updated>1723577776478</updated>
-    </task>
-    <task id="LOCAL-00086" summary="todo details working">
-      <option name="closed" value="true" />
-      <created>1723582982860</created>
-      <option name="number" value="00086" />
-      <option name="presentableId" value="LOCAL-00086" />
-      <option name="project" value="LOCAL" />
-      <updated>1723582982860</updated>
-    </task>
-    <task id="LOCAL-00087" summary="delete todo working">
-      <option name="closed" value="true" />
-      <created>1723591209308</created>
-      <option name="number" value="00087" />
-      <option name="presentableId" value="LOCAL-00087" />
-      <option name="project" value="LOCAL" />
-      <updated>1723591209308</updated>
-    </task>
-    <task id="LOCAL-00088" summary="work on todo">
-      <option name="closed" value="true" />
-      <created>1723776061383</created>
-      <option name="number" value="00088" />
-      <option name="presentableId" value="LOCAL-00088" />
-      <option name="project" value="LOCAL" />
-      <updated>1723776061384</updated>
-    </task>
-    <task id="LOCAL-00089" summary="work on todo">
-      <option name="closed" value="true" />
-      <created>1723776514068</created>
-      <option name="number" value="00089" />
-      <option name="presentableId" value="LOCAL-00089" />
-      <option name="project" value="LOCAL" />
-      <updated>1723776514068</updated>
-    </task>
-    <task id="LOCAL-00090" summary="add try catch to every api call">
-      <option name="closed" value="true" />
-      <created>1723911676864</created>
-      <option name="number" value="00090" />
-      <option name="presentableId" value="LOCAL-00090" />
-      <option name="project" value="LOCAL" />
-      <updated>1723911676864</updated>
-    </task>
-    <task id="LOCAL-00091" summary="fixed signIn error">
-      <option name="closed" value="true" />
-      <created>1723916408356</created>
-      <option name="number" value="00091" />
-      <option name="presentableId" value="LOCAL-00091" />
-      <option name="project" value="LOCAL" />
-      <updated>1723916408357</updated>
-    </task>
-    <task id="LOCAL-00092" summary="added errors to all add/delete/and fetch functions">
-      <option name="closed" value="true" />
-      <created>1724019093545</created>
-      <option name="number" value="00092" />
-      <option name="presentableId" value="LOCAL-00092" />
-      <option name="project" value="LOCAL" />
-      <updated>1724019093546</updated>
-    </task>
-    <task id="LOCAL-00093" summary="fixed tenant code bug">
-      <option name="closed" value="true" />
-      <created>1724032632242</created>
-      <option name="number" value="00093" />
-      <option name="presentableId" value="LOCAL-00093" />
-      <option name="project" value="LOCAL" />
-      <updated>1724032632242</updated>
+      <workItem from="1724698237129" duration="2133000" />
+      <workItem from="1724709987134" duration="10861000" />
+      <workItem from="1724767822792" duration="929000" />
+      <workItem from="1724769528800" duration="1320000" />
+      <workItem from="1724775397128" duration="2703000" />
+      <workItem from="1724800969722" duration="1993000" />
+      <workItem from="1724803037424" duration="1045000" />
+      <workItem from="1724881375760" duration="333000" />
+      <workItem from="1724939479843" duration="100000" />
+      <workItem from="1724945837641" duration="5698000" />
+      <workItem from="1724959922510" duration="3478000" />
+      <workItem from="1724976203528" duration="14174000" />
+      <workItem from="1725202601219" duration="17527000" />
+      <workItem from="1725290602693" duration="9954000" />
+      <workItem from="1725302940616" duration="5167000" />
+      <workItem from="1725327187391" duration="4017000" />
+      <workItem from="1725370435341" duration="2064000" />
+      <workItem from="1725385170471" duration="2044000" />
+      <workItem from="1725388710002" duration="2912000" />
+      <workItem from="1725397684026" duration="3463000" />
+      <workItem from="1725409704028" duration="2505000" />
+      <workItem from="1725463146103" duration="50000" />
+      <workItem from="1725544354313" duration="507000" />
+      <workItem from="1725547646079" duration="1104000" />
+      <workItem from="1725553061671" duration="2037000" />
+      <workItem from="1725924276685" duration="814000" />
+      <workItem from="1725930207338" duration="1555000" />
+      <workItem from="1725932058915" duration="612000" />
+      <workItem from="1725987349206" duration="104000" />
+      <workItem from="1726170969197" duration="2172000" />
+      <workItem from="1726421055100" duration="1348000" />
+      <workItem from="1726450512447" duration="2445000" />
+      <workItem from="1726498706283" duration="3865000" />
+      <workItem from="1726775159307" duration="46000" />
+      <workItem from="1726775220921" duration="1972000" />
+      <workItem from="1727111949739" duration="693000" />
+      <workItem from="1727112705209" duration="791000" />
+      <workItem from="1727711546649" duration="1606000" />
+      <workItem from="1727724092363" duration="3048000" />
+      <workItem from="1727737529574" duration="2463000" />
+      <workItem from="1727805212278" duration="2082000" />
+      <workItem from="1727811915347" duration="4089000" />
+      <workItem from="1727833973133" duration="3138000" />
+      <workItem from="1727887646218" duration="1127000" />
+      <workItem from="1727976112208" duration="5003000" />
+      <workItem from="1728049609980" duration="7302000" />
+      <workItem from="1728062539925" duration="3092000" />
+      <workItem from="1728161147355" duration="844000" />
+      <workItem from="1728249151079" duration="5178000" />
+      <workItem from="1728259739906" duration="2255000" />
+      <workItem from="1728300640760" duration="11044000" />
+      <workItem from="1728332248263" duration="3065000" />
+      <workItem from="1728351620425" duration="659000" />
+      <workItem from="1728394519275" duration="1597000" />
+      <workItem from="1728481943507" duration="438000" />
+      <workItem from="1728484995783" duration="2589000" />
+      <workItem from="1728581173414" duration="4462000" />
+      <workItem from="1728652980565" duration="10611000" />
+      <workItem from="1728750017694" duration="1941000" />
     </task>
     <task id="LOCAL-00094" summary="final touches">
       <option name="closed" value="true" />
@@ -623,7 +445,231 @@
       <option name="project" value="LOCAL" />
       <updated>1724551608278</updated>
     </task>
-    <option name="localTasksCounter" value="115" />
+    <task id="LOCAL-00115" summary="fixed loading bug">
+      <option name="closed" value="true" />
+      <created>1724700357634</created>
+      <option name="number" value="00115" />
+      <option name="presentableId" value="LOCAL-00115" />
+      <option name="project" value="LOCAL" />
+      <updated>1724700357634</updated>
+    </task>
+    <task id="LOCAL-00116" summary="income bar chart working">
+      <option name="closed" value="true" />
+      <created>1724718006445</created>
+      <option name="number" value="00116" />
+      <option name="presentableId" value="LOCAL-00116" />
+      <option name="project" value="LOCAL" />
+      <updated>1724718006447</updated>
+    </task>
+    <task id="LOCAL-00117" summary="Validating date inputs">
+      <option name="closed" value="true" />
+      <created>1724768407870</created>
+      <option name="number" value="00117" />
+      <option name="presentableId" value="LOCAL-00117" />
+      <option name="project" value="LOCAL" />
+      <updated>1724768407870</updated>
+    </task>
+    <task id="LOCAL-00118" summary="Validating date inputs">
+      <option name="closed" value="true" />
+      <created>1724778870295</created>
+      <option name="number" value="00118" />
+      <option name="presentableId" value="LOCAL-00118" />
+      <option name="project" value="LOCAL" />
+      <updated>1724778870296</updated>
+    </task>
+    <task id="LOCAL-00119" summary="add password input component">
+      <option name="closed" value="true" />
+      <created>1724963188200</created>
+      <option name="number" value="00119" />
+      <option name="presentableId" value="LOCAL-00119" />
+      <option name="project" value="LOCAL" />
+      <updated>1724963188201</updated>
+    </task>
+    <task id="LOCAL-00120" summary="renaming components and for chat">
+      <option name="closed" value="true" />
+      <created>1725128984816</created>
+      <option name="number" value="00120" />
+      <option name="presentableId" value="LOCAL-00120" />
+      <option name="project" value="LOCAL" />
+      <updated>1725128984817</updated>
+    </task>
+    <task id="LOCAL-00121" summary="start chat integration">
+      <option name="closed" value="true" />
+      <created>1725131384625</created>
+      <option name="number" value="00121" />
+      <option name="presentableId" value="LOCAL-00121" />
+      <option name="project" value="LOCAL" />
+      <updated>1725131384625</updated>
+    </task>
+    <task id="LOCAL-00122" summary="start chat integration">
+      <option name="closed" value="true" />
+      <created>1725142455520</created>
+      <option name="number" value="00122" />
+      <option name="presentableId" value="LOCAL-00122" />
+      <option name="project" value="LOCAL" />
+      <updated>1725142455520</updated>
+    </task>
+    <task id="LOCAL-00123" summary="split up appContext">
+      <option name="closed" value="true" />
+      <created>1725211109060</created>
+      <option name="number" value="00123" />
+      <option name="presentableId" value="LOCAL-00123" />
+      <option name="project" value="LOCAL" />
+      <updated>1725211109061</updated>
+    </task>
+    <task id="LOCAL-00124" summary="split up appContext">
+      <option name="closed" value="true" />
+      <created>1725212405956</created>
+      <option name="number" value="00124" />
+      <option name="presentableId" value="LOCAL-00124" />
+      <option name="project" value="LOCAL" />
+      <updated>1725212405956</updated>
+    </task>
+    <task id="LOCAL-00125" summary="fixing errors">
+      <option name="closed" value="true" />
+      <created>1725230350449</created>
+      <option name="number" value="00125" />
+      <option name="presentableId" value="LOCAL-00125" />
+      <option name="project" value="LOCAL" />
+      <updated>1725230350450</updated>
+    </task>
+    <task id="LOCAL-00126" summary="websockets working">
+      <option name="closed" value="true" />
+      <created>1725301122189</created>
+      <option name="number" value="00126" />
+      <option name="presentableId" value="LOCAL-00126" />
+      <option name="project" value="LOCAL" />
+      <updated>1725301122189</updated>
+    </task>
+    <task id="LOCAL-00127" summary="storing postgres uid">
+      <option name="closed" value="true" />
+      <created>1725316250070</created>
+      <option name="number" value="00127" />
+      <option name="presentableId" value="LOCAL-00127" />
+      <option name="project" value="LOCAL" />
+      <updated>1725316250071</updated>
+    </task>
+    <task id="LOCAL-00128" summary="migrating to postgres id">
+      <option name="closed" value="true" />
+      <created>1725387213016</created>
+      <option name="number" value="00128" />
+      <option name="presentableId" value="LOCAL-00128" />
+      <option name="project" value="LOCAL" />
+      <updated>1725387213016</updated>
+    </task>
+    <task id="LOCAL-00129" summary="working on chat">
+      <option name="closed" value="true" />
+      <created>1725412616076</created>
+      <option name="number" value="00129" />
+      <option name="presentableId" value="LOCAL-00129" />
+      <option name="project" value="LOCAL" />
+      <updated>1725412616076</updated>
+    </task>
+    <task id="LOCAL-00130" summary="fixing new backend errors">
+      <option name="closed" value="true" />
+      <created>1725555095992</created>
+      <option name="number" value="00130" />
+      <option name="presentableId" value="LOCAL-00130" />
+      <option name="project" value="LOCAL" />
+      <updated>1725555095992</updated>
+    </task>
+    <task id="LOCAL-00131" summary="editing for new backend">
+      <option name="closed" value="true" />
+      <created>1725931740783</created>
+      <option name="number" value="00131" />
+      <option name="presentableId" value="LOCAL-00131" />
+      <option name="project" value="LOCAL" />
+      <updated>1725931740783</updated>
+    </task>
+    <task id="LOCAL-00132" summary="get messages working">
+      <option name="closed" value="true" />
+      <created>1726454267298</created>
+      <option name="number" value="00132" />
+      <option name="presentableId" value="LOCAL-00132" />
+      <option name="project" value="LOCAL" />
+      <updated>1726454267298</updated>
+    </task>
+    <task id="LOCAL-00133" summary="pulse chat working">
+      <option name="closed" value="true" />
+      <created>1727808190635</created>
+      <option name="number" value="00133" />
+      <option name="presentableId" value="LOCAL-00133" />
+      <option name="project" value="LOCAL" />
+      <updated>1727808190635</updated>
+    </task>
+    <task id="LOCAL-00134" summary="working on user to user chat">
+      <option name="closed" value="true" />
+      <created>1727889895095</created>
+      <option name="number" value="00134" />
+      <option name="presentableId" value="LOCAL-00134" />
+      <option name="project" value="LOCAL" />
+      <updated>1727889895096</updated>
+    </task>
+    <task id="LOCAL-00135" summary="working on user to user chat">
+      <option name="closed" value="true" />
+      <created>1728060255452</created>
+      <option name="number" value="00135" />
+      <option name="presentableId" value="LOCAL-00135" />
+      <option name="project" value="LOCAL" />
+      <updated>1728060255453</updated>
+    </task>
+    <task id="LOCAL-00136" summary="working on parsing message">
+      <option name="closed" value="true" />
+      <created>1728254333380</created>
+      <option name="number" value="00136" />
+      <option name="presentableId" value="LOCAL-00136" />
+      <option name="project" value="LOCAL" />
+      <updated>1728254333380</updated>
+    </task>
+    <task id="LOCAL-00137" summary="fixed parsing error">
+      <option name="closed" value="true" />
+      <created>1728264028565</created>
+      <option name="number" value="00137" />
+      <option name="presentableId" value="LOCAL-00137" />
+      <option name="project" value="LOCAL" />
+      <updated>1728264028565</updated>
+    </task>
+    <task id="LOCAL-00138" summary="added all suggestions">
+      <option name="closed" value="true" />
+      <created>1728333193682</created>
+      <option name="number" value="00138" />
+      <option name="presentableId" value="LOCAL-00138" />
+      <option name="project" value="LOCAL" />
+      <updated>1728333193682</updated>
+    </task>
+    <task id="LOCAL-00139" summary="added clearing contexts">
+      <option name="closed" value="true" />
+      <created>1728335306838</created>
+      <option name="number" value="00139" />
+      <option name="presentableId" value="LOCAL-00139" />
+      <option name="project" value="LOCAL" />
+      <updated>1728335306838</updated>
+    </task>
+    <task id="LOCAL-00140" summary="working out bugs">
+      <option name="closed" value="true" />
+      <created>1728395645132</created>
+      <option name="number" value="00140" />
+      <option name="presentableId" value="LOCAL-00140" />
+      <option name="project" value="LOCAL" />
+      <updated>1728395645133</updated>
+    </task>
+    <task id="LOCAL-00141" summary="add split up analytics into components and handle empty analytics array">
+      <option name="closed" value="true" />
+      <created>1728585227575</created>
+      <option name="number" value="00141" />
+      <option name="presentableId" value="LOCAL-00141" />
+      <option name="project" value="LOCAL" />
+      <updated>1728585227575</updated>
+    </task>
+    <task id="LOCAL-00142" summary="fixed inverted chat bug">
+      <option name="closed" value="true" />
+      <created>1728653887895</created>
+      <option name="number" value="00142" />
+      <option name="presentableId" value="LOCAL-00142" />
+      <option name="project" value="LOCAL" />
+      <updated>1728653887895</updated>
+    </task>
+    <option name="localTasksCounter" value="143" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -642,31 +688,31 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="todo details working" />
-    <MESSAGE value="delete todo working" />
-    <MESSAGE value="work on todo" />
-    <MESSAGE value="add try catch to every api call" />
-    <MESSAGE value="fixed signIn error" />
-    <MESSAGE value="added errors to all add/delete/and fetch functions" />
-    <MESSAGE value="fixed tenant code bug" />
-    <MESSAGE value="final touches" />
-    <MESSAGE value="init commit" />
-    <MESSAGE value="working on recommendations" />
-    <MESSAGE value="recommendations working" />
-    <MESSAGE value="able to scroll through todos" />
-    <MESSAGE value="Todo scrolls to selected index" />
-    <MESSAGE value="Add Homes carousel" />
-    <MESSAGE value="add UserService.ts" />
-    <MESSAGE value="ui work" />
-    <MESSAGE value="add refresh functionality to todos and tenants as leases" />
-    <MESSAGE value="add search on tenants name to lease" />
-    <MESSAGE value="Todo card ui work" />
-    <MESSAGE value="fixed lint errors" />
-    <MESSAGE value="made most recommended changes" />
-    <MESSAGE value="fixing issues" />
-    <MESSAGE value="finished fixing errors" />
-    <MESSAGE value="started analytics" />
-    <MESSAGE value="adding and getting transactions" />
-    <option name="LAST_COMMIT_MESSAGE" value="adding and getting transactions" />
+    <MESSAGE value="fix lint errors" />
+    <MESSAGE value="fixed loading bug" />
+    <MESSAGE value="income bar chart working" />
+    <MESSAGE value="Validating date inputs" />
+    <MESSAGE value="add password input component" />
+    <MESSAGE value="renaming components and for chat" />
+    <MESSAGE value="start chat integration" />
+    <MESSAGE value="split up appContext" />
+    <MESSAGE value="fixing errors" />
+    <MESSAGE value="websockets working" />
+    <MESSAGE value="storing postgres uid" />
+    <MESSAGE value="migrating to postgres id" />
+    <MESSAGE value="working on chat" />
+    <MESSAGE value="fixing new backend errors" />
+    <MESSAGE value="editing for new backend" />
+    <MESSAGE value="get messages working" />
+    <MESSAGE value="pulse chat working" />
+    <MESSAGE value="working on user to user chat" />
+    <MESSAGE value="working on parsing message" />
+    <MESSAGE value="fixed parsing error" />
+    <MESSAGE value="added all suggestions" />
+    <MESSAGE value="added clearing contexts" />
+    <MESSAGE value="working out bugs" />
+    <MESSAGE value="add split up analytics into components and handle empty analytics array" />
+    <MESSAGE value="fixed inverted chat bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed inverted chat bug" />
   </component>
 </project>

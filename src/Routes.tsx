@@ -2,7 +2,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "./Screens/Login";
 import CreateUsernameAndPassword from "./Screens/SignUp/CreateUsernameAndPassword";
 import Home from "./Screens/Home";
-import PulseAI from "./Screens/PulseAI";
+import PulseAI from "./Screens/ChatBox";
 import BottomNavigationBar from "./Screens/BottomNavigationBar";
 import AddAProperty from "./Screens/AddAProperty";
 import {auth} from "./Utils/Firebase";
@@ -19,6 +19,7 @@ import TenantCode from "./Screens/SignUp/TenantCode";
 import AddATodo from "./Screens/AddATodo";
 import TodoDetails from "./Screens/TodoDetails";
 import AddATransaction from "@src/Screens/AddATransaction";
+import Chats from "@src/Screens/Chats";
 
 
 export default function Routes() {
@@ -38,11 +39,12 @@ export default function Routes() {
 			<Screen key = "BottomNavBar" name="BottomNavBar" component={BottomNavigationBar} />,
 		];
 	}
+
 	return [
 		<Screen key = "BottomNavBar" name="BottomNavBar" component={BottomNavigationBar} />,
 		<Screen key = "AddAProperty" name="AddAProperty" component={AddAProperty} />,
 		<Screen key = "Home" name="Home" component={Home} />,
-		<Screen key = "ChatBot" name="ChatBot" component={PulseAI} />,
+		<Screen key = "ChatBox" name="ChatBox" component={PulseAI} />,
 		<Screen key = "Analytics" name="Analytics" component={Analytics} />,
 		<Screen key = "AllProperties" name="AllProperties" component={AllProperties} />,
 		<Screen key = "Leases" name="Leases" component={Leases} />,
@@ -53,6 +55,6 @@ export default function Routes() {
 		<Screen key = "EnterTenantCode" name = "EnterTenantCode" component = {TenantCode}/>,
 		<Screen key = "AddAUser" name="AddAUser" component={AddATenant} />,
 		<Screen key = "AddATransaction" name="AddATransaction" component={AddATransaction} />,
-
+		<Screen key = "Chats" name="Chats" component={Chats} />,
 	];
 }

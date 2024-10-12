@@ -2,18 +2,19 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Home from "./Home";
 import Settings from "./Settings";
-import PulseAI from "./PulseAI";
 import { StyleSheet } from "react-native";
 import { observer } from "mobx-react-lite";
 import Analytics from "./Analytics";
 import Leases from "./Leases";
-import {useAppContext} from "../Contexts/AppContext";
 import YourLease from "./YourLease";
 import _ from "lodash";
+import Chats from "@src/Screens/Chats";
+import {usePropertyContext} from "@src/Contexts/PropertyContext";
 
 function BottomNavigationBar() {
 	const Tab = createBottomTabNavigator();
-	const appContext = useAppContext();
+	const propertyContext = usePropertyContext();
+	if (_.isNull(propertyContext)) return null;
 	return (
 		<Tab.Navigator
 			initialRouteName={"Home"}
@@ -32,8 +33,8 @@ function BottomNavigationBar() {
 						iconName = focused ? "settings" : "settings-outline";
 					} else if (rn === "Analytics") {
 						iconName = focused ? "stats-chart" : "stats-chart-outline";
-					} else if (rn === "AI") {
-						iconName = focused ? "sparkles" : "sparkles-outline";
+					} else if (rn === "Chat") {
+						iconName = focused ? "chatbox-ellipses" : "chatbox-ellipses-outline";
 					}else if (rn === "Lease") {
 						iconName = focused ? "albums" : "albums-outline";
 					} else if (rn === "Your Lease") {
@@ -43,23 +44,21 @@ function BottomNavigationBar() {
 						return <Ionicons name={iconName} size={32} color={color}/>;
 					}
 				},
-			})}
-		>
+			})}>
 			<Tab.Screen name={"Home"} component={Home} />
 			{
-				(!appContext.SelectedProperty?.isCurrentUserTenant && !_.isNull(appContext.SelectedProperty) && appContext.SelectedProperty.isRental) ? (
+				(!propertyContext.selectedProperty?.isCurrentUserTenant && !_.isNull(propertyContext.selectedProperty) && propertyContext.selectedProperty.isRental) ? (
 					<Tab.Screen name={"Lease"} component={Leases} />
-				) : (appContext.SelectedProperty?.isRental) ? (
+				) : (propertyContext.selectedProperty?.isRental) ? (
 					<Tab.Screen name={"Your Lease"} component={YourLease} />
 				) : null
 			}
-			<Tab.Screen name={"AI"} component={PulseAI} />
+			<Tab.Screen name={"Chat"} component={Chats} />
 			{
-				(!appContext.SelectedProperty?.isCurrentUserTenant && !_.isNull(appContext.SelectedProperty) && appContext.SelectedProperty.isRental) ? (
+				(!propertyContext.selectedProperty?.isCurrentUserTenant && !_.isNull(propertyContext.selectedProperty) && propertyContext.selectedProperty.isRental) ? (
 					<Tab.Screen name={"Analytics"} component={Analytics} />
 				):null
 			}
-
 			<Tab.Screen name={"Settings"} component={Settings} />
 		</Tab.Navigator>
 	);

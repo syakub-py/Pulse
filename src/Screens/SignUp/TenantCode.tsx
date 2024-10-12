@@ -1,45 +1,34 @@
 import {observer} from "mobx-react-lite";
-import Layout from "../../Components/Layout";
+import Layout from "../../Components/GlobalComponents/Layout";
 import {Button, TextInput, View, StyleSheet, Pressable, Text} from "react-native";
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useState} from "react";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
-import TenantService from "../../Utils/Services/TenantService";
-import Header from "../../Components/Header";
-import BackButton from "../../Components/BackButton";
+import Header from "../../Components/GlobalComponents/Header";
+import BackButton from "../../Components/GlobalComponents/BackButton";
 import {useAuthContext} from "@src/Contexts/AuthContext";
-import {useAppContext} from "@src/Contexts/AppContext";
-import isHTTPError from "@src/Utils/HttpError";
+import {useTenantContext} from "@src/Contexts/TenantContext";
+import _ from "lodash";
+
 
 
 function TenantCode() {
 	const [code, setCode] = useState("");
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "EnterTenantCode">>();
 	const authContext = useAuthContext();
-	const appContext = useAppContext();
-
-
+	const tenantContext = useTenantContext();
 	const handleCodeSubmit = useCallback(async () => {
+		if (_.isNull(tenantContext)) return;
 		if (code.length !== 6) {
 			alert("Please make sure the code is six digits");
 			return;
 		}
-
-		const isCodeValidResponse = await TenantService.isCodeValid(code);
-
-		if (isHTTPError(isCodeValidResponse)) {
-			alert(isCodeValidResponse.message);
-			return;
-		}
-
-		if (!isCodeValidResponse.isValid) {
-			alert("Invalid code or code expired");
-			return;
-		}
-
-		authContext.setLeaseId(isCodeValidResponse.lease_id);
+		const tenantCodeResponse = await tenantContext.checkTenantCode(code);
+		if (_.isUndefined(tenantCodeResponse)) return;
+		authContext.setLeaseId(tenantCodeResponse.lease_id);
 		navigation.navigate("AddAUser");
-	}, [code, authContext, navigation]);
+
+	}, [tenantContext, code, authContext, navigation]);
 
 	return (
 		<Layout>

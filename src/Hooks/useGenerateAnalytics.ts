@@ -1,24 +1,19 @@
 import {useCallback, useEffect} from "react";
-import {useAppContext} from "../Contexts/AppContext";
 import _ from "lodash";
-import AnalyticsService from "@src/Utils/Services/AnalyticsService";
-import isHTTPError from "@src/Utils/HttpError";
+import {usePropertyContext} from "@src/Contexts/PropertyContext";
+import {useAnalyticContext} from "@src/Contexts/AnalyticContext";
 
 export default function useGenerateAnalytics(){
-	const appContext = useAppContext();
+	const propertyContext = usePropertyContext();
+	const analyticContext = useAnalyticContext();
+
 	const fetchData = useCallback(async ()=> {
-		if (_.isNull(appContext.SelectedProperty) || _.isUndefined(appContext.SelectedProperty.PropertyId) || !appContext.SelectedProperty.isRental) return;
-		const response = await AnalyticsService.getExpenseAnalytics(appContext.SelectedProperty.PropertyId);
-		if (isHTTPError(response)){
-			alert(response.message);
-			return;
-		}
-		appContext.setExpenseAnalyticData(response as ExpenseAnalytic[]);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	},[]);
+		if (_.isNull(propertyContext?.selectedProperty) || _.isNull(propertyContext) || _.isNull(analyticContext) || _.isUndefined(propertyContext.selectedProperty.PropertyId) || !propertyContext.selectedProperty.isRental) return;
+		await analyticContext.getAnalytics(propertyContext.selectedProperty.PropertyId);
+	},[analyticContext, propertyContext]);
 
 	useEffect(() => {
 		void fetchData();
-	}, [fetchData, appContext.SelectedProperty, appContext.Transactions]);
+	}, [fetchData, propertyContext?.selectedProperty, analyticContext?.Transactions]);
 }
 

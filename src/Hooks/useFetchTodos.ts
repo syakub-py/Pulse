@@ -1,34 +1,26 @@
-import {useAppContext} from "../Contexts/AppContext";
-import {useAuthContext} from "../Contexts/AuthContext";
-import {useCallback, useEffect} from "react";
 import _ from "lodash";
-import TodoService from "../Utils/Services/TodoService";
-import isHTTPError from "@src/Utils/HttpError";
+import {useCallback, useEffect} from "react";
+import {useAuthContext} from "../Contexts/AuthContext";
+import {usePropertyContext} from "@src/Contexts/PropertyContext";
+import {useTodoContext} from "@src/Contexts/TodoContext";
 
 export default function useFetchTodos(){
-	const appContext = useAppContext();
+	const propertyContext = usePropertyContext();
+	const todoContext = useTodoContext();
 	const authContext = useAuthContext();
 
 	const fetchTodos = useCallback(async () => {
 		try {
-			if (_.isEmpty(authContext.uid) || _.isUndefined(appContext.SelectedProperty?.PropertyId)) return;
-
-			const response = await TodoService.getTodos(appContext.SelectedProperty.PropertyId);
-			if (isHTTPError(response)) {
-				alert(response.message);
-				return;
-			}
-
-			appContext.setSelectedPropertyTodos(response as Todo[]);
+			if (_.isEmpty(authContext.firebase_uid) || authContext.postgres_uid === 0 || _.isNull(propertyContext)  || _.isNull(todoContext)|| _.isUndefined(propertyContext.selectedProperty?.PropertyId)) return;
+			await todoContext.getSelectedPropertyTodos(propertyContext.selectedProperty.PropertyId);
 		} catch (error) {
 			console.error("error fetching todos: " + error);
 		}
-		/* eslint-disable react-hooks/exhaustive-deps */
-	}, []);
+	}, [authContext.firebase_uid, authContext.postgres_uid, propertyContext, todoContext]);
 
 	useEffect(() => {
 		void fetchTodos();
-	}, [authContext.uid, appContext.SelectedProperty, fetchTodos]);
+	}, [authContext.firebase_uid, propertyContext?.selectedProperty?.PropertyId, fetchTodos]);
 
 	return fetchTodos;
 }

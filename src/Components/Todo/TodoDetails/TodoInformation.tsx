@@ -1,9 +1,10 @@
 import {ActivityIndicator, Dimensions, ScrollView, StyleSheet, Text, View} from "react-native";
-import Header from "@src/Components/Header";
+import Header from "@src/Components/GlobalComponents/Header";
 import SubHeader from "@src/Components/Analytics/SubHeader";
 import RecommendationsCard from "@src/Components/Todo/RecommendationsCard";
 import React from "react";
-import BackButton from "@src/Components/BackButton";
+import BackButton from "@src/Components/GlobalComponents/BackButton";
+import _ from "lodash";
 
 interface Props {
 	todo: Todo;
@@ -36,6 +37,11 @@ export default function TodoInformation(props: Props) {
 					<RecommendationsCard recommendation={todo} key={todo.name}/>
 				))
 			)}
+			{
+				(!isLoading && _.isEmpty(recommendations)) ? (
+					<Text>Couldnt find any recommendations for this Todo</Text>
+				):null
+			}
 			<Text style={styles.addedBy}>Added by: {todo.AddedBy}</Text>
 
 		</ScrollView>
@@ -53,7 +59,7 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 	},
 	content: {
-		width: Dimensions.get("window").width
+		width: Dimensions.get("window").width,
 	},
 	title: {
 		fontSize: 24,

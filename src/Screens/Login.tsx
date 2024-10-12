@@ -5,6 +5,7 @@ import {observer} from "mobx-react-lite";
 import {LinearGradient} from "expo-linear-gradient";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
+import PasswordInput from "@src/Components/GlobalComponents/PasswordInput";
 
 function Login() {
 	const [username, setUsername] = useState("");
@@ -35,12 +36,7 @@ function Login() {
 							onChangeText={(email) => { setUsername(email); }}
 							style={styles.input}
 						/>
-						<TextInput
-							placeholder='Password'
-							onChangeText={(password) => { setPassword(password); }}
-							style={styles.input}
-							secureTextEntry
-						/>
+						<PasswordInput setPassword={setPassword}/>
 						<Button title='Login' onPress={loginCallback} />
 						<Text style={styles.registerText} onPress={()=>navigation.navigate("CreateUsernameAndPassword")}>Dont have an account? Register here</Text>
 					</View>
@@ -59,11 +55,13 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 10,
 		backgroundColor: "white",
 		borderRadius: 15,
+		width:"90%",
 	},
 	container:{
 		flex: 1,
 	},
 	inputContainer: {
+		alignItems:"center",
 		justifyContent: "center",
 	},
 	loginText: {

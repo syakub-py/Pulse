@@ -1,26 +1,29 @@
-import {useEffect, useCallback} from "react";
-import AsyncStorageClass from "../Classes/AsyncStorage";
-import ChatService from "../Utils/Services/ChatService";
-import {useAppContext} from "../Contexts/AppContext";
+import {useCallback} from "react";
 import _ from "lodash";
 import {useAuthContext} from "../Contexts/AuthContext";
+import {useApiClientContext} from "../Contexts/PulseApiClientContext";
+import {useChatContext} from "@src/Contexts/ChatContext";
 
 export default function useFetchChatMessages() {
-	const appContext = useAppContext();
 	const authContext = useAuthContext();
+	const chatContext = useChatContext();
+	const apiClientContext = useApiClientContext();
 
-	const fetchMessages = useCallback(async () => {
-		const chatId = await AsyncStorageClass.getDataFromStorage("chatId");
-		if (_.isUndefined(chatId)) return;
+	return useCallback(async (chat: Chat) => {
+		if (_.isNull(chatContext)) return;
+		try {
+			const fetchedMessages = await apiClientContext.chatService.getMessages(chat.chatId);
+			if (_.isUndefined(fetchedMessages)) return;
 
-		const messages = await ChatService.getMessages(chatId);
+			fetchedMessages.forEach(item => {
+				item.user._id = item.user.name === authContext.username ? 1 : 0;
+			});
 
-		if (_.isUndefined(messages)) return;
-		appContext.setMessages(messages);
-		/* eslint-disable react-hooks/exhaustive-deps */
-	}, [authContext.isLoggedIn]);
-
-	useEffect(() => {
-		void fetchMessages();
-	}, [fetchMessages]);
+			chat.Messages = fetchedMessages.sort((a, b) =>
+				new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+			);
+		} catch (error) {
+			console.error("Error fetching messages:", error);
+		}
+	}, [apiClientContext.chatService, authContext.username, chatContext]);
 }

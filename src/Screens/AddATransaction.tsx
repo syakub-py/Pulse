@@ -1,18 +1,22 @@
 import {observer} from "mobx-react-lite";
-import Layout from "@src/Components/Layout";
-import Header from "@src/Components/Header";
-import BackButton from "@src/Components/BackButton";
-import {useAppContext} from "@src/Contexts/AppContext";
+import Layout from "@src/Components/GlobalComponents/Layout";
+import Header from "@src/Components/GlobalComponents/Header";
+import BackButton from "@src/Components/GlobalComponents/BackButton";
 import React, {useCallback, useState} from "react";
 import {useAuthContext} from "@src/Contexts/AuthContext";
 import {View, StyleSheet, TextInput, ActivityIndicator, Button, Dimensions} from "react-native";
 import DropdownPicker, {ItemType} from "react-native-dropdown-picker";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
+import ValidateDateInput from "@src/Utils/ValidateInputs/ValidateDateInput";
+import {usePropertyContext} from "@src/Contexts/PropertyContext";
+import {useAnalyticContext} from "@src/Contexts/AnalyticContext";
+import _ from "lodash";
 
 function AddATransaction() {
-	const appContext = useAppContext();
+	const propertyContext = usePropertyContext();
 	const authContext = useAuthContext();
+	const analyticsContext = useAnalyticContext();
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "AddATransaction">>();
 	const [transactionDetails, setTransactionDetails] = useState<PropertyTransaction>({
 		amount: 0,
@@ -48,18 +52,23 @@ function AddATransaction() {
 	const handleSubmit = useCallback(async () => {
 		setIsLoading(true);
 		try {
-			transactionDetails.propertyId = appContext.SelectedProperty?.PropertyId;
-			transactionDetails.userId = authContext.uid;
+			if (_.isNull(propertyContext) || _.isNull(analyticsContext)) return;
+			if (!ValidateDateInput(transactionDetails.date)) {
+				alert("Invalid Date");
+				return;
+			}
+			transactionDetails.propertyId = propertyContext.selectedProperty?.PropertyId;
+			transactionDetails.userId = authContext.firebase_uid;
 			transactionDetails.incomeOrExpense = incomeOrExpense;
 			transactionDetails.transactionType = transactionType;
-			await appContext.addTransaction(transactionDetails);
+			await analyticsContext.addTransaction(transactionDetails);
+			navigation.goBack();
 		} catch (error) {
 			console.error("Failed to add transaction:", error);
 		} finally {
 			setIsLoading(false);
-			navigation.goBack();
 		}
-	}, [transactionDetails, appContext, authContext.uid, incomeOrExpense, transactionType, navigation]);
+	}, [propertyContext, analyticsContext, transactionDetails, authContext.firebase_uid, incomeOrExpense, transactionType, navigation]);
 
 	const handleInputChange = (field: keyof PropertyTransaction, value: string | number) => {
 		setTransactionDetails((prev) => ({ ...prev, [field]: value }));

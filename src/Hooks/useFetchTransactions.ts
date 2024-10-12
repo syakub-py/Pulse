@@ -1,32 +1,34 @@
-import {useAppContext} from "../Contexts/AppContext";
-import {useAuthContext} from "../Contexts/AuthContext";
-import {useCallback, useEffect} from "react";
 import _ from "lodash";
+import {useCallback, useEffect} from "react";
+import {useAuthContext} from "../Contexts/AuthContext";
 import isHTTPError from "@src/Utils/HttpError";
-import TransactionService from "@src/Utils/Services/TransactionService";
+import { useApiClientContext } from "../Contexts/PulseApiClientContext";
+import {usePropertyContext} from "@src/Contexts/PropertyContext";
+import {useAnalyticContext} from "@src/Contexts/AnalyticContext";
 
 export default function useFetchTransactions(){
-	const appContext = useAppContext();
+	const propertyContext = usePropertyContext();
+	const transactionContext = useAnalyticContext();
 	const authContext = useAuthContext();
+	const apiClientContext = useApiClientContext();
 
 	const fetchTransactions = useCallback(async () => {
 		try {
-			if (_.isEmpty(authContext.uid) || _.isUndefined(appContext.SelectedProperty?.PropertyId)) return;
+			if (_.isEmpty(authContext.firebase_uid) || _.isNull(propertyContext)|| _.isNull(transactionContext) || _.isUndefined(propertyContext.selectedProperty?.PropertyId)) return;
 
-			const response = await TransactionService.getTransaction(appContext.SelectedProperty.PropertyId);
+			const response = await apiClientContext.transactionService.getTransaction(propertyContext.selectedProperty.PropertyId);
 			if (isHTTPError(response)) {
 				alert(response.message);
 				return;
 			}
 
-			appContext.setTransactions(response as PropertyTransaction[]);
+			transactionContext.setTransactions(response as PropertyTransaction[]);
 		} catch (error) {
 			console.error("error fetching Transactions: " + error);
 		}
-		/* eslint-disable react-hooks/exhaustive-deps */
-	}, []);
+	}, [apiClientContext.transactionService, authContext.firebase_uid, propertyContext, transactionContext]);
 
 	useEffect(() => {
 		void fetchTransactions();
-	}, [appContext.SelectedProperty, fetchTransactions]);
+	}, [propertyContext?.selectedProperty, fetchTransactions]);
 }

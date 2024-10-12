@@ -8,6 +8,7 @@ import _ from "lodash";
 export default function useGetAllDataFromStorage() {
 	const authContext = useAuthContext();
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+
 	useEffect(() => {
 		const determineInitialRoute = async () => {
 			try {
@@ -18,10 +19,10 @@ export default function useGetAllDataFromStorage() {
 				}
 				const user = await auth.signInWithEmailAndPassword(authContext.username, authContext.password);
 				if (_.isNull(user.user)) return;
-				authContext.setUid(user.user.uid);
+				authContext.setFirebaseUid(user.user.uid);
 				authContext.setProfilePicture(auth.currentUser?.photoURL);
 			} catch (FirebaseError) {
-				await authContext.logout();
+				await authContext.clearContextAndFirebaseLogout();
 				navigation.navigate("Login");
 			}
 		};

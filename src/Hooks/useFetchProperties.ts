@@ -1,25 +1,17 @@
 import {useCallback, useEffect} from "react";
-import PropertyService from "../Utils/Services/PropertyService";
 import _ from "lodash";
 import {useAuthContext} from "../Contexts/AuthContext";
-import {useAppContext} from "../Contexts/AppContext";
-import isHTTPError from "@src/Utils/HttpError";
+import {usePropertyContext} from "@src/Contexts/PropertyContext";
 
 
 export default function useFetchProperties() {
-	const appContext = useAppContext();
+	const propertyContext = usePropertyContext();
 	const authContext = useAuthContext();
 
 	const fetchProperties = useCallback(async () => {
-		if (_.isEmpty(authContext.uid)) return;
-		const properties = await PropertyService.getProperty(authContext.uid);
-		if (isHTTPError(properties)) {
-			alert(properties.message);
-			return;
-		}
-		appContext.setProperties(properties as Property[]);
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [authContext.uid]);
+		if (_.isNull(authContext.postgres_uid) || _.isNull(propertyContext) || authContext.postgres_uid === 0) return;
+		await propertyContext.getProperty(authContext.postgres_uid);
+	}, [authContext.postgres_uid, propertyContext]);
 
 	useEffect(() => {
 		void fetchProperties();

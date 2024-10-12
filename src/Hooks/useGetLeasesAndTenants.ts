@@ -1,55 +1,39 @@
 import {useCallback, useEffect} from "react";
-import {useAppContext} from "../Contexts/AppContext";
 import {useAuthContext} from "../Contexts/AuthContext";
 import _ from "lodash";
-import LeaseService from "../Utils/Services/LeaseService";
-import TenantService from "../Utils/Services/TenantService";
-import isHTTPError from "@src/Utils/HttpError";
+import {useLeaseContext} from "@src/Contexts/LeaseContext";
+import {usePropertyContext} from "@src/Contexts/PropertyContext";
+import {useTenantContext} from "@src/Contexts/TenantContext";
 
 export default function useGetLeasesAndTenants() {
-	const appContext = useAppContext();
+	const leaseContext = useLeaseContext();
+	const propertyContext = usePropertyContext();
+	const tenantContext = useTenantContext();
 	const authContext = useAuthContext();
 
 	const fetchLeasesAndTenants = useCallback(async () => {
+		if (_.isNull(propertyContext) || _.isNull(leaseContext) || _.isNull(tenantContext) || authContext.postgres_uid === 0) return;
+
 		try {
 			if (
-				_.isEmpty(authContext.uid) ||
-				_.isUndefined(appContext.SelectedProperty?.PropertyId) ||
-				!appContext.SelectedProperty.isRental
+				_.isEmpty(authContext.firebase_uid) ||
+				_.isUndefined(propertyContext.selectedProperty?.PropertyId) ||
+				!propertyContext.selectedProperty.isRental
 			) return;
 
-			const leaseResponse = await LeaseService.getLeases(appContext.SelectedProperty.PropertyId);
-			if (isHTTPError(leaseResponse)) {
-				alert(leaseResponse.message);
-				return;
-			}
+			await leaseContext.getLeases(propertyContext.selectedProperty.PropertyId, tenantContext.tenants);
+			await tenantContext.getTenants(authContext.postgres_uid);
 
-			if (_.isEmpty(appContext.Tenants)){
-				const tenantResponse= await TenantService.getTenants(authContext.uid);
-				if (isHTTPError(tenantResponse)){
-					alert(tenantResponse.message);
-					return;
-				}
-				appContext.setTenants(tenantResponse as User[]);
-			}
-
-			if (!_.isNil(leaseResponse)){
-				const leases = JSON.parse(leaseResponse.toString()) as Lease[];
-				appContext.setPropertyLeases(leases.map(lease => {
-					const matchingTenant = appContext.Tenants.find(tenant => tenant.LeaseId === lease.LeaseId);
-					return !_.isUndefined(matchingTenant) ? { ...lease, TenantName: matchingTenant.Name } : lease;
-				}));
-			}
 		} catch (error) {
 			console.error("error retrieving tenants and leases" + error);
 		} finally {
 			authContext.isLoadingAuth = false;
 		}
-		/* eslint-disable react-hooks/exhaustive-deps */
-	}, []);
+	}, [authContext, leaseContext, propertyContext, tenantContext]);
 
 	useEffect(() => {
 		void fetchLeasesAndTenants();
-	}, [authContext.uid, appContext.SelectedProperty, fetchLeasesAndTenants]);
+	}, [authContext.firebase_uid, propertyContext?.selectedProperty, fetchLeasesAndTenants]);
+
 	return fetchLeasesAndTenants;
 }
