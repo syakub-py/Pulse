@@ -4,8 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="add split up analytics into components and handle empty analytics array">
+    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="fixed inverted chat bug">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/env.ts" beforeDir="false" afterPath="$PROJECT_DIR$/env.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Classes/PulseHTTPClient.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Classes/PulseHTTPClient.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Analytics/IncomeBarGraph.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Analytics/IncomeBarGraph.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Home/Properties.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Home/Properties.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contexts/AuthContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/AuthContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contexts/LeaseContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/LeaseContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hooks/useFetchTodos.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useFetchTodos.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hooks/useGetLeasesAndTenants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useGetLeasesAndTenants.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/AddALease.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/AddALease.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/AddAProperty.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/AddAProperty.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/AddATodo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/AddATodo.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Screens/ChatBox.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/ChatBox.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -263,15 +274,8 @@
       <workItem from="1728481943507" duration="438000" />
       <workItem from="1728484995783" duration="2589000" />
       <workItem from="1728581173414" duration="4462000" />
-      <workItem from="1728652980565" duration="128000" />
-    </task>
-    <task id="LOCAL-00093" summary="fixed tenant code bug">
-      <option name="closed" value="true" />
-      <created>1724032632242</created>
-      <option name="number" value="00093" />
-      <option name="presentableId" value="LOCAL-00093" />
-      <option name="project" value="LOCAL" />
-      <updated>1724032632242</updated>
+      <workItem from="1728652980565" duration="10611000" />
+      <workItem from="1728750017694" duration="1941000" />
     </task>
     <task id="LOCAL-00094" summary="final touches">
       <option name="closed" value="true" />
@@ -657,7 +661,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728585227575</updated>
     </task>
-    <option name="localTasksCounter" value="142" />
+    <task id="LOCAL-00142" summary="fixed inverted chat bug">
+      <option name="closed" value="true" />
+      <created>1728653887895</created>
+      <option name="number" value="00142" />
+      <option name="presentableId" value="LOCAL-00142" />
+      <option name="project" value="LOCAL" />
+      <updated>1728653887895</updated>
+    </task>
+    <option name="localTasksCounter" value="143" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -676,7 +688,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="adding and getting transactions" />
     <MESSAGE value="fix lint errors" />
     <MESSAGE value="fixed loading bug" />
     <MESSAGE value="income bar chart working" />
@@ -701,6 +712,7 @@
     <MESSAGE value="added clearing contexts" />
     <MESSAGE value="working out bugs" />
     <MESSAGE value="add split up analytics into components and handle empty analytics array" />
-    <option name="LAST_COMMIT_MESSAGE" value="add split up analytics into components and handle empty analytics array" />
+    <MESSAGE value="fixed inverted chat bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed inverted chat bug" />
   </component>
 </project>

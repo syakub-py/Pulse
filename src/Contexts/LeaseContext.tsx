@@ -25,7 +25,7 @@ class LeaseContextClass {
 			alert(leaseResponse.message);
 			return;
 		}
-		const leases = JSON.parse(leaseResponse.toString()) as Lease[];
+		const leases = leaseResponse as Lease[];
 		this.setPropertyLeases(leases.map(lease => {
 			const matchingTenant = tenantArray.find(tenant => tenant.leaseId === lease.LeaseId);
 			return !_.isUndefined(matchingTenant) ? { ...lease, TenantName: matchingTenant.Name } : lease;

@@ -41,7 +41,11 @@ function Properties() {
 
 	return (
 		<View>
-			<HomesCarousel selectedIndex={selectedIndex} scrollToActiveIndex={scrollToActiveIndex}/>
+			{
+				(propertyContext.properties.length > 1)? (
+					<HomesCarousel selectedIndex={selectedIndex} scrollToActiveIndex={scrollToActiveIndex}/>
+				):null
+			}
 			<Animated.FlatList
 				data={propertyContext.properties}
 				horizontal={true}

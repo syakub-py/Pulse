@@ -42,7 +42,6 @@ function ChatBox(props: Props) {
 			setLoading(false);
 
 			if (_.isNull(chatContext) || _.isUndefined(selectedChat.OtherUserDetails.id) || selectedChat.OtherUserDetails.Name === "Pulse AI") return;
-
 			const ws = new WebSocket(`ws://127.0.0.1:8000/ws/?senderUserToken=${authContext.postgres_uid}&receiverUserToken=${selectedChat.OtherUserDetails.id}`);
 
 			ws.onopen = () => {
@@ -71,7 +70,7 @@ function ChatBox(props: Props) {
 				ws.close();
 			};
 		};
-		initChat();
+		void initChat();
 	}, [selectedChat, chatContext, authContext, fetchChatMessages]);
 
 	const onSend = useCallback(async (newMessages: IMessage[]) => {

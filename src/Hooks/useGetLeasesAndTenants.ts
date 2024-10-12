@@ -1,13 +1,9 @@
 import {useCallback, useEffect} from "react";
-import {useAppContext} from "../Contexts/AppContext";
 import {useAuthContext} from "../Contexts/AuthContext";
 import _ from "lodash";
-import isHTTPError from "@src/Utils/HttpError";
-import { useApiClientContext } from "../Contexts/PulseApiClientContext";
 import {useLeaseContext} from "@src/Contexts/LeaseContext";
 import {usePropertyContext} from "@src/Contexts/PropertyContext";
 import {useTenantContext} from "@src/Contexts/TenantContext";
-import leases from "@src/Screens/Leases";
 
 export default function useGetLeasesAndTenants() {
 	const leaseContext = useLeaseContext();

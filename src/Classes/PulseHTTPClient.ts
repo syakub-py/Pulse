@@ -1,12 +1,11 @@
-import _ from "lodash";
 import axios, { AxiosInstance } from "axios";
-
+import config from "../../env";
 export default class PulseHttpClient {
 	public readonly http: AxiosInstance;
 
 	constructor() {
 		this.http = axios.create({
-			baseURL: "http://127.0.0.1:8000",
+			baseURL: config.BASE_URL,
 			// withCredentials: true,
 			headers: {
 				"Content-Type": "application/json",

@@ -65,13 +65,7 @@ function AddATodo(){
 			Status: "Not Seen",
 			AddedBy: authContext.username,
 		});
-	}, [
-		propertyContext,
-		todoDetails,
-		navigation,
-		selectedPriority,
-		authContext.username
-	]);
+	}, [propertyContext, todoContext, todoDetails, navigation, selectedPriority, authContext.username]);
 
 	return(
 		<Layout>

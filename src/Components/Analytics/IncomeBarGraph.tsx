@@ -53,7 +53,7 @@ const chartConfig ={
 		strokeWidth: "2",
 		stroke: "#ffa726",
 	},
-}
+};
 
 const styles = StyleSheet.create({
 	text: {

@@ -68,7 +68,7 @@ function AddALease() {
 	    } catch (error) {
 	        console.error("error adding a lease" + error);
 	    }
-	}, [leaseContext, leaseDetails, tenantEmail, newLeases, setLeaseDetails]);
+	}, [propertyContext, leaseContext, leaseDetails, tenantEmail, newLeases]);
 
 	const handleSubmit = () =>{
 		navigation.navigate("BottomNavBar");

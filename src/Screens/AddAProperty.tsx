@@ -53,7 +53,7 @@ function AddAProperty() {
 	    } else {
 	        navigation.navigate("BottomNavBar");
 	    }
-	}, [selectedPropertyType, propertyContext, propertyDetails, navigation]);
+	}, [propertyContext, propertyDetails, selectedPropertyType, authContext.postgres_uid, navigation]);
 
 	return (
 		<SafeAreaView style={styles.container}>

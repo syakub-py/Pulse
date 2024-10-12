@@ -20,7 +20,7 @@ export default function useFetchTodos(){
 
 	useEffect(() => {
 		void fetchTodos();
-	}, [authContext.firebase_uid, propertyContext?.selectedProperty, fetchTodos]);
+	}, [authContext.firebase_uid, propertyContext?.selectedProperty?.PropertyId, fetchTodos]);
 
 	return fetchTodos;
 }
