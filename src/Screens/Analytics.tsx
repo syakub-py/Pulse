@@ -19,14 +19,13 @@ function Analytics(){
 	return (
 		<Layout>
 			<Header title={"Your Analytics"} />
-			<SubHeader title={"Transactions"} />
-			<TransactionList/>
 			<ScrollView>
+				<ExpensePieChart/>
 				<SubHeader title={"Income"} />
 				<IncomeBarGraph/>
 				<SubHeader title={"Expense Breakdown"} />
-				<ExpensePieChart/>
 			</ScrollView>
+			<TransactionList/>
 			<FloatingActionButton
 				onPress={() => navigation.navigate("AddATransaction")}
 				icon={"add"}

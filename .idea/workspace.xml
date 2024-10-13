@@ -6,18 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="fixed inverted chat bug">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env.ts" beforeDir="false" afterPath="$PROJECT_DIR$/env.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Classes/PulseHTTPClient.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Classes/PulseHTTPClient.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Analytics/IncomeBarGraph.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Analytics/IncomeBarGraph.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Home/Properties.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Home/Properties.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contexts/AuthContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/AuthContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contexts/LeaseContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/LeaseContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hooks/useFetchTodos.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useFetchTodos.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hooks/useGetLeasesAndTenants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useGetLeasesAndTenants.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screens/AddALease.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/AddALease.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screens/AddAProperty.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/AddAProperty.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screens/AddATodo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/AddATodo.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screens/ChatBox.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/ChatBox.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Analytics/ExpensePieChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Analytics/ExpensePieChart.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Analytics/TransactionList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Analytics/TransactionList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/Analytics.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/Analytics.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +26,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="TodoIntegration" />
+        <entry key="$PROJECT_DIR$" value="Development" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -61,21 +52,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;#20 on Development&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/boss/Programming Projects/Pulse/assets/DefaultPictures&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;npm.start.executor&quot;: &quot;Run&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Users/boss/Programming Projects/Pulse/node_modules/typescript/lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "UiUxUpdates",
+    "last_opened_file_path": "/Users/boss/Programming Projects/Pulse/assets/DefaultPictures",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "npm.start.executor": "Run",
+    "ts.external.directory.path": "/Users/boss/Programming Projects/Pulse/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/assets/DefaultPictures" />
