@@ -11,7 +11,7 @@ export default function validateEmailAndPassword(username: string, password: str
 		alert("Please enter a valid email address.");
 		return false;
 	}
-	if (!requirements.every(requirement => requirement.fulfilled)) {
+	if (!requirements.every(requirement => requirement.fulfilled(password))) {
 		alert("Make sure the password meets all requirements.");
 		return false;
 	}
