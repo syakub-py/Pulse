@@ -13,7 +13,6 @@ function IncomeBarGraph() {
 			<Text style={styles.text}>No Income analytics for this property</Text>
 		);
 	}
-
 	return(
 		<BarChart
 			data={{
@@ -26,37 +25,35 @@ function IncomeBarGraph() {
 					},
 				],
 			}}
-			width={Dimensions.get("window").width - 16}
 			height={300}
-			fromZero={true}
 			yAxisLabel="$"
-			yAxisSuffix="k"
+			yAxisSuffix=""
+			fromZero={true}
+			width={Dimensions.get("window").width}
 			chartConfig={chartConfig}
-			verticalLabelRotation={30}
+			verticalLabelRotation={0}
+			style={styles.chartStyle}
 		/>
 	);
 }
 
 export default observer(IncomeBarGraph);
 
-const chartConfig ={
+const chartConfig = {
 	backgroundGradientFrom: "#1e1e1e",
 	backgroundGradientTo: "#1e1e1e",
-	decimalPlaces: 2,
-	color: (opacity = 1) => `rgba(255, 165, 0, ${opacity})`,
+	decimalPlaces: 0,
+	color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
 	labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-	style: {
-		borderRadius: 16,
-	},
-	propsForDots: {
-		r: "6",
-		strokeWidth: "2",
-		stroke: "#ffa726",
-	},
+	propsForLabels: { fontSize: 10 }  // Reduce label font size
 };
 
 const styles = StyleSheet.create({
 	text: {
 		color:"white"
+	},
+	chartStyle:{
+		paddingRight:40,
+		width:Dimensions.get("window").width,
 	}
 });

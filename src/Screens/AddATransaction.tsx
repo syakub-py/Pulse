@@ -58,7 +58,7 @@ function AddATransaction() {
 				return;
 			}
 			transactionDetails.propertyId = propertyContext.selectedProperty?.PropertyId;
-			transactionDetails.userId = authContext.firebase_uid;
+			transactionDetails.userId = authContext.firebaseUid;
 			transactionDetails.incomeOrExpense = incomeOrExpense;
 			transactionDetails.transactionType = transactionType;
 			await analyticsContext.addTransaction(transactionDetails);
@@ -68,7 +68,7 @@ function AddATransaction() {
 		} finally {
 			setIsLoading(false);
 		}
-	}, [propertyContext, analyticsContext, transactionDetails, authContext.firebase_uid, incomeOrExpense, transactionType, navigation]);
+	}, [propertyContext, analyticsContext, transactionDetails, authContext.firebaseUid, incomeOrExpense, transactionType, navigation]);
 
 	const handleInputChange = (field: keyof PropertyTransaction, value: string | number) => {
 		setTransactionDetails((prev) => ({ ...prev, [field]: value }));

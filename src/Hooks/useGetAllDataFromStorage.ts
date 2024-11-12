@@ -1,5 +1,5 @@
 import {useEffect} from "react";
-import {auth} from "../Utils/Firebase";
+import {auth} from "../Utils/FirebaseConfig";
 import {useAuthContext} from "../Contexts/AuthContext";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
@@ -14,7 +14,7 @@ export default function useGetAllDataFromStorage() {
 			try {
 				await authContext.getAuthDataFromStorage();
 				if (!authContext.isLoggedIn) {
-					authContext.isLoadingAuth = false;
+					authContext.isAuthInLoadingState = false;
 					return;
 				}
 				const user = await auth.signInWithEmailAndPassword(authContext.username, authContext.password);

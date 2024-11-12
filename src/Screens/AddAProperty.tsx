@@ -43,7 +43,7 @@ function AddAProperty() {
 		if (_.isNull(propertyContext)) return;
 
 	    propertyDetails.PropertyType = selectedPropertyType;
-	    const isAddPropertySuccessful = await propertyContext.addProperty(authContext.postgres_uid, propertyDetails);
+	    const isAddPropertySuccessful = await propertyContext.addProperty(authContext.postgresUid, propertyDetails);
 
 	    if (!isAddPropertySuccessful) return;
 
@@ -53,7 +53,7 @@ function AddAProperty() {
 	    } else {
 	        navigation.navigate("BottomNavBar");
 	    }
-	}, [propertyContext, propertyDetails, selectedPropertyType, authContext.postgres_uid, navigation]);
+	}, [propertyContext, propertyDetails, selectedPropertyType, authContext.postgresUid, navigation]);
 
 	return (
 		<SafeAreaView style={styles.container}>

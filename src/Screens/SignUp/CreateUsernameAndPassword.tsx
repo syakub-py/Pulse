@@ -4,7 +4,7 @@ import {useState} from "react";
 import PasswordRequirementCheckBox from "../../Components/SignUp/PasswordRequirementCheckBox";
 import * as ImagePicker from "expo-image-picker";
 import _ from "lodash";
-import {auth} from "@src/Utils/Firebase";
+import {auth} from "@src/Utils/FirebaseConfig";
 import {StackNavigationProp} from "@react-navigation/stack";
 import { updateProfile } from "firebase/auth";
 import {observer} from "mobx-react-lite";

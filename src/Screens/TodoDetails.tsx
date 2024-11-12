@@ -45,8 +45,6 @@ function TodoDetails({ route }: Props) {
 		}, 100);
 	}, [flatListRef]);
 
-
-
 	const onViewableItemsChanged = useCallback(({ viewableItems }: { viewableItems: ViewToken<Todo>[] }) => {
 		if (_.isEmpty(viewableItems) || _.isNull(todoContext)) return;
 		todoContext.setSelectedPropertyTodo(viewableItems[0].item);

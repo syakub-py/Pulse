@@ -42,7 +42,7 @@ function ChatBox(props: Props) {
 			setLoading(false);
 
 			if (_.isNull(chatContext) || _.isUndefined(selectedChat.OtherUserDetails.id) || selectedChat.OtherUserDetails.Name === "Pulse AI") return;
-			const ws = new WebSocket(`ws://127.0.0.1:8000/ws/?senderUserToken=${authContext.postgres_uid}&receiverUserToken=${selectedChat.OtherUserDetails.id}`);
+			const ws = new WebSocket(`ws://127.0.0.1:8000/ws/?senderUserToken=${authContext.postgresUid}&receiverUserToken=${selectedChat.OtherUserDetails.id}`);
 
 			ws.onopen = () => {
 				console.info("WebSocket connection established.");
@@ -79,7 +79,7 @@ function ChatBox(props: Props) {
 
 		if (selectedChat.OtherUserDetails.Name === "Pulse AI") {
 			setIsTyping(true);
-			const responseText = await apiClientContext.pulseAiChatService.generateChatResponse(userMessage.text, selectedChat.chatId, authContext.postgres_uid);
+			const responseText = await apiClientContext.pulseAiChatService.generateChatResponse(userMessage.text, selectedChat.chatId, authContext.postgresUid);
 			const responseMessage = {
 				_id: Math.floor(Math.random() * 1000000),
 				text: responseText,

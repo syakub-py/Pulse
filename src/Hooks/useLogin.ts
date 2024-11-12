@@ -1,4 +1,4 @@
-import { auth } from "../Utils/Firebase";
+import { auth } from "../Utils/FirebaseConfig";
 import { useCallback } from "react";
 import { useAuthContext } from "../Contexts/AuthContext";
 import _ from "lodash";
@@ -6,6 +6,7 @@ import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {useApiClientContext} from "@src/Contexts/PulseApiClientContext";
 import isHTTPError from "@src/Utils/HttpError";
+import config from "../../env";
 
 export default function useLogin() {
 	const authContext = useAuthContext();
@@ -31,12 +32,12 @@ export default function useLogin() {
 				alert(uid.message);
 				return;
 			}
-			authContext.setProfilePicture(user.user.photoURL || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
+			authContext.setProfilePicture(user.user.photoURL || config.DEFAULT_PROFILE_PICTURE);
 			authContext.setUsername(username);
 			authContext.setPassword(password);
 			authContext.setFirebaseUid(user.user.uid);
 			authContext.setPostgresUid(uid);
-			authContext.isLoadingAuth = false;
+			authContext.isAuthInLoadingState = false;
 			navigation.navigate("BottomNavBar");
 		} catch (e) {
 			alert("Incorrect email or password");

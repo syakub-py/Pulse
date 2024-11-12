@@ -3,7 +3,7 @@ import {action, makeAutoObservable, runInAction} from "mobx";
 import isHTTPError from "@src/Utils/HttpError";
 import _ from "lodash";
 import {createContext, useContext, useMemo} from "react";
-import {storage} from "@src/Utils/Firebase";
+import {storage} from "@src/Utils/FirebaseConfig";
 
 
 class TenantContextClass {

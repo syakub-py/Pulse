@@ -1,5 +1,5 @@
 import {action, makeAutoObservable, runInAction} from "mobx";
-import {auth} from "@src/Utils/Firebase";
+import {auth} from "@src/Utils/FirebaseConfig";
 import isHTTPError from "@src/Utils/HttpError";
 import _, {toNumber} from "lodash";
 import {createContext, useContext, useMemo} from "react";

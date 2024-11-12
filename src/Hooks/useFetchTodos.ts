@@ -11,16 +11,16 @@ export default function useFetchTodos(){
 
 	const fetchTodos = useCallback(async () => {
 		try {
-			if (_.isEmpty(authContext.firebase_uid) || authContext.postgres_uid === 0 || _.isNull(propertyContext)  || _.isNull(todoContext)|| _.isUndefined(propertyContext.selectedProperty?.PropertyId)) return;
+			if (_.isEmpty(authContext.firebaseUid) || authContext.postgresUid === 0 || _.isNull(propertyContext)  || _.isNull(todoContext)|| _.isUndefined(propertyContext.selectedProperty?.PropertyId)) return;
 			await todoContext.getSelectedPropertyTodos(propertyContext.selectedProperty.PropertyId);
 		} catch (error) {
 			console.error("error fetching todos: " + error);
 		}
-	}, [authContext.firebase_uid, authContext.postgres_uid, propertyContext, todoContext]);
+	}, [authContext.firebaseUid, authContext.postgresUid, propertyContext, todoContext]);
 
 	useEffect(() => {
 		void fetchTodos();
-	}, [authContext.firebase_uid, propertyContext?.selectedProperty?.PropertyId, fetchTodos]);
+	}, [authContext.firebaseUid, propertyContext?.selectedProperty?.PropertyId, fetchTodos]);
 
 	return fetchTodos;
 }

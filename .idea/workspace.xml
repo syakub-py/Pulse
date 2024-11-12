@@ -4,11 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="fixed inverted chat bug">
+    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="init commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/env.ts" beforeDir="false" afterPath="$PROJECT_DIR$/env.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Analytics/ExpensePieChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Analytics/ExpensePieChart.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Analytics/IncomeBarGraph.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Analytics/IncomeBarGraph.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Analytics/TransactionList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Analytics/TransactionList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contexts/AppContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/AppContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contexts/AuthContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/AuthContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contexts/PropertyContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/PropertyContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contexts/TenantContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/TenantContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hooks/useFetchTransactions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useFetchTransactions.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hooks/useGetAllDataFromStorage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useGetAllDataFromStorage.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hooks/useGetLeasesAndTenants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useGetLeasesAndTenants.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hooks/useLogin.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useLogin.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Screens/Analytics.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/Analytics.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/Loading.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/Loading.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/SignUp/CreateUsernameAndPassword.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/SignUp/CreateUsernameAndPassword.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/TodoDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/TodoDetails.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utils/Firebase.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/FirebaseConfig.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,21 +67,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "UiUxUpdates",
-    "last_opened_file_path": "/Users/boss/Programming Projects/Pulse/assets/DefaultPictures",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "npm.start.executor": "Run",
-    "ts.external.directory.path": "/Users/boss/Programming Projects/Pulse/node_modules/typescript/lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;UiUxUpdates&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/boss/Programming Projects/Pulse&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.start.executor&quot;: &quot;Run&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/boss/Programming Projects/Pulse/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/assets/DefaultPictures" />
@@ -267,14 +282,13 @@
       <workItem from="1728581173414" duration="4462000" />
       <workItem from="1728652980565" duration="10611000" />
       <workItem from="1728750017694" duration="1941000" />
-    </task>
-    <task id="LOCAL-00094" summary="final touches">
-      <option name="closed" value="true" />
-      <created>1724033560454</created>
-      <option name="number" value="00094" />
-      <option name="presentableId" value="LOCAL-00094" />
-      <option name="project" value="LOCAL" />
-      <updated>1724033560454</updated>
+      <workItem from="1728936813043" duration="4401000" />
+      <workItem from="1729011142272" duration="4417000" />
+      <workItem from="1729270995365" duration="119000" />
+      <workItem from="1729798225531" duration="1602000" />
+      <workItem from="1730834583865" duration="421000" />
+      <workItem from="1731079648171" duration="1256000" />
+      <workItem from="1731378409068" duration="1880000" />
     </task>
     <task id="LOCAL-00095" summary="final touches">
       <option name="closed" value="true" />
@@ -660,7 +674,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728653887895</updated>
     </task>
-    <option name="localTasksCounter" value="143" />
+    <task id="LOCAL-00143" summary="init commit">
+      <option name="closed" value="true" />
+      <created>1728829017230</created>
+      <option name="number" value="00143" />
+      <option name="presentableId" value="LOCAL-00143" />
+      <option name="project" value="LOCAL" />
+      <updated>1728829017230</updated>
+    </task>
+    <option name="localTasksCounter" value="144" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -679,7 +701,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix lint errors" />
     <MESSAGE value="fixed loading bug" />
     <MESSAGE value="income bar chart working" />
     <MESSAGE value="Validating date inputs" />
@@ -704,6 +725,7 @@
     <MESSAGE value="working out bugs" />
     <MESSAGE value="add split up analytics into components and handle empty analytics array" />
     <MESSAGE value="fixed inverted chat bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed inverted chat bug" />
+    <MESSAGE value="init commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="init commit" />
   </component>
 </project>

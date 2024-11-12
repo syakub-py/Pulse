@@ -2,19 +2,21 @@ import { createContext, useContext, useMemo } from "react";
 import { action, makeAutoObservable, runInAction} from "mobx";
 import _ from "lodash";
 import AsyncStorageClass from "../Classes/AsyncStorage";
-import {auth} from "../Utils/Firebase";
+import {auth} from "../Utils/FirebaseConfig";
 import config from "../../env";
 
 class AuthContextClass {
+
 	constructor() {
 		makeAutoObservable(this);
 	}
+
 	public username: string = "";
 	public profilePicture: string = config.DEFAULT_PROFILE_PICTURE;
 	public password: string = "";
-	public firebase_uid: string = "";
-	public postgres_uid: number = 0;
-	private _isLoadingAuth: boolean = true;
+	public firebaseUid: string = "";
+	public postgresUid: number = 0;
+	public isAuthInLoadingState: boolean = true;
 	public leaseId: number | null = null;
 
 	public setUsername = action((username: string) =>{
@@ -33,11 +35,11 @@ class AuthContextClass {
 	});
 
 	public setFirebaseUid = action((uid: string) =>{
-		this.firebase_uid = uid;
+		this.firebaseUid = uid;
 	});
 
 	public setPostgresUid = action((uid: number) =>{
-		this.postgres_uid = uid;
+		this.postgresUid = uid;
 		void AsyncStorageClass.saveDataToStorage("uid", uid);
 	});
 
@@ -49,14 +51,6 @@ class AuthContextClass {
 		return !_.isEmpty(this.username) && !_.isEmpty(this.password);
 	}
 
-	get isLoadingAuth() {
-		return this._isLoadingAuth;
-	}
-
-	set isLoadingAuth(isLoadingAuth: boolean) {
-		this._isLoadingAuth = isLoadingAuth;
-	}
-
 	public async getAuthDataFromStorage(): Promise<void> {
 		const retrievedUsername = await AsyncStorageClass.getDataFromStorage("username");
 		const retrievedPassword = await AsyncStorageClass.getDataFromStorage("password");
@@ -64,23 +58,22 @@ class AuthContextClass {
 		runInAction(() => {
 			if (!_.isUndefined(retrievedUsername)) this.username = retrievedUsername;
 			if (!_.isUndefined(retrievedPassword)) this.password = retrievedPassword;
-			if (!_.isUndefined(retrievedUid)) this.postgres_uid = retrievedUid;
+			if (!_.isUndefined(retrievedUid)) this.postgresUid = retrievedUid;
 		});
 	}
 
-
 	public async clearContextAndFirebaseLogout() {
 		runInAction(() => {
-			this.firebase_uid = "";
+			this.firebaseUid = "";
 			this.username = "";
 			this.password = "";
-			this.profilePicture = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
-			this.postgres_uid = 0;
+			this.profilePicture = config.DEFAULT_PROFILE_PICTURE;
+			this.postgresUid = 0;
 		});
 		try{
 			await auth.signOut();
 			await AsyncStorageClass.clearAllAsyncStorageData();
-			this.isLoadingAuth = false;
+			this.isAuthInLoadingState = false;
 		}catch (e){
 			alert("Error logging out");
 			return;

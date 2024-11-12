@@ -5,7 +5,7 @@ import Home from "./Screens/Home";
 import PulseAI from "./Screens/ChatBox";
 import BottomNavigationBar from "./Screens/BottomNavigationBar";
 import AddAProperty from "./Screens/AddAProperty";
-import {auth} from "./Utils/Firebase";
+import {auth} from "./Utils/FirebaseConfig";
 import _ from "lodash";
 import Analytics from "./Screens/Analytics";
 import AllProperties from "./Screens/AllProperties";
@@ -26,7 +26,7 @@ export default function Routes() {
 	const authContext = useAuthContext();
 	const { Screen } = createNativeStackNavigator<RootStackParamList>();
 
-	if (authContext.isLoadingAuth) {
+	if (authContext.isAuthInLoadingState) {
 		return [
 			<Screen key="Loading" name="Loading" component={Loading}/>
 		];

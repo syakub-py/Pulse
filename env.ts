@@ -11,13 +11,13 @@ interface Config {
 }
 
 const config: Config = {
-	API_KEY: "AIzaSyAS0OLIeH01QAyHZQxILWWUu3I2PJm3xz4",
-	AUTH_DOMAIN: "nyle-bd594.firebaseapp.com",
-	PROJECT_ID: "nyle-bd594",
-	STORAGE_BUCKET: "nyle-bd594.appspot.com",
-	MESSAGING_SENDER_ID: "616674242131",
-	APP_ID: "1:616674242131:web:7788508192e82a84b660a6",
-	MEASUREMENT_ID: "G-70E5N2DBMC",
+	API_KEY: "AIzaSyDbtKzqRUe-8lJL9Ki7CCrTOmmGcnX8ks8",
+	AUTH_DOMAIN: "pulse-91f49.firebaseapp.com",
+	PROJECT_ID: "pulse-91f49",
+	STORAGE_BUCKET: "pulse-91f49.firebasestorage.app",
+	MESSAGING_SENDER_ID: "877426915878",
+	APP_ID: "1:877426915878:web:e4646738cdcf6f6c2844e7",
+	MEASUREMENT_ID: "G-QB5DSRQNRZ",
 	DEFAULT_PROFILE_PICTURE: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
 	BASE_URL:"http://127.0.0.1:8000"
 };

@@ -24,7 +24,7 @@ function AddAUser() {
 		leaseId: LeaseId,
 		AnnualIncome: 0,
 		DocumentProvidedUrl: "",
-		firebaseUserId:authContext.firebase_uid,
+		firebaseUserId:authContext.firebaseUid,
 		Email: authContext.username,
 		SocialSecurity: "",
 		Name: "",
