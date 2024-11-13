@@ -18,6 +18,7 @@ import PasswordInput from "@src/Components/GlobalComponents/PasswordInput";
 import {useTenantContext} from "@src/Contexts/TenantContext";
 import validateEmailAndPassword from "@src/Utils/ValidateInputs/ValidateEmailAndPassword";
 import {PASSWORD_REQUIREMENTS} from "@src/Constants/Constants";
+import config from "../../../env";
 
 function CreateUsernameAndPassword() {
 	const [username, setUsername] = useState("");
@@ -42,32 +43,10 @@ function CreateUsernameAndPassword() {
 	};
 
 	const handleSignUp = async () => {
-		if (validateEmailAndPassword(username, password, PASSWORD_REQUIREMENTS)) {
+		if (validateEmailAndPassword(username, password, PASSWORD_REQUIREMENTS) && !_.isNull(userContext)) {
 			setIsLoading(true);
-			try {
-				const user = await auth.createUserWithEmailAndPassword(username, password);
-				if (_.isEmpty(user.user) && _.isNull(user.user) || _.isNull(userContext)) return;
-				if (!_.isEmpty(profilePicture)) {
-					const profilePictureUrl = await userContext.uploadPicture(profilePicture, `ProfilePictures/${username}/`);
-					authContext.setProfilePicture(profilePictureUrl);
-					await updateProfile(user.user, {photoURL: profilePictureUrl});
-				} else {
-					authContext.setProfilePicture("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-				}
-				authContext.setFirebaseUid(user.user.uid);
-				authContext.setUsername(username);
-				authContext.setPassword(password);
-				navigation.navigate("EnterTenantCode");
-			}catch (error) {
-				if (error instanceof FirebaseError) {
-					console.error("Firebase Error:", error);
-					alert(error.message);
-				}else{
-					console.error("General Error:", error);
-					authContext.setProfilePicture("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-					alert(error);
-				}
-			}
+			await authContext.signUp(username, password);
+			navigation.navigate("EnterTenantCode");
 			setIsLoading(false);
 		}
 	};

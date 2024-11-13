@@ -13,7 +13,7 @@ export default function PasswordRequirementCheckBox(props: Props){
 			<Text style={styles.titleText}>Password Requirements:</Text>
 			{requirements.map((requirement, index) => (
 				<View style={styles.requirementContainer} key={index}>
-					<Ionicons name={requirement.fulfilled(password) ? "checkmark-circle" : "checkmark-circle-outline"} size={20} color={ requirement.fulfilled(password) ? "green" : "white"} />
+					<Ionicons name={requirement.fulfilled(password) ? "checkmark-circle" : "checkmark-circle-outline"} size={20} color={requirement.fulfilled(password) ? "green" : "white"} />
 					<Text style={styles.requirementText}>{requirement.label}</Text>
 				</View>
 			))}

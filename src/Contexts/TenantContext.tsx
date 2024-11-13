@@ -64,23 +64,6 @@ class TenantContextClass {
 		return isCodeValidResponse;
 	});
 
-	public uploadPicture = async (profilePicturePath: string, path: string) => {
-		if (_.isEmpty(profilePicturePath)) {
-			return "";
-		}
-		try {
-			const filename = profilePicturePath.split("/").pop();
-			const response = await fetch(profilePicturePath);
-			const blob = await response.blob();
-			const storageRef = storage.ref().child(path + `${filename}`);
-			await storageRef.put(blob);
-			return await storageRef.getDownloadURL();
-		} catch (error) {
-			console.error("error uploading picture: " + error);
-			return "";
-		}
-	};
-
 	public clearContext = action( () => {
 		runInAction(() => {
 			this.tenants = [];
