@@ -9,6 +9,7 @@ import BackButton from "../Components/GlobalComponents/BackButton";
 import {usePropertyContext} from "@src/Contexts/PropertyContext";
 import _ from "lodash";
 import {useAuthContext} from "@src/Contexts/AuthContext";
+import {PROPERTY_TYPES} from "@src/Constants/Constants";
 
 function AddAProperty() {
 	const [propertyDetails, setPropertyDetails] = useState<Property>({
@@ -22,16 +23,8 @@ function AddAProperty() {
 		OperatingExpenses: "",
 	});
 
-	const propertyTypes: ItemType<string>[] = [
-		{ label: "Single Family Home", value: "Home" },
-		{ label: "Vacation Home", value: "Vacation Home" },
-		{ label: "Condominium", value: "Condo" },
-		{ label: "Multi-Family", value: "Multi-Family" },
-		{ label: "Commercial Building", value: "Commercial Building" },
-	];
-
 	const [open, setOpen] = useState(false);
-	const [selectedPropertyType, setSelectedPropertyType] = useState(propertyTypes[0].value as string);
+	const [selectedPropertyType, setSelectedPropertyType] = useState(PROPERTY_TYPES[0].value as string);
 	const propertyContext = usePropertyContext();
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "AddAProperty">>();
 	const authContext = useAuthContext();
@@ -78,7 +71,7 @@ function AddAProperty() {
 			<DropdownPicker
 				open={open}
 				value={selectedPropertyType}
-				items={propertyTypes}
+				items={PROPERTY_TYPES}
 				setOpen={setOpen}
 				setValue={setSelectedPropertyType}
 				placeholder="Property Type"
@@ -121,7 +114,7 @@ function AddAProperty() {
 	);
 }
 
-const styles = StyleSheet.create({
+const styles= StyleSheet.create({
 	container: {
 		padding: 20,
 		flex: 1,

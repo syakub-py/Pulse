@@ -1,24 +1,24 @@
 import {Image, StyleSheet, TextInput, View, ActivityIndicator, Button} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import {useState} from "react";
-import PasswordRequirementCheckBox from "../../Components/SignUp/PasswordRequirementCheckBox";
+import PasswordRequirementCheckBox from "../Components/SignUp/PasswordRequirementCheckBox";
 import * as ImagePicker from "expo-image-picker";
 import _ from "lodash";
 import {auth} from "@src/Utils/FirebaseConfig";
 import {StackNavigationProp} from "@react-navigation/stack";
 import { updateProfile } from "firebase/auth";
 import {observer} from "mobx-react-lite";
-import UploadPictures from "../../Components/GlobalComponents/UploadPictures";
-import Layout from "../../Components/GlobalComponents/Layout";
-import Header from "../../Components/GlobalComponents/Header";
-import BackButton from "../../Components/GlobalComponents/BackButton";
+import UploadPictures from "../Components/GlobalComponents/UploadPictures";
+import Layout from "../Components/GlobalComponents/Layout";
+import Header from "../Components/GlobalComponents/Header";
+import BackButton from "../Components/GlobalComponents/BackButton";
 import { useAuthContext } from "@src/Contexts/AuthContext";
 import { FirebaseError } from "firebase/app";
 import PasswordInput from "@src/Components/GlobalComponents/PasswordInput";
 import {useTenantContext} from "@src/Contexts/TenantContext";
 import validateEmailAndPassword from "@src/Utils/ValidateInputs/ValidateEmailAndPassword";
 import {PASSWORD_REQUIREMENTS} from "@src/Constants/Constants";
-import config from "../../../env";
+import config from "../../env";
 
 function CreateUsernameAndPassword() {
 	const [username, setUsername] = useState("");

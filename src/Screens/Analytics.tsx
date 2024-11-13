@@ -13,11 +13,7 @@ import TransactionList from "@src/Components/Analytics/TransactionList";
 import { ViewToken } from "react-native";
 import IncomeBarGraph from "@src/Components/Analytics/IncomeBarGraph";
 import SubHeader from "@src/Components/Analytics/SubHeader";
-
-const tabs = [
-	{ key: "income", title: "Income" },
-	{ key: "expense", title: "Expense" },
-];
+import {ANALYTICS_TABS} from "@src/Constants/Constants";
 
 
 function Analytics() {
@@ -25,7 +21,7 @@ function Analytics() {
 	useFetchTransactions();
 
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Analytics">>();
-	const flatListRef = useRef<FlatList<any>>(null);
+	const flatListRef = useRef<FlatList>(null);
 
 	const onScrollToIndexFailed = useCallback((info: {
 		index: number;
@@ -57,7 +53,7 @@ function Analytics() {
 			<Header title={"Your Analytics"} />
 			<FlatList
 				ref={flatListRef}
-				data={tabs}
+				data={ANALYTICS_TABS}
 				horizontal
 				pagingEnabled
 				renderItem={({ item }) => {

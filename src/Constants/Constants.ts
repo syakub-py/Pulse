@@ -35,3 +35,18 @@ export const DOCUMENT_TYPES: ItemType<string>[] = [
 	{ label: "Military ID", value: "Military ID" },
 	{ label: "Permanent Resident Card (Green Card)", value: "Permanent Resident Card (Green Card)" },
 ];
+
+
+export const ANALYTICS_TABS = [
+	{ key: "income", title: "Income" },
+	{ key: "expense", title: "Expense" },
+];
+
+
+export const PROPERTY_TYPES: ItemType<string>[] = [
+	{ label: "Single Family Home", value: "Home" },
+	{ label: "Vacation Home", value: "Vacation Home" },
+	{ label: "Condominium", value: "Condo" },
+	{ label: "Multi-Family", value: "Multi-Family" },
+	{ label: "Commercial Building", value: "Commercial Building" },
+];
