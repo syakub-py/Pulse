@@ -10,10 +10,11 @@ import UploadPictures from "../Components/GlobalComponents/UploadPictures";
 import * as ImagePicker from "expo-image-picker";
 import {useAuthContext} from "@src/Contexts/AuthContext";
 import DropdownPicker, {ItemType} from "react-native-dropdown-picker";
-import ValidateAddUserInputs from "@src/Utils/ValidateInputs/ValidateAddUserInputs";
+import ValidateAddUserInputs from "@src/Utils/InputValidation/ValidateAddUserInputs";
 import {useTenantContext} from "@src/Contexts/TenantContext";
 import _ from "lodash";
 import {DOCUMENT_TYPES} from "@src/Constants/Constants";
+import {auth} from "@src/Utils/FirebaseConfig";
 
 function AddAUser() {
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "AddAUser">>();
@@ -50,10 +51,14 @@ function AddAUser() {
 			setIsLoading(true);
 			userDetails.DocumentProvidedUrl = await authContext.uploadPicture(DocumentPicture, `/DocumentPictures/${userDetails.Email}/`);
 
-			const isAddUserSuccessful = await userContext.addUser(userDetails);
+			const isAddUserSuccessful = await userContext.addUserToBackend(userDetails);
 
-			if (!isAddUserSuccessful) return;
-
+			if (!isAddUserSuccessful) {
+				await auth.currentUser?.delete();
+				await authContext.clearContextAndFirebaseLogout();
+				setIsLoading(false);
+				return;
+			}
 			authContext.setLeaseId(null);
 			await authContext.clearContextAndFirebaseLogout();
 			navigation.navigate("Login");

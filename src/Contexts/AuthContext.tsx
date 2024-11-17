@@ -8,6 +8,7 @@ import {updateProfile} from "firebase/auth";
 import {FirebaseError} from "firebase/app";
 import isHTTPError from "@src/Utils/HttpError";
 import {PulseApiClient} from "@src/Contexts/PulseApiClientContext";
+import ValidateEmailAndPassword from "@src/Utils/InputValidation/ValidateEmailAndPassword";
 
 class AuthContextClass {
 
@@ -76,13 +77,12 @@ class AuthContextClass {
 		try {
 			const user = await auth.createUserWithEmailAndPassword(username, password);
 			if (_.isEmpty(user.user) && _.isNull(user.user) ) return false;
-			if (!_.isEmpty(this.profilePicture)) {
+			if (this.profilePicture !== config.DEFAULT_PROFILE_PICTURE) {
 				const profilePictureUrl = await this.uploadPicture(this.profilePicture, `ProfilePictures/${username}/`);
 				this.setProfilePicture(profilePictureUrl);
 				await updateProfile(user.user, {photoURL: profilePictureUrl});
-			} else {
-				this.setProfilePicture(config.DEFAULT_PROFILE_PICTURE);
 			}
+
 			this.setFirebaseUid(user.user.uid);
 			this.setUsername(username);
 			this.setPassword(password);
@@ -106,13 +106,8 @@ class AuthContextClass {
 			alert("Invalid email address or password");
 			return false;
 		}
-		const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-		if (!re.test(String(username).toLowerCase())) {
-			alert("Invalid email address: " + username);
-			return false;
-		}
-
 		try {
+			if (!ValidateEmailAndPassword(username, password)) return false;
 			const user = await auth.signInWithEmailAndPassword(username, password);
 			if (_.isNull(user.user)) return false;
 			const uid = await apiClientContext.userService.getUid(user.user.uid);
@@ -125,7 +120,10 @@ class AuthContextClass {
 			this.setPassword(password);
 			this.setFirebaseUid(user.user.uid);
 			this.setPostgresUid(uid);
-			this.isAuthInLoadingState = false;
+			runInAction(()=>{
+				this.isAuthInLoadingState = false;
+			});
+
 			return true;
 		} catch (e) {
 			alert("Incorrect email or password");
@@ -156,7 +154,9 @@ class AuthContextClass {
 		try{
 			await auth.signOut();
 			await AsyncStorageClass.clearAllAsyncStorageData();
-			this.isAuthInLoadingState = false;
+			runInAction(() => {
+				this.isAuthInLoadingState = false;
+			});
 		}catch (e){
 			alert("Error logging out");
 			return;

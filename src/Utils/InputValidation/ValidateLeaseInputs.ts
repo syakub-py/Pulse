@@ -1,4 +1,4 @@
-import ValidateDateInput from "@src/Utils/ValidateInputs/ValidateDateInput";
+import ValidateDateInput from "@src/Utils/InputValidation/ValidateDateInput";
 
 export default function ValidateLeaseInputs(leaseDetails:Lease) {
 	if (!leaseDetails.StartDate) {

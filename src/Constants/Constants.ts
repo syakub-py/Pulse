@@ -50,3 +50,21 @@ export const PROPERTY_TYPES: ItemType<string>[] = [
 	{ label: "Multi-Family", value: "Multi-Family" },
 	{ label: "Commercial Building", value: "Commercial Building" },
 ];
+
+
+export const TRANSACTION_TYPES: ItemType<string>[] = [
+	{ label: "Insurance", value: "insurance" },
+	{ label: "Maintenance", value: "maintenance" },
+	{ label: "Repairs", value: "repairs" },
+	{ label: "Utilities", value: "utilities" },
+	{ label: "HOA Fees", value: "hoa_fees" },
+	{ label: "Management Fees", value: "management_fees" },
+	{ label: "Legal Fees", value: "legal_fees" },
+	{ label: "Landscaping", value: "landscaping" },
+	{ label: "Pest Control", value: "pest_control" },
+	{ label: "Cleaning", value: "cleaning" },
+	{ label: "Security", value: "security" },
+	{ label: "Advertising", value: "advertising" },
+	{ label: "Supplies", value: "supplies" },
+	{ label: "Capital Improvements", value: "capital_improvements" },
+];

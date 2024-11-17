@@ -15,7 +15,7 @@ class TenantContextClass {
 		this.pulseApiClient = pulseApiClient;
 	}
 
-	public addUser = action(async (user: User) => {
+	public addUserToBackend = action(async (user: User) => {
 		try {
 			const response = await this.pulseApiClient.userService.addUser(user);
 			if (isHTTPError(response)) {

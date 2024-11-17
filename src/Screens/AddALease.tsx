@@ -8,8 +8,8 @@ import _ from "lodash";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import LeaseCard from "../Components/Leases/LeaseCard";
-import ValidateLeaseInputs from "@src/Utils/ValidateInputs/ValidateLeaseInputs";
-import ValidateDateInput from "@src/Utils/ValidateInputs/ValidateDateInput";
+import ValidateLeaseInputs from "@src/Utils/InputValidation/ValidateLeaseInputs";
+import ValidateDateInput from "@src/Utils/InputValidation/ValidateDateInput";
 import {useLeaseContext} from "@src/Contexts/LeaseContext";
 import {usePropertyContext} from "@src/Contexts/PropertyContext";
 

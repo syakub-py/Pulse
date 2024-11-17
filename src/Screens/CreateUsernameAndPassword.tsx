@@ -16,7 +16,7 @@ import { useAuthContext } from "@src/Contexts/AuthContext";
 import { FirebaseError } from "firebase/app";
 import PasswordInput from "@src/Components/GlobalComponents/PasswordInput";
 import {useTenantContext} from "@src/Contexts/TenantContext";
-import validateEmailAndPassword from "@src/Utils/ValidateInputs/ValidateEmailAndPassword";
+import ValidateEmailAndPassword from "@src/Utils/InputValidation/ValidateEmailAndPassword";
 import {PASSWORD_REQUIREMENTS} from "@src/Constants/Constants";
 import config from "../../env";
 
@@ -43,12 +43,11 @@ function CreateUsernameAndPassword() {
 	};
 
 	const handleSignUp = async () => {
-		if (validateEmailAndPassword(username, password, PASSWORD_REQUIREMENTS) && !_.isNull(userContext)) {
-			setIsLoading(true);
-			await authContext.signUp(username, password);
-			navigation.navigate("EnterTenantCode");
-			setIsLoading(false);
-		}
+		if (!ValidateEmailAndPassword(username, password, PASSWORD_REQUIREMENTS) && !_.isNull(userContext)) return;
+		setIsLoading(true);
+		await authContext.signUp(username, password);
+		navigation.navigate("EnterTenantCode");
+		setIsLoading(false);
 	};
 
 	return (

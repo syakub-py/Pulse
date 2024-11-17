@@ -26,9 +26,6 @@ function Login() {
 				locations={[0, 0.5, 0.9]}
 				style={styles.container}>
 				<SafeAreaView style={styles.container}>
-					<View style={styles.logoContainer}>
-						<Image style={styles.logo} source={require("../../assets/icon.png")} />
-					</View>
 					<View style={styles.inputContainer}>
 						<Text style={styles.loginText}>Login</Text>
 						<TextInput
