@@ -9,9 +9,9 @@ export default function useFetchProperties() {
 	const authContext = useAuthContext();
 
 	const fetchProperties = useCallback(async () => {
-		if (_.isNull(authContext.postgres_uid) || _.isNull(propertyContext) || authContext.postgres_uid === 0) return;
-		await propertyContext.getProperty(authContext.postgres_uid);
-	}, [authContext.postgres_uid, propertyContext]);
+		if (_.isNull(authContext.postgresUid) || _.isNull(propertyContext) || authContext.postgresUid === 0) return;
+		await propertyContext.getProperty(authContext.postgresUid);
+	}, [authContext.postgresUid, propertyContext]);
 
 	useEffect(() => {
 		void fetchProperties();

@@ -1,6 +1,7 @@
+import _ from "lodash";
 
 
-export default function validateEmailAndPassword(username: string, password: string, requirements: PasswordRequirement[]): boolean {
+export default function ValidateEmailAndPassword(username: string, password: string, requirements?: PasswordRequirement[]): boolean {
 	const emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
 
 	if (!username || !password) {
@@ -11,7 +12,9 @@ export default function validateEmailAndPassword(username: string, password: str
 		alert("Please enter a valid email address.");
 		return false;
 	}
-	if (!requirements.every(requirement => requirement.fulfilled)) {
+
+	if (_.isUndefined(requirements)) return true;
+	if (!requirements.every(requirement => requirement.fulfilled(password))) {
 		alert("Make sure the password meets all requirements.");
 		return false;
 	}

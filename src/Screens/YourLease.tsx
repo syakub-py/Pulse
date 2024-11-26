@@ -14,7 +14,7 @@ function YourLease() {
 
 	if (_.isNull(leaseContext)) return;
 
-	const lease = leaseContext.selectedPropertyLeases.find((lease)=>lease.TenantUid === authContext.firebase_uid);
+	const lease = leaseContext.selectedPropertyLeases.find((lease)=>lease.TenantUid === authContext.firebaseUid);
 
 	if (_.isUndefined(lease)) return;
 

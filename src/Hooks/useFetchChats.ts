@@ -9,16 +9,16 @@ export default function useFetchChats() {
 
 	const fetchChats = useCallback(async () => {
 		if (
-			_.isNull(authContext.firebase_uid) ||
+			_.isNull(authContext.firebaseUid) ||
 			_.isNull(chatContext) ||
-			_.isEmpty(authContext.firebase_uid) ||
-			authContext.postgres_uid === 0
+			_.isEmpty(authContext.firebaseUid) ||
+			authContext.postgresUid === 0
 		)return;
-		await chatContext.getChats(authContext.postgres_uid);
+		await chatContext.getChats(authContext.postgresUid);
 		/* eslint-disable react-hooks/exhaustive-deps */
 	}, [authContext.isLoggedIn]);
 
 	useEffect(() => {
 		void fetchChats();
-	}, [fetchChats, authContext.firebase_uid]);
+	}, [fetchChats, authContext.firebaseUid]);
 }

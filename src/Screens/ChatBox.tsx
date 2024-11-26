@@ -30,7 +30,7 @@ function ChatBox(props: Props) {
 	const [messages, setMessages] = useState<IMessage[]>([]);
 	const [isTyping, setIsTyping] = useState(false);
 	const [loading, setLoading] = useState(true);
-	const [webSocket, setWebSocket] = useState<WebSocket | null>(null); // Store WebSocket in state
+	const [webSocket, setWebSocket] = useState<WebSocket | null>(null);
 
 	useEffect(() => {
 		const initChat = async () => {
@@ -42,7 +42,7 @@ function ChatBox(props: Props) {
 			setLoading(false);
 
 			if (_.isNull(chatContext) || _.isUndefined(selectedChat.OtherUserDetails.id) || selectedChat.OtherUserDetails.Name === "Pulse AI") return;
-			const ws = new WebSocket(`ws://127.0.0.1:8000/ws/?senderUserToken=${authContext.postgres_uid}&receiverUserToken=${selectedChat.OtherUserDetails.id}`);
+			const ws = new WebSocket(`ws://127.0.0.1:8000/initChatSocketConnection/?senderUserToken=${authContext.postgresUid}&receiverUserToken=${selectedChat.OtherUserDetails.id}`);
 
 			ws.onopen = () => {
 				console.info("WebSocket connection established.");
@@ -51,7 +51,7 @@ function ChatBox(props: Props) {
 			ws.onmessage = (event) => {
 				const messageData = JSON.parse(event.data) as IMessage;
 				setMessages((prevMessages) => GiftedChat.append(prevMessages, [messageData]));
-				const selectedChatInContext = chatContext.chats.find((chat)=>selectedChat.chatId = chat.chatId);
+				const selectedChatInContext = chatContext.chats.find((chat) => selectedChat.chatId = chat.chatId);
 				if (_.isUndefined(selectedChatInContext)) return;
 				selectedChatInContext.LastMessage = messageData.text;
 			};
@@ -79,7 +79,7 @@ function ChatBox(props: Props) {
 
 		if (selectedChat.OtherUserDetails.Name === "Pulse AI") {
 			setIsTyping(true);
-			const responseText = await apiClientContext.pulseAiChatService.generateChatResponse(userMessage.text, selectedChat.chatId, authContext.postgres_uid);
+			const responseText = await apiClientContext.pulseAiChatService.generateChatResponse(userMessage.text, selectedChat.chatId, authContext.postgresUid);
 			const responseMessage = {
 				_id: Math.floor(Math.random() * 1000000),
 				text: responseText,
@@ -105,7 +105,7 @@ function ChatBox(props: Props) {
 	}, [apiClientContext.pulseAiChatService, authContext, selectedChat, webSocket]);
 
 	if (loading) {
-		return <MessagesLoading/>;
+		return <MessagesLoading />;
 	}
 
 	return (

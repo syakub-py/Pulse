@@ -12,28 +12,28 @@ export default function useGetLeasesAndTenants() {
 	const authContext = useAuthContext();
 
 	const fetchLeasesAndTenants = useCallback(async () => {
-		if (_.isNull(propertyContext) || _.isNull(leaseContext) || _.isNull(tenantContext) || authContext.postgres_uid === 0) return;
+		if (_.isNull(propertyContext) || _.isNull(leaseContext) || _.isNull(tenantContext) || authContext.postgresUid === 0) return;
 
 		try {
 			if (
-				_.isEmpty(authContext.firebase_uid) ||
+				_.isEmpty(authContext.firebaseUid) ||
 				_.isUndefined(propertyContext.selectedProperty?.PropertyId) ||
 				!propertyContext.selectedProperty.isRental
 			) return;
 
 			await leaseContext.getLeases(propertyContext.selectedProperty.PropertyId, tenantContext.tenants);
-			await tenantContext.getTenants(authContext.postgres_uid);
+			await tenantContext.getTenants(authContext.postgresUid);
 
 		} catch (error) {
 			console.error("error retrieving tenants and leases" + error);
 		} finally {
-			authContext.isLoadingAuth = false;
+			authContext.isAuthInLoadingState = false;
 		}
 	}, [authContext, leaseContext, propertyContext, tenantContext]);
 
 	useEffect(() => {
 		void fetchLeasesAndTenants();
-	}, [authContext.firebase_uid, propertyContext?.selectedProperty, fetchLeasesAndTenants]);
+	}, [authContext.firebaseUid, propertyContext?.selectedProperty, fetchLeasesAndTenants]);
 
 	return fetchLeasesAndTenants;
 }

@@ -1,21 +1,21 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "./Screens/Login";
-import CreateUsernameAndPassword from "./Screens/SignUp/CreateUsernameAndPassword";
+import CreateUsernameAndPassword from "./Screens/CreateUsernameAndPassword";
 import Home from "./Screens/Home";
 import PulseAI from "./Screens/ChatBox";
 import BottomNavigationBar from "./Screens/BottomNavigationBar";
 import AddAProperty from "./Screens/AddAProperty";
-import {auth} from "./Utils/Firebase";
+import {auth} from "./Utils/FirebaseConfig";
 import _ from "lodash";
 import Analytics from "./Screens/Analytics";
 import AllProperties from "./Screens/AllProperties";
 import Loading from "./Screens/Loading";
 import Leases from "./Screens/Leases";
 import AddALease from "./Screens/AddALease";
-import AddATenant from "./Screens/SignUp/AddAUser";
+import AddATenant from "./Screens/AddAUser";
 import AllTenants from "./Screens/AllTenants";
 import { useAuthContext } from "./Contexts/AuthContext";
-import TenantCode from "./Screens/SignUp/TenantCode";
+import TenantCode from "./Screens/TenantCode";
 import AddATodo from "./Screens/AddATodo";
 import TodoDetails from "./Screens/TodoDetails";
 import AddATransaction from "@src/Screens/AddATransaction";
@@ -26,7 +26,7 @@ export default function Routes() {
 	const authContext = useAuthContext();
 	const { Screen } = createNativeStackNavigator<RootStackParamList>();
 
-	if (authContext.isLoadingAuth) {
+	if (authContext.isAuthInLoadingState) {
 		return [
 			<Screen key="Loading" name="Loading" component={Loading}/>
 		];

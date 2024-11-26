@@ -2,19 +2,26 @@ import { createContext, useContext, useMemo } from "react";
 import { action, makeAutoObservable, runInAction} from "mobx";
 import _ from "lodash";
 import AsyncStorageClass from "../Classes/AsyncStorage";
-import {auth} from "../Utils/Firebase";
+import {auth, storage} from "../Utils/FirebaseConfig";
 import config from "../../env";
+import {updateProfile} from "firebase/auth";
+import {FirebaseError} from "firebase/app";
+import isHTTPError from "@src/Utils/HttpError";
+import {PulseApiClient} from "@src/Contexts/PulseApiClientContext";
+import ValidateEmailAndPassword from "@src/Utils/InputValidation/ValidateEmailAndPassword";
 
 class AuthContextClass {
+
 	constructor() {
 		makeAutoObservable(this);
 	}
+
 	public username: string = "";
 	public profilePicture: string = config.DEFAULT_PROFILE_PICTURE;
 	public password: string = "";
-	public firebase_uid: string = "";
-	public postgres_uid: number = 0;
-	private _isLoadingAuth: boolean = true;
+	public firebaseUid: string = "";
+	public postgresUid: number = 0;
+	public isAuthInLoadingState: boolean = true;
 	public leaseId: number | null = null;
 
 	public setUsername = action((username: string) =>{
@@ -33,11 +40,11 @@ class AuthContextClass {
 	});
 
 	public setFirebaseUid = action((uid: string) =>{
-		this.firebase_uid = uid;
+		this.firebaseUid = uid;
 	});
 
 	public setPostgresUid = action((uid: number) =>{
-		this.postgres_uid = uid;
+		this.postgresUid = uid;
 		void AsyncStorageClass.saveDataToStorage("uid", uid);
 	});
 
@@ -49,12 +56,80 @@ class AuthContextClass {
 		return !_.isEmpty(this.username) && !_.isEmpty(this.password);
 	}
 
-	get isLoadingAuth() {
-		return this._isLoadingAuth;
+	public uploadPicture = async (profilePicturePath: string, path: string) => {
+		if (_.isEmpty(profilePicturePath)) {
+			return "";
+		}
+		try {
+			const filename = profilePicturePath.split("/").pop();
+			const response = await fetch(profilePicturePath);
+			const blob = await response.blob();
+			const storageRef = storage.ref().child(path + `${filename}`);
+			await storageRef.put(blob);
+			return await storageRef.getDownloadURL();
+		} catch (error) {
+			console.error("error uploading picture: " + error);
+			return "";
+		}
+	};
+
+	public async signUp(username:string, password:string): Promise<boolean> {
+		try {
+			const user = await auth.createUserWithEmailAndPassword(username, password);
+			if (_.isEmpty(user.user) && _.isNull(user.user) ) return false;
+			if (this.profilePicture !== config.DEFAULT_PROFILE_PICTURE) {
+				const profilePictureUrl = await this.uploadPicture(this.profilePicture, `ProfilePictures/${username}/`);
+				this.setProfilePicture(profilePictureUrl);
+				await updateProfile(user.user, {photoURL: profilePictureUrl});
+			}
+
+			this.setFirebaseUid(user.user.uid);
+			this.setUsername(username);
+			this.setPassword(password);
+			return true;
+		}catch (error) {
+			if (error instanceof FirebaseError) {
+				console.error("Firebase Error:", error);
+				alert(error.message);
+				return false;
+			}else{
+				console.error("General Error:", error);
+				this.setProfilePicture(config.DEFAULT_PROFILE_PICTURE);
+				alert(error);
+				return false;
+			}
+		}
 	}
 
-	set isLoadingAuth(isLoadingAuth: boolean) {
-		this._isLoadingAuth = isLoadingAuth;
+	public async login(username:string, password:string, apiClientContext:PulseApiClient): Promise<boolean> {
+		if (typeof username !== "string" || typeof password !== "string") {
+			alert("Invalid email address or password");
+			return false;
+		}
+		try {
+			if (!ValidateEmailAndPassword(username, password)) return false;
+			const user = await auth.signInWithEmailAndPassword(username, password);
+			if (_.isNull(user.user)) return false;
+			const uid = await apiClientContext.userService.getUid(user.user.uid);
+			if (isHTTPError(uid)) {
+				alert(uid.message);
+				return false;
+			}
+			this.setProfilePicture(user.user.photoURL || config.DEFAULT_PROFILE_PICTURE);
+			this.setUsername(username);
+			this.setPassword(password);
+			this.setFirebaseUid(user.user.uid);
+			this.setPostgresUid(uid);
+			runInAction(()=>{
+				this.isAuthInLoadingState = false;
+			});
+
+			return true;
+		} catch (e) {
+			alert("Incorrect email or password");
+			console.error("error logging in: " + e);
+			return false;
+		}
 	}
 
 	public async getAuthDataFromStorage(): Promise<void> {
@@ -64,23 +139,24 @@ class AuthContextClass {
 		runInAction(() => {
 			if (!_.isUndefined(retrievedUsername)) this.username = retrievedUsername;
 			if (!_.isUndefined(retrievedPassword)) this.password = retrievedPassword;
-			if (!_.isUndefined(retrievedUid)) this.postgres_uid = retrievedUid;
+			if (!_.isUndefined(retrievedUid)) this.postgresUid = retrievedUid;
 		});
 	}
 
-
 	public async clearContextAndFirebaseLogout() {
 		runInAction(() => {
-			this.firebase_uid = "";
+			this.firebaseUid = "";
 			this.username = "";
 			this.password = "";
-			this.profilePicture = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
-			this.postgres_uid = 0;
+			this.profilePicture = config.DEFAULT_PROFILE_PICTURE;
+			this.postgresUid = 0;
 		});
 		try{
 			await auth.signOut();
 			await AsyncStorageClass.clearAllAsyncStorageData();
-			this.isLoadingAuth = false;
+			runInAction(() => {
+				this.isAuthInLoadingState = false;
+			});
 		}catch (e){
 			alert("Error logging out");
 			return;

@@ -14,19 +14,18 @@ export default function useFetchTransactions(){
 
 	const fetchTransactions = useCallback(async () => {
 		try {
-			if (_.isEmpty(authContext.firebase_uid) || _.isNull(propertyContext)|| _.isNull(transactionContext) || _.isUndefined(propertyContext.selectedProperty?.PropertyId)) return;
+			if (_.isEmpty(authContext.firebaseUid) || _.isNull(propertyContext)|| _.isNull(transactionContext) || _.isUndefined(propertyContext.selectedProperty?.PropertyId)) return;
 
 			const response = await apiClientContext.transactionService.getTransaction(propertyContext.selectedProperty.PropertyId);
 			if (isHTTPError(response)) {
 				alert(response.message);
 				return;
 			}
-
 			transactionContext.setTransactions(response as PropertyTransaction[]);
 		} catch (error) {
 			console.error("error fetching Transactions: " + error);
 		}
-	}, [apiClientContext.transactionService, authContext.firebase_uid, propertyContext, transactionContext]);
+	}, [apiClientContext.transactionService, authContext.firebaseUid, propertyContext, transactionContext]);
 
 	useEffect(() => {
 		void fetchTransactions();

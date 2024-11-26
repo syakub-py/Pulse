@@ -8,7 +8,7 @@ declare global {
 
     interface PasswordRequirement{
         label:string,
-        fulfilled:boolean
+        fulfilled:(password:string) => boolean
     }
 
     type RootStackParamList = {

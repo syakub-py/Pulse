@@ -1,22 +1,24 @@
 import {Image, StyleSheet, TextInput, View, ActivityIndicator, Button} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import {useState} from "react";
-import PasswordRequirementCheckBox from "../../Components/SignUp/PasswordRequirementCheckBox";
+import PasswordRequirementCheckBox from "../Components/SignUp/PasswordRequirementCheckBox";
 import * as ImagePicker from "expo-image-picker";
 import _ from "lodash";
-import {auth} from "@src/Utils/Firebase";
+import {auth} from "@src/Utils/FirebaseConfig";
 import {StackNavigationProp} from "@react-navigation/stack";
 import { updateProfile } from "firebase/auth";
 import {observer} from "mobx-react-lite";
-import UploadPictures from "../../Components/GlobalComponents/UploadPictures";
-import Layout from "../../Components/GlobalComponents/Layout";
-import Header from "../../Components/GlobalComponents/Header";
-import BackButton from "../../Components/GlobalComponents/BackButton";
+import UploadPictures from "../Components/GlobalComponents/UploadPictures";
+import Layout from "../Components/GlobalComponents/Layout";
+import Header from "../Components/GlobalComponents/Header";
+import BackButton from "../Components/GlobalComponents/BackButton";
 import { useAuthContext } from "@src/Contexts/AuthContext";
 import { FirebaseError } from "firebase/app";
 import PasswordInput from "@src/Components/GlobalComponents/PasswordInput";
 import {useTenantContext} from "@src/Contexts/TenantContext";
-import validateEmailAndPassword from "@src/Utils/ValidateInputs/ValidateEmailAndPassword";
+import ValidateEmailAndPassword from "@src/Utils/InputValidation/ValidateEmailAndPassword";
+import {PASSWORD_REQUIREMENTS} from "@src/Constants/Constants";
+import config from "../../env";
 
 function CreateUsernameAndPassword() {
 	const [username, setUsername] = useState("");
@@ -26,28 +28,6 @@ function CreateUsernameAndPassword() {
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "CreateUsernameAndPassword">>();
 	const authContext = useAuthContext();
 	const userContext = useTenantContext();
-	const requirements:PasswordRequirement[] = [
-		{
-			label: "At least 8 characters and less than 50 characters",
-			fulfilled: password.length >= 8 && password.length <= 50,
-		},
-		{
-			label: "Contains at least one uppercase letter",
-			fulfilled: /[A-Z]/.test(password),
-		},
-		{
-			label: "Contains at least one lowercase letter",
-			fulfilled: /[a-z]/.test(password),
-		},
-		{
-			label: "Contains at least one number",
-			fulfilled: /\d/.test(password),
-		},
-		{
-			label: "Contains at least one special character",
-			fulfilled: /[!@#$%^&*()_+{}[\]:;<>,.?~\\-]/.test(password),
-		},
-	];
 
 	const selectPicture = async () => {
 		const result = await ImagePicker.launchImageLibraryAsync({
@@ -63,34 +43,11 @@ function CreateUsernameAndPassword() {
 	};
 
 	const handleSignUp = async () => {
-		if (validateEmailAndPassword(username, password, requirements)) {
-			setIsLoading(true);
-			try {
-				const user = await auth.createUserWithEmailAndPassword(username, password);
-				if (_.isEmpty(user.user) && _.isNull(user.user) || _.isNull(userContext)) return;
-				if (!_.isEmpty(profilePicture)) {
-					const profilePictureUrl = await userContext.uploadPicture(profilePicture, `ProfilePictures/${username}/`);
-					authContext.setProfilePicture(profilePictureUrl);
-					await updateProfile(user.user, {photoURL: profilePictureUrl});
-				} else {
-					authContext.setProfilePicture("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-				}
-				authContext.setFirebaseUid(user.user.uid);
-				authContext.setUsername(username);
-				authContext.setPassword(password);
-				navigation.navigate("EnterTenantCode");
-			}catch (error) {
-				if (error instanceof FirebaseError) {
-					console.error("Firebase Error:", error);
-					alert(error.message);
-				}else{
-					console.error("General Error:", error);
-					authContext.setProfilePicture("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-					alert(error);
-				}
-			}
-			setIsLoading(false);
-		}
+		if (!ValidateEmailAndPassword(username, password, PASSWORD_REQUIREMENTS) && !_.isNull(userContext)) return;
+		setIsLoading(true);
+		await authContext.signUp(username, password);
+		navigation.navigate("EnterTenantCode");
+		setIsLoading(false);
 	};
 
 	return (
@@ -109,7 +66,7 @@ function CreateUsernameAndPassword() {
 			<TextInput onChangeText={(text) => setUsername(text)} placeholder={"Email"} style={styles.textInput}/>
 			<PasswordInput setPassword={setPassword}/>
 
-			<PasswordRequirementCheckBox requirements={requirements}/>
+			<PasswordRequirementCheckBox requirements={PASSWORD_REQUIREMENTS} password={password}/>
 			{
 				(!isLoading)?(
 					<Button title={"Next"} onPress={handleSignUp}/>

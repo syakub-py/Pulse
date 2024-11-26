@@ -1,6 +1,6 @@
 import {observer} from "mobx-react-lite";
 import Layout from "../Components/GlobalComponents/Layout";
-import {ActivityIndicator} from "react-native";
+import {ActivityIndicator, StyleSheet} from "react-native";
 
 function Loading(){
 	return(
@@ -8,18 +8,22 @@ function Loading(){
 			<ActivityIndicator
 				size="large"
 				color="white"
-				style={{
-					position: "absolute",
-					top: 0,
-					bottom: 0,
-					left: 0,
-					right: 0,
-					justifyContent: "center",
-					alignItems: "center",
-				}}
+				style={styles.container}
 			/>
 		</Layout>
 	);
 }
 
 export default observer(Loading);
+
+const styles = StyleSheet.create({
+	container:{
+		position: "absolute",
+		top: 0,
+		bottom: 0,
+		left: 0,
+		right: 0,
+		justifyContent: "center",
+		alignItems: "center",
+	}
+});

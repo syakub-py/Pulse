@@ -4,20 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="fixed inverted chat bug">
+    <list default="true" id="82f66449-693d-40c4-8ade-a65c9f9ec686" name="Changes" comment="removed signup folder and moved some things into constants file">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env.ts" beforeDir="false" afterPath="$PROJECT_DIR$/env.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Classes/PulseHTTPClient.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Classes/PulseHTTPClient.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Analytics/IncomeBarGraph.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Analytics/IncomeBarGraph.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Home/Properties.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Home/Properties.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Constants/Constants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Constants/Constants.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Contexts/AuthContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/AuthContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contexts/LeaseContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/LeaseContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hooks/useFetchTodos.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useFetchTodos.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hooks/useGetLeasesAndTenants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hooks/useGetLeasesAndTenants.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contexts/TenantContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contexts/TenantContext.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Screens/AddALease.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/AddALease.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screens/AddAProperty.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/AddAProperty.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screens/AddATodo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/AddATodo.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/AddATransaction.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/AddATransaction.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/AddAUser.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/AddAUser.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Screens/ChatBox.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/ChatBox.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/CreateUsernameAndPassword.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/CreateUsernameAndPassword.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/Login.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utils/ValidateInputs/ValidateAddUserInputs.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/InputValidation/ValidateAddUserInputs.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utils/ValidateInputs/ValidateDateInput.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/InputValidation/ValidateDateInput.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utils/ValidateInputs/ValidateEmailAndPassword.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/InputValidation/ValidateEmailAndPassword.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utils/ValidateInputs/ValidateLeaseInputs.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/InputValidation/ValidateLeaseInputs.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,15 +29,15 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="TypeScript File" />
         <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="TodoIntegration" />
+        <entry key="$PROJECT_DIR$" value="Development" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -61,30 +63,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;#20 on Development&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/boss/Programming Projects/Pulse/assets/DefaultPictures&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;npm.start.executor&quot;: &quot;Run&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Users/boss/Programming Projects/Pulse/node_modules/typescript/lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "#21 on UiUxUpdates",
+    "last_opened_file_path": "/Users/boss/Programming Projects/Pulse/assets",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "npm.start.executor": "Run",
+    "ts.external.directory.path": "/Users/boss/Programming Projects/Pulse/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/assets/DefaultPictures" />
       <recent name="$PROJECT_DIR$/assets" />
+      <recent name="$PROJECT_DIR$/assets/DefaultPictures" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/Screens" />
       <recent name="$PROJECT_DIR$/src/Components/Chat" />
       <recent name="$PROJECT_DIR$/src/Components/GlobalComponents" />
-      <recent name="$PROJECT_DIR$/src/Screens" />
       <recent name="$PROJECT_DIR$/src/Utils/Services" />
       <recent name="$PROJECT_DIR$/src/Components/Buttons" />
     </key>
@@ -276,46 +278,19 @@
       <workItem from="1728581173414" duration="4462000" />
       <workItem from="1728652980565" duration="10611000" />
       <workItem from="1728750017694" duration="1941000" />
-    </task>
-    <task id="LOCAL-00094" summary="final touches">
-      <option name="closed" value="true" />
-      <created>1724033560454</created>
-      <option name="number" value="00094" />
-      <option name="presentableId" value="LOCAL-00094" />
-      <option name="project" value="LOCAL" />
-      <updated>1724033560454</updated>
-    </task>
-    <task id="LOCAL-00095" summary="final touches">
-      <option name="closed" value="true" />
-      <created>1724074781873</created>
-      <option name="number" value="00095" />
-      <option name="presentableId" value="LOCAL-00095" />
-      <option name="project" value="LOCAL" />
-      <updated>1724074781874</updated>
-    </task>
-    <task id="LOCAL-00096" summary="init commit">
-      <option name="closed" value="true" />
-      <created>1724076772746</created>
-      <option name="number" value="00096" />
-      <option name="presentableId" value="LOCAL-00096" />
-      <option name="project" value="LOCAL" />
-      <updated>1724076772746</updated>
-    </task>
-    <task id="LOCAL-00097" summary="working on recommendations">
-      <option name="closed" value="true" />
-      <created>1724087307931</created>
-      <option name="number" value="00097" />
-      <option name="presentableId" value="LOCAL-00097" />
-      <option name="project" value="LOCAL" />
-      <updated>1724087307931</updated>
-    </task>
-    <task id="LOCAL-00098" summary="recommendations working">
-      <option name="closed" value="true" />
-      <created>1724092587164</created>
-      <option name="number" value="00098" />
-      <option name="presentableId" value="LOCAL-00098" />
-      <option name="project" value="LOCAL" />
-      <updated>1724092587165</updated>
+      <workItem from="1728936813043" duration="4401000" />
+      <workItem from="1729011142272" duration="4417000" />
+      <workItem from="1729270995365" duration="119000" />
+      <workItem from="1729798225531" duration="1602000" />
+      <workItem from="1730834583865" duration="421000" />
+      <workItem from="1731079648171" duration="1256000" />
+      <workItem from="1731378409068" duration="1989000" />
+      <workItem from="1731446797043" duration="1028000" />
+      <workItem from="1731448605922" duration="386000" />
+      <workItem from="1731454574888" duration="565000" />
+      <workItem from="1731467952734" duration="1783000" />
+      <workItem from="1731516211033" duration="576000" />
+      <workItem from="1731862453840" duration="3451000" />
     </task>
     <task id="LOCAL-00099" summary="ui work">
       <option name="closed" value="true" />
@@ -669,7 +644,47 @@
       <option name="project" value="LOCAL" />
       <updated>1728653887895</updated>
     </task>
-    <option name="localTasksCounter" value="143" />
+    <task id="LOCAL-00143" summary="init commit">
+      <option name="closed" value="true" />
+      <created>1728829017230</created>
+      <option name="number" value="00143" />
+      <option name="presentableId" value="LOCAL-00143" />
+      <option name="project" value="LOCAL" />
+      <updated>1728829017230</updated>
+    </task>
+    <task id="LOCAL-00144" summary="refactor">
+      <option name="closed" value="true" />
+      <created>1731380379616</created>
+      <option name="number" value="00144" />
+      <option name="presentableId" value="LOCAL-00144" />
+      <option name="project" value="LOCAL" />
+      <updated>1731380379616</updated>
+    </task>
+    <task id="LOCAL-00145" summary="basic refactor">
+      <option name="closed" value="true" />
+      <created>1731447289579</created>
+      <option name="number" value="00145" />
+      <option name="presentableId" value="LOCAL-00145" />
+      <option name="project" value="LOCAL" />
+      <updated>1731447289579</updated>
+    </task>
+    <task id="LOCAL-00146" summary="more refactoring">
+      <option name="closed" value="true" />
+      <created>1731469658813</created>
+      <option name="number" value="00146" />
+      <option name="presentableId" value="LOCAL-00146" />
+      <option name="project" value="LOCAL" />
+      <updated>1731469658813</updated>
+    </task>
+    <task id="LOCAL-00147" summary="removed signup folder and moved some things into constants file">
+      <option name="closed" value="true" />
+      <created>1731516668878</created>
+      <option name="number" value="00147" />
+      <option name="presentableId" value="LOCAL-00147" />
+      <option name="project" value="LOCAL" />
+      <updated>1731516668878</updated>
+    </task>
+    <option name="localTasksCounter" value="148" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -688,11 +703,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix lint errors" />
-    <MESSAGE value="fixed loading bug" />
-    <MESSAGE value="income bar chart working" />
-    <MESSAGE value="Validating date inputs" />
-    <MESSAGE value="add password input component" />
     <MESSAGE value="renaming components and for chat" />
     <MESSAGE value="start chat integration" />
     <MESSAGE value="split up appContext" />
@@ -713,6 +723,11 @@
     <MESSAGE value="working out bugs" />
     <MESSAGE value="add split up analytics into components and handle empty analytics array" />
     <MESSAGE value="fixed inverted chat bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed inverted chat bug" />
+    <MESSAGE value="init commit" />
+    <MESSAGE value="refactor" />
+    <MESSAGE value="basic refactor" />
+    <MESSAGE value="more refactoring" />
+    <MESSAGE value="removed signup folder and moved some things into constants file" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed signup folder and moved some things into constants file" />
   </component>
 </project>

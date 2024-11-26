@@ -1,18 +1,20 @@
 import { observer } from "mobx-react-lite";
-import Layout from "../../Components/GlobalComponents/Layout";
-import Header from "../../Components/GlobalComponents/Header";
+import Layout from "../Components/GlobalComponents/Layout";
+import Header from "../Components/GlobalComponents/Header";
 import {Button, View, TextInput, StyleSheet, Image, ActivityIndicator} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, {useCallback, useEffect, useState} from "react";
-import BackButton from "../../Components/GlobalComponents/BackButton";
-import UploadPictures from "../../Components/GlobalComponents/UploadPictures";
+import BackButton from "../Components/GlobalComponents/BackButton";
+import UploadPictures from "../Components/GlobalComponents/UploadPictures";
 import * as ImagePicker from "expo-image-picker";
 import {useAuthContext} from "@src/Contexts/AuthContext";
 import DropdownPicker, {ItemType} from "react-native-dropdown-picker";
-import ValidateAddUserInputs from "@src/Utils/ValidateInputs/ValidateAddUserInputs";
+import ValidateAddUserInputs from "@src/Utils/InputValidation/ValidateAddUserInputs";
 import {useTenantContext} from "@src/Contexts/TenantContext";
 import _ from "lodash";
+import {DOCUMENT_TYPES} from "@src/Constants/Constants";
+import {auth} from "@src/Utils/FirebaseConfig";
 
 function AddAUser() {
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList, "AddAUser">>();
@@ -24,7 +26,7 @@ function AddAUser() {
 		leaseId: LeaseId,
 		AnnualIncome: 0,
 		DocumentProvidedUrl: "",
-		firebaseUserId:authContext.firebase_uid,
+		firebaseUserId:authContext.firebaseUid,
 		Email: authContext.username,
 		SocialSecurity: "",
 		Name: "",
@@ -34,20 +36,7 @@ function AddAUser() {
 	});
 	const [isLoading, setIsLoading] = useState(false);
 	const [open, setOpen] = useState(false);
-
-	const documentTypes: ItemType<string>[] = [
-		{ label: "Driver's License", value: "Driver's License" },
-		{ label: "Passport", value: "Passport" },
-		{ label: "National Identity Card", value: "National Identity Card" },
-		{ label: "Social Security Card", value: "Social Security Card" },
-		{ label: "Birth Certificate", value: "Birth Certificate" },
-		{ label: "State ID Card", value: "State ID Card" },
-		{ label: "Voter Registration Card", value: "Voter Registration Card" },
-		{ label: "Military ID", value: "Military ID" },
-		{ label: "Permanent Resident Card (Green Card)", value: "Permanent Resident Card (Green Card)" },
-	];
-
-	const [selectedDocumentType, setSelectedDocumentType] = useState(documentTypes[0].value as string);
+	const [selectedDocumentType, setSelectedDocumentType] = useState(DOCUMENT_TYPES[0].value as string);
 
 	const handleInputChange = useCallback((name: string, value: string | number) => {
 		setUserDetails({
@@ -60,12 +49,16 @@ function AddAUser() {
 		try {
 			if (!ValidateAddUserInputs(userDetails, DocumentPicture) || _.isNull(userContext)) return;
 			setIsLoading(true);
-			userDetails.DocumentProvidedUrl = await userContext.uploadPicture(DocumentPicture, `/DocumentPictures/${userDetails.Email}/`);
+			userDetails.DocumentProvidedUrl = await authContext.uploadPicture(DocumentPicture, `/DocumentPictures/${userDetails.Email}/`);
 
-			const isAddUserSuccessful = await userContext.addUser(userDetails);
+			const isAddUserSuccessful = await userContext.addUserToBackend(userDetails);
 
-			if (!isAddUserSuccessful) return;
-
+			if (!isAddUserSuccessful) {
+				await auth.currentUser?.delete();
+				await authContext.clearContextAndFirebaseLogout();
+				setIsLoading(false);
+				return;
+			}
 			authContext.setLeaseId(null);
 			await authContext.clearContextAndFirebaseLogout();
 			navigation.navigate("Login");
@@ -104,7 +97,7 @@ function AddAUser() {
 				<DropdownPicker
 					open={open}
 					value={selectedDocumentType}
-					items={documentTypes}
+					items={DOCUMENT_TYPES}
 					setOpen={setOpen}
 					setValue={setSelectedDocumentType}
 					placeholder="Select a Document"

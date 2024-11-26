@@ -3,7 +3,7 @@ import {action, makeAutoObservable, runInAction} from "mobx";
 import isHTTPError from "@src/Utils/HttpError";
 import _ from "lodash";
 import {createContext, useContext, useMemo} from "react";
-import {storage} from "@src/Utils/Firebase";
+import {storage} from "@src/Utils/FirebaseConfig";
 
 
 class TenantContextClass {
@@ -15,7 +15,7 @@ class TenantContextClass {
 		this.pulseApiClient = pulseApiClient;
 	}
 
-	public addUser = action(async (user: User) => {
+	public addUserToBackend = action(async (user: User) => {
 		try {
 			const response = await this.pulseApiClient.userService.addUser(user);
 			if (isHTTPError(response)) {
@@ -63,23 +63,6 @@ class TenantContextClass {
 		}
 		return isCodeValidResponse;
 	});
-
-	public uploadPicture = async (profilePicturePath: string, path: string) => {
-		if (_.isEmpty(profilePicturePath)) {
-			return "";
-		}
-		try {
-			const filename = profilePicturePath.split("/").pop();
-			const response = await fetch(profilePicturePath);
-			const blob = await response.blob();
-			const storageRef = storage.ref().child(path + `${filename}`);
-			await storageRef.put(blob);
-			return await storageRef.getDownloadURL();
-		} catch (error) {
-			console.error("error uploading picture: " + error);
-			return "";
-		}
-	};
 
 	public clearContext = action( () => {
 		runInAction(() => {

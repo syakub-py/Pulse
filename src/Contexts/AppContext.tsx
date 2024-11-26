@@ -1,6 +1,6 @@
 import { createContext, useContext, useMemo } from "react";
 import { action, makeAutoObservable } from "mobx";
-import { auth, storage } from "../Utils/Firebase";
+import { auth, storage } from "../Utils/FirebaseConfig";
 import _ from "lodash";
 import isHTTPError from "@src/Utils/HttpError";
 import {PulseApiClient} from "@src/Contexts/PulseApiClientContext";

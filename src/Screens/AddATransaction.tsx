@@ -5,13 +5,14 @@ import BackButton from "@src/Components/GlobalComponents/BackButton";
 import React, {useCallback, useState} from "react";
 import {useAuthContext} from "@src/Contexts/AuthContext";
 import {View, StyleSheet, TextInput, ActivityIndicator, Button, Dimensions} from "react-native";
-import DropdownPicker, {ItemType} from "react-native-dropdown-picker";
+import DropdownPicker from "react-native-dropdown-picker";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
-import ValidateDateInput from "@src/Utils/ValidateInputs/ValidateDateInput";
+import ValidateDateInput from "@src/Utils/InputValidation/ValidateDateInput";
 import {usePropertyContext} from "@src/Contexts/PropertyContext";
 import {useAnalyticContext} from "@src/Contexts/AnalyticContext";
 import _ from "lodash";
+import {TRANSACTION_TYPES} from "@src/Constants/Constants";
 
 function AddATransaction() {
 	const propertyContext = usePropertyContext();
@@ -25,25 +26,7 @@ function AddATransaction() {
 		transactionType: "",
 		date:""
 	});
-
-	const transactionTypes: ItemType<string>[] = [
-		{ label: "Insurance", value: "insurance" },
-		{ label: "Maintenance", value: "maintenance" },
-		{ label: "Repairs", value: "repairs" },
-		{ label: "Utilities", value: "utilities" },
-		{ label: "HOA Fees", value: "hoa_fees" },
-		{ label: "Management Fees", value: "management_fees" },
-		{ label: "Legal Fees", value: "legal_fees" },
-		{ label: "Landscaping", value: "landscaping" },
-		{ label: "Pest Control", value: "pest_control" },
-		{ label: "Cleaning", value: "cleaning" },
-		{ label: "Security", value: "security" },
-		{ label: "Advertising", value: "advertising" },
-		{ label: "Supplies", value: "supplies" },
-		{ label: "Capital Improvements", value: "capital_improvements" },
-	];
-
-	const [transactionType, setTransactionType] = useState(transactionTypes[0].value as string);
+	const [transactionType, setTransactionType] = useState(TRANSACTION_TYPES[0].value as string);
 	const [incomeOrExpense, setIncomeOrExpense] = useState("income");
 	const [isLoading, setIsLoading] = useState(false);
 	const [openIncomeExpense, setOpenIncomeExpense] = useState(false);
@@ -58,7 +41,7 @@ function AddATransaction() {
 				return;
 			}
 			transactionDetails.propertyId = propertyContext.selectedProperty?.PropertyId;
-			transactionDetails.userId = authContext.firebase_uid;
+			transactionDetails.userId = authContext.firebaseUid;
 			transactionDetails.incomeOrExpense = incomeOrExpense;
 			transactionDetails.transactionType = transactionType;
 			await analyticsContext.addTransaction(transactionDetails);
@@ -68,7 +51,7 @@ function AddATransaction() {
 		} finally {
 			setIsLoading(false);
 		}
-	}, [propertyContext, analyticsContext, transactionDetails, authContext.firebase_uid, incomeOrExpense, transactionType, navigation]);
+	}, [propertyContext, analyticsContext, transactionDetails, authContext.firebaseUid, incomeOrExpense, transactionType, navigation]);
 
 	const handleInputChange = (field: keyof PropertyTransaction, value: string | number) => {
 		setTransactionDetails((prev) => ({ ...prev, [field]: value }));
@@ -122,7 +105,7 @@ function AddATransaction() {
 			<DropdownPicker
 				open={openTransactionType}
 				value={transactionType}
-				items={transactionTypes}
+				items={TRANSACTION_TYPES}
 				setOpen={setOpenTransactionType}
 				setValue={setTransactionType}
 				style={styles.dropdownStyle}
